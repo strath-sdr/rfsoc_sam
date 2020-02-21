@@ -7,7 +7,11 @@
 
 This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
 
-Two notebooks are included in this repository. An explanatory notebook provides information on the hardware design and Python overlay and how these interact. The second notebook is used to launch the Voila dashboard.
+Alongside the hardware files and Python overlay, two notebooks are included: the first (_RFSoC Spectrum Analyser.ipynb_) is an explanatory notebook which provides detailed information on the hardware design and Python overlay as well as how these interact. The second notebook (_RFSoC Spectrum Analyser-Voila.ipynb_) is used to launch the [Voila](https://github.com/voila-dashboards/voila) dashboard.
+
+Voila is a tool which transforms Jupyter Notebooks into standalone web applications, making it much easier to control and visualise the Spectrum Analyser without having to scroll up and down a notebook repeatedly. 
+
+Currently, this project is in **Beta Release**. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Quick Start
 
@@ -40,7 +44,7 @@ One DAC and three ADCs are made available in this design. The table below detail
 |:----:   |:----:|:-------:|:------:|
 | DAC     |  1   |    2    |  Red   |
 | ADC0    |  0   |    0    |  Blue |
-| ADC1    |  0   |    1    | Pink   |
+| ADC1    |  0   |    1    | Purple   |
 | ADC2    |  1   |    0    | Orange |
  
 If using the loopback cable, ensure it is connected between the DAC and one of the three available ADCs (the image below shows it connected to ADC0). Connect antennae to the remaining ADCs if desired. 
@@ -50,10 +54,10 @@ If using the loopback cable, ensure it is connected between the DAC and one of t
 <p/>
 
 
-### Setup PYNQ image
+### Configure PYNQ Image
 
 Obtain a [PYNQ 2.5 image](https://github.com/Xilinx/PYNQ/releases)
-Install [Voila](https://github.com/voila-dashboards/voila) and the **gridstack** template on the ZCU111, then upgrade Jupyter.
+Install **Voila** and the [gridstack](https://github.com/voila-dashboards/voila-gridstack) template on the ZCU111, then upgrade Jupyter.
 
 Open a terminal in Jupyter Lab and run the following:
 ```sh
@@ -92,7 +96,7 @@ It should scale on the horizontal but you may need to tinker with the vertical b
 
 > **Note:** If you desire more control over the layout of the dashboard, you can edit the cell metadata in the dashboard notebook.
 
-To restart the dashboard, close the terminal in which the Voila command was run and open a new terminal. Re-run the Voila command. 
+To restart the dashboard, shutdown the terminal in which the Voila command was run and open a new terminal. Re-run the Voila command. 
 
 ## License 
 [BSD 3-Clause](https://github.com/strath-sdr/rfsoc_qpsk/blob/master/LICENSE)
