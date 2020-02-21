@@ -57,6 +57,7 @@ If using the loopback cable, ensure it is connected between the DAC and one of t
 ### Configure PYNQ Image
 
 Obtain a [PYNQ 2.5 image](https://github.com/Xilinx/PYNQ/releases)
+
 Install **Voila** and the [gridstack](https://github.com/voila-dashboards/voila-gridstack) template on the ZCU111, then upgrade Jupyter.
 
 Open a terminal in Jupyter Lab and run the following:
