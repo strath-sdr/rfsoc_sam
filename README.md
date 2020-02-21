@@ -70,8 +70,7 @@ SETUP : ~40 mins
 	
 	1. To generate the voila dashboard from the notebook:
 		(in JupyterLab terminal)
-		$ voila --template=gridstack <path_to_notebook> --theme=dark
-		(voila --template=gridstack jupyter_notebooks/spectrum_analyser/RFSoC\ Spectrum\ Analyser-Voila.ipynb --theme=dark)
+		$ voila --template=gridstack jupyter_notebooks/spectrum_analyser/RFSoC\ Spectrum\ Analyser-Voila.ipynb --theme=dark
 	
 	2. To load the dashboard go to the address provided in a browser, usually "http://localhost:8866/", where localhost is the IP of the board 
 
