@@ -1,16 +1,14 @@
 <img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
 
 # Spectrum Analyser on PYNQ & ZCU111
-
-Two notebooks are included in this repository. An explanatory notebook provides information on the hardware design and Python overlay and how these interact. The second notebook is used to launch the Voila dashboard.
-
 <p align="center">
   <img src="../../blob/master/img/spectrum_analyser.gif" width="800" height="366" />
 <p/>
+This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
+
+Two notebooks are included in this repository. An explanatory notebook provides information on the hardware design and Python overlay and how these interact. The second notebook is used to launch the Voila dashboard.
 
 ## Quick Start
-
-This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
 
 Open a terminal in Jupyter Lab and run:
 ```sh
@@ -34,17 +32,17 @@ pip3 install git+https://github.com/strath-sdr/rfsoc_sam.git
 ### Required Software (host)
 - [x] Web browser (chrome) 
 
-### Hardware Setup 
-One DAC and three ADCs are made available in this design. The table below details how the notebooks will refer to these ADCs and which tile/channel they correspond to.
+### Board Setup 
+One DAC and three ADCs are made available in this design. The table below details how the notebooks will refer to these ADCs and which tile/channel they correspond to. The image illustrates where the SMA connections for the data converters in use are located on the board itself. 
 
 |Converter| Tile | Channel | Colour |
 |:----:   |:----:|:-------:|:------:|
 | DAC     |  1   |    2    |  Red   |
-| ADC0    |  0   |    0    |  Green |
+| ADC0    |  0   |    0    |  Blue |
 | ADC1    |  0   |    1    | Pink   |
 | ADC2    |  1   |    0    | Orange |
  
-If using the loopback cable, ensure it is connected between the DAC ane one of the ADCs. the image below shows it connected to ADC0. 
+If using the loopback cable, ensure it is connected between the DAC and one of the three available ADCs (the image below shows it connected to ADC0). Connect antennae to the remaining ADCs if desired. 
 	
 <p align="center">
 <img src="../../blob/master/img/rfsoc_setup.png" width="800">
@@ -77,17 +75,19 @@ Comment out lines 46,47,60,90,91, which are:
 
 ## Running the Spectrum Analyser Dashboard 
 	
-	1. To generate the voila dashboard from the notebook:
-		(in JupyterLab terminal)
-		$ voila --template=gridstack jupyter_notebooks/spectrum_analyser/RFSoC\ Spectrum\ Analyser-Voila.ipynb --theme=dark
-	
-	2. To load the dashboard go to the address provided in a browser, usually "http://localhost:8866/", where localhost is the IP of the board 
+To generate the voila dashboard from the notebook (in JupyterLab terminal):
+```sh	
+voila --template=gridstack jupyter_notebooks/spectrum_analyser/RFSoC\ Spectrum\ Analyser-Voila.ipynb --theme=dark
+```
+Open a new browser tab or window and go to the address output in the terminal - usually "http://localhost:8866/" - where localhost is the IP of the board.
 
-	3. It will take a bit of time to load as it has to run all the cells including loading the bitstream. 
-		The scaling of the dashboard will depend on the screen resolution/aspect ratio. 
-		It should scale on the horizontal but you may need to tinker with the vertical by adjusting the zoom on the browser and refreshing the page so the plotly plots re-adjust
+It will take a minute or so to load as it has to run all the cells including loading the bitstream. 
+The scaling of the dashboard will depend on the screen resolution/aspect ratio. 
+It should scale on the horizontal but you may need to tinker with the vertical by adjusting the zoom on the browser and refreshing the page so the plotly plots re-adjust.
 
-	4. If you need to restart the dashboard, close the terminal in which the voila command was run and open a new terminal. Repeat from step 1. 
+**Note:** If you desire more control over the layout of the dashboard, you can edit the cell metadata in the dashboard notebook.
+
+To restart the dashboard, close the terminal in which the Voila command was run and open a new terminal. Re-run the Voila command. 
 
 ## License 
 [BSD 3-Clause](https://github.com/strath-sdr/rfsoc_qpsk/blob/master/LICENSE)
