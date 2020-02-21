@@ -1,6 +1,6 @@
 <img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
 
-# Spectrum Analyser on PYNQ
+# Spectrum Analyser on PYNQ & ZCU111
 
 Two notebooks are included in this repository. An explanatory notebook provides information on the hardware design and Python overlay and how these interact. The second notebook is used to launch the Voila dashboard.
 
@@ -17,56 +17,63 @@ Open a terminal in Jupyter Lab and run:
 pip3 install git+https://github.com/strath-sdr/rfsoc_sam.git
 ```
 
-SETUP : ~40 mins 
+## First Time Setup (~40 mins)
 
-## Hardware Needed
+### Required Hardware
+- [x] Laptop/Computer
+- [x] ZCU111 + breakout card 
+- [x] power cable
+- [x] micro usb to usb cable
+- [x] micro SD card
+- [x] ethernet cable
+- [x] one/two antennae (if using)
+- [x] loopback cable
+- [x] ethernet usb adapter (if required)
+- [x] usb wifi dongle (if not doing shared internet over ethernet)
 
-	- Laptop/Computer
-	- ZCU111 + breakout card 
-	- micro SD card
-	- one/two antennae (if using)
-	- loopback cable
-	- power cable
-	- micro usb to usb
-	- ethernet
-	- wifi dongle (if not doing shared internet over ethernet)
+### Required Software (host)
+- [x] Web browser (chrome) 
 
-## Software Needed (host)
+### Hardware Setup 
+One DAC and three ADCs are made available in this design. The table below details how the notebooks will refer to these ADCs and which tile/channel they correspond to.
 
-	- Web browser (chrome) 
-
-
-## Hardware Setup 
-	1. Connect breakout card to ZCU111
-	2. Connect ethernet and power
-	3. There is a jpg to show where: the loopback connects (red circles - ADC, tile 0, channel 0 | DAC, tile 1, channel 2); antenna (pink circle - ADC, tile 0, channel 1).
+|Converter| Tile | Channel | Colour |
+|:----:   |:----:|:-------:|:------:|
+| DAC     |  1   |    2    |  Red   |
+| ADC0    |  0   |    0    |  Green |
+| ADC1    |  0   |    1    | Pink   |
+| ADC2    |  1   |    0    | Orange |
+ 
+If using the loopback cable, ensure it is connected between the DAC ane one of the ADCs. the image below shows it connected to ADC0. 
 	
 <p align="center">
 <img src="../../blob/master/img/rfsoc_setup.png" width="800">
 <p/>
 
 
-## Setup PYNQ image
+### Setup PYNQ image
 
-	1. Obtain a PYNQ 2.5 image
+Obtain a [PYNQ 2.5 image](https://github.com/Xilinx/PYNQ/releases)
+Install [Voila](https://github.com/voila-dashboards/voila) and the **gridstack** template on the ZCU111, then upgrade Jupyter.
 
-	2. Connect the board to the internet 
+Open a terminal in Jupyter Lab and run the following:
+```sh
+pip3 install voila
+pip3 install voila-gridstack
+pip3 install --upgrade jupyter 
+```
 
-	3. Install Voila and the gridstack template on the ZCU111, then upgrade jupyter:
+Clone this repository to the board using pip:
+```sh 
+pip3 install git+https://github.com/strath-sdr/rfsoc_sam.git
+```
 
-		(in JupyterLab terminal)
-		$ pip3 install voila
-		$ pip3 install voila-gridstack
-		$ pip3 install --upgrade jupyter 
-
-	4. Copy this folder 'spectrum_analyser_demo' to 'jupyter_notebooks' on the board
-
-	5. The bitstream was made in 2019.1 so this throws up some errors on the current 2.5 image.
-	   To fix this edit the file "/usr/local/lib/python3.6/dist-packages/xrfdc/config.py" on the board.
-	   Comment out lines 46,47,60,90,91, which are: 
-	       _DAC_DDP: FifoEnable, AdderEnable
-	       _ADC_DDP: FifoEnable
-	       Config:   MasterADCTile, MasterDACTile
+The bitstream was created using Vivado 2019.1 so this throws up some errors on the current 2.5 image.
+To fix this edit the file "/usr/local/lib/python3.6/dist-packages/xrfdc/config.py" on the board.
+Comment out lines 46,47,60,90,91, which are: 
+       _DAC_DDP | FifoEnable, AdderEnable
+       _ADC_DDP | FifoEnable
+       Config |   MasterADCTile, MasterDACTile
 
 ## Running the Spectrum Analyser Dashboard 
 	
@@ -82,8 +89,5 @@ SETUP : ~40 mins
 
 	4. If you need to restart the dashboard, close the terminal in which the voila command was run and open a new terminal. Repeat from step 1. 
 
-In Jupyter
-
-	ADC 0 is loopback
-	ADC 1 is antenna 
-
+## License 
+[BSD 3-Clause](https://github.com/strath-sdr/rfsoc_qpsk/blob/master/LICENSE)
