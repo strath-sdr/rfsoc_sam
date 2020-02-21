@@ -11,7 +11,7 @@ import numpy as np
 import ipywidgets as ipw
 
 import spectrum_widgets as sipw
-import bandwidth_selector, spectrum_fft, spectrum_window, transmitter, data_inspector, spectrum_average, spectrum_adc
+import transmitter, bandwidth_selector, spectrum_fft, spectrum_window, data_inspector
 
 class TimerRegistry():
     """Helper class to track active timer threads.
@@ -157,7 +157,6 @@ class SpectrumAnalyser(Overlay):
         
         # Demo initialisation
         self.TransmitterTop = self.Transmitter
-        self.DataGenerator = self.Transmitter
         self.BandwidthSelector = self.SpectrumAnalyser.BandwidthSelector
         self.SpectrumWindow = self.SpectrumAnalyser.SpectrumWindow
         self.SpectrumFFT = self.SpectrumAnalyser.SpectrumFFT
@@ -216,8 +215,8 @@ class SpectrumAnalyser(Overlay):
             self.adc_tile = self.rf.adc_tiles[tile]
             self.adc_block = self.adc_tile.blocks[block]
             
-            im = MMIO(0x00_8000_3000, 4096)
-            re = MMIO(0x00_8000_5000, 4096)
+            im = MMIO(0x00_8000_5000, 4096)
+            re = MMIO(0x00_8000_3000, 4096)
             re.write(0x40,adc_new)
             re.write(0x0,0x2)
             im.write(0x40,adc_new)
@@ -234,9 +233,10 @@ class SpectrumAnalyser(Overlay):
 
         def update_nco_and_graph(rf_block, nco_freq):
             lim = self._fs/2 #+ (nco_freq * 1e6)
-            div = self._fs/2048
+            div = (self._fs)/2048
             self._fc = nco_freq
             self.SpecPlot._x_data = np.arange(-lim, lim, div) + (nco_freq * 1e6)
+            self.SpecPlot._x_data_spectogram = np.take(self.SpecPlot._x_data, self.SpecPlot.indices_2)
             self.SpecPlot._range = [min(self.SpecPlot._x_data), max(self.SpecPlot._x_data)]
             self.SpecPlot._updaterange = True
             
@@ -272,8 +272,9 @@ class SpectrumAnalyser(Overlay):
             
             """Finally update the range of the SpecPlot so that it accurately represents the bandwidth"""
             lim = self._fs/2
-            div = self._fs/2048
+            div = (self._fs)/2048
             self.SpecPlot._x_data = np.arange(-lim, lim, div) + self._fc * 1e6
+            self.SpecPlot._x_data_spectogram = np.take(self.SpecPlot._x_data, self.SpecPlot.indices_2)
             self.SpecPlot._range = [min(self.SpecPlot._x_data), max(self.SpecPlot._x_data)]
             self.SpecPlot._updaterange = True
         
@@ -324,7 +325,6 @@ class SpectrumAnalyser(Overlay):
         # Output Controls
         options = ['Magnitude', 'PSD']
         output_drop = sipw.drop_menu_widget('Analysis:', options[1], options)
-        #average_slide = sipw.int_slide_widget('Avg:',4,1,20,1)
         accordion = sipw.accordion_widget('Output', [output_drop])
         
         output_drop.observe(outputType, names='value')
@@ -336,7 +336,7 @@ class SpectrumAnalyser(Overlay):
                   magnitude = 0,
                   animation_period = 100,
                   animation_period_range = 100,
-                  dma_period = 1/10,
+                  dma_period = 1/8,
                   continuous_update = True,
                   h=900,
                   colourscale='jet'):
@@ -409,12 +409,6 @@ class SpectrumAnalyser(Overlay):
             self.SpecPlot._plot_spectrum.data[1].visible = change['new']
             self.peak_flag = change['new']
             
-#         def max_hold(toggle):
-#             self.SpecPlot._maxhold = toggle['new']
-#             self.SpecPlot._plot_spectrum.data[2].visible = toggle['new']
-#             self.SpecPlot._datamaxhold = np.zeros(2048)
-
-            
         image = sipw.image_widget("assets/strathclyde_logo.png")
              
         peak_toggle = sipw.check_box_widget('Peak Detection', False)    
@@ -435,15 +429,9 @@ class SpectrumAnalyser(Overlay):
             style=style
         )
         
-#         max_hold_toggle = sipw.check_box_widget('Max Hold', False)  
-
-
         peak_toggle.observe(peak_detect, names='value')
-#         max_hold_toggle.observe(max_hold, names='value')
         peak = sipw.accordion_widget('Peak Detection', [peak_toggle, self.peak_x, self.peak_y])
         
         return ipw.VBox([image, peak], layout=ipw.Layout(width='auto'))
-        
-        
         
 Overlay = SpectrumAnalyser
