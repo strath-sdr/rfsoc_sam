@@ -4,6 +4,7 @@
 <p align="center">
   <img src="../../blob/master/img/spectrum_analyser.gif" width="800" height="366" />
 <p/>
+
 This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
 
 Two notebooks are included in this repository. An explanatory notebook provides information on the hardware design and Python overlay and how these interact. The second notebook is used to launch the Voila dashboard.
@@ -67,11 +68,15 @@ pip3 install git+https://github.com/strath-sdr/rfsoc_sam.git
 ```
 
 The bitstream was created using Vivado 2019.1 so this throws up some errors on the current 2.5 image.
+
 To fix this edit the file "/usr/local/lib/python3.6/dist-packages/xrfdc/config.py" on the board.
-Comment out lines 46,47,60,90,91, which are: 
-       _DAC_DDP | FifoEnable, AdderEnable
-       _ADC_DDP | FifoEnable
-       Config |   MasterADCTile, MasterDACTile
+
+Comment out lines 46,47,60,90,91. These relate to:
+> _DAC_DDP: FifoEnable, AdderEnable
+
+> _ADC_DDP: FifoEnable
+
+> Config:   MasterADCTile, MasterDACTile
 
 ## Running the Spectrum Analyser Dashboard 
 	
@@ -79,13 +84,13 @@ To generate the voila dashboard from the notebook (in JupyterLab terminal):
 ```sh	
 voila --template=gridstack jupyter_notebooks/spectrum_analyser/RFSoC\ Spectrum\ Analyser-Voila.ipynb --theme=dark
 ```
-Open a new browser tab or window and go to the address output in the terminal - usually "http://localhost:8866/" - where localhost is the IP of the board.
+Open a new browser tab or window and go to the address output in the terminal, usually "http://localhost:8866/" - where localhost is the IP of the board.
 
 It will take a minute or so to load as it has to run all the cells including loading the bitstream. 
 The scaling of the dashboard will depend on the screen resolution/aspect ratio. 
 It should scale on the horizontal but you may need to tinker with the vertical by adjusting the zoom on the browser and refreshing the page so the plotly plots re-adjust.
 
-**Note:** If you desire more control over the layout of the dashboard, you can edit the cell metadata in the dashboard notebook.
+> **Note:** If you desire more control over the layout of the dashboard, you can edit the cell metadata in the dashboard notebook.
 
 To restart the dashboard, close the terminal in which the Voila command was run and open a new terminal. Re-run the Voila command. 
 
