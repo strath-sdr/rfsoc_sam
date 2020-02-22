@@ -100,4 +100,4 @@ It should scale on the horizontal but you may need to tinker with the vertical b
 To restart the dashboard, shutdown the terminal in which the Voila command was run and open a new terminal. Re-run the Voila command. 
 
 ## License 
-[BSD 3-Clause](https://github.com/strath-sdr/rfsoc_qpsk/blob/master/LICENSE)
+[BSD 3-Clause](../../blob/master/LICENSE)
