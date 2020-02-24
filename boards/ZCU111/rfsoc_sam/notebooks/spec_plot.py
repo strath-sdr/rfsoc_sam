@@ -56,6 +56,7 @@ class SpecPlot():
         self._plot_data = ((np.take(self._data, self.indices_0) + np.take(self._data, self.indices_1) \
                           + np.take(self._data, self.indices_2) + np.take(self._data, self.indices_3))/4)
         self._x_data_spectogram = np.take(self._x_data, self.indices_2)
+        self._buf = 2
         
         if dark_theme:
             self.trace_colour = 'yellow'
@@ -130,7 +131,7 @@ class SpecPlot():
         self._spectogramcount += 1
         self._z=np.roll(self._z,-1,0)
         self._z[self._time-1] = self._plot_data
-        if self._spectogramcount == self._time:
+        if self._spectogramcount >= self._buf:
             self._spectogramcount = 0
             self._plot_spectogram.data[0].z = self._z
             self._plot_spectogram.data[0].x = self._x_data_spectogram

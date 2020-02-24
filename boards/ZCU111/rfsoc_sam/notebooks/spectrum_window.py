@@ -16,11 +16,10 @@ class SpectrumWindow(DefaultHierarchy):
         xlnk = Xlnk()
         self.buf_wind = xlnk.cma_array(shape=(pkt_wind, ), dtype=np.int16)
         
-        self.set_length(2048)
         self.set_window_coeffs(np.ones(2048))
         self.set_enable(1)
         
-        self.Window.dc_enable = 1
+        self.window_0.dc_enable = 1
 
         self.params = ipw.VBox([],layout=ipw.Layout(width='auto'))
         self.window_sel = ipw.HBox([],layout=ipw.Layout(width='auto'))
@@ -34,14 +33,7 @@ class SpectrumWindow(DefaultHierarchy):
         self.input = 0
         
     def set_enable(self, enable):
-        self.Window.enable = int(enable)
-       
-    def set_step(self, step):
-        self.Window.step = int(step)
-        
-    def set_length(self, length):
-        self.Window.length = int(length-1)
-        self.set_step(2048/length)
+        self.window_0.enable = int(enable)
     
     def set_window_coeffs(self, data):
         coeffs = np.int16(data*2**14)
@@ -128,7 +120,7 @@ class SpectrumWindow(DefaultHierarchy):
     @staticmethod
     def checkhierarchy(description):
         if 'axi_dma_window' in description['ip'] \
-           and 'Window' in description['ip']:
+           and 'window_0' in description['ip']:
             return True
         return False  
 
@@ -144,11 +136,6 @@ class WindowCore(DefaultIP):
     
 # LUT of property addresses for our data-driven properties
 _window_props = [("dc_enable", 0x104), ("enable", 0x100)]
-
-#     bindto = ["UoS:RFSoC:window:0.2.2"]
-    
-# # LUT of property addresses for our data-driven properties
-# _window_props = [("dc_enable", 12), ("step", 0), ("length", 4), ("length_out", 16), ("step_out", 20), ("enable", 8)]
 
 # Func to return a MMIO getter and setter based on a relative addr
 def _create_mmio_property(addr):

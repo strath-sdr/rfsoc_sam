@@ -55,6 +55,23 @@ def int_slide_widget(title, value, min, max, step):
         layout=ipw.Layout(width='auto')
     )
 
+def float_slide_widget(title, value, min, max, step):
+    style = {'description_width': 'initial'}
+    return ipw.FloatSlider(
+        value=value,
+        min=min,
+        max=max,
+        step=step,
+        description=title,
+        disabled=False,
+        continuous_update=False,
+        orientation='horizontal',
+        readout=True,
+        style=style,
+        readout_format='.2f',
+        layout=ipw.Layout(width='auto')
+    )
+
 def check_box_widget(title, value):
     style = {'description_width': 'initial'}
     return ipw.Checkbox(

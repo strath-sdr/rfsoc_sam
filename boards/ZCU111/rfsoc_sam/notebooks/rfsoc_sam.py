@@ -193,7 +193,7 @@ class SpectrumAnalyser(Overlay):
 
         options= ['BPSK', 'QPSK', '8-PSK', '16-QAM']
         modsel = sipw.drop_menu_widget('Modulation:', options[1],options)
-        freqsel = sipw.float_txt_widget('Tx Frequency (MHz):', 64, 1, 256, 1)
+        freqsel = sipw.float_txt_widget('Tx Frequency (MHz):', 64, 1, 1020, 1)
         nyquist = sipw.drop_menu_widget('Nyquist Zone:', 1, [1,2]) 
 
         accordion = sipw.accordion_widget('Transmit', [modsel, freqsel, nyquist])
@@ -345,12 +345,16 @@ class SpectrumAnalyser(Overlay):
         
         def start():
             self.ison = True
+            self.spectrum_timer_slider.disabled = True
+            self.spectogram_timer_slider.disabled = True
             if self.en_wfall_box.value:
                 self.TimerSpectogram.start()
             self.TimerSpectrum.start()
         
         def stop():
             self.ison = False
+            self.spectrum_timer_slider.disabled = False
+            self.spectogram_timer_slider.disabled = False
             self.TimerSpectogram.stop()
             self.TimerSpectrum.stop()
         
@@ -409,6 +413,20 @@ class SpectrumAnalyser(Overlay):
             self.SpecPlot._plot_spectrum.data[1].visible = change['new']
             self.peak_flag = change['new']
             
+        def update_spectrum_timer(value):
+            self.TimerSpectrum = DmaTimer(self.update_voila, self.DataInspector.get_buffer_frame, value['new'])
+            if value['new'] < 1/10:
+                self.spectogram_timer_slider.min = 1/10
+            else: 
+                self.spectogram_timer_slider.min = value['new']
+            
+        def update_spectogram_timer(value):
+            self.TimerSpectogram = Timer(self.SpecPlot.add_frame_spectogram, value['new'])
+            
+        def update_buffer(value):
+            self.SpecPlot._buf = value['new']
+
+            
         image = sipw.image_widget("assets/strathclyde_logo.png")
              
         peak_toggle = sipw.check_box_widget('Peak Detection', False)    
@@ -429,9 +447,18 @@ class SpectrumAnalyser(Overlay):
             style=style
         )
         
-        peak_toggle.observe(peak_detect, names='value')
-        peak = sipw.accordion_widget('Peak Detection', [peak_toggle, self.peak_x, self.peak_y])
+        self.spectrum_timer_slider = sipw.float_slide_widget('Spectrum Timer: ', 1/10, 1/20, 1, 1/20)
+        self.spectogram_timer_slider = sipw.float_slide_widget('Spectogram Timer: ', 1/10, 1/20, 1, 1/20)
+        self.spectogram_buffer_slider = sipw.int_slide_widget('Spectogram Buffer: ', 2, 1, 20, 1)
         
-        return ipw.VBox([image, peak], layout=ipw.Layout(width='auto'))
+        peak_toggle.observe(peak_detect, names='value')
+        self.spectrum_timer_slider.observe(update_spectrum_timer, names='value')
+        self.spectogram_timer_slider.observe(update_spectogram_timer, names='value')
+        self.spectogram_buffer_slider.observe(update_buffer, names='value')
+        
+        peak = sipw.accordion_widget('Peak Detection', [peak_toggle, self.peak_x, self.peak_y])
+        plot_update = sipw.accordion_widget('Plot Update', [self.spectrum_timer_slider, self.spectogram_timer_slider, self.spectogram_buffer_slider])
+        
+        return ipw.VBox([image, plot_update, peak], layout=ipw.Layout(width='auto'))
         
 Overlay = SpectrumAnalyser
