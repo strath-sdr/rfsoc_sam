@@ -121,7 +121,7 @@ class SpecPlot():
                                         visible=False))
         
         # 3D Spectogram Plot
-        trace = go.Heatmap(x=self._x_data_spectogram, y=self._y, z=self._z, colorscale = colourscale, zmin=-50, zmax=10,showscale=False,zsmooth='fast')
+        trace = go.Heatmap(x=self._x_data_spectogram, y=self._y, z=self._z, colorscale = colourscale, zmin=-60, zmax=20,showscale=False,zsmooth='fast')
         self._plot_spectogram = go.FigureWidget(
             layout=layout_spectogram,
             data=[trace])

@@ -425,6 +425,11 @@ class SpectrumAnalyser(Overlay):
             
         def update_buffer(value):
             self.SpecPlot._buf = value['new']
+            
+        def update_range(value):
+            self.SpecPlot._plot_spectrum.layout.yaxis.range = value['new']
+            self.SpecPlot._plot_spectogram.data[0].zmin = value['new'][0]
+            self.SpecPlot._plot_spectogram.data[0].zmax = value['new'][1]
 
             
         image = sipw.image_widget("assets/strathclyde_logo.png")
@@ -447,17 +452,19 @@ class SpectrumAnalyser(Overlay):
             style=style
         )
         
-        self.spectrum_timer_slider = sipw.float_slide_widget('Spectrum Timer: ', 1/10, 1/20, 1, 1/20)
-        self.spectogram_timer_slider = sipw.float_slide_widget('Spectogram Timer: ', 1/10, 1/20, 1, 1/20)
-        self.spectogram_buffer_slider = sipw.int_slide_widget('Spectogram Buffer: ', 2, 1, 20, 1)
+        self.spectrum_timer_slider = sipw.float_slide_widget('Spectrum Timer:', 1/10, 1/20, 1, 1/20)
+        self.spectogram_timer_slider = sipw.float_slide_widget('Spectogram Timer:', 1/10, 1/20, 1, 1/20)
+        spectogram_buffer_slider = sipw.int_slide_widget('Spectogram Buffer:', 2, 1, 20, 1)
+        plot_magnitude_range = sipw.int_range_widget('Range:', [-60, 20], -100, 50, 1)
         
         peak_toggle.observe(peak_detect, names='value')
         self.spectrum_timer_slider.observe(update_spectrum_timer, names='value')
         self.spectogram_timer_slider.observe(update_spectogram_timer, names='value')
-        self.spectogram_buffer_slider.observe(update_buffer, names='value')
+        spectogram_buffer_slider.observe(update_buffer, names='value')
+        plot_magnitude_range.observe(update_range, names='value')
         
         peak = sipw.accordion_widget('Peak Detection', [peak_toggle, self.peak_x, self.peak_y])
-        plot_update = sipw.accordion_widget('Plot Update', [self.spectrum_timer_slider, self.spectogram_timer_slider, self.spectogram_buffer_slider])
+        plot_update = sipw.accordion_widget('Plot Settings', [self.spectrum_timer_slider, self.spectogram_timer_slider, spectogram_buffer_slider, plot_magnitude_range])
         
         return ipw.VBox([image, plot_update, peak], layout=ipw.Layout(width='auto'))
         

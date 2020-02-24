@@ -6,7 +6,6 @@ def image_widget(path):
     return ipw.Image(
         value=image,
         format='png',
-#       width=300,
         layout=ipw.Layout(width='auto')
     )
         
@@ -91,3 +90,20 @@ def accordion_widget(title, widgets):
     accordion.set_title(0, title)
 
     return accordion
+
+def int_range_widget(title, value, min, max, step):
+    style = {'description_width': 'initial'}
+    return ipw.IntRangeSlider(
+    value=value,
+    min=min,
+    max=max,
+    step=step,
+    description=title,
+    disabled=False,
+    continuous_update=False,
+    orientation='horizontal',
+    readout=True,
+    readout_format='d',
+    layout=ipw.Layout(width='auto'),
+    style=style
+)
