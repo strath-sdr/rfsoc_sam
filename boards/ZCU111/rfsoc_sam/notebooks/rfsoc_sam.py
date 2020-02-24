@@ -187,16 +187,16 @@ class SpectrumAnalyser(Overlay):
             self.dac_block.MixerSettings['Freq'] = change['new']
             self.dac_block.UpdateEvent(xrfdc.EVENT_MIXER)
             
-        def setNyquist(zone):
-            zone = int(zone['new'])
-            self.adc_block.NyquistZone = zone
+#         def setNyquist(zone):
+#             zone = int(zone['new'])
+#             self.adc_block.NyquistZone = zone
 
         options= ['BPSK', 'QPSK', '8-PSK', '16-QAM']
         modsel = sipw.drop_menu_widget('Modulation:', options[1],options)
         freqsel = sipw.float_txt_widget('Tx Frequency (MHz):', 64, 1, 1020, 1)
-        nyquist = sipw.drop_menu_widget('Nyquist Zone:', 1, [1,2]) 
+#         nyquist = sipw.drop_menu_widget('Nyquist Zone:', 1, [1,2]) 
 
-        accordion = sipw.accordion_widget('Transmit', [modsel, freqsel, nyquist])
+        accordion = sipw.accordion_widget('Transmit', [modsel, freqsel])
         
         modsel.observe(on_modulation_change, names='value')
         freqsel.observe(on_slider_change, names='value')
@@ -226,7 +226,7 @@ class SpectrumAnalyser(Overlay):
             
             
         def update_widgets_and_graph():
-            self.nyquist.value = self.adc_block.NyquistZone
+#             self.nyquist.value = self.adc_block.NyquistZone
             self.rx_nco_txt.value = np.ceil(self.adc_block.MixerSettings['Freq'])
             update_nco_and_graph(self.adc_block, self.rx_nco_txt.value)
             
@@ -281,9 +281,9 @@ class SpectrumAnalyser(Overlay):
         def unwrap_slider_val(callback):
             return lambda slider_val : callback(slider_val['new'])
         
-        def setNyquist(zone):
-            zone = int(zone['new'])
-            self.adc_block.NyquistZone = zone
+#         def setNyquist(zone):
+#             zone = int(zone['new'])
+#             self.adc_block.NyquistZone = zone
     
         # Receive Controls
         options = [0, 1, 2]
@@ -292,13 +292,13 @@ class SpectrumAnalyser(Overlay):
         optgen = [16e6, 32e6, 64e6, 128e6, 256e6]
         options = [i / 2048 for i in optgen]
         rx_res_drop = sipw.drop_menu_widget('Resolution (Hz):', options[3], options)  
-        self.nyquist = sipw.drop_menu_widget('Nyquist Zone:', 2, [1,2]) 
-        accordion = sipw.accordion_widget('Receive', [rx_adc_drop, self.rx_nco_txt, self.nyquist, rx_res_drop])
+#         self.nyquist = sipw.drop_menu_widget('Nyquist Zone:', 2, [1,2]) 
+        accordion = sipw.accordion_widget('Receive', [rx_adc_drop, self.rx_nco_txt, rx_res_drop])
         
         rx_adc_drop.observe(changeADC, names='value')
         self.rx_nco_txt.observe(unwrap_slider_val(lambda v: update_nco_and_graph(self.adc_block, v)),names='value')
         rx_res_drop.observe(update_downsampler_and_nco_slider, names='value')
-        self.nyquist.observe(setNyquist, names='value')
+#         self.nyquist.observe(setNyquist, names='value')
         
         return accordion
     
