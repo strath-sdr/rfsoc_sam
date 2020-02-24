@@ -2,7 +2,7 @@
 
 # Spectrum Analyser on PYNQ & ZCU111
 <p align="center">
-  <img src="../../blob/master/img/spectrum_analyser.gif" width="800" height="366" />
+  <img src="../../blob/master/img/spectrum_analyser.gif" width="867" height="432" />
 <p/>
 
 This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
