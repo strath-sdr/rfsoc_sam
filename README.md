@@ -2,7 +2,7 @@
 
 # Spectrum Analyser on PYNQ & ZCU111
 <p align="center">
-  <img src="../../blob/master/img/spectrum_analyser.gif" width="867" height="432" />
+  <img src="../../blob/master/img/spectrum_analyser.gif" width="750" height="350" />
 <p/>
 
 This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
@@ -50,7 +50,7 @@ One DAC and three ADCs are made available in this design. The table below detail
 If using the loopback cable, ensure it is connected between the DAC and one of the three available ADCs (the image below shows it connected to ADC0). Connect antennae to the remaining ADCs if desired. 
 	
 <p align="center">
-<img src="../../blob/master/img/rfsoc_setup.png" width="800">
+<img src="../../blob/master/img/rfsoc_setup.png" width="750" height="350">
 <p/>
 
 
