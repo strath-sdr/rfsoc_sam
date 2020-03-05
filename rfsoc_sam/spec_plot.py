@@ -11,7 +11,7 @@ class SpecPlot():
     def __init__(self,
                  data,
                  Fs,
-                 animation_period=100,
+                 animation_period=50,
                  animation_period_range=100,
                  xlabel='Frequency (Hz)',
                  ylabel='Time (s)',
@@ -20,7 +20,7 @@ class SpecPlot():
                  autosize=True,
                  debug=False,
                  colourscale='jet',
-                 time=15,
+                 time=50,
                  zmin=-50,
                  zmax=20,
                  dark_theme=False):
@@ -46,7 +46,7 @@ class SpecPlot():
         self._range = [min(self._x_data), max(self._x_data)]
         self._updaterange = False
         self._peakdetect = False
-        self._spectogramcount = 0
+        self._spectrogramcount = 0
         self._maxhold = False
         self._datamaxhold = np.zeros((2048))
         self.indices_0 = np.arange(0,int(2048),4)
@@ -55,8 +55,9 @@ class SpecPlot():
         self.indices_3 = np.arange(3,int(2048),4)
         self._plot_data = ((np.take(self._data, self.indices_0) + np.take(self._data, self.indices_1) \
                           + np.take(self._data, self.indices_2) + np.take(self._data, self.indices_3))/4)
-        self._x_data_spectogram = np.take(self._x_data, self.indices_2)
+        self._x_data_spectrogram = np.take(self._x_data, self.indices_2)
         self._buf = 2
+        self._avg_window = np.zeros((1,2048))
         
         if dark_theme:
             self.trace_colour = 'yellow'
@@ -83,22 +84,22 @@ class SpecPlot():
                 'showlegend' : False,
         }
         
-        layout_spectogram={
+        layout_spectrogram={
                 'hovermode': 'closest',
                 'height':  np.ceil(h*0.6),
                 'autosize': True,
                 'xaxis': {
                     'autorange' : False,
                     'title': 'Frequency (Hz)',
-                    'range': [min(self._x_data_spectogram),
-                      max(self._x_data_spectogram)]
+                    'range': [min(self._x_data_spectrogram),
+                      max(self._x_data_spectrogram)]
                 },
                 'yaxis': {
                      'title': 'Time (us)',
                 },
                 'margin': {
                     't':0,
-                    'b':0,
+                    'b':25,
                     'l':0,
                     'r':0
                 }
@@ -120,21 +121,21 @@ class SpecPlot():
                                         color='#f05b83'),
                                         visible=False))
         
-        # 3D Spectogram Plot
-        trace = go.Heatmap(x=self._x_data_spectogram, y=self._y, z=self._z, colorscale = colourscale, zmin=-60, zmax=20,showscale=False,zsmooth='fast')
-        self._plot_spectogram = go.FigureWidget(
-            layout=layout_spectogram,
+        # 3D Spectrogram Plot
+        trace = go.Heatmap(x=self._x_data_spectrogram, y=self._y, z=self._z, colorscale = colourscale, zmin=-60, zmax=20,showscale=False,zsmooth='fast')
+        self._plot_spectrogram = go.FigureWidget(
+            layout=layout_spectrogram,
             data=[trace])
         
        
-    def add_frame_spectogram(self):
-        self._spectogramcount += 1
+    def add_frame_spectrogram(self):
+        self._spectrogramcount += 1
         self._z=np.roll(self._z,-1,0)
         self._z[self._time-1] = self._plot_data
-        if self._spectogramcount >= self._buf:
-            self._spectogramcount = 0
-            self._plot_spectogram.data[0].z = self._z
-            self._plot_spectogram.data[0].x = self._x_data_spectogram
+        if self._spectrogramcount >= self._buf:
+            self._spectrogramcount = 0
+            self._plot_spectrogram.data[0].z = self._z
+            self._plot_spectrogram.data[0].x = self._x_data_spectrogram
             
         
     def add_frame(self, frame):
@@ -145,6 +146,11 @@ class SpecPlot():
         self._data = frame[::-1]
         self._data[1024] = np.mean([self._data[1023], self._data[1025]])
         self._data[1023] = np.mean([self._data[1022], self._data[1024]])
+        
+        self._avg_window = np.roll(self._avg_window, 1, axis=0)
+        self._avg_window[0] = self._data
+        self._data = np.mean(self._avg_window,0)
+        
         self._plot_data = ((np.take(self._data, self.indices_0) + np.take(self._data, self.indices_1) \
                           + np.take(self._data, self.indices_2) + np.take(self._data, self.indices_3))/4)
         
@@ -153,10 +159,10 @@ class SpecPlot():
                 self._plot_spectrum.layout.xaxis.range = self._range
                 self._plot_spectrum.data[0].x = self._x_data
                 self._plot_spectrum.data[0].y = self._data
-            self._plot_spectogram.layout.xaxis.range = self._range
-            self._plot_spectogram.data[0].x = self._x_data_spectogram
+            self._plot_spectrogram.layout.xaxis.range = self._range
+            self._plot_spectrogram.data[0].x = self._x_data_spectrogram
             frameTime = 2048/self._Fs * 1e6
-            self._plot_spectogram.data[0].y = np.arange(0,self._time*frameTime, frameTime)[::-1] * -1
+            self._plot_spectrogram.data[0].y = np.arange(0,self._time*frameTime, frameTime)[::-1] * -1
 
             self._updaterange = False
         else:
@@ -171,7 +177,7 @@ class SpecPlot():
             
             
     def get_widget(self):
-        return ipw.VBox([self._plot_spectrum, self._plot_spectogram])
+        return ipw.VBox([self._plot_spectrum, self._plot_spectrogram])
     
     
 class FastFigureWidget(go.FigureWidget):

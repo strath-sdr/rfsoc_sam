@@ -236,7 +236,7 @@ class SpectrumAnalyser(Overlay):
             div = (self._fs)/2048
             self._fc = nco_freq
             self.SpecPlot._x_data = np.arange(-lim, lim, div) + (nco_freq * 1e6)
-            self.SpecPlot._x_data_spectogram = np.take(self.SpecPlot._x_data, self.SpecPlot.indices_2)
+            self.SpecPlot._x_data_spectrogram = np.take(self.SpecPlot._x_data, self.SpecPlot.indices_2)
             self.SpecPlot._range = [min(self.SpecPlot._x_data), max(self.SpecPlot._x_data)]
             self.SpecPlot._updaterange = True
             
@@ -274,7 +274,7 @@ class SpectrumAnalyser(Overlay):
             lim = self._fs/2
             div = (self._fs)/2048
             self.SpecPlot._x_data = np.arange(-lim, lim, div) + self._fc * 1e6
-            self.SpecPlot._x_data_spectogram = np.take(self.SpecPlot._x_data, self.SpecPlot.indices_2)
+            self.SpecPlot._x_data_spectrogram = np.take(self.SpecPlot._x_data, self.SpecPlot.indices_2)
             self.SpecPlot._range = [min(self.SpecPlot._x_data), max(self.SpecPlot._x_data)]
             self.SpecPlot._updaterange = True
         
@@ -288,7 +288,7 @@ class SpectrumAnalyser(Overlay):
         # Receive Controls
         options = [0, 1, 2]
         rx_adc_drop = sipw.drop_menu_widget('ADC',options[0],options)
-        self.rx_nco_txt = sipw.float_txt_widget('Center Frequency (MHz):', 64, 1, 8192, 1)
+        self.rx_nco_txt = sipw.float_txt_widget('Center Frequency (MHz):', 64, 1, 1024, 1)
         optgen = [16e6, 32e6, 64e6, 128e6, 256e6]
         options = [i / 2048 for i in optgen]
         rx_res_drop = sipw.drop_menu_widget('Resolution (Hz):', options[3], options)  
@@ -320,7 +320,10 @@ class SpectrumAnalyser(Overlay):
             num = switcher.get(value['new'], 0)
             self.SpectrumFFT.PSD.output_selection = num
             self.SpecPlot._updaterange = True
-            
+            if num:
+                self.SpecPlot._plot_spectrum.layout.yaxis['title'] = 'Power Spectral Density (dB/Hz)'
+            else:
+                self.SpecPlot._plot_spectrum.layout.yaxis['title'] = 'Magnitude'
             
         # Output Controls
         options = ['Magnitude', 'PSD']
@@ -346,23 +349,23 @@ class SpectrumAnalyser(Overlay):
         def start():
             self.ison = True
             self.spectrum_timer_slider.disabled = True
-            self.spectogram_timer_slider.disabled = True
+            self.spectrogram_timer_slider.disabled = True
             if self.en_wfall_box.value:
-                self.TimerSpectogram.start()
+                self.TimerSpectrogram.start()
             self.TimerSpectrum.start()
         
         def stop():
             self.ison = False
             self.spectrum_timer_slider.disabled = False
-            self.spectogram_timer_slider.disabled = False
-            self.TimerSpectogram.stop()
+            self.spectrogram_timer_slider.disabled = False
+            self.TimerSpectrogram.stop()
             self.TimerSpectrum.stop()
         
         def en_wfall(en):
             if en['new'] == True and self.ison:
-                self.TimerSpectogram.start()
+                self.TimerSpectrogram.start()
             else:
-                self.TimerSpectogram.stop()
+                self.TimerSpectrogram.stop()
             
         
         def start_stop_en():
@@ -391,7 +394,7 @@ class SpectrumAnalyser(Overlay):
                                      animation_period = animation_period,
                                      animation_period_range = animation_period_range,
                                      h=h, dark_theme=self.dark_theme)
-        self.TimerSpectogram = Timer(self.SpecPlot.add_frame_spectogram, dma_period)
+        self.TimerSpectrogram = Timer(self.SpecPlot.add_frame_spectrogram, dma_period)
         self.TimerSpectrum = DmaTimer(self.update_voila, self.DataInspector.get_buffer_frame, dma_period)
         
         FDP_vbox = ipw.VBox([self.SpecPlot.get_widget(), start_stop_en()], layout=ipw.Layout(width='auto'))
@@ -416,21 +419,23 @@ class SpectrumAnalyser(Overlay):
         def update_spectrum_timer(value):
             self.TimerSpectrum = DmaTimer(self.update_voila, self.DataInspector.get_buffer_frame, value['new'])
             if value['new'] < 1/10:
-                self.spectogram_timer_slider.min = 1/10
+                self.spectrogram_timer_slider.min = 1/10
             else: 
-                self.spectogram_timer_slider.min = value['new']
+                self.spectrogram_timer_slider.min = value['new']
             
-        def update_spectogram_timer(value):
-            self.TimerSpectogram = Timer(self.SpecPlot.add_frame_spectogram, value['new'])
+        def update_spectrogram_timer(value):
+            self.TimerSpectrogram = Timer(self.SpecPlot.add_frame_spectrogram, value['new'])
             
         def update_buffer(value):
             self.SpecPlot._buf = value['new']
             
         def update_range(value):
             self.SpecPlot._plot_spectrum.layout.yaxis.range = value['new']
-            self.SpecPlot._plot_spectogram.data[0].zmin = value['new'][0]
-            self.SpecPlot._plot_spectogram.data[0].zmax = value['new'][1]
+            self.SpecPlot._plot_spectrogram.data[0].zmin = value['new'][0]
+            self.SpecPlot._plot_spectrogram.data[0].zmax = value['new'][1]
 
+        def updateAvg(value):
+            self.SpecPlot._avg_window = np.full((value['new'],2048),self.SpecPlot._data)
             
         image = sipw.image_widget("assets/strathclyde_logo.png")
              
@@ -453,18 +458,20 @@ class SpectrumAnalyser(Overlay):
         )
         
         self.spectrum_timer_slider = sipw.float_slide_widget('Spectrum Timer:', 1/10, 1/20, 1, 1/20)
-        self.spectogram_timer_slider = sipw.float_slide_widget('Spectogram Timer:', 1/10, 1/20, 1, 1/20)
-        spectogram_buffer_slider = sipw.int_slide_widget('Spectogram Buffer:', 2, 1, 20, 1)
+        self.spectrogram_timer_slider = sipw.float_slide_widget('Spectrogram Timer:', 1/10, 1/20, 1, 1/20)
+        spectrogram_buffer_slider = sipw.int_slide_widget('Spectrogram Buffer:', 2, 1, 20, 1)
         plot_magnitude_range = sipw.int_range_widget('Range:', [-60, 20], -100, 50, 1)
+        frame_avg = sipw.int_slide_widget('Frame Average: ', 1, 1, 32, 1)
         
         peak_toggle.observe(peak_detect, names='value')
         self.spectrum_timer_slider.observe(update_spectrum_timer, names='value')
-        self.spectogram_timer_slider.observe(update_spectogram_timer, names='value')
-        spectogram_buffer_slider.observe(update_buffer, names='value')
+        self.spectrogram_timer_slider.observe(update_spectrogram_timer, names='value')
+        spectrogram_buffer_slider.observe(update_buffer, names='value')
         plot_magnitude_range.observe(update_range, names='value')
+        frame_avg.observe(updateAvg, names='value')
         
         peak = sipw.accordion_widget('Peak Detection', [peak_toggle, self.peak_x, self.peak_y])
-        plot_update = sipw.accordion_widget('Plot Settings', [self.spectrum_timer_slider, self.spectogram_timer_slider, spectogram_buffer_slider, plot_magnitude_range])
+        plot_update = sipw.accordion_widget('Plot Settings', [self.spectrum_timer_slider, self.spectrogram_timer_slider, spectrogram_buffer_slider, plot_magnitude_range,frame_avg])
         
         return ipw.VBox([image, plot_update, peak], layout=ipw.Layout(width='auto'))
         
