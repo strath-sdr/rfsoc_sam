@@ -20,7 +20,7 @@ class SpecPlot():
                  autosize=True,
                  debug=False,
                  colourscale='jet',
-                 time=50,
+                 time=30,
                  zmin=-50,
                  zmax=20,
                  dark_theme=False):
