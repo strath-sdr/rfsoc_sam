@@ -13,6 +13,18 @@ Voila is a tool which transforms Jupyter Notebooks into standalone web applicati
 
 Currently, this project is in **Beta Release**. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
+## Key Features 
+* Up to 256 MHz bandwidth for inspection
+* Inspect range 0 - 1.024 GHz
+* 3 available ADCs to select from at runtime 
+* RF data generator (BPSK, QPSK, 8PSK, 16QAM) to DAC for loopback 
+* Adaptive bandwidth control and center frequency selection
+* Reprogrammable windowing
+* Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectral density [dB]) 
+* PYNQ abstracted allowing Python to interface with the hardware
+* [Plotly](https://plot.ly/) visualisation of spectrum and spectrogram (waterfall)
+* Voila dashboard for more convenient control/visualisation 
+
 ## Quick Start
 
 Open a terminal in Jupyter Lab and run:
