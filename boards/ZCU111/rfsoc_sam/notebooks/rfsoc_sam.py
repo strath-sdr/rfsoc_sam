@@ -38,7 +38,7 @@ class SpectrumAnalyser(Overlay):
     more friendly names in a flatter hierarchy. Less typing for everyone.
     """
     
-    def __init__(self, bitfile_name=None, init_rf_clks=True, dark_theme=False, **kwargs):
+    def __init__(self, bitfile_name=None, init_rf_clks=True, voila=False, **kwargs):
         """Construct a new SpectrumAnalyser
         bitfile_name: Optional. If left None, the 'rfsoc_sam.bit' bundled with this
                       rfsoc-sam package will be used.
@@ -51,6 +51,9 @@ class SpectrumAnalyser(Overlay):
         if bitfile_name is None:
             this_dir = os.path.dirname(__file__)
             bitfile_name = os.path.join(this_dir, 'bitstream', 'rfsoc_sam.bit')
+            
+        if voila:
+            dark_theme = true
             
         if dark_theme:
             from IPython.display import display, HTML
@@ -166,6 +169,7 @@ class SpectrumAnalyser(Overlay):
         self._axi_fs = 256e6
         self._fc = 64   
         
+        self.voila = voila
         self.dark_theme = dark_theme
         self.peak_flag = False
     
@@ -348,16 +352,18 @@ class SpectrumAnalyser(Overlay):
         
         def start():
             self.ison = True
-            self.spectrum_timer_slider.disabled = True
-            self.spectrogram_timer_slider.disabled = True
+            if self.voila:
+                self.spectrum_timer_slider.disabled = True
+                self.spectrogram_timer_slider.disabled = True
             if self.en_wfall_box.value:
                 self.TimerSpectrogram.start()
             self.TimerSpectrum.start()
         
         def stop():
             self.ison = False
-            self.spectrum_timer_slider.disabled = False
-            self.spectrogram_timer_slider.disabled = False
+            if self.voila:
+                self.spectrum_timer_slider.disabled = False
+                self.spectrogram_timer_slider.disabled = False
             self.TimerSpectrogram.stop()
             self.TimerSpectrum.stop()
         
