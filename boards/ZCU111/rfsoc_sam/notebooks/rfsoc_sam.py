@@ -54,6 +54,8 @@ class SpectrumAnalyser(Overlay):
             
         if voila:
             dark_theme = true
+        else: 
+            dark_theme = false
             
         if dark_theme:
             from IPython.display import display, HTML
