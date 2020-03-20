@@ -53,9 +53,9 @@ class SpectrumAnalyser(Overlay):
             bitfile_name = os.path.join(this_dir, 'bitstream', 'rfsoc_sam.bit')
             
         if voila:
-            dark_theme = true
+            dark_theme = True
         else: 
-            dark_theme = false
+            dark_theme = False
             
         if dark_theme:
             from IPython.display import display, HTML
