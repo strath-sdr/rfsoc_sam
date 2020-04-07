@@ -19,8 +19,8 @@ class DataInspector(DefaultHierarchy):
         """Get a single buffer of FFT data from the pulse shaped signal
         """
         self.data_inspector.reset = 0
-        self.data_inspector.transfer = 1
         self.axi_dma_inspector.recvchannel.transfer(self.buf_data)
+        self.data_inspector.transfer = 1
         self.axi_dma_inspector.recvchannel.wait()
         self.data_inspector.transfer = 0
         self.data_inspector.reset = 1
