@@ -2,7 +2,7 @@
 
 # Spectrum Analyser on PYNQ & ZCU111
 <p align="center">
-  <img src="../../blob/master/img/spectrum-analyser.gif" width="750" height="350" />
+  <img src="../../blob/master/img/spectrum-analyser.gif" width="935" height="360" />
 <p/>
 
 This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
@@ -17,10 +17,9 @@ Currently, this project is in **Beta Release**. We are working on improving aspe
 * Up to 256 MHz bandwidth for inspection
 * Inspect range 0 - 1.024 GHz
 * 3 available ADCs to select from at runtime 
-* RF data generator (BPSK, QPSK, 8PSK, 16QAM) to DAC for loopback 
 * Adaptive bandwidth control and center frequency selection
 * Reprogrammable windowing
-* Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectral density [dB]) 
+* Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectrum [dBm/Hz]) 
 * PYNQ abstracted allowing Python to interface with the hardware
 * [Plotly](https://plot.ly/) visualisation of spectrum and spectrogram (waterfall)
 * Voila dashboard for more convenient control/visualisation 
