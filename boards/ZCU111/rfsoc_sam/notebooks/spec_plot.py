@@ -21,8 +21,8 @@ class SpecPlot():
                  debug=False,
                  colourscale='jet',
                  time=30,
-                 zmin=-50,
-                 zmax=20,
+                 zmin=-120,
+                 zmax=0,
                  dark_theme=False):
         
         
@@ -32,8 +32,8 @@ class SpecPlot():
         self.animation_period = animation_period
         self.animation_period_range = animation_period_range
         self._data = data[::-1]
-        self._data[1024] = np.mean([self._data[1023], self._data[1025]])
-        self._data[1023] = np.mean([self._data[1022], self._data[1024]])
+        #self._data[1024] = np.mean([self._data[1023], self._data[1025]])
+        #self._data[1023] = np.mean([self._data[1022], self._data[1024]])
         self._z = np.empty((self._time,int(2048/4)))
         self._z[:] = np.nan
         frameTime = 2048/self._Fs * 1e6
@@ -69,11 +69,11 @@ class SpecPlot():
                 'height': np.ceil(h*0.4),
                 'autosize': True,
                 'xaxis': {
-                    'showticklabels' : False,
+                    'showticklabels' : True,
                 },
                 'yaxis': {
-                    'title': 'Power Spectral Density (dB/Hz)',
-                    'range': [-60, 20]
+                    'title': 'Power Spectrum (dBm/Hz)',
+                    'range': [-140, 0]
                 },
                 'margin': {
                     't':0,
@@ -86,7 +86,7 @@ class SpecPlot():
         
         layout_spectrogram={
                 'hovermode': 'closest',
-                'height':  np.ceil(h*0.6),
+                'height':  np.ceil(h*0.4),
                 'autosize': True,
                 'xaxis': {
                     'autorange' : False,
@@ -95,7 +95,7 @@ class SpecPlot():
                       max(self._x_data_spectrogram)]
                 },
                 'yaxis': {
-                     'title': 'Time (us)',
+                     'title': 'Frame Number',
                 },
                 'margin': {
                     't':0,
@@ -122,7 +122,7 @@ class SpecPlot():
                                         visible=False))
         
         # 3D Spectrogram Plot
-        trace = go.Heatmap(x=self._x_data_spectrogram, y=self._y, z=self._z, colorscale = colourscale, zmin=-60, zmax=20,showscale=False,zsmooth='fast')
+        trace = go.Heatmap(x=self._x_data_spectrogram, y=self._y, z=self._z, colorscale = colourscale, zmin=-120, zmax=0,showscale=False,zsmooth='fast')
         self._plot_spectrogram = go.FigureWidget(
             layout=layout_spectrogram,
             data=[trace])
@@ -144,8 +144,8 @@ class SpecPlot():
         frame (list): new time domain samples to FFT and add to the plot"""
         
         self._data = frame[::-1]
-        self._data[1024] = np.mean([self._data[1023], self._data[1025]])
-        self._data[1023] = np.mean([self._data[1022], self._data[1024]])
+        #self._data[1024] = np.mean([self._data[1023], self._data[1025]])
+        #self._data[1023] = np.mean([self._data[1022], self._data[1024]])
         
         self._avg_window = np.roll(self._avg_window, 1, axis=0)
         self._avg_window[0] = self._data

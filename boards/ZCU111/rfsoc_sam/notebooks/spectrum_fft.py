@@ -29,7 +29,7 @@ class SpectrumFFTCore(DefaultIP):
     def __init__(self,description):
         super().__init__(description=description)
         
-    bindto = ["UoS:RFSoC:spectrum_fft:0.3.1"]
+    bindto = ["UoS:RFSoC:spectrum_fft:1.2"]
     
 # LUT of property addresses for our data-driven properties
 _specfft_props = [("reset", 256)]
@@ -57,7 +57,7 @@ class PSDCore(DefaultIP):
     def __init__(self,description):
         super().__init__(description=description)
         
-    bindto = ["UoS:RFSoC:psd:0.2.1"]
+    bindto = ["UoS:RFSoC:psd:0.3.1"]
     
 # LUT of property addresses for our data-driven properties
 _specfft_props = [("output_selection", 256)]

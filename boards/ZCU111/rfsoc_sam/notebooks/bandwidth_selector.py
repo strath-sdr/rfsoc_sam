@@ -28,7 +28,7 @@ class BandwidthSelector(DefaultHierarchy):
         self.buf_config.close()
 
     def reload(self, data):
-        np.copyto(self.buf_reload,np.int16(data*2**14))
+        np.copyto(self.buf_reload,np.int16(data*2**15))
         self.axi_dma_reload.sendchannel.transfer(self.buf_reload)
         self.axi_dma_reload.sendchannel.wait()
         self.buf_reload.close()
@@ -51,7 +51,7 @@ class BandwidthSelector(DefaultHierarchy):
         fig = plt.figure()
         ax = fig.add_subplot(111)
         ax.plot(0.5*fs*w/np.pi, 20*np.log10(np.abs(h)))
-        ax.set_ylim(-40, 5)
+        #ax.set_ylim(-40, 5)
         ax.set_xlim(0, 0.5*fs)
         ax.grid(True)
         ax.set_xlabel('Frequency (Hz)')
@@ -74,7 +74,7 @@ class BandwidthSelectorCore(DefaultIP):
     def __init__(self,description):
         super().__init__(description=description)
 
-    bindto = ["UoS:RFSoC:bandwidthselector:0.3.0"]
+    bindto = ["UoS:RFSoC:bandwidthselector:0.3.1"]
 
 # LUT of property addresses for our data-driven properties
 _bandSelect_props = [("downsample_factor", 4), ("event_missing", 8), ("event_unexpected", 12), ("enable", 0)]

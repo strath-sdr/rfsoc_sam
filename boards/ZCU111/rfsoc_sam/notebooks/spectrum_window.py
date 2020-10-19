@@ -19,7 +19,7 @@ class SpectrumWindow(DefaultHierarchy):
         self.set_window_coeffs(np.ones(2048))
         self.set_enable(1)
         
-        self.window_0.dc_enable = 1
+        self.window.dc_enable = 1
 
         self.params = ipw.VBox([],layout=ipw.Layout(width='auto'))
         self.window_sel = ipw.HBox([],layout=ipw.Layout(width='auto'))
@@ -28,12 +28,13 @@ class SpectrumWindow(DefaultHierarchy):
         self.window_type = 'Rectangular'
 
         self.coeffs_sat = np.ones(2048)
+        self.scale_factor = 2048
 
         self.frequency = 0
         self.input = 0
         
     def set_enable(self, enable):
-        self.window_0.enable = int(enable)
+        self.window.enable = int(enable)
     
     def set_window_coeffs(self, data):
         coeffs = np.int16(data*2**14)
@@ -49,6 +50,7 @@ class SpectrumWindow(DefaultHierarchy):
         np.copyto(self.input_buffer,window_coeffs)
         dma.sendchannel.transfer(self.input_buffer)
         dma.sendchannel.wait()
+        self.scale_factor = np.sum(self.coeffs**2)
         self.input_buffer.close()
 
     def updateParameters(self, update): 
@@ -120,7 +122,7 @@ class SpectrumWindow(DefaultHierarchy):
     @staticmethod
     def checkhierarchy(description):
         if 'axi_dma_window' in description['ip'] \
-           and 'window_0' in description['ip']:
+           and 'window' in description['ip']:
             return True
         return False  
 
@@ -132,7 +134,7 @@ class WindowCore(DefaultIP):
     def __init__(self,description):
         super().__init__(description=description)
         
-    bindto = ["UoS:RFSoC:window:0.4"]
+    bindto = ["xilinx.com:ip:window:1.0"]
     
 # LUT of property addresses for our data-driven properties
 _window_props = [("dc_enable", 0x104), ("enable", 0x100)]
