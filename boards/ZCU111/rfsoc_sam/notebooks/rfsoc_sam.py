@@ -9,9 +9,10 @@ import xrfdc
 import os
 import numpy as np
 import ipywidgets as ipw
+import struct
 
 import spectrum_widgets as sipw
-import transmitter, bandwidth_selector, spectrum_fft, spectrum_window, data_inspector
+import frequency_synth, bandwidth_selector, spectrum_fft, spectrum_window, data_inspector
 
 class TimerRegistry():
     """Helper class to track active timer threads.
@@ -81,21 +82,77 @@ class SpectrumAnalyser(Overlay):
 
         # Extact in-use dataconverter objects with friendly names
         self.rf = self.usp_rf_data_converter_0
-        self.dac_tile = self.rf.dac_tiles[1]
-        self.dac_block = self.dac_tile.blocks[2]
 
         # Start up LMX clock
         if init_rf_clks:
             xrfclk.set_all_ref_clks(409.6)
 
         # Set sane DAC defaults
+        # DAC4
+        self.dac_tile = self.rf.dac_tiles[1]
+        self.dac_block = self.dac_tile.blocks[0]
+        
         self.dac_tile.DynamicPLLConfig(1, 409.6, 2048)
         self.dac_block.NyquistZone = 1
         self.dac_block.MixerSettings = {
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           64,
+            'Freq':           0,
+            'MixerMode':      xrfdc.MIXER_MODE_C2R,
+            'MixerType':      xrfdc.MIXER_TYPE_FINE,
+            'PhaseOffset':    0.0
+        }
+        self.dac_block.UpdateEvent(xrfdc.EVENT_MIXER)
+        self.dac_tile.SetupFIFO(True)
+        
+        # DAC5
+        self.dac_tile = self.rf.dac_tiles[1]
+        self.dac_block = self.dac_tile.blocks[1]
+        
+        self.dac_tile.DynamicPLLConfig(1, 409.6, 2048)
+        #self.dac_block.NyquistZone = 1
+        self.dac_block.MixerSettings = {
+            'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
+            'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
+            'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
+            'Freq':           0,
+            'MixerMode':      xrfdc.MIXER_MODE_C2R,
+            'MixerType':      xrfdc.MIXER_TYPE_FINE,
+            'PhaseOffset':    0.0
+        }
+        self.dac_block.UpdateEvent(xrfdc.EVENT_MIXER)
+        self.dac_tile.SetupFIFO(True)
+        
+        # DAC6
+        self.dac_tile = self.rf.dac_tiles[1]
+        self.dac_block = self.dac_tile.blocks[2]
+        
+        self.dac_tile.DynamicPLLConfig(1, 409.6, 2048)
+        #self.dac_block.NyquistZone = 1
+        self.dac_block.MixerSettings = {
+            'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
+            'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
+            'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
+            'Freq':           0,
+            'MixerMode':      xrfdc.MIXER_MODE_C2R,
+            'MixerType':      xrfdc.MIXER_TYPE_FINE,
+            'PhaseOffset':    0.0
+        }
+        self.dac_block.UpdateEvent(xrfdc.EVENT_MIXER)
+        self.dac_tile.SetupFIFO(True)
+        
+        # DAC7
+        self.dac_tile = self.rf.dac_tiles[1]
+        self.dac_block = self.dac_tile.blocks[3]
+        
+        self.dac_tile.DynamicPLLConfig(1, 409.6, 2048)
+        #self.dac_block.NyquistZone = 1
+        self.dac_block.MixerSettings = {
+            'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
+            'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
+            'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
+            'Freq':           80,
             'MixerMode':      xrfdc.MIXER_MODE_C2R,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -161,7 +218,7 @@ class SpectrumAnalyser(Overlay):
         self.timers = TimerRegistry()
         
         # Demo initialisation
-        self.TransmitterTop = self.Transmitter
+        #self.TransmitterTop = self.Transmitter
         self.BandwidthSelector = self.SpectrumAnalyser.BandwidthSelector
         self.SpectrumWindow = self.SpectrumAnalyser.SpectrumWindow
         self.SpectrumFFT = self.SpectrumAnalyser.SpectrumFFT
@@ -174,6 +231,29 @@ class SpectrumAnalyser(Overlay):
         self.voila = voila
         self.dark_theme = dark_theme
         self.peak_flag = False
+        
+        # Hot-fix
+        self.SpectrumAnalyser.SpectrumFFT.PSD.output_selection = 0
+        self.SpectrumAnalyser.SpectrumFFT.PSD.write(0x104, int(struct.unpack('!i',struct.pack('!f',float(1/(128e6*2048))))[0]))
+        self.SpectrumAnalyser.SpectrumFFT.PSD.write(0x108, int(struct.unpack('!i',struct.pack('!f',float(128e6/2048)))[0]))
+        
+        self.frequency_synth.constant_enable = 15
+        
+        self.frequency_synth.enable_nco_0 = 1
+        self.frequency_synth.enable_nco_1 = 1
+        self.frequency_synth.enable_nco_2 = 1
+        self.frequency_synth.enable_nco_3 = 1
+
+        self.frequency_synth.gain_nco_0 = int(2**14)
+        self.frequency_synth.gain_nco_1 = int(2**14)
+        self.frequency_synth.gain_nco_2 = int(2**14)
+        self.frequency_synth.gain_nco_3 = int(2**14)
+
+        Ni = 2**16
+        self.frequency_synth.step_size_0 = int((1.024e9/100) * Ni * 2**16)
+        self.frequency_synth.step_size_1 = int((1.024e9/100) * Ni * 2**16)
+        self.frequency_synth.step_size_2 = int((1.024e9/100) * Ni * 2**16)
+        self.frequency_synth.step_size_3 = int((1.024e9/100) * Ni * 2**16)
     
     def update_voila(self, frame):
         
@@ -186,8 +266,8 @@ class SpectrumAnalyser(Overlay):
 
     def TransmitterSetup(self):
 
-        def on_modulation_change(change):
-            self.TransmitterTop.set_modulation(change['new'])
+        #def on_modulation_change(change):
+            #self.TransmitterTop.set_modulation(change['new'])
 
         def on_slider_change(change):
             self.dac_block.MixerSettings['Freq'] = change['new']
@@ -197,14 +277,14 @@ class SpectrumAnalyser(Overlay):
 #             zone = int(zone['new'])
 #             self.adc_block.NyquistZone = zone
 
-        options= ['BPSK', 'QPSK', '8-PSK', '16-QAM']
-        modsel = sipw.drop_menu_widget('Modulation:', options[1],options)
-        freqsel = sipw.float_txt_widget('Tx Frequency (MHz):', 64, 1, 1020, 1)
+        #options= ['BPSK', 'QPSK', '8-PSK', '16-QAM']
+        #modsel = sipw.drop_menu_widget('Modulation:', options[1],options)
+        freqsel = sipw.float_txt_widget('Tx Frequency (MHz):', self.dac_block.MixerSettings['Freq'], 1, 1020, 1)
 #         nyquist = sipw.drop_menu_widget('Nyquist Zone:', 1, [1,2]) 
 
-        accordion = sipw.accordion_widget('Transmit', [modsel, freqsel])
+        accordion = sipw.accordion_widget('Transmit', [freqsel])
         
-        modsel.observe(on_modulation_change, names='value')
+        #modsel.observe(on_modulation_change, names='value')
         freqsel.observe(on_slider_change, names='value')
         
         return accordion
@@ -221,8 +301,8 @@ class SpectrumAnalyser(Overlay):
             self.adc_tile = self.rf.adc_tiles[tile]
             self.adc_block = self.adc_tile.blocks[block]
             
-            im = MMIO(0x00_8000_5000, 4096)
-            re = MMIO(0x00_8000_3000, 4096)
+            im = MMIO(0x00_A004_6000, 4096)
+            re = MMIO(0x00_A004_7000, 4096)
             re.write(0x40,adc_new)
             re.write(0x0,0x2)
             im.write(0x40,adc_new)
@@ -283,6 +363,10 @@ class SpectrumAnalyser(Overlay):
             self.SpecPlot._x_data_spectrogram = np.take(self.SpecPlot._x_data, self.SpecPlot.indices_2)
             self.SpecPlot._range = [min(self.SpecPlot._x_data), max(self.SpecPlot._x_data)]
             self.SpecPlot._updaterange = True
+            
+            """Update Scaler in PSD - Hotfix"""
+            #self.SpectrumAnalyser.SpectrumFFT.PSD.write(0x104, int(struct.unpack('!i',struct.pack('!f',float(1/(self._fs*self.SpectrumWindow.scale_factor))))[0]))
+            self.SpectrumAnalyser.SpectrumFFT.PSD.write(0x108, int(struct.unpack('!i',struct.pack('!f',float(div)))[0]))
         
         def unwrap_slider_val(callback):
             return lambda slider_val : callback(slider_val['new'])
@@ -343,7 +427,7 @@ class SpectrumAnalyser(Overlay):
     def SpectrumViewer(self, 
                   hardware_db = 1, 
                   magnitude = 0,
-                  animation_period = 100,
+                  animation_period = 0,
                   animation_period_range = 100,
                   dma_period = 1/8,
                   continuous_update = True,
@@ -397,24 +481,29 @@ class SpectrumAnalyser(Overlay):
             
         self.SpectrumFFT.PSD.output_selection = int(hardware_db and (not magnitude))
         self.DataInspector.type = int(hardware_db or magnitude)
-        self.SpecPlot = SpecPlot(self.DataInspector.get_buffer_frame(), 
+        self.SpecPlot = SpecPlot(self.get_spectrum_data(), 
                                      Fs = self._fs, 
                                      animation_period = animation_period,
                                      animation_period_range = animation_period_range,
                                      h=h, dark_theme=self.dark_theme)
         self.TimerSpectrogram = Timer(self.SpecPlot.add_frame_spectrogram, dma_period)
-        self.TimerSpectrum = DmaTimer(self.update_voila, self.DataInspector.get_buffer_frame, dma_period)
+        self.TimerSpectrum = DmaTimer(self.update_voila, self.get_spectrum_data, dma_period)
         
         FDP_vbox = ipw.VBox([self.SpecPlot.get_widget(), start_stop_en()], layout=ipw.Layout(width='auto'))
         return FDP_vbox
     
+    def get_spectrum_data(self):
+        self.SpectrumAnalyser.SpectrumFFT.PSD.write(0x104, int(struct.unpack('!i',struct.pack('!f',float(1/(self._fs*self.SpectrumWindow.scale_factor))))[0]))
+        self.SpectrumAnalyser.SpectrumFFT.PSD.write(0x108, int(struct.unpack('!i',struct.pack('!f',float(self._fs/2048)))[0]))
+        frame = self.DataInspector.get_buffer_frame()
+        return frame
     
     def ControlColumn(self):
         # Banner
         image = sipw.image_widget("assets/pynq_logo.png")
 
         # Return required controls as one column
-        return ipw.VBox([image, self.TransmitterSetup(), self.ReceiverSetup(), self.WindowSetup(), self.OutputSetup()],layout=ipw.Layout(width='auto'))
+        return ipw.VBox([image, self.TransmitterSetup(), self.ReceiverSetup(), self.WindowSetup()],layout=ipw.Layout(width='auto'))
     
        
 
@@ -426,10 +515,7 @@ class SpectrumAnalyser(Overlay):
             
         def update_spectrum_timer(value):
             self.TimerSpectrum = DmaTimer(self.update_voila, self.DataInspector.get_buffer_frame, value['new'])
-            if value['new'] < 1/10:
-                self.spectrogram_timer_slider.min = 1/10
-            else: 
-                self.spectrogram_timer_slider.min = value['new']
+            self.spectrogram_timer_slider.min = value['new']
             
         def update_spectrogram_timer(value):
             self.TimerSpectrogram = Timer(self.SpecPlot.add_frame_spectrogram, value['new'])
@@ -465,10 +551,10 @@ class SpectrumAnalyser(Overlay):
             style=style
         )
         
-        self.spectrum_timer_slider = sipw.float_slide_widget('Spectrum Timer:', 1/10, 1/20, 1, 1/20)
-        self.spectrogram_timer_slider = sipw.float_slide_widget('Spectrogram Timer:', 1/10, 1/20, 1, 1/20)
+        self.spectrum_timer_slider = sipw.float_slide_widget('Spectrum Timer:', 1/8, 1/8, 1/4, 1/4)
+        self.spectrogram_timer_slider = sipw.float_slide_widget('Spectrogram Timer:', 1/8, 1/8, 1/4, 1/4)
         spectrogram_buffer_slider = sipw.int_slide_widget('Spectrogram Buffer:', 2, 1, 20, 1)
-        plot_magnitude_range = sipw.int_range_widget('Range:', [-60, 20], -100, 50, 1)
+        plot_magnitude_range = sipw.int_range_widget('Range:', [-140, 0], -160, 0, 1)
         frame_avg = sipw.int_slide_widget('Frame Average: ', 1, 1, 32, 1)
         
         peak_toggle.observe(peak_detect, names='value')

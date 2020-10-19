@@ -25,12 +25,15 @@ class DataInspector(DefaultHierarchy):
         self.data_inspector.transfer = 0
         self.data_inspector.reset = 1
         
-        data = np.fft.fftshift(self.buf_data)
+        buff_length = int(len(self.buf_data))
+        data = np.array(self.buf_data)
+        #data = np.fft.fftshift(self.buf_data)
+        data = np.concatenate((data[int(buff_length/2+1):buff_length], data[0:int(buff_length/2+1)]))
         
         if not self.type:
             data = 10 * np.where(data>0.0, np.log10(data), 0.0)
         
-        return np.array(data)
+        return data
         
     @staticmethod
     def checkhierarchy(description):
