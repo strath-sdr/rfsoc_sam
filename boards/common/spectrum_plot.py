@@ -71,6 +71,7 @@ class SpectrumPlot():
         layout = {
             'hovermode' : 'closest',
             'height' : np.ceil(self._height),
+            'width' : np.ceil(self._width),
             'xaxis' : {
                 'title' : self._xlabel,
                 'showticklabels' : True,

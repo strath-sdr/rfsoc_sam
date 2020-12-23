@@ -6,7 +6,7 @@ import os
 import numpy as np
 import ipywidgets as ipw
 
-import mw_spectrumanalyser, mw_ssrconverter, mw_autodma, mw_transmitter
+import mw_spectrumanalyser, mw_ssrconverter, mw_autodma, mw_transmitter, mw_window
 
 class SpectrumAnalyserOverlay(Overlay):
     
@@ -59,6 +59,9 @@ class SpectrumAnalyserOverlay(Overlay):
         }
         self.adc_block.UpdateEvent(xrfdc.EVENT_MIXER)
         self.adc_tile.SetupFIFO(True)
+        
+        # Hotfix
+        self.mw_window.packet_size = 8192
 
     def init_i2c(self):
         """Initialize the I2C control drivers on RFSoC2x2.
