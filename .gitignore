@@ -1,0 +1,14 @@
+*\rfsoc_pynq
+*\.Xil
+vivado.jou
+vivado.log
+*.log
+*.htm
+.ipynb_checkpoints
+.idea
+*.slxc
+*\slprj
+*\wavedata
+*\hdl_prj
+*.autosave
+*\.hbs
