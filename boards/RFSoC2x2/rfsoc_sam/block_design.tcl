@@ -175,10 +175,13 @@ proc create_root_design { parentCell } {
   # Create ports
   set lmk_reset [ create_bd_port -dir O -from 0 -to 0 lmk_reset ]
 
+  # Create instance: SpectrumAnalyser, and set properties
+  set SpectrumAnalyser [ create_bd_cell -type ip -vlnv xilinx.com:ip:SpectrumAnalyser:1.0 SpectrumAnalyser ]
+
   # Create instance: axi_smc, and set properties
   set axi_smc [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 axi_smc ]
   set_property -dict [ list \
-   CONFIG.NUM_SI {2} \
+   CONFIG.NUM_SI {1} \
  ] $axi_smc
 
   # Create instance: axis_subset_converter, and set properties
@@ -194,20 +197,8 @@ proc create_root_design { parentCell } {
    CONFIG.CONST_VAL {0} \
  ] $lmk_reset_low
 
-  # Create instance: mw_autodma, and set properties
-  set mw_autodma [ create_bd_cell -type ip -vlnv xilinx.com:ip:mw_autodma:1.0 mw_autodma ]
-
-  # Create instance: mw_spectrumanalyser, and set properties
-  set mw_spectrumanalyser [ create_bd_cell -type ip -vlnv xilinx.com:ip:mw_spectrumanalyser:1.0 mw_spectrumanalyser ]
-
-  # Create instance: mw_ssrconverter, and set properties
-  set mw_ssrconverter [ create_bd_cell -type ip -vlnv xilinx.com:ip:mw_ssrconverter:1.0 mw_ssrconverter ]
-
   # Create instance: mw_transmitter, and set properties
   set mw_transmitter [ create_bd_cell -type ip -vlnv xilinx.com:ip:mw_transmitter:1.0 mw_transmitter ]
-
-  # Create instance: mw_window, and set properties
-  set mw_window [ create_bd_cell -type ip -vlnv xilinx.com:ip:mw_window:1.0 mw_window ]
 
   # Create instance: proc_sys_reset, and set properties
   set proc_sys_reset [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset ]
@@ -215,7 +206,7 @@ proc create_root_design { parentCell } {
   # Create instance: ps8_axi_periph, and set properties
   set ps8_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 ps8_axi_periph ]
   set_property -dict [ list \
-   CONFIG.NUM_MI {6} \
+   CONFIG.NUM_MI {3} \
  ] $ps8_axi_periph
 
   # Create instance: rst_ps8_100M, and set properties
@@ -420,51 +411,37 @@ proc create_root_design { parentCell } {
  ] $zynq_ultra_ps_e
 
   # Create interface connections
+  connect_bd_intf_net -intf_net SpectrumAnalyser_AXI4_Master [get_bd_intf_pins SpectrumAnalyser/AXI4_Master] [get_bd_intf_pins axi_smc/S00_AXI]
   connect_bd_intf_net -intf_net adc2_clk_1 [get_bd_intf_ports adc2_clk] [get_bd_intf_pins usp_rf_data_converter/adc2_clk]
   connect_bd_intf_net -intf_net axi_smc_M00_AXI [get_bd_intf_pins axi_smc/M00_AXI] [get_bd_intf_pins zynq_ultra_ps_e/S_AXI_HP2_FPD]
   connect_bd_intf_net -intf_net axis_subset_converter_M_AXIS [get_bd_intf_pins axis_subset_converter/M_AXIS] [get_bd_intf_pins usp_rf_data_converter/s10_axis]
   connect_bd_intf_net -intf_net dac1_clk_1 [get_bd_intf_ports dac1_clk] [get_bd_intf_pins usp_rf_data_converter/dac1_clk]
-  connect_bd_intf_net -intf_net mw_autodma_AXI4_Master [get_bd_intf_pins axi_smc/S00_AXI] [get_bd_intf_pins mw_autodma/AXI4_Master]
-  connect_bd_intf_net -intf_net mw_spectrumanalyser_AXI4_Stream_Master [get_bd_intf_pins mw_autodma/AXI4_Stream_Slave] [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Master]
-  connect_bd_intf_net -intf_net mw_ssrconverter_AXI4_Stream_Imag_Master [get_bd_intf_pins mw_ssrconverter/AXI4_Stream_Imag_Master] [get_bd_intf_pins mw_window/AXI4_Stream_Imag_Slave]
-  connect_bd_intf_net -intf_net mw_ssrconverter_AXI4_Stream_Real_Master [get_bd_intf_pins mw_ssrconverter/AXI4_Stream_Real_Master] [get_bd_intf_pins mw_window/AXI4_Stream_Real_Slave]
   connect_bd_intf_net -intf_net mw_transmitter_AXI4_Stream_Master [get_bd_intf_pins axis_subset_converter/S_AXIS] [get_bd_intf_pins mw_transmitter/AXI4_Stream_Master]
-  connect_bd_intf_net -intf_net mw_window_0_AXI4_Master [get_bd_intf_pins axi_smc/S01_AXI] [get_bd_intf_pins mw_window/AXI4_Master]
-  connect_bd_intf_net -intf_net mw_window_0_AXI4_Stream_Imag_Master [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Imag_Slave] [get_bd_intf_pins mw_window/AXI4_Stream_Imag_Master]
-  connect_bd_intf_net -intf_net mw_window_0_AXI4_Stream_Real_Master [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Real_Slave] [get_bd_intf_pins mw_window/AXI4_Stream_Real_Master]
   connect_bd_intf_net -intf_net ps8_axi_periph_M00_AXI [get_bd_intf_pins ps8_axi_periph/M00_AXI] [get_bd_intf_pins usp_rf_data_converter/s_axi]
-  connect_bd_intf_net -intf_net ps8_axi_periph_M01_AXI [get_bd_intf_pins mw_autodma/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M01_AXI]
-  connect_bd_intf_net -intf_net ps8_axi_periph_M02_AXI [get_bd_intf_pins mw_spectrumanalyser/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M02_AXI]
-  connect_bd_intf_net -intf_net ps8_axi_periph_M03_AXI [get_bd_intf_pins mw_ssrconverter/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M03_AXI]
-  connect_bd_intf_net -intf_net ps8_axi_periph_M04_AXI [get_bd_intf_pins mw_transmitter/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M04_AXI]
-  connect_bd_intf_net -intf_net ps8_axi_periph_M05_AXI [get_bd_intf_pins mw_window/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M05_AXI]
+  connect_bd_intf_net -intf_net ps8_axi_periph_M01_AXI [get_bd_intf_pins mw_transmitter/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M01_AXI]
+  connect_bd_intf_net -intf_net ps8_axi_periph_M02_AXI [get_bd_intf_pins SpectrumAnalyser/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M02_AXI]
   connect_bd_intf_net -intf_net sysref_in_1 [get_bd_intf_ports sysref_in] [get_bd_intf_pins usp_rf_data_converter/sysref_in]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_m20_axis [get_bd_intf_pins mw_ssrconverter/AXI4_Stream_Real_Slave] [get_bd_intf_pins usp_rf_data_converter/m20_axis]
-  connect_bd_intf_net -intf_net usp_rf_data_converter_m21_axis [get_bd_intf_pins mw_ssrconverter/AXI4_Stream_Imag_Slave] [get_bd_intf_pins usp_rf_data_converter/m21_axis]
+  connect_bd_intf_net -intf_net usp_rf_data_converter_m20_axis [get_bd_intf_pins SpectrumAnalyser/AXI4_Stream_Real_Slave] [get_bd_intf_pins usp_rf_data_converter/m20_axis]
+  connect_bd_intf_net -intf_net usp_rf_data_converter_m21_axis [get_bd_intf_pins SpectrumAnalyser/AXI4_Stream_Imag_Slave] [get_bd_intf_pins usp_rf_data_converter/m21_axis]
   connect_bd_intf_net -intf_net usp_rf_data_converter_vout10 [get_bd_intf_ports vout10] [get_bd_intf_pins usp_rf_data_converter/vout10]
   connect_bd_intf_net -intf_net vin2_01_1 [get_bd_intf_ports vin2_01] [get_bd_intf_pins usp_rf_data_converter/vin2_01]
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_M_AXI_HPM0_LPD [get_bd_intf_pins ps8_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e/M_AXI_HPM0_LPD]
 
   # Create port connections
   connect_bd_net -net lmk_reset_low_dout [get_bd_ports lmk_reset] [get_bd_pins lmk_reset_low/dout]
-  connect_bd_net -net proc_sys_reset_peripheral_aresetn [get_bd_pins axi_smc/aresetn] [get_bd_pins mw_autodma/AXI4_Lite_ARESETN] [get_bd_pins mw_autodma/IPCORE_RESETN] [get_bd_pins mw_spectrumanalyser/AXI4_Lite_ARESETN] [get_bd_pins mw_spectrumanalyser/IPCORE_RESETN] [get_bd_pins mw_ssrconverter/AXI4_Lite_ARESETN] [get_bd_pins mw_ssrconverter/IPCORE_RESETN] [get_bd_pins mw_window/AXI4_Lite_ARESETN] [get_bd_pins mw_window/IPCORE_RESETN] [get_bd_pins proc_sys_reset/peripheral_aresetn] [get_bd_pins ps8_axi_periph/M01_ARESETN] [get_bd_pins ps8_axi_periph/M02_ARESETN] [get_bd_pins ps8_axi_periph/M03_ARESETN] [get_bd_pins ps8_axi_periph/M05_ARESETN] [get_bd_pins usp_rf_data_converter/m2_axis_aresetn]
+  connect_bd_net -net proc_sys_reset_peripheral_aresetn [get_bd_pins SpectrumAnalyser/AXI4_Lite_ARESETN] [get_bd_pins SpectrumAnalyser/IPCORE_RESETN] [get_bd_pins axi_smc/aresetn] [get_bd_pins proc_sys_reset/peripheral_aresetn] [get_bd_pins ps8_axi_periph/M02_ARESETN] [get_bd_pins usp_rf_data_converter/m2_axis_aresetn]
   connect_bd_net -net rst_ps8_96M_peripheral_aresetn [get_bd_pins ps8_axi_periph/ARESETN] [get_bd_pins ps8_axi_periph/M00_ARESETN] [get_bd_pins ps8_axi_periph/S00_ARESETN] [get_bd_pins rst_ps8_100M/peripheral_aresetn] [get_bd_pins usp_rf_data_converter/s_axi_aresetn]
-  connect_bd_net -net rst_usp_rf_data_converter_256M_peripheral_aresetn [get_bd_pins axis_subset_converter/aresetn] [get_bd_pins mw_transmitter/AXI4_Lite_ARESETN] [get_bd_pins mw_transmitter/IPCORE_RESETN] [get_bd_pins ps8_axi_periph/M04_ARESETN] [get_bd_pins rst_usp_rf_data_converter_256M/peripheral_aresetn] [get_bd_pins usp_rf_data_converter/s1_axis_aresetn]
-  connect_bd_net -net usp_rf_data_converter_clk_adc2 [get_bd_pins axi_smc/aclk] [get_bd_pins mw_autodma/AXI4_Lite_ACLK] [get_bd_pins mw_autodma/IPCORE_CLK] [get_bd_pins mw_spectrumanalyser/AXI4_Lite_ACLK] [get_bd_pins mw_spectrumanalyser/IPCORE_CLK] [get_bd_pins mw_ssrconverter/AXI4_Lite_ACLK] [get_bd_pins mw_ssrconverter/IPCORE_CLK] [get_bd_pins mw_window/AXI4_Lite_ACLK] [get_bd_pins mw_window/IPCORE_CLK] [get_bd_pins proc_sys_reset/slowest_sync_clk] [get_bd_pins ps8_axi_periph/M01_ACLK] [get_bd_pins ps8_axi_periph/M02_ACLK] [get_bd_pins ps8_axi_periph/M03_ACLK] [get_bd_pins ps8_axi_periph/M05_ACLK] [get_bd_pins usp_rf_data_converter/clk_adc2] [get_bd_pins usp_rf_data_converter/m2_axis_aclk] [get_bd_pins zynq_ultra_ps_e/saxihp2_fpd_aclk]
-  connect_bd_net -net usp_rf_data_converter_clk_dac1 [get_bd_pins axis_subset_converter/aclk] [get_bd_pins mw_transmitter/AXI4_Lite_ACLK] [get_bd_pins mw_transmitter/IPCORE_CLK] [get_bd_pins ps8_axi_periph/M04_ACLK] [get_bd_pins rst_usp_rf_data_converter_256M/slowest_sync_clk] [get_bd_pins usp_rf_data_converter/clk_dac1] [get_bd_pins usp_rf_data_converter/s1_axis_aclk]
+  connect_bd_net -net rst_usp_rf_data_converter_256M_peripheral_aresetn [get_bd_pins axis_subset_converter/aresetn] [get_bd_pins mw_transmitter/AXI4_Lite_ARESETN] [get_bd_pins mw_transmitter/IPCORE_RESETN] [get_bd_pins ps8_axi_periph/M01_ARESETN] [get_bd_pins rst_usp_rf_data_converter_256M/peripheral_aresetn] [get_bd_pins usp_rf_data_converter/s1_axis_aresetn]
+  connect_bd_net -net usp_rf_data_converter_clk_adc2 [get_bd_pins SpectrumAnalyser/AXI4_Lite_ACLK] [get_bd_pins SpectrumAnalyser/IPCORE_CLK] [get_bd_pins axi_smc/aclk] [get_bd_pins proc_sys_reset/slowest_sync_clk] [get_bd_pins ps8_axi_periph/M02_ACLK] [get_bd_pins usp_rf_data_converter/clk_adc2] [get_bd_pins usp_rf_data_converter/m2_axis_aclk] [get_bd_pins zynq_ultra_ps_e/saxihp2_fpd_aclk]
+  connect_bd_net -net usp_rf_data_converter_clk_dac1 [get_bd_pins axis_subset_converter/aclk] [get_bd_pins mw_transmitter/AXI4_Lite_ACLK] [get_bd_pins mw_transmitter/IPCORE_CLK] [get_bd_pins ps8_axi_periph/M01_ACLK] [get_bd_pins rst_usp_rf_data_converter_256M/slowest_sync_clk] [get_bd_pins usp_rf_data_converter/clk_dac1] [get_bd_pins usp_rf_data_converter/s1_axis_aclk]
   connect_bd_net -net zynq_ultra_ps_e_pl_clk0 [get_bd_pins ps8_axi_periph/ACLK] [get_bd_pins ps8_axi_periph/M00_ACLK] [get_bd_pins ps8_axi_periph/S00_ACLK] [get_bd_pins rst_ps8_100M/slowest_sync_clk] [get_bd_pins usp_rf_data_converter/s_axi_aclk] [get_bd_pins zynq_ultra_ps_e/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_pl_resetn0 [get_bd_pins proc_sys_reset/ext_reset_in] [get_bd_pins rst_ps8_100M/ext_reset_in] [get_bd_pins rst_usp_rf_data_converter_256M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e/pl_resetn0]
 
   # Create address segments
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces mw_autodma/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_DDR_LOW] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces mw_autodma/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_LPS_OCM] -force
-  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces mw_window/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_DDR_LOW] -force
-  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces mw_window/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_LPS_OCM] -force
-  assign_bd_address -offset 0x80040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs mw_autodma/AXI4_Lite/reg0] -force
-  assign_bd_address -offset 0x80050000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs mw_spectrumanalyser/AXI4_Lite/reg0] -force
-  assign_bd_address -offset 0x80060000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs mw_ssrconverter/AXI4_Lite/reg0] -force
+  assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces SpectrumAnalyser/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_DDR_LOW] -force
+  assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces SpectrumAnalyser/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_LPS_OCM] -force
+  assign_bd_address -offset 0x80040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs SpectrumAnalyser/AXI4_Lite/reg0] -force
   assign_bd_address -offset 0x80080000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs mw_transmitter/AXI4_Lite/reg0] -force
-  assign_bd_address -offset 0x80070000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs mw_window/AXI4_Lite/reg0] -force
   assign_bd_address -offset 0x80000000 -range 0x00040000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs usp_rf_data_converter/s_axi/Reg] -force
 
 

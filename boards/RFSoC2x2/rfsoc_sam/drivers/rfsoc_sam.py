@@ -3,10 +3,8 @@ from pynq import allocate
 import xrfclk
 import xrfdc
 import os
-import numpy as np
-import ipywidgets as ipw
 
-import mw_spectrumanalyser, mw_ssrconverter, mw_autodma, mw_transmitter, mw_window
+import mw_transmitter, spectrum_analyser
 
 class SpectrumAnalyserOverlay(Overlay):
     
