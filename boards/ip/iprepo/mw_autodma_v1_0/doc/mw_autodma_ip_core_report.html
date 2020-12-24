@@ -100,7 +100,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">Model version
 </td>
-<td class="summaryTableSndColOddRow">1.9
+<td class="summaryTableSndColOddRow">1.11
 </td>
 </tr>
 <tr>
@@ -112,7 +112,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">IP core generated on
 </td>
-<td class="summaryTableSndColOddRow">16-Dec-2020 17:10:06
+<td class="summaryTableSndColOddRow">24-Dec-2020 09:17:14
 </td>
 </tr>
 <tr>
@@ -308,111 +308,27 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:101')">dma_status_db</a>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:98')">wr_m2s</a>
 </td>
 <td class="distinctCellColor">Outport
 </td>
-<td class="distinctCellColor">ufix6
+<td class="distinctCellColor">bus
 </td>
-<td class="distinctCellColor">External Port
+<td class="distinctCellColor">AXI4 Master Write
 </td>
-<td class="distinctCellColor">
+<td class="distinctCellColor">Write Master to Slave Bus
 </td>
 </tr>
 <tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:102')">wr_addr_db</a>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:97')">wr_data</a>
 </td>
 <td>Outport
 </td>
 <td>uint32
 </td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:103')">wr_len_db</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">uint32
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:104')">wr_valid_db</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:105')">wr_data_db</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">uint32
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:106')">wr_ready_db</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:107')">wr_complete_db</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">boolean
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:98')">wr_m2s</a>
-</td>
-<td>Outport
-</td>
-<td>bus
-</td>
 <td>AXI4 Master Write
 </td>
-<td>Write Master to Slave Bus
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_autodma:97')">wr_data</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">uint32
-</td>
-<td class="distinctCellColor">AXI4 Master Write
-</td>
-<td class="distinctCellColor">Data
+<td>Data
 </td>
 </tr>
 </tbody>
@@ -463,7 +379,7 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 </td>
 <td class="distinctCellColor">0xC
 </td>
-<td class="distinctCellColor">contains unique IP timestamp (yymmddHHMM): 2012161710
+<td class="distinctCellColor">contains unique IP timestamp (yymmddHHMM): 2012240917
 </td>
 </tr>
 <tr>
@@ -556,10 +472,6 @@ For example, to reset the IP core, write 0x1 to the bit 0 of IPCore_Reset regist
 This IP core also includes the AXI4-Stream interfaces 
 <b>AXI4-Stream Slave. </b>
 The AXI4-Stream interfaces can be connected to the processor via a DMA controller, or they can be connected to other IP cores with AXI4-Stream interfaces. For example, the diagram above shows a design using AXI4-Stream interfaces as the data path, and using AXI4-Lite interface as the control path. 
-<br/><br/>
-This IP core also support the 
-<b>External Port </b>
-interface. To connect the external ports to the FPGA external IO pins, add FPGA pin assignment constraints in the Xilinx Vivado environment.
 <br/><br/>
 The AXI4 Slave port to pipeline register ratio selected as 35 in task 3.2 for this model. The default delay to read AXI4 register is one clock cycle.
 Depending on the selected ratio and IO connected to AXI4 interface, register pipelining is introduced in the read logic of AXI4 registers.

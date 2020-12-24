@@ -224,22 +224,6 @@ proc create_root_design { parentCell } {
   # Create instance: rst_usp_rf_data_converter_256M, and set properties
   set rst_usp_rf_data_converter_256M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_usp_rf_data_converter_256M ]
 
-  # Create instance: system_ila, and set properties
-  set system_ila [ create_bd_cell -type ip -vlnv xilinx.com:ip:system_ila:1.1 system_ila ]
-  set_property -dict [ list \
-   CONFIG.C_BRAM_CNT {2} \
-   CONFIG.C_DATA_DEPTH {8192} \
-   CONFIG.C_MON_TYPE {NATIVE} \
-   CONFIG.C_NUM_OF_PROBES {7} \
-   CONFIG.C_PROBE0_TYPE {0} \
-   CONFIG.C_PROBE1_TYPE {0} \
-   CONFIG.C_PROBE2_TYPE {0} \
-   CONFIG.C_PROBE3_TYPE {0} \
-   CONFIG.C_PROBE4_TYPE {0} \
-   CONFIG.C_PROBE5_TYPE {0} \
-   CONFIG.C_PROBE6_TYPE {0} \
- ] $system_ila
-
   # Create instance: usp_rf_data_converter, and set properties
   set usp_rf_data_converter [ create_bd_cell -type ip -vlnv xilinx.com:ip:usp_rf_data_converter:2.3 usp_rf_data_converter ]
   set_property -dict [ list \
@@ -441,13 +425,13 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net axis_subset_converter_M_AXIS [get_bd_intf_pins axis_subset_converter/M_AXIS] [get_bd_intf_pins usp_rf_data_converter/s10_axis]
   connect_bd_intf_net -intf_net dac1_clk_1 [get_bd_intf_ports dac1_clk] [get_bd_intf_pins usp_rf_data_converter/dac1_clk]
   connect_bd_intf_net -intf_net mw_autodma_AXI4_Master [get_bd_intf_pins axi_smc/S00_AXI] [get_bd_intf_pins mw_autodma/AXI4_Master]
-  connect_bd_intf_net -intf_net mw_spectrumanalyser_0_AXI4_Stream_Master [get_bd_intf_pins mw_autodma/AXI4_Stream_Slave] [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Master]
+  connect_bd_intf_net -intf_net mw_spectrumanalyser_AXI4_Stream_Master [get_bd_intf_pins mw_autodma/AXI4_Stream_Slave] [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Master]
   connect_bd_intf_net -intf_net mw_ssrconverter_AXI4_Stream_Imag_Master [get_bd_intf_pins mw_ssrconverter/AXI4_Stream_Imag_Master] [get_bd_intf_pins mw_window/AXI4_Stream_Imag_Slave]
   connect_bd_intf_net -intf_net mw_ssrconverter_AXI4_Stream_Real_Master [get_bd_intf_pins mw_ssrconverter/AXI4_Stream_Real_Master] [get_bd_intf_pins mw_window/AXI4_Stream_Real_Slave]
   connect_bd_intf_net -intf_net mw_transmitter_AXI4_Stream_Master [get_bd_intf_pins axis_subset_converter/S_AXIS] [get_bd_intf_pins mw_transmitter/AXI4_Stream_Master]
   connect_bd_intf_net -intf_net mw_window_0_AXI4_Master [get_bd_intf_pins axi_smc/S01_AXI] [get_bd_intf_pins mw_window/AXI4_Master]
-  connect_bd_intf_net -intf_net mw_window_AXI4_Stream_Imag_Master [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Imag_Slave] [get_bd_intf_pins mw_window/AXI4_Stream_Imag_Master]
-  connect_bd_intf_net -intf_net mw_window_AXI4_Stream_Real_Master [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Real_Slave] [get_bd_intf_pins mw_window/AXI4_Stream_Real_Master]
+  connect_bd_intf_net -intf_net mw_window_0_AXI4_Stream_Imag_Master [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Imag_Slave] [get_bd_intf_pins mw_window/AXI4_Stream_Imag_Master]
+  connect_bd_intf_net -intf_net mw_window_0_AXI4_Stream_Real_Master [get_bd_intf_pins mw_spectrumanalyser/AXI4_Stream_Real_Slave] [get_bd_intf_pins mw_window/AXI4_Stream_Real_Master]
   connect_bd_intf_net -intf_net ps8_axi_periph_M00_AXI [get_bd_intf_pins ps8_axi_periph/M00_AXI] [get_bd_intf_pins usp_rf_data_converter/s_axi]
   connect_bd_intf_net -intf_net ps8_axi_periph_M01_AXI [get_bd_intf_pins mw_autodma/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M01_AXI]
   connect_bd_intf_net -intf_net ps8_axi_periph_M02_AXI [get_bd_intf_pins mw_spectrumanalyser/AXI4_Lite] [get_bd_intf_pins ps8_axi_periph/M02_AXI]
@@ -462,26 +446,12 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_M_AXI_HPM0_LPD [get_bd_intf_pins ps8_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e/M_AXI_HPM0_LPD]
 
   # Create port connections
-  connect_bd_net -net dma_status_db [get_bd_pins mw_autodma/dma_status_db] [get_bd_pins system_ila/probe0]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets dma_status_db]
   connect_bd_net -net lmk_reset_low_dout [get_bd_ports lmk_reset] [get_bd_pins lmk_reset_low/dout]
   connect_bd_net -net proc_sys_reset_peripheral_aresetn [get_bd_pins axi_smc/aresetn] [get_bd_pins mw_autodma/AXI4_Lite_ARESETN] [get_bd_pins mw_autodma/IPCORE_RESETN] [get_bd_pins mw_spectrumanalyser/AXI4_Lite_ARESETN] [get_bd_pins mw_spectrumanalyser/IPCORE_RESETN] [get_bd_pins mw_ssrconverter/AXI4_Lite_ARESETN] [get_bd_pins mw_ssrconverter/IPCORE_RESETN] [get_bd_pins mw_window/AXI4_Lite_ARESETN] [get_bd_pins mw_window/IPCORE_RESETN] [get_bd_pins proc_sys_reset/peripheral_aresetn] [get_bd_pins ps8_axi_periph/M01_ARESETN] [get_bd_pins ps8_axi_periph/M02_ARESETN] [get_bd_pins ps8_axi_periph/M03_ARESETN] [get_bd_pins ps8_axi_periph/M05_ARESETN] [get_bd_pins usp_rf_data_converter/m2_axis_aresetn]
   connect_bd_net -net rst_ps8_96M_peripheral_aresetn [get_bd_pins ps8_axi_periph/ARESETN] [get_bd_pins ps8_axi_periph/M00_ARESETN] [get_bd_pins ps8_axi_periph/S00_ARESETN] [get_bd_pins rst_ps8_100M/peripheral_aresetn] [get_bd_pins usp_rf_data_converter/s_axi_aresetn]
   connect_bd_net -net rst_usp_rf_data_converter_256M_peripheral_aresetn [get_bd_pins axis_subset_converter/aresetn] [get_bd_pins mw_transmitter/AXI4_Lite_ARESETN] [get_bd_pins mw_transmitter/IPCORE_RESETN] [get_bd_pins ps8_axi_periph/M04_ARESETN] [get_bd_pins rst_usp_rf_data_converter_256M/peripheral_aresetn] [get_bd_pins usp_rf_data_converter/s1_axis_aresetn]
-  connect_bd_net -net usp_rf_data_converter_clk_adc2 [get_bd_pins axi_smc/aclk] [get_bd_pins mw_autodma/AXI4_Lite_ACLK] [get_bd_pins mw_autodma/IPCORE_CLK] [get_bd_pins mw_spectrumanalyser/AXI4_Lite_ACLK] [get_bd_pins mw_spectrumanalyser/IPCORE_CLK] [get_bd_pins mw_ssrconverter/AXI4_Lite_ACLK] [get_bd_pins mw_ssrconverter/IPCORE_CLK] [get_bd_pins mw_window/AXI4_Lite_ACLK] [get_bd_pins mw_window/IPCORE_CLK] [get_bd_pins proc_sys_reset/slowest_sync_clk] [get_bd_pins ps8_axi_periph/M01_ACLK] [get_bd_pins ps8_axi_periph/M02_ACLK] [get_bd_pins ps8_axi_periph/M03_ACLK] [get_bd_pins ps8_axi_periph/M05_ACLK] [get_bd_pins system_ila/clk] [get_bd_pins usp_rf_data_converter/clk_adc2] [get_bd_pins usp_rf_data_converter/m2_axis_aclk] [get_bd_pins zynq_ultra_ps_e/saxihp2_fpd_aclk]
+  connect_bd_net -net usp_rf_data_converter_clk_adc2 [get_bd_pins axi_smc/aclk] [get_bd_pins mw_autodma/AXI4_Lite_ACLK] [get_bd_pins mw_autodma/IPCORE_CLK] [get_bd_pins mw_spectrumanalyser/AXI4_Lite_ACLK] [get_bd_pins mw_spectrumanalyser/IPCORE_CLK] [get_bd_pins mw_ssrconverter/AXI4_Lite_ACLK] [get_bd_pins mw_ssrconverter/IPCORE_CLK] [get_bd_pins mw_window/AXI4_Lite_ACLK] [get_bd_pins mw_window/IPCORE_CLK] [get_bd_pins proc_sys_reset/slowest_sync_clk] [get_bd_pins ps8_axi_periph/M01_ACLK] [get_bd_pins ps8_axi_periph/M02_ACLK] [get_bd_pins ps8_axi_periph/M03_ACLK] [get_bd_pins ps8_axi_periph/M05_ACLK] [get_bd_pins usp_rf_data_converter/clk_adc2] [get_bd_pins usp_rf_data_converter/m2_axis_aclk] [get_bd_pins zynq_ultra_ps_e/saxihp2_fpd_aclk]
   connect_bd_net -net usp_rf_data_converter_clk_dac1 [get_bd_pins axis_subset_converter/aclk] [get_bd_pins mw_transmitter/AXI4_Lite_ACLK] [get_bd_pins mw_transmitter/IPCORE_CLK] [get_bd_pins ps8_axi_periph/M04_ACLK] [get_bd_pins rst_usp_rf_data_converter_256M/slowest_sync_clk] [get_bd_pins usp_rf_data_converter/clk_dac1] [get_bd_pins usp_rf_data_converter/s1_axis_aclk]
-  connect_bd_net -net wr_addr_db [get_bd_pins mw_autodma/wr_addr_db] [get_bd_pins system_ila/probe1]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_addr_db]
-  connect_bd_net -net wr_complete_db [get_bd_pins mw_autodma/wr_complete_db] [get_bd_pins system_ila/probe2]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_complete_db]
-  connect_bd_net -net wr_data_db [get_bd_pins mw_autodma/wr_data_db] [get_bd_pins system_ila/probe3]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_data_db]
-  connect_bd_net -net wr_len_db [get_bd_pins mw_autodma/wr_len_db] [get_bd_pins system_ila/probe4]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_len_db]
-  connect_bd_net -net wr_ready_db [get_bd_pins mw_autodma/wr_ready_db] [get_bd_pins system_ila/probe5]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_ready_db]
-  connect_bd_net -net wr_valid_db [get_bd_pins mw_autodma/wr_valid_db] [get_bd_pins system_ila/probe6]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets wr_valid_db]
   connect_bd_net -net zynq_ultra_ps_e_pl_clk0 [get_bd_pins ps8_axi_periph/ACLK] [get_bd_pins ps8_axi_periph/M00_ACLK] [get_bd_pins ps8_axi_periph/S00_ACLK] [get_bd_pins rst_ps8_100M/slowest_sync_clk] [get_bd_pins usp_rf_data_converter/s_axi_aclk] [get_bd_pins zynq_ultra_ps_e/maxihpm0_lpd_aclk] [get_bd_pins zynq_ultra_ps_e/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_pl_resetn0 [get_bd_pins proc_sys_reset/ext_reset_in] [get_bd_pins rst_ps8_100M/ext_reset_in] [get_bd_pins rst_usp_rf_data_converter_256M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e/pl_resetn0]
 

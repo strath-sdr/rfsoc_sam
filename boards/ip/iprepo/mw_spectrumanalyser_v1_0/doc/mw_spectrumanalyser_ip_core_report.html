@@ -74,57 +74,51 @@ thead.reportTableHeader {
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor">IP repository
+<td class="distinctCellColor">Target platform
 </td>
-<td class="summaryTableSndColOddRow">C:\GitHub\strath_sdr\rfsoc_sam_private\boards\ip\iprepo
-</td>
-</tr>
-<tr>
-<td>Target platform
-</td>
-<td class="summaryTableSndColEvenRow">Generic Xilinx Platform
+<td class="summaryTableSndColOddRow">Generic Xilinx Platform
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor">Target tool
+<td>Target tool
 </td>
-<td class="summaryTableSndColOddRow">Xilinx Vivado
-</td>
-</tr>
-<tr>
-<td>Target language
-</td>
-<td class="summaryTableSndColEvenRow">VHDL
+<td class="summaryTableSndColEvenRow">Xilinx Vivado
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor">Model
+<td class="distinctCellColor">Target language
 </td>
-<td class="summaryTableSndColOddRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_spectrumanalyser')">mw_spectrumanalyser</a>
-</td>
-</tr>
-<tr>
-<td>Model version
-</td>
-<td class="summaryTableSndColEvenRow">1.30
+<td class="summaryTableSndColOddRow">VHDL
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor">HDL Coder version
+<td>Model
 </td>
-<td class="summaryTableSndColOddRow">3.16
-</td>
-</tr>
-<tr>
-<td>IP core generated on
-</td>
-<td class="summaryTableSndColEvenRow">23-Dec-2020 15:08:52
+<td class="summaryTableSndColEvenRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_spectrumanalyser')">mw_spectrumanalyser</a>
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor">IP core generated for
+<td class="distinctCellColor">Model version
 </td>
-<td class="summaryTableSndColOddRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_spectrumanalyser:215')">Spectrum Analyser</a>
+<td class="summaryTableSndColOddRow">1.34
+</td>
+</tr>
+<tr>
+<td>HDL Coder version
+</td>
+<td class="summaryTableSndColEvenRow">3.16
+</td>
+</tr>
+<tr>
+<td class="distinctCellColor">IP core generated on
+</td>
+<td class="summaryTableSndColOddRow">24-Dec-2020 09:22:46
+</td>
+</tr>
+<tr>
+<td>IP core generated for
+</td>
+<td class="summaryTableSndColEvenRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_spectrumanalyser:215')">Spectrum Analyser</a>
 </td>
 </tr>
 </tbody>
@@ -218,7 +212,7 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_spectrumanalyser:1382')">Bypass</a>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('mw_spectrumanalyser:1382')">Selector</a>
 </td>
 <td class="distinctCellColor">Inport
 </td>
@@ -413,7 +407,7 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 </td>
 <td>0x8
 </td>
-<td>contains unique IP timestamp (yymmddHHMM): 2012231508
+<td>contains unique IP timestamp (yymmddHHMM): 2012240922
 </td>
 </tr>
 <tr>
@@ -457,11 +451,11 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 </td>
 </tr>
 <tr>
-<td>Bypass_Data
+<td>Selector_Data
 </td>
 <td>0x114
 </td>
-<td>data register for Inport Bypass
+<td>data register for Inport Selector
 </td>
 </tr>
 </tbody>
@@ -629,13 +623,305 @@ Following files are generated under this folder:
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_1024.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_1024.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block.vhd</a>
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_128.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_128.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block7.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block7.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block8.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block8.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block9.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block9.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_9_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_9_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator10_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator10_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_10_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_10_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block10.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block10.vhd</a>
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator11.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator11.vhd</a>
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_11.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_11.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_2048.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_2048.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block11.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block11.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block12.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block12.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block13.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block13.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_256.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_256.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block14.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block14.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block15.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block15.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block16.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block16.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block17.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block17.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_9_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_9_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator10_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator10_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_10_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_10_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block18.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block18.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator11_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator11_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_11_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_11_block.vhd</a>
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_11.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_11.vhd</a>
 <br/>
@@ -645,9 +931,237 @@ Following files are generated under this folder:
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_12.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_12.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block3.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_4096.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_4096.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block19.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block19.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block20.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block20.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block21.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block21.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block22.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block22.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block7.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block7.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_512.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_512.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block8.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block8.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block23.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block23.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block24.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block24.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_64.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_64.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator1_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_1_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block9.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block9.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator2_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_2_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_2_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_3_1_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block25.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block25.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator3_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_3_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_3_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator4_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_4_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_4_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_5_1_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block26.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block26.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator5_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_5_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_5_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator6_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_6_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_6_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_7_1_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block27.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block27.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator7_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block5.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_7_block5.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_7_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator8_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_8_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block4.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_8_block4.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_9_1_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block28.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block28.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator9_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block3.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_9_block3.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_9_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_9_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator10_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator10_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_10_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_10_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10_block2.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_10_block2.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_11_1_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block29.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block29.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator11_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator11_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_11_block1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_11_block1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_11_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_11_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator12_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator12_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_12_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF2_12_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_12_block.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_12_block.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_13_1.vhd')">hdl\vhdl\mw_spectrumanalyser_src_TWDLROM_13_1.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block30.vhd')">hdl\vhdl\mw_spectrumanalyser_src_Complex4Multiply_block30.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator13.vhd')">hdl\vhdl\mw_spectrumanalyser_src_SDFCommutator13.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_13.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_SDF1_13.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block10.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX22FFT_CTRL1_1_block10.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block6.vhd')">hdl\vhdl\mw_spectrumanalyser_src_RADIX2FFT_bitNatural_block6.vhd</a>
+<br/>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_8192.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_HDL_Optimized_8192.vhd</a>
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_FFT_Core.vhd')">hdl\vhdl\mw_spectrumanalyser_src_FFT_Core.vhd</a>
 <br/>
@@ -657,7 +1171,7 @@ Following files are generated under this folder:
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_nfp_hypot_single.vhd')">hdl\vhdl\mw_spectrumanalyser_src_nfp_hypot_single.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_nfp_convert_sfix_28_En15_to_single.vhd')">hdl\vhdl\mw_spectrumanalyser_src_nfp_convert_sfix_28_En15_to_single.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_nfp_convert_sfix_29_En15_to_single.vhd')">hdl\vhdl\mw_spectrumanalyser_src_nfp_convert_sfix_29_En15_to_single.vhd</a>
 <br/>
 <a href="matlab:edit('hdl_prj\ipcore\mw_spectrumanalyser_v1_0\hdl\vhdl\mw_spectrumanalyser_src_nfp_log10_single.vhd')">hdl\vhdl\mw_spectrumanalyser_src_nfp_log10_single.vhd</a>
 <br/>

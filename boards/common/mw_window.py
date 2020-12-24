@@ -8,11 +8,9 @@ class WindowCore(DefaultIP):
     def __init__(self, description):
         super().__init__(description=description)
         
-        self.packet_size = 8192
+        self.packet_size = 0
         self.address = 0
         self.enable = 0
-        
-        self.set_window(window_type='rectangular')
 
     def set_window(self, window_type='rectangular'):
         buffer = allocate(shape=(self.packet_size,), dtype=np.int32)
