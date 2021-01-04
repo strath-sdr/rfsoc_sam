@@ -249,11 +249,11 @@ proc create_hier_cell_receiver { parentCell nameHier } {
   connect_bd_intf_net -intf_net AXI4_Lite_1 [get_bd_intf_pins AXI4_Lite] [get_bd_intf_pins axi_interconnect/S00_AXI]
   connect_bd_intf_net -intf_net AXI4_Stream_Imag_Slave_1 [get_bd_intf_pins AXI4_Stream_Imag_Slave] [get_bd_intf_pins decimator/s_axis_im]
   connect_bd_intf_net -intf_net AXI4_Stream_Real_Slave_1 [get_bd_intf_pins AXI4_Stream_Real_Slave] [get_bd_intf_pins decimator/s_axis_re]
-  connect_bd_intf_net -intf_net SpectrumAnalyser_AXI4_Master [get_bd_intf_pins AXI4_Master] [get_bd_intf_pins spectrum_analyser/AXI4_Master]
   connect_bd_intf_net -intf_net axi_interconnect_M00_AXI [get_bd_intf_pins axi_interconnect/M00_AXI] [get_bd_intf_pins spectrum_analyser/AXI4_Lite]
   connect_bd_intf_net -intf_net axi_interconnect_M01_AXI [get_bd_intf_pins axi_interconnect/M01_AXI] [get_bd_intf_pins decimator/xsg_bwselector_s_axi]
   connect_bd_intf_net -intf_net decimator_m_axis_im [get_bd_intf_pins decimator/m_axis_im] [get_bd_intf_pins spectrum_analyser/AXI4_Stream_Imag_Slave]
   connect_bd_intf_net -intf_net decimator_m_axis_re [get_bd_intf_pins decimator/m_axis_re] [get_bd_intf_pins spectrum_analyser/AXI4_Stream_Real_Slave]
+  connect_bd_intf_net -intf_net spectrum_analyser_AXI4_Master [get_bd_intf_pins AXI4_Master] [get_bd_intf_pins spectrum_analyser/AXI4_Master]
 
   # Create port connections
   connect_bd_net -net proc_sys_reset_peripheral_aresetn [get_bd_pins m2_axis_aresetn] [get_bd_pins axi_interconnect/ARESETN] [get_bd_pins axi_interconnect/M00_ARESETN] [get_bd_pins axi_interconnect/M01_ARESETN] [get_bd_pins axi_interconnect/S00_ARESETN] [get_bd_pins decimator/xsg_bwselector_aresetn] [get_bd_pins spectrum_analyser/AXI4_Lite_ARESETN] [get_bd_pins spectrum_analyser/IPCORE_RESETN]
@@ -652,9 +652,9 @@ proc create_root_design { parentCell } {
   connect_bd_net -net zynq_ultra_ps_e_pl_resetn0 [get_bd_pins radio/ext_reset_in] [get_bd_pins rst_ps8_100M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e/pl_resetn0]
 
   # Create address segments
-  assign_bd_address -offset 0x80040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs radio/receiver/spectrum_analyser/AXI4_Lite/reg0] -force
   assign_bd_address -offset 0x80050000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs radio/receiver/decimator/xsg_bwselector_s_axi/reg0] -force
   assign_bd_address -offset 0x80080000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs radio/transmitter/transmitter/AXI4_Lite/reg0] -force
+  assign_bd_address -offset 0x80040000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs radio/receiver/spectrum_analyser/AXI4_Lite/reg0] -force
   assign_bd_address -offset 0x80000000 -range 0x00040000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs radio/rfdc/s_axi/Reg] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces radio/receiver/spectrum_analyser/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_DDR_LOW] -force
   assign_bd_address -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces radio/receiver/spectrum_analyser/AXI4_Master] [get_bd_addr_segs zynq_ultra_ps_e/SAXIGP4/HP2_LPS_OCM] -force

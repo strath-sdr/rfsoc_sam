@@ -6,7 +6,7 @@
 <Project Version="7" Minor="49" Path="C:/GitHub/strath_sdr/rfsoc_sam_private/boards/ip/hdlcoder/hdl_prj/ipcore/SpectrumAnalyser_v1_0/prj_ip/prj_ip.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="3bcfc6ae446c4dddb53a0afa976c837a"/>
+    <Option Name="Id" Val="11aa9789f6db46eda7c302c4863d1d20"/>
     <Option Name="Part" Val="xczu28dr-ffvg1517-2-e"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
