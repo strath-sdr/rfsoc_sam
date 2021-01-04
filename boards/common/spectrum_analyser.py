@@ -43,8 +43,8 @@ class SpectrumAnalyser(DefaultIP):
         self.spectrum_units = 0
         self.spectrum_type = 1
         self.spectrum_vrms = 0
-        self.spectrum_typescale = int(struct.unpack('!i',struct.pack('!f',float(2048e6/4096)))[0])
-        self.spectrum_powerscale = int(struct.unpack('!i',struct.pack('!f',float(1/(2048e6*4096))))[0])
+        self.spectrum_typescale = int(struct.unpack('!i',struct.pack('!f',float(sample_frequency/4096)))[0])
+        self.spectrum_powerscale = int(struct.unpack('!i',struct.pack('!f',float(1/(sample_frequency*4096))))[0])
         self.spectrum_fftselector = 6
         
         # Auto DMA Registers and buffer initialisation
@@ -80,7 +80,7 @@ class SpectrumAnalyser(DefaultIP):
                                   animation_duration=0)
         
         """Create a Function Timer object to enable plot data updates through threading."""
-        self._timer = FunctionTimer(plot=self.plot,
+        self.timer = FunctionTimer(plot=self.plot,
                                     dma=self,
                                     update_frequency=self._update_frequency)
         
@@ -88,37 +88,37 @@ class SpectrumAnalyser(DefaultIP):
         def callback_bt_dma(value, button_id):
             if value:
                 self.dma_enable = 1
-                self._timer.start()
+                self.timer.start()
             else:
                 self.dma_enable = 0
-                self._timer.stop()
+                self.timer.stop()
                 
-        self._bt_dma = qw.Button(callback=callback_bt_dma,
+        self.bt_dma = qw.Button(callback=callback_bt_dma,
                               description_on = 'On',
                               description_off = 'Off',
                               state=False,
                               button_id=0)
         
         """Create accordion for holding control widgets."""
-        self._ac_control = qw.Accordion(title='Receive',
-                                     widgets=[self._bt_dma.get_widget()])
+        self.ac_control = qw.Accordion(title='Receive',
+                                     widgets=[self.bt_dma.get_widget()])
         
         """Create spectrum analyser."""
-        self._analyser = ipw.HBox([self._ac_control.get_widget(), self.plot.get_plot()], \
+        self._analyser = ipw.HBox([self.ac_control.get_widget(), self.plot.get_plot()], \
                                   layout=ipw.Layout(width='auto', height='auto'))
         
     @property
     def update_frequency(self):
-        return self._timer.update_frequency
+        return self.timer.update_frequency
     
     @update_frequency.setter
     def update_frequency(self, update_frequency):
         if update_frequency > 10:
-            self._timer.update_frequency = 10
+            self.timer.update_frequency = 10
         elif update_frequency < 1:
-            self._timer.update_frequency = 1
+            self.timer.update_frequency = 1
         else:
-            self._timer.update_frequency = update_frequency
+            self.timer.update_frequency = update_frequency
             
     @property
     def fft_size(self):
@@ -128,9 +128,9 @@ class SpectrumAnalyser(DefaultIP):
     def fft_size(self, fft_size):
         if fft_size in [8192, 4096, 2048, 1024, 512, 256, 128, 64]:
             running = False
-            if not self._timer.stopping:
-                self._timer.stop()
-                while not self._timer.stopped:
+            if not self.timer.stopping:
+                self.timer.stop()
+                while not self.timer.stopped:
                     pass # Got to wait here until stopped... dont want to spawn another timer.
                 running = True
             self.set_fftsize(fft_size)
@@ -141,7 +141,7 @@ class SpectrumAnalyser(DefaultIP):
             self.spectrum_powerscale = \
                 int(struct.unpack('!i',struct.pack('!f',float(1/(self._sample_frequency*self.window_squaresum))))[0])
             if running:
-                self._timer.start()
+                self.timer.start()
                 
     @property
     def spectrum_window(self):
@@ -154,6 +154,14 @@ class SpectrumAnalyser(DefaultIP):
             int(struct.unpack('!i',struct.pack('!f',float(self._sample_frequency/(self._number_samples))))[0])
         self.spectrum_powerscale = \
             int(struct.unpack('!i',struct.pack('!f',float(1/(self._sample_frequency*self.window_squaresum))))[0])
+        
+    @property
+    def nyquist_stopband(self):
+        return self.nyquist_stopband
+    
+    @nyquist_stopband.setter
+    def nyquist_stopband(self, stopband):
+        self._plot.nyquist_stopband = stopband
         
     def get_analyser(self):
         return self._analyser
@@ -223,7 +231,7 @@ class SpectrumAnalyser(DefaultIP):
     bindto = ['xilinx.com:ip:SpectrumAnalyser:1.0']
     
 _spectrumAnalyser_props = [("ssr_packetsize",       0x100),
-                           ("ssr_mode",             0x104),
+                           ("ssr_mode",            0x104),
                            ("spectrum_units",       0x108),
                            ("spectrum_type",        0x10C),
                            ("spectrum_vrms",        0x110),
@@ -356,7 +364,7 @@ class SpectrumPlot():
         self._spectrum_mode = spectrum_mode
         self._nyquist_stopband = nyquist_stopband
         self._animation_duration = animation_duration
-        self._hold_max = False
+        self.hold_max = False
         
         layout = {
             'hovermode' : 'closest',
@@ -463,7 +471,7 @@ class SpectrumPlot():
         else:
             pass
         
-        if self._hold_max:
+        if self.hold_max:
             self._y_data = maximum_hold(self._plot.data[0].y, self._y_data)
             
         self._plot.data[0].y = self._y_data
