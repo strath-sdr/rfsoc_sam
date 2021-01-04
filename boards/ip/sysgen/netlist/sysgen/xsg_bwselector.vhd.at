@@ -1,0 +1,977 @@
+{
+  'Line_1013' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert1/convert1',
+    'Instance' => 'convert1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert1/Convert1'
+  },
+  'Line_1034' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert1/convert2',
+    'Instance' => 'convert2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert1/Convert2'
+  },
+  'Line_1055' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert1/convert3',
+    'Instance' => 'convert3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert1/Convert3'
+  },
+  'Line_1137' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_imag_fir_2/fir_compiler_7_2',
+    'Instance' => 'fir_compiler_7_2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Imag FIR 2/FIR Compiler 7.2'
+  },
+  'Line_1220' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_real_fir_2/fir_compiler_7_2',
+    'Instance' => 'fir_compiler_7_2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Real FIR 2/FIR Compiler 7.2'
+  },
+  'Line_133' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice0',
+    'Instance' => 'slice0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice0'
+  },
+  'Line_1352' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert',
+    'Instance' => 'vector_convert',
+    'SimulinkInstance' => 'Vector Convert'
+  },
+  'Line_1365' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert1',
+    'Instance' => 'vector_convert1',
+    'SimulinkInstance' => 'Vector Convert1'
+  },
+  'Line_1378' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_imag_fir_2',
+    'Instance' => 'vector_imag_fir_2',
+    'SimulinkInstance' => 'Vector Imag FIR 2'
+  },
+  'Line_1397' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_real_fir_2',
+    'Instance' => 'vector_real_fir_2',
+    'SimulinkInstance' => 'Vector Real FIR 2'
+  },
+  'Line_144' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice1',
+    'Instance' => 'slice1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice1'
+  },
+  'Line_1446' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_convert/convert0',
+    'Instance' => 'convert0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Convert/Convert0'
+  },
+  'Line_1467' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_convert/convert1',
+    'Instance' => 'convert1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Convert/Convert1'
+  },
+  'Line_1518' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_convert1/convert0',
+    'Instance' => 'convert0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Convert1/Convert0'
+  },
+  'Line_1539' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_convert1/convert1',
+    'Instance' => 'convert1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Convert1/Convert1'
+  },
+  'Line_155' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice2',
+    'Instance' => 'slice2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice2'
+  },
+  'Line_1603' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_imag_fir_2/fir_compiler_7_2',
+    'Instance' => 'fir_compiler_7_2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Imag FIR 2/FIR Compiler 7.2'
+  },
+  'Line_166' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice3',
+    'Instance' => 'slice3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice3'
+  },
+  'Line_1662' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_real_fir_2/fir_compiler_7_2',
+    'Instance' => 'fir_compiler_7_2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Real FIR 2/FIR Compiler 7.2'
+  },
+  'Line_1748' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_convert',
+    'Instance' => 'vector_convert',
+    'SimulinkInstance' => 'Vector Convert'
+  },
+  'Line_1757' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_convert1',
+    'Instance' => 'vector_convert1',
+    'SimulinkInstance' => 'Vector Convert1'
+  },
+  'Line_1766' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_imag_fir_2',
+    'Instance' => 'vector_imag_fir_2',
+    'SimulinkInstance' => 'Vector Imag FIR 2'
+  },
+  'Line_177' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice4',
+    'Instance' => 'slice4',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice4'
+  },
+  'Line_1779' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1/vector_real_fir_2',
+    'Instance' => 'vector_real_fir_2',
+    'SimulinkInstance' => 'Vector Real FIR 2'
+  },
+  'Line_1824' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_2/vector_imag_fir_2/fir_compiler_7_2',
+    'Instance' => 'fir_compiler_7_2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 2/Vector Imag FIR 2/FIR Compiler 7.2'
+  },
+  'Line_1871' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_2/vector_real_fir_2/fir_compiler_7_2',
+    'Instance' => 'fir_compiler_7_2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 2/Vector Real FIR 2/FIR Compiler 7.2'
+  },
+  'Line_188' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice5',
+    'Instance' => 'slice5',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice5'
+  },
+  'Line_1931' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_2/vector_imag_fir_2',
+    'Instance' => 'vector_imag_fir_2',
+    'SimulinkInstance' => 'Vector Imag FIR 2'
+  },
+  'Line_1940' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_2/vector_real_fir_2',
+    'Instance' => 'vector_real_fir_2',
+    'SimulinkInstance' => 'Vector Real FIR 2'
+  },
+  'Line_1950' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_2/convert',
+    'Instance' => 'convert',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 2/Convert'
+  },
+  'Line_1971' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_2/convert1',
+    'Instance' => 'convert1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 2/Convert1'
+  },
+  'Line_199' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice6',
+    'Instance' => 'slice6',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice6'
+  },
+  'Line_2052' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret0'
+  },
+  'Line_2060' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret1'
+  },
+  'Line_2068' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret2',
+    'Instance' => 'reinterpret2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret2'
+  },
+  'Line_2076' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret3',
+    'Instance' => 'reinterpret3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret3'
+  },
+  'Line_2084' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret4',
+    'Instance' => 'reinterpret4',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret4'
+  },
+  'Line_2092' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret5',
+    'Instance' => 'reinterpret5',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret5'
+  },
+  'Line_210' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector/slice7',
+    'Instance' => 'slice7',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector/Slice7'
+  },
+  'Line_2100' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret6',
+    'Instance' => 'reinterpret6',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret6'
+  },
+  'Line_2108' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret/reinterpret7',
+    'Instance' => 'reinterpret7',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret/Reinterpret7'
+  },
+  'Line_2176' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret0'
+  },
+  'Line_2184' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret1'
+  },
+  'Line_2192' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret2',
+    'Instance' => 'reinterpret2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret2'
+  },
+  'Line_2200' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret3',
+    'Instance' => 'reinterpret3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret3'
+  },
+  'Line_2208' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret4',
+    'Instance' => 'reinterpret4',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret4'
+  },
+  'Line_2216' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret5',
+    'Instance' => 'reinterpret5',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret5'
+  },
+  'Line_2224' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret6',
+    'Instance' => 'reinterpret6',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret6'
+  },
+  'Line_2232' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1/reinterpret7',
+    'Instance' => 'reinterpret7',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1/Reinterpret7'
+  },
+  'Line_2279' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector2scalar/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector2Scalar/Concat1'
+  },
+  'Line_2333' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector2scalar1/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector2Scalar1/Concat1'
+  },
+  'Line_2436' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret',
+    'Instance' => 'vector_reinterpret',
+    'SimulinkInstance' => 'Vector Reinterpret'
+  },
+  'Line_2455' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector_reinterpret1',
+    'Instance' => 'vector_reinterpret1',
+    'SimulinkInstance' => 'Vector Reinterpret1'
+  },
+  'Line_2474' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector2scalar',
+    'Instance' => 'vector2scalar',
+    'SimulinkInstance' => 'Vector2Scalar'
+  },
+  'Line_2486' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0/vector2scalar1',
+    'Instance' => 'vector2scalar1',
+    'SimulinkInstance' => 'Vector2Scalar1'
+  },
+  'Line_2534' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret/Reinterpret0'
+  },
+  'Line_2542' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret/Reinterpret1'
+  },
+  'Line_2550' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret/reinterpret2',
+    'Instance' => 'reinterpret2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret/Reinterpret2'
+  },
+  'Line_2558' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret/reinterpret3',
+    'Instance' => 'reinterpret3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret/Reinterpret3'
+  },
+  'Line_260' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice0',
+    'Instance' => 'slice0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice0'
+  },
+  'Line_2602' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret1/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret1/Reinterpret0'
+  },
+  'Line_2610' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret1/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret1/Reinterpret1'
+  },
+  'Line_2618' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret1/reinterpret2',
+    'Instance' => 'reinterpret2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret1/Reinterpret2'
+  },
+  'Line_2626' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret1/reinterpret3',
+    'Instance' => 'reinterpret3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret1/Reinterpret3'
+  },
+  'Line_2661' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector2scalar/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector2Scalar/Concat1'
+  },
+  'Line_2699' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector2scalar1/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector2Scalar1/Concat1'
+  },
+  'Line_271' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice1',
+    'Instance' => 'slice1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice1'
+  },
+  'Line_2769' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret',
+    'Instance' => 'vector_reinterpret',
+    'SimulinkInstance' => 'Vector Reinterpret'
+  },
+  'Line_2780' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector_reinterpret1',
+    'Instance' => 'vector_reinterpret1',
+    'SimulinkInstance' => 'Vector Reinterpret1'
+  },
+  'Line_2791' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector2scalar',
+    'Instance' => 'vector2scalar',
+    'SimulinkInstance' => 'Vector2Scalar'
+  },
+  'Line_2799' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/vector2scalar1',
+    'Instance' => 'vector2scalar1',
+    'SimulinkInstance' => 'Vector2Scalar1'
+  },
+  'Line_2807' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/concat',
+    'Instance' => 'concat',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Concat'
+  },
+  'Line_2816' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/constant_x0',
+    'Instance' => 'constant_x0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Constant'
+  },
+  'Line_282' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice2',
+    'Instance' => 'slice2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice2'
+  },
+  'Line_2823' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Concat1'
+  },
+  'Line_2856' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector_reinterpret1/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector Reinterpret1/Reinterpret0'
+  },
+  'Line_2864' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector_reinterpret1/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector Reinterpret1/Reinterpret1'
+  },
+  'Line_2896' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector_reinterpret2/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector Reinterpret2/Reinterpret0'
+  },
+  'Line_2904' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector_reinterpret2/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector Reinterpret2/Reinterpret1'
+  },
+  'Line_293' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice3',
+    'Instance' => 'slice3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice3'
+  },
+  'Line_2933' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector2scalar/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector2Scalar/Concat1'
+  },
+  'Line_2963' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector2scalar1/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector2Scalar1/Concat1'
+  },
+  'Line_3015' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector_reinterpret1',
+    'Instance' => 'vector_reinterpret1',
+    'SimulinkInstance' => 'Vector Reinterpret1'
+  },
+  'Line_3022' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector_reinterpret2',
+    'Instance' => 'vector_reinterpret2',
+    'SimulinkInstance' => 'Vector Reinterpret2'
+  },
+  'Line_3029' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector2scalar',
+    'Instance' => 'vector2scalar',
+    'SimulinkInstance' => 'Vector2Scalar'
+  },
+  'Line_3035' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/vector2scalar1',
+    'Instance' => 'vector2scalar1',
+    'SimulinkInstance' => 'Vector2Scalar1'
+  },
+  'Line_304' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice4',
+    'Instance' => 'slice4',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice4'
+  },
+  'Line_3041' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/concat',
+    'Instance' => 'concat',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Concat'
+  },
+  'Line_3050' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Concat1'
+  },
+  'Line_3059' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2/constant_x0',
+    'Instance' => 'constant_x0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Constant'
+  },
+  'Line_3135' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_switch/mux1',
+    'Instance' => 'mux1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Switch/Mux1'
+  },
+  'Line_3147' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_switch/mux2',
+    'Instance' => 'mux2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Switch/Mux2'
+  },
+  'Line_315' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice5',
+    'Instance' => 'slice5',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice5'
+  },
+  'Line_3159' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_switch/mux3',
+    'Instance' => 'mux3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Switch/Mux3'
+  },
+  'Line_3171' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_switch/mux',
+    'Instance' => 'mux',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Switch/Mux'
+  },
+  'Line_326' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice6',
+    'Instance' => 'slice6',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice6'
+  },
+  'Line_3301' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0',
+    'Instance' => 'fir_2_system_0',
+    'SimulinkInstance' => 'FIR 2 System 0'
+  },
+  'Line_3334' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_1',
+    'Instance' => 'fir_2_system_1',
+    'SimulinkInstance' => 'FIR 2 System 1'
+  },
+  'Line_3355' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_2',
+    'Instance' => 'fir_2_system_2',
+    'SimulinkInstance' => 'FIR 2 System 2'
+  },
+  'Line_3369' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_0',
+    'Instance' => 'ssr_converter_0',
+    'SimulinkInstance' => 'SSR Converter 0'
+  },
+  'Line_337' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1/slice7',
+    'Instance' => 'slice7',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1/Slice7'
+  },
+  'Line_3392' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_1',
+    'Instance' => 'ssr_converter_1',
+    'SimulinkInstance' => 'SSR Converter 1'
+  },
+  'Line_3407' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_converter_2',
+    'Instance' => 'ssr_converter_2',
+    'SimulinkInstance' => 'SSR Converter 2'
+  },
+  'Line_3418' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/ssr_switch',
+    'Instance' => 'ssr_switch',
+    'SimulinkInstance' => 'SSR Switch'
+  },
+  'Line_3479' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_0_system/convert2',
+    'Instance' => 'convert2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 0 System/Convert2'
+  },
+  'Line_3500' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_0_system/convert3',
+    'Instance' => 'convert3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 0 System/Convert3'
+  },
+  'Line_3521' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_0_system/fir_0',
+    'Instance' => 'fir_0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 0 System/FIR 0'
+  },
+  'Line_3574' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_1_system/convert2',
+    'Instance' => 'convert2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 1 System/Convert2'
+  },
+  'Line_3595' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_1_system/convert3',
+    'Instance' => 'convert3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 1 System/Convert3'
+  },
+  'Line_3616' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_1_system/fir_1',
+    'Instance' => 'fir_1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 1 System/FIR 1'
+  },
+  'Line_3669' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_2_system/convert2',
+    'Instance' => 'convert2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 2 System/Convert2'
+  },
+  'Line_3690' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_2_system/convert3',
+    'Instance' => 'convert3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 2 System/Convert3'
+  },
+  'Line_3711' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_2_system/fir_2',
+    'Instance' => 'fir_2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 2 System/FIR 2'
+  },
+  'Line_3767' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_0/mux1',
+    'Instance' => 'mux1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 0/Mux1'
+  },
+  'Line_3777' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_0/mux2',
+    'Instance' => 'mux2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 0/Mux2'
+  },
+  'Line_3787' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_0/mux3',
+    'Instance' => 'mux3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 0/Mux3'
+  },
+  'Line_3839' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_1/mux1',
+    'Instance' => 'mux1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 1/Mux1'
+  },
+  'Line_3849' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_1/mux2',
+    'Instance' => 'mux2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 1/Mux2'
+  },
+  'Line_3859' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_1/mux3',
+    'Instance' => 'mux3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 1/Mux3'
+  },
+  'Line_3911' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_2/mux1',
+    'Instance' => 'mux1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 2/Mux1'
+  },
+  'Line_3921' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_2/mux2',
+    'Instance' => 'mux2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 2/Mux2'
+  },
+  'Line_3931' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_2/mux3',
+    'Instance' => 'mux3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 2/Mux3'
+  },
+  'Line_4002' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_0_system',
+    'Instance' => 'fir_0_system',
+    'SimulinkInstance' => 'FIR 0 System'
+  },
+  'Line_4013' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_1_system',
+    'Instance' => 'fir_1_system',
+    'SimulinkInstance' => 'FIR 1 System'
+  },
+  'Line_4024' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/fir_2_system',
+    'Instance' => 'fir_2_system',
+    'SimulinkInstance' => 'FIR 2 System'
+  },
+  'Line_4035' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_0',
+    'Instance' => 'switch_0',
+    'SimulinkInstance' => 'Switch 0'
+  },
+  'Line_4048' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_1',
+    'Instance' => 'switch_1',
+    'SimulinkInstance' => 'Switch 1'
+  },
+  'Line_4061' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/switch_2',
+    'Instance' => 'switch_2',
+    'SimulinkInstance' => 'Switch 2'
+  },
+  'Line_4074' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/logical',
+    'Instance' => 'logical',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Logical'
+  },
+  'Line_408' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret0'
+  },
+  'Line_4084' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/logical1',
+    'Instance' => 'logical1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Logical1'
+  },
+  'Line_4093' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/slice_v',
+    'Instance' => 'slice_v',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Slice V'
+  },
+  'Line_4104' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/slice_w',
+    'Instance' => 'slice_w',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Slice W'
+  },
+  'Line_4115' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator/slice_x',
+    'Instance' => 'slice_x',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Slice X'
+  },
+  'Line_4156' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_converter/concat',
+    'Instance' => 'concat',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Converter/Concat'
+  },
+  'Line_416' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret1'
+  },
+  'Line_4165' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_converter/concat1',
+    'Instance' => 'concat1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Converter/Concat1'
+  },
+  'Line_4174' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_converter/constant_x0',
+    'Instance' => 'constant_x0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Converter/Constant'
+  },
+  'Line_4181' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_converter/reinterpret',
+    'Instance' => 'reinterpret',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Converter/Reinterpret'
+  },
+  'Line_4189' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_converter/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Converter/Reinterpret1'
+  },
+  'Line_42' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_master_interface/register_x0',
+    'Instance' => 'register_x0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Master Interface/Register'
+  },
+  'Line_424' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret2',
+    'Instance' => 'reinterpret2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret2'
+  },
+  'Line_4251' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_switch/mux',
+    'Instance' => 'mux',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Switch/Mux'
+  },
+  'Line_4261' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_switch/mux1',
+    'Instance' => 'mux1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Switch/Mux1'
+  },
+  'Line_4271' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_switch/mux2',
+    'Instance' => 'mux2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Switch/Mux2'
+  },
+  'Line_4281' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_switch/mux3',
+    'Instance' => 'mux3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Switch/Mux3'
+  },
+  'Line_432' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret3',
+    'Instance' => 'reinterpret3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret3'
+  },
+  'Line_4396' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator',
+    'Instance' => 'coarse_decimator',
+    'SimulinkInstance' => 'Coarse Decimator'
+  },
+  'Line_440' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret4',
+    'Instance' => 'reinterpret4',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret4'
+  },
+  'Line_4427' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/fine_decimator',
+    'Instance' => 'fine_decimator',
+    'SimulinkInstance' => 'Fine Decimator'
+  },
+  'Line_4440' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_converter',
+    'Instance' => 'ssr_converter',
+    'SimulinkInstance' => 'SSR Converter'
+  },
+  'Line_4448' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/ssr_switch',
+    'Instance' => 'ssr_switch',
+    'SimulinkInstance' => 'SSR Switch'
+  },
+  'Line_4465' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/constant2',
+    'Instance' => 'constant2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Constant2'
+  },
+  'Line_4472' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/relational1',
+    'Instance' => 'relational1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Relational1'
+  },
+  'Line_448' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret5',
+    'Instance' => 'reinterpret5',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret5'
+  },
+  'Line_4481' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/slice2',
+    'Instance' => 'slice2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Slice2'
+  },
+  'Line_4492' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/constant1',
+    'Instance' => 'constant1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Constant1'
+  },
+  'Line_4499' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/mux',
+    'Instance' => 'mux',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Mux'
+  },
+  'Line_4509' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/slice1',
+    'Instance' => 'slice1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Slice1'
+  },
+  'Line_456' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret6',
+    'Instance' => 'reinterpret6',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret6'
+  },
+  'Line_4593' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_master_interface',
+    'Instance' => 'axi_stream_master_interface',
+    'SimulinkInstance' => 'AXI-Stream Master Interface'
+  },
+  'Line_4606' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface',
+    'Instance' => 'axi_stream_slave_interface',
+    'SimulinkInstance' => 'AXI-Stream Slave Interface'
+  },
+  'Line_4635' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core',
+    'Instance' => 'bandwidth_selector_core',
+    'SimulinkInstance' => 'Bandwidth Selector Core'
+  },
+  'Line_464' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret/reinterpret7',
+    'Instance' => 'reinterpret7',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret/Reinterpret7'
+  },
+  'Line_4663' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/register_x0',
+    'Instance' => 'register_x0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Register'
+  },
+  'Line_4726' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector',
+    'Instance' => 'bandwidth_selector',
+    'SimulinkInstance' => 'Bandwidth Selector'
+  },
+  'Line_4759' => {
+    'CodeInstance' => 'xsg_bwselector_default_clock_driver/clockdriver',
+    'Instance' => 'clockdriver',
+    'SimulinkInstance' => ''
+  },
+  'Line_4818' => {
+    'CodeInstance' => 'xsg_bwselector_axi_lite_interface',
+    'Instance' => 'xsg_bwselector_axi_lite_interface',
+    'SimulinkInstance' => ''
+  },
+  'Line_4842' => {
+    'CodeInstance' => 'xsg_bwselector_default_clock_driver',
+    'Instance' => 'xsg_bwselector_default_clock_driver',
+    'SimulinkInstance' => ''
+  },
+  'Line_4850' => {
+    'CodeInstance' => 'xsg_bwselector_struct',
+    'Instance' => 'xsg_bwselector_struct',
+    'SimulinkInstance' => 'xsg_bwselector'
+  },
+  'Line_532' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret0',
+    'Instance' => 'reinterpret0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret0'
+  },
+  'Line_540' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret1'
+  },
+  'Line_548' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret2',
+    'Instance' => 'reinterpret2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret2'
+  },
+  'Line_55' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_master_interface/register1',
+    'Instance' => 'register1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Master Interface/Register1'
+  },
+  'Line_556' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret3',
+    'Instance' => 'reinterpret3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret3'
+  },
+  'Line_564' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret4',
+    'Instance' => 'reinterpret4',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret4'
+  },
+  'Line_572' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret5',
+    'Instance' => 'reinterpret5',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret5'
+  },
+  'Line_580' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret6',
+    'Instance' => 'reinterpret6',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret6'
+  },
+  'Line_588' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1/reinterpret7',
+    'Instance' => 'reinterpret7',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1/Reinterpret7'
+  },
+  'Line_68' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_master_interface/register2',
+    'Instance' => 'register2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Master Interface/Register2'
+  },
+  'Line_703' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector',
+    'Instance' => 'scalar2vector',
+    'SimulinkInstance' => 'Scalar2Vector'
+  },
+  'Line_715' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/scalar2vector1',
+    'Instance' => 'scalar2vector1',
+    'SimulinkInstance' => 'Scalar2Vector1'
+  },
+  'Line_727' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret',
+    'Instance' => 'vector_reinterpret',
+    'SimulinkInstance' => 'Vector Reinterpret'
+  },
+  'Line_746' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/vector_reinterpret1',
+    'Instance' => 'vector_reinterpret1',
+    'SimulinkInstance' => 'Vector Reinterpret1'
+  },
+  'Line_765' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/constant_x0',
+    'Instance' => 'constant_x0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Constant'
+  },
+  'Line_772' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/register_x0',
+    'Instance' => 'register_x0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Register'
+  },
+  'Line_785' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/register1',
+    'Instance' => 'register1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Register1'
+  },
+  'Line_798' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/register2',
+    'Instance' => 'register2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Register2'
+  },
+  'Line_81' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_master_interface/register3',
+    'Instance' => 'register3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Master Interface/Register3'
+  },
+  'Line_811' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/axi_stream_slave_interface/register3',
+    'Instance' => 'register3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Register3'
+  },
+  'Line_866' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert/convert0',
+    'Instance' => 'convert0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert/Convert0'
+  },
+  'Line_887' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert/convert1',
+    'Instance' => 'convert1',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert/Convert1'
+  },
+  'Line_908' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert/convert2',
+    'Instance' => 'convert2',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert/Convert2'
+  },
+  'Line_929' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert/convert3',
+    'Instance' => 'convert3',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert/Convert3'
+  },
+  'Line_992' => {
+    'CodeInstance' => 'xsg_bwselector_struct/bandwidth_selector/bandwidth_selector_core/coarse_decimator/fir_2_system_0/vector_convert1/convert0',
+    'Instance' => 'convert0',
+    'SimulinkInstance' => 'xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert1/Convert0'
+  }
+}
