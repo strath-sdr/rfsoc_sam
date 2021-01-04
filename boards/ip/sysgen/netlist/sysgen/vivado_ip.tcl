@@ -360,7 +360,7 @@ lappend params_list CONFIG.No_BRAM_Read_First_Mode {false}
 lappend params_list CONFIG.No_SRL_Attributes {false}
 lappend params_list CONFIG.Num_Reload_Slots {1}
 lappend params_list CONFIG.Number_Channels {1}
-lappend params_list CONFIG.Number_Paths {2}
+lappend params_list CONFIG.Number_Paths {1}
 lappend params_list CONFIG.Optimal_Column_Lengths {false}
 lappend params_list CONFIG.Optimization_Goal {Area}
 lappend params_list CONFIG.Optimization_List {None}
@@ -450,7 +450,7 @@ lappend params_list CONFIG.No_BRAM_Read_First_Mode {false}
 lappend params_list CONFIG.No_SRL_Attributes {false}
 lappend params_list CONFIG.Num_Reload_Slots {1}
 lappend params_list CONFIG.Number_Channels {1}
-lappend params_list CONFIG.Number_Paths {2}
+lappend params_list CONFIG.Number_Paths {1}
 lappend params_list CONFIG.Optimal_Column_Lengths {false}
 lappend params_list CONFIG.Optimization_Goal {Area}
 lappend params_list CONFIG.Optimization_List {None}
@@ -540,7 +540,7 @@ lappend params_list CONFIG.No_BRAM_Read_First_Mode {false}
 lappend params_list CONFIG.No_SRL_Attributes {false}
 lappend params_list CONFIG.Num_Reload_Slots {1}
 lappend params_list CONFIG.Number_Channels {1}
-lappend params_list CONFIG.Number_Paths {2}
+lappend params_list CONFIG.Number_Paths {1}
 lappend params_list CONFIG.Optimal_Column_Lengths {false}
 lappend params_list CONFIG.Optimization_Goal {Area}
 lappend params_list CONFIG.Optimization_List {None}

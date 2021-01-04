@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Sun Jan  3 21:10:19 2021
+--Date        : Mon Jan  4 01:12:14 2021
 --Host        : DESKTOP-2K5Q0I9 running 64-bit major release  (build 9200)
 --Command     : generate_target xsg_bwselector_bd.bd
 --Design      : xsg_bwselector_bd

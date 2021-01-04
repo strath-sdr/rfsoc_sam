@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="xsg_bwselector_bd" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1609708219"/>
-    <Generation Name="IMPLEMENTATION" State="STALE" Timestamp="1609708219"/>
-    <Generation Name="SIMULATION" State="STALE" Timestamp="1609708219"/>
-    <Generation Name="HW_HANDOFF" State="STALE" Timestamp="1609708213"/>
+    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1609722734"/>
+    <Generation Name="IMPLEMENTATION" State="STALE" Timestamp="1609722734"/>
+    <Generation Name="SIMULATION" State="STALE" Timestamp="1609722734"/>
+    <Generation Name="HW_HANDOFF" State="STALE" Timestamp="1609722731"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip\xsg_bwselector_bd_xsg_bwselector_1_0\xsg_bwselector_bd_xsg_bwselector_1_0.xci" Type="IP">
         <Instance HierarchyPath="xsg_bwselector_1"/>

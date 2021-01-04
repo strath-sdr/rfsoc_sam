@@ -1597,7 +1597,7 @@ immediate dependency {} format bool minimum {} maximum {}} value true}}}}}}</spi
         <xilinx:xpmLibrary>XPM_FIFO</xilinx:xpmLibrary>
         <xilinx:xpmLibrary>XPM_CDC</xilinx:xpmLibrary>
       </xilinx:xpmLibraries>
-      <xilinx:coreRevision>240613775</xilinx:coreRevision>
+      <xilinx:coreRevision>240628298</xilinx:coreRevision>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>

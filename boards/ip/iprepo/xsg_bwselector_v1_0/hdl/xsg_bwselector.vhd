@@ -1,4 +1,4 @@
--- Generated from Simulink block AXI-Stream Master Interface
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/AXI-Stream Master Interface
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -18,16 +18,16 @@ entity xsg_bwselector_axi_stream_master_interface is
   );
 end xsg_bwselector_axi_stream_master_interface;
 architecture structural of xsg_bwselector_axi_stream_master_interface is 
-  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
   signal register1_q_net : std_logic_vector( 128-1 downto 0 );
-  signal ce_net : std_logic;
-  signal clk_net : std_logic;
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
+  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
   signal mux1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
+  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
   signal register_q_net : std_logic_vector( 1-1 downto 0 );
   signal register3_q_net : std_logic_vector( 128-1 downto 0 );
-  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
+  signal ce_net : std_logic;
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
+  signal clk_net : std_logic;
+  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
 begin
   mux_y_net <= re_valid_in;
   mux1_y_net <= re_data_in;
@@ -92,7 +92,7 @@ begin
     q => register3_q_net
   );
 end structural;
--- Generated from Simulink block Scalar2Vector
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -111,15 +111,15 @@ entity xsg_bwselector_scalar2vector is
   );
 end xsg_bwselector_scalar2vector;
 architecture structural of xsg_bwselector_scalar2vector is 
-  signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice6_y_net : std_logic_vector( 16-1 downto 0 );
+  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
+  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice3_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice7_y_net : std_logic_vector( 16-1 downto 0 );
-  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
-  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice6_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
 begin
   o_1 <= slice0_y_net;
   o_2 <= slice1_y_net;
@@ -219,7 +219,7 @@ begin
     y => slice7_y_net
   );
 end structural;
--- Generated from Simulink block Scalar2Vector1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Scalar2Vector1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -238,15 +238,15 @@ entity xsg_bwselector_scalar2vector1 is
   );
 end xsg_bwselector_scalar2vector1;
 architecture structural of xsg_bwselector_scalar2vector1 is 
+  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice6_y_net : std_logic_vector( 16-1 downto 0 );
+  signal register_q_net : std_logic_vector( 128-1 downto 0 );
+  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice3_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice7_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice6_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
-  signal register_q_net : std_logic_vector( 128-1 downto 0 );
-  signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
 begin
   o_1 <= slice0_y_net;
   o_2 <= slice1_y_net;
@@ -346,7 +346,7 @@ begin
     y => slice7_y_net
   );
 end structural;
--- Generated from Simulink block Vector Reinterpret
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -372,20 +372,20 @@ entity xsg_bwselector_vector_reinterpret is
   );
 end xsg_bwselector_vector_reinterpret;
 architecture structural of xsg_bwselector_vector_reinterpret is 
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal slice3_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice6_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice7_y_net : std_logic_vector( 16-1 downto 0 );
 begin
@@ -470,7 +470,7 @@ begin
     output_port => reinterpret7_output_port_net
   );
 end structural;
--- Generated from Simulink block Vector Reinterpret1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface/Vector Reinterpret1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -497,21 +497,21 @@ entity xsg_bwselector_vector_reinterpret1 is
 end xsg_bwselector_vector_reinterpret1;
 architecture structural of xsg_bwselector_vector_reinterpret1 is 
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice7_y_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice3_y_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice7_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice6_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice3_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
 begin
   out_1 <= reinterpret0_output_port_net;
   out_2 <= reinterpret1_output_port_net;
@@ -594,7 +594,7 @@ begin
     output_port => reinterpret7_output_port_net
   );
 end structural;
--- Generated from Simulink block AXI-Stream Slave Interface
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/AXI-Stream Slave Interface
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -630,49 +630,49 @@ entity xsg_bwselector_axi_stream_slave_interface is
   );
 end xsg_bwselector_axi_stream_slave_interface;
 architecture structural of xsg_bwselector_axi_stream_slave_interface is 
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
   signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal s_axis_re_tdata_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal s_axis_im_tdata_net : std_logic_vector( 128-1 downto 0 );
-  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
-  signal s_axis_im_tvalid_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal s_axis_re_tdata_net : std_logic_vector( 128-1 downto 0 );
   signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal slice2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice3_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice4_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice7_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
-  signal s_axis_re_tvalid_net : std_logic_vector( 1-1 downto 0 );
-  signal slice1_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice5_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
-  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice3_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice0_y_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal slice5_y_net : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
-  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice6_y_net : std_logic_vector( 16-1 downto 0 );
-  signal slice6_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice7_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice0_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice0_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal s_axis_re_tvalid_net : std_logic_vector( 1-1 downto 0 );
+  signal slice5_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal slice2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal slice3_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal clk_net : std_logic;
+  signal slice6_y_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal register_q_net : std_logic_vector( 128-1 downto 0 );
+  signal slice7_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal slice7_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice4_y_net : std_logic_vector( 16-1 downto 0 );
+  signal s_axis_im_tvalid_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal s_axis_im_tdata_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal ce_net : std_logic;
+  signal slice1_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal slice3_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
+  signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal slice4_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
 begin
   re_valid_out <= register3_q_net;
   re_data_out_1 <= reinterpret0_output_port_net_x0;
@@ -822,12 +822,12 @@ begin
     q => register3_q_net
   );
 end structural;
--- Generated from Simulink block Vector Convert
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_convert_x0 is
+entity xsg_bwselector_vector_convert is
   port (
     i_1 : in std_logic_vector( 32-1 downto 0 );
     i_2 : in std_logic_vector( 32-1 downto 0 );
@@ -840,18 +840,18 @@ entity xsg_bwselector_vector_convert_x0 is
     o_3 : out std_logic_vector( 16-1 downto 0 );
     o_4 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_convert_x0;
-architecture structural of xsg_bwselector_vector_convert_x0 is 
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
-  signal clk_net : std_logic;
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+end xsg_bwselector_vector_convert;
+architecture structural of xsg_bwselector_vector_convert is 
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
   signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
 begin
   o_1 <= convert0_dout_net;
   o_2 <= convert1_dout_net;
@@ -948,12 +948,12 @@ begin
     dout => convert3_dout_net
   );
 end structural;
--- Generated from Simulink block Vector Convert1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Convert1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_convert1_x0 is
+entity xsg_bwselector_vector_convert1 is
   port (
     i_1 : in std_logic_vector( 32-1 downto 0 );
     i_2 : in std_logic_vector( 32-1 downto 0 );
@@ -966,18 +966,18 @@ entity xsg_bwselector_vector_convert1_x0 is
     o_3 : out std_logic_vector( 16-1 downto 0 );
     o_4 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_convert1_x0;
-architecture structural of xsg_bwselector_vector_convert1_x0 is 
+end xsg_bwselector_vector_convert1;
+architecture structural of xsg_bwselector_vector_convert1 is 
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+  signal ce_net : std_logic;
   signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
   signal clk_net : std_logic;
-  signal ce_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
   o_1 <= convert0_dout_net;
   o_2 <= convert1_dout_net;
@@ -1074,7 +1074,7 @@ begin
     dout => convert3_dout_net
   );
 end structural;
--- Generated from Simulink block Vector Imag FIR 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Imag FIR 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1100,23 +1100,23 @@ entity xsg_bwselector_vector_imag_fir_2 is
   );
 end xsg_bwselector_vector_imag_fir_2;
 architecture structural of xsg_bwselector_vector_imag_fir_2 is 
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
   signal register2_q_net : std_logic_vector( 1-1 downto 0 );
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
   signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal clk_net : std_logic;
   signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal clk_net : std_logic;
   signal ce_net : std_logic;
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
 begin
   tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
   tdo_1 <= fir_compiler_7_2_m_axis_data_tdata_vect0_net;
@@ -1157,7 +1157,7 @@ begin
     m_axis_data_tdata_vect0 => fir_compiler_7_2_m_axis_data_tdata_vect0_net
   );
 end structural;
--- Generated from Simulink block Vector Real FIR 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0/Vector Real FIR 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1183,23 +1183,23 @@ entity xsg_bwselector_vector_real_fir_2 is
   );
 end xsg_bwselector_vector_real_fir_2;
 architecture structural of xsg_bwselector_vector_real_fir_2 is 
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal clk_net : std_logic;
   signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal ce_net : std_logic;
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
 begin
   tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
   tdo_1 <= fir_compiler_7_2_m_axis_data_tdata_vect0_net;
@@ -1240,7 +1240,7 @@ begin
     m_axis_data_tdata_vect0 => fir_compiler_7_2_m_axis_data_tdata_vect0_net
   );
 end structural;
--- Generated from Simulink block FIR 2 System 0
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 0
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1280,44 +1280,44 @@ entity xsg_bwselector_fir_2_system_0 is
   );
 end xsg_bwselector_fir_2_system_0;
 architecture structural of xsg_bwselector_fir_2_system_0 is 
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
-  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
   signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal clk_net : std_logic;
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal ce_net : std_logic;
+  signal clk_net : std_logic;
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
+  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net_x0 : std_logic_vector( 32-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tdata_vect2_net_x0 : std_logic_vector( 32-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
   signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net_x0 : std_logic_vector( 32-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
-  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net_x0 : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect3_net : std_logic_vector( 32-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
+  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net_x0 : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect2_net : std_logic_vector( 32-1 downto 0 );
-  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
 begin
   re_valid_out <= fir_compiler_7_2_m_axis_data_tvalid_net;
   re_data_out_1 <= convert0_dout_net_x0;
@@ -1349,7 +1349,7 @@ begin
   reinterpret7_output_port_net <= im_data_in_8;
   clk_net <= clk_1;
   ce_net <= ce_1;
-  vector_convert : entity xil_defaultlib.xsg_bwselector_vector_convert_x0 
+  vector_convert : entity xil_defaultlib.xsg_bwselector_vector_convert 
   port map (
     i_1 => fir_compiler_7_2_m_axis_data_tdata_vect0_net_x0,
     i_2 => fir_compiler_7_2_m_axis_data_tdata_vect1_net_x0,
@@ -1362,7 +1362,7 @@ begin
     o_3 => convert2_dout_net_x0,
     o_4 => convert3_dout_net_x0
   );
-  vector_convert1 : entity xil_defaultlib.xsg_bwselector_vector_convert1_x0 
+  vector_convert1 : entity xil_defaultlib.xsg_bwselector_vector_convert1 
   port map (
     i_1 => fir_compiler_7_2_m_axis_data_tdata_vect0_net,
     i_2 => fir_compiler_7_2_m_axis_data_tdata_vect1_net,
@@ -1414,12 +1414,12 @@ begin
     tdo_4 => fir_compiler_7_2_m_axis_data_tdata_vect3_net
   );
 end structural;
--- Generated from Simulink block Vector Convert
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Convert
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_convert is
+entity xsg_bwselector_vector_convert_x0 is
   port (
     i_1 : in std_logic_vector( 32-1 downto 0 );
     i_2 : in std_logic_vector( 32-1 downto 0 );
@@ -1428,14 +1428,14 @@ entity xsg_bwselector_vector_convert is
     o_1 : out std_logic_vector( 16-1 downto 0 );
     o_2 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_convert;
-architecture structural of xsg_bwselector_vector_convert is 
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+end xsg_bwselector_vector_convert_x0;
+architecture structural of xsg_bwselector_vector_convert_x0 is 
   signal clk_net : std_logic;
   signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
   signal ce_net : std_logic;
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
   o_1 <= convert0_dout_net;
   o_2 <= convert1_dout_net;
@@ -1486,12 +1486,12 @@ begin
     dout => convert1_dout_net
   );
 end structural;
--- Generated from Simulink block Vector Convert1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Convert1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_convert1 is
+entity xsg_bwselector_vector_convert1_x0 is
   port (
     i_1 : in std_logic_vector( 32-1 downto 0 );
     i_2 : in std_logic_vector( 32-1 downto 0 );
@@ -1500,13 +1500,13 @@ entity xsg_bwselector_vector_convert1 is
     o_1 : out std_logic_vector( 16-1 downto 0 );
     o_2 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_convert1;
-architecture structural of xsg_bwselector_vector_convert1 is 
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+end xsg_bwselector_vector_convert1_x0;
+architecture structural of xsg_bwselector_vector_convert1_x0 is 
+  signal ce_net : std_logic;
   signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
   signal clk_net : std_logic;
   signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
   o_1 <= convert0_dout_net;
@@ -1558,7 +1558,7 @@ begin
     dout => convert1_dout_net
   );
 end structural;
--- Generated from Simulink block Vector Imag FIR 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Imag FIR 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1578,17 +1578,17 @@ entity xsg_bwselector_vector_imag_fir_2_x0 is
   );
 end xsg_bwselector_vector_imag_fir_2_x0;
 architecture structural of xsg_bwselector_vector_imag_fir_2_x0 is 
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
   signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
   signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
   signal clk_net : std_logic;
   signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal ce_net : std_logic;
 begin
   tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
   tdo_1 <= fir_compiler_7_2_m_axis_data_tdata_vect0_net;
@@ -1617,7 +1617,7 @@ begin
     m_axis_data_tdata_vect0 => fir_compiler_7_2_m_axis_data_tdata_vect0_net
   );
 end structural;
--- Generated from Simulink block Vector Real FIR 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1/Vector Real FIR 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1637,17 +1637,17 @@ entity xsg_bwselector_vector_real_fir_2_x0 is
   );
 end xsg_bwselector_vector_real_fir_2_x0;
 architecture structural of xsg_bwselector_vector_real_fir_2_x0 is 
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
   signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
   signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
   signal clk_net : std_logic;
   signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
   signal ce_net : std_logic;
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
   signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
 begin
   tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
   tdo_1 <= fir_compiler_7_2_m_axis_data_tdata_vect0_net;
@@ -1676,7 +1676,7 @@ begin
     m_axis_data_tdata_vect0 => fir_compiler_7_2_m_axis_data_tdata_vect0_net
   );
 end structural;
--- Generated from Simulink block FIR 2 System 1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1704,28 +1704,28 @@ entity xsg_bwselector_fir_2_system_1 is
   );
 end xsg_bwselector_fir_2_system_1;
 architecture structural of xsg_bwselector_fir_2_system_1 is 
-  signal ce_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net_x0 : std_logic_vector( 32-1 downto 0 );
-  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
-  signal convert1_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net_x0 : std_logic_vector( 32-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_vect1_net : std_logic_vector( 32-1 downto 0 );
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net_x2 : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal clk_net : std_logic;
+  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_vect0_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
+  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
 begin
   re_valid_out <= fir_compiler_7_2_m_axis_data_tvalid_net;
   re_data_out_1 <= convert0_dout_net_x0;
@@ -1745,7 +1745,7 @@ begin
   convert3_dout_net <= im_data_in_4;
   clk_net <= clk_1;
   ce_net <= ce_1;
-  vector_convert : entity xil_defaultlib.xsg_bwselector_vector_convert 
+  vector_convert : entity xil_defaultlib.xsg_bwselector_vector_convert_x0 
   port map (
     i_1 => fir_compiler_7_2_m_axis_data_tdata_vect0_net_x0,
     i_2 => fir_compiler_7_2_m_axis_data_tdata_vect1_net_x0,
@@ -1754,7 +1754,7 @@ begin
     o_1 => convert0_dout_net_x0,
     o_2 => convert1_dout_net_x0
   );
-  vector_convert1 : entity xil_defaultlib.xsg_bwselector_vector_convert1 
+  vector_convert1 : entity xil_defaultlib.xsg_bwselector_vector_convert1_x0 
   port map (
     i_1 => fir_compiler_7_2_m_axis_data_tdata_vect0_net,
     i_2 => fir_compiler_7_2_m_axis_data_tdata_vect1_net,
@@ -1790,7 +1790,7 @@ begin
     tdo_2 => fir_compiler_7_2_m_axis_data_tdata_vect1_net_x0
   );
 end structural;
--- Generated from Simulink block Vector Imag FIR 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 2/Vector Imag FIR 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1809,11 +1809,11 @@ architecture structural of xsg_bwselector_vector_imag_fir_2_x1 is
   signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal clk_net : std_logic;
   signal ce_net : std_logic;
   signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal clk_net : std_logic;
   signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
 begin
   tdo <= fir_compiler_7_2_m_axis_data_tdata_real_net;
   fir_compiler_7_2_m_axis_data_tvalid_net_x0 <= tvi;
@@ -1835,7 +1835,7 @@ begin
     m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
   );
 end structural;
--- Generated from Simulink block Vector Real FIR 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 2/Vector Real FIR 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1852,13 +1852,13 @@ entity xsg_bwselector_vector_real_fir_2_x1 is
   );
 end xsg_bwselector_vector_real_fir_2_x1;
 architecture structural of xsg_bwselector_vector_real_fir_2_x1 is 
-  signal clk_net : std_logic;
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
   signal ce_net : std_logic;
 begin
   tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
@@ -1882,7 +1882,7 @@ begin
     m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
   );
 end structural;
--- Generated from Simulink block FIR 2 System 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/FIR 2 System 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -1903,19 +1903,19 @@ entity xsg_bwselector_fir_2_system_2 is
   );
 end xsg_bwselector_fir_2_system_2;
 architecture structural of xsg_bwselector_fir_2_system_2 is 
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
-  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
-  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
-  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal clk_net : std_logic;
+  signal ce_net : std_logic;
+  signal convert1_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tdata_real_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
 begin
   re_valid_out <= fir_compiler_7_2_m_axis_data_tvalid_net;
   re_data_out <= convert1_dout_net;
@@ -1990,12 +1990,12 @@ begin
     dout => convert1_dout_net
   );
 end structural;
--- Generated from Simulink block Vector Reinterpret
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_reinterpret_x1 is
+entity xsg_bwselector_vector_reinterpret_x0 is
   port (
     in_1 : in std_logic_vector( 16-1 downto 0 );
     in_2 : in std_logic_vector( 16-1 downto 0 );
@@ -2014,24 +2014,24 @@ entity xsg_bwselector_vector_reinterpret_x1 is
     out_7 : out std_logic_vector( 16-1 downto 0 );
     out_8 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_reinterpret_x1;
-architecture structural of xsg_bwselector_vector_reinterpret_x1 is 
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+end xsg_bwselector_vector_reinterpret_x0;
+architecture structural of xsg_bwselector_vector_reinterpret_x0 is 
   signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
 begin
   out_1 <= reinterpret0_output_port_net_x0;
   out_2 <= reinterpret1_output_port_net_x0;
@@ -2114,12 +2114,12 @@ begin
     output_port => reinterpret7_output_port_net_x0
   );
 end structural;
--- Generated from Simulink block Vector Reinterpret1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector Reinterpret1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_reinterpret1_x2 is
+entity xsg_bwselector_vector_reinterpret1_x0 is
   port (
     in_1 : in std_logic_vector( 16-1 downto 0 );
     in_2 : in std_logic_vector( 16-1 downto 0 );
@@ -2138,24 +2138,24 @@ entity xsg_bwselector_vector_reinterpret1_x2 is
     out_7 : out std_logic_vector( 16-1 downto 0 );
     out_8 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_reinterpret1_x2;
-architecture structural of xsg_bwselector_vector_reinterpret1_x2 is 
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+end xsg_bwselector_vector_reinterpret1_x0;
+architecture structural of xsg_bwselector_vector_reinterpret1_x0 is 
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
 begin
   out_1 <= reinterpret0_output_port_net_x0;
   out_2 <= reinterpret1_output_port_net_x0;
@@ -2238,12 +2238,12 @@ begin
     output_port => reinterpret7_output_port_net_x0
   );
 end structural;
--- Generated from Simulink block Vector2Scalar
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector2Scalar
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector2scalar_x1 is
+entity xsg_bwselector_vector2scalar is
   port (
     i_1 : in std_logic_vector( 16-1 downto 0 );
     i_2 : in std_logic_vector( 16-1 downto 0 );
@@ -2255,16 +2255,16 @@ entity xsg_bwselector_vector2scalar_x1 is
     i_8 : in std_logic_vector( 16-1 downto 0 );
     o : out std_logic_vector( 128-1 downto 0 )
   );
-end xsg_bwselector_vector2scalar_x1;
-architecture structural of xsg_bwselector_vector2scalar_x1 is 
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
+end xsg_bwselector_vector2scalar;
+architecture structural of xsg_bwselector_vector2scalar is 
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
 begin
   o <= concat1_y_net;
@@ -2292,12 +2292,12 @@ begin
     y => concat1_y_net
   );
 end structural;
--- Generated from Simulink block Vector2Scalar1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0/Vector2Scalar1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector2scalar1_x1 is
+entity xsg_bwselector_vector2scalar1_x0 is
   port (
     i_1 : in std_logic_vector( 16-1 downto 0 );
     i_2 : in std_logic_vector( 16-1 downto 0 );
@@ -2309,17 +2309,17 @@ entity xsg_bwselector_vector2scalar1_x1 is
     i_8 : in std_logic_vector( 16-1 downto 0 );
     o : out std_logic_vector( 128-1 downto 0 )
   );
-end xsg_bwselector_vector2scalar1_x1;
-architecture structural of xsg_bwselector_vector2scalar1_x1 is 
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+end xsg_bwselector_vector2scalar1_x0;
+architecture structural of xsg_bwselector_vector2scalar1_x0 is 
   signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
 begin
   o <= concat1_y_net;
   reinterpret0_output_port_net <= i_1;
@@ -2346,7 +2346,7 @@ begin
     y => concat1_y_net
   );
 end structural;
--- Generated from Simulink block SSR Converter 0
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 0
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -2376,42 +2376,42 @@ entity xsg_bwselector_ssr_converter_0 is
   );
 end xsg_bwselector_ssr_converter_0;
 architecture structural of xsg_bwselector_ssr_converter_0 is 
-  signal reinterpret0_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret7_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal reinterpret2_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret6_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret0_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret1_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret3_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
 begin
   re_data_out <= concat1_y_net_x0;
   im_data_out <= concat1_y_net;
@@ -2433,7 +2433,7 @@ begin
   reinterpret5_output_port_net_x1 <= im_data_in_6;
   reinterpret6_output_port_net_x0 <= im_data_in_7;
   reinterpret7_output_port_net_x0 <= im_data_in_8;
-  vector_reinterpret : entity xil_defaultlib.xsg_bwselector_vector_reinterpret_x1 
+  vector_reinterpret : entity xil_defaultlib.xsg_bwselector_vector_reinterpret_x0 
   port map (
     in_1 => reinterpret0_output_port_net_x2,
     in_2 => reinterpret1_output_port_net_x2,
@@ -2452,7 +2452,7 @@ begin
     out_7 => reinterpret6_output_port_net,
     out_8 => reinterpret7_output_port_net
   );
-  vector_reinterpret1 : entity xil_defaultlib.xsg_bwselector_vector_reinterpret1_x2 
+  vector_reinterpret1 : entity xil_defaultlib.xsg_bwselector_vector_reinterpret1_x0 
   port map (
     in_1 => reinterpret0_output_port_net_x1,
     in_2 => reinterpret1_output_port_net_x1,
@@ -2471,7 +2471,7 @@ begin
     out_7 => reinterpret6_output_port_net_x2,
     out_8 => reinterpret7_output_port_net_x2
   );
-  vector2scalar : entity xil_defaultlib.xsg_bwselector_vector2scalar_x1 
+  vector2scalar : entity xil_defaultlib.xsg_bwselector_vector2scalar 
   port map (
     i_1 => reinterpret0_output_port_net_x0,
     i_2 => reinterpret1_output_port_net_x0,
@@ -2483,7 +2483,7 @@ begin
     i_8 => reinterpret7_output_port_net,
     o => concat1_y_net_x0
   );
-  vector2scalar1 : entity xil_defaultlib.xsg_bwselector_vector2scalar1_x1 
+  vector2scalar1 : entity xil_defaultlib.xsg_bwselector_vector2scalar1_x0 
   port map (
     i_1 => reinterpret0_output_port_net,
     i_2 => reinterpret1_output_port_net,
@@ -2496,12 +2496,12 @@ begin
     o => concat1_y_net
   );
 end structural;
--- Generated from Simulink block Vector Reinterpret
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_reinterpret_x0 is
+entity xsg_bwselector_vector_reinterpret_x1 is
   port (
     in_1 : in std_logic_vector( 16-1 downto 0 );
     in_2 : in std_logic_vector( 16-1 downto 0 );
@@ -2512,83 +2512,15 @@ entity xsg_bwselector_vector_reinterpret_x0 is
     out_3 : out std_logic_vector( 16-1 downto 0 );
     out_4 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_reinterpret_x0;
-architecture structural of xsg_bwselector_vector_reinterpret_x0 is 
+end xsg_bwselector_vector_reinterpret_x1;
+architecture structural of xsg_bwselector_vector_reinterpret_x1 is 
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-begin
-  out_1 <= reinterpret0_output_port_net;
-  out_2 <= reinterpret1_output_port_net;
-  out_3 <= reinterpret2_output_port_net;
-  out_4 <= reinterpret3_output_port_net;
-  convert0_dout_net <= in_1;
-  convert1_dout_net <= in_2;
-  convert2_dout_net <= in_3;
-  convert3_dout_net <= in_4;
-  reinterpret0 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
-  port map (
-    clk => '0',
-    ce => '0',
-    clr => '0',
-    input_port => convert0_dout_net,
-    output_port => reinterpret0_output_port_net
-  );
-  reinterpret1 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
-  port map (
-    clk => '0',
-    ce => '0',
-    clr => '0',
-    input_port => convert1_dout_net,
-    output_port => reinterpret1_output_port_net
-  );
-  reinterpret2 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
-  port map (
-    clk => '0',
-    ce => '0',
-    clr => '0',
-    input_port => convert2_dout_net,
-    output_port => reinterpret2_output_port_net
-  );
-  reinterpret3 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
-  port map (
-    clk => '0',
-    ce => '0',
-    clr => '0',
-    input_port => convert3_dout_net,
-    output_port => reinterpret3_output_port_net
-  );
-end structural;
--- Generated from Simulink block Vector Reinterpret1
-library IEEE;
-use IEEE.std_logic_1164.all;
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_reinterpret1_x0 is
-  port (
-    in_1 : in std_logic_vector( 16-1 downto 0 );
-    in_2 : in std_logic_vector( 16-1 downto 0 );
-    in_3 : in std_logic_vector( 16-1 downto 0 );
-    in_4 : in std_logic_vector( 16-1 downto 0 );
-    out_1 : out std_logic_vector( 16-1 downto 0 );
-    out_2 : out std_logic_vector( 16-1 downto 0 );
-    out_3 : out std_logic_vector( 16-1 downto 0 );
-    out_4 : out std_logic_vector( 16-1 downto 0 )
-  );
-end xsg_bwselector_vector_reinterpret1_x0;
-architecture structural of xsg_bwselector_vector_reinterpret1_x0 is 
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
 begin
   out_1 <= reinterpret0_output_port_net;
@@ -2632,12 +2564,80 @@ begin
     output_port => reinterpret3_output_port_net
   );
 end structural;
--- Generated from Simulink block Vector2Scalar
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector Reinterpret1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector2scalar is
+entity xsg_bwselector_vector_reinterpret1_x1 is
+  port (
+    in_1 : in std_logic_vector( 16-1 downto 0 );
+    in_2 : in std_logic_vector( 16-1 downto 0 );
+    in_3 : in std_logic_vector( 16-1 downto 0 );
+    in_4 : in std_logic_vector( 16-1 downto 0 );
+    out_1 : out std_logic_vector( 16-1 downto 0 );
+    out_2 : out std_logic_vector( 16-1 downto 0 );
+    out_3 : out std_logic_vector( 16-1 downto 0 );
+    out_4 : out std_logic_vector( 16-1 downto 0 )
+  );
+end xsg_bwselector_vector_reinterpret1_x1;
+architecture structural of xsg_bwselector_vector_reinterpret1_x1 is 
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+begin
+  out_1 <= reinterpret0_output_port_net;
+  out_2 <= reinterpret1_output_port_net;
+  out_3 <= reinterpret2_output_port_net;
+  out_4 <= reinterpret3_output_port_net;
+  convert0_dout_net <= in_1;
+  convert1_dout_net <= in_2;
+  convert2_dout_net <= in_3;
+  convert3_dout_net <= in_4;
+  reinterpret0 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
+  port map (
+    clk => '0',
+    ce => '0',
+    clr => '0',
+    input_port => convert0_dout_net,
+    output_port => reinterpret0_output_port_net
+  );
+  reinterpret1 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
+  port map (
+    clk => '0',
+    ce => '0',
+    clr => '0',
+    input_port => convert1_dout_net,
+    output_port => reinterpret1_output_port_net
+  );
+  reinterpret2 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
+  port map (
+    clk => '0',
+    ce => '0',
+    clr => '0',
+    input_port => convert2_dout_net,
+    output_port => reinterpret2_output_port_net
+  );
+  reinterpret3 : entity xil_defaultlib.sysgen_reinterpret_3f7a2a62b5 
+  port map (
+    clk => '0',
+    ce => '0',
+    clr => '0',
+    input_port => convert3_dout_net,
+    output_port => reinterpret3_output_port_net
+  );
+end structural;
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector2Scalar
+library IEEE;
+use IEEE.std_logic_1164.all;
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+entity xsg_bwselector_vector2scalar_x0 is
   port (
     i_1 : in std_logic_vector( 16-1 downto 0 );
     i_2 : in std_logic_vector( 16-1 downto 0 );
@@ -2645,13 +2645,13 @@ entity xsg_bwselector_vector2scalar is
     i_4 : in std_logic_vector( 16-1 downto 0 );
     o : out std_logic_vector( 64-1 downto 0 )
   );
-end xsg_bwselector_vector2scalar;
-architecture structural of xsg_bwselector_vector2scalar is 
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 64-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+end xsg_bwselector_vector2scalar_x0;
+architecture structural of xsg_bwselector_vector2scalar_x0 is 
   signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 64-1 downto 0 );
 begin
   o <= concat1_y_net;
   reinterpret0_output_port_net <= i_1;
@@ -2670,7 +2670,7 @@ begin
     y => concat1_y_net
   );
 end structural;
--- Generated from Simulink block Vector2Scalar1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1/Vector2Scalar1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -2687,9 +2687,9 @@ end xsg_bwselector_vector2scalar1;
 architecture structural of xsg_bwselector_vector2scalar1 is 
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 64-1 downto 0 );
   signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 64-1 downto 0 );
 begin
   o <= concat1_y_net;
   reinterpret0_output_port_net <= i_1;
@@ -2708,7 +2708,7 @@ begin
     y => concat1_y_net
   );
 end structural;
--- Generated from Simulink block SSR Converter 1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -2730,29 +2730,29 @@ entity xsg_bwselector_ssr_converter_1 is
   );
 end xsg_bwselector_ssr_converter_1;
 architecture structural of xsg_bwselector_ssr_converter_1 is 
-  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net_x0 : std_logic_vector( 64-1 downto 0 );
-  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 64-1 downto 0 );
-  signal constant_op_net : std_logic_vector( 64-1 downto 0 );
   signal concat_y_net : std_logic_vector( 128-1 downto 0 );
+  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
+  signal concat1_y_net_x0 : std_logic_vector( 64-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
   signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal constant_op_net : std_logic_vector( 64-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 64-1 downto 0 );
 begin
   re_data_out <= concat_y_net;
   im_data_out <= concat1_y_net_x1;
@@ -2766,7 +2766,7 @@ begin
   convert1_dout_net <= im_data_in_2;
   convert2_dout_net <= im_data_in_3;
   convert3_dout_net <= im_data_in_4;
-  vector_reinterpret : entity xil_defaultlib.xsg_bwselector_vector_reinterpret_x0 
+  vector_reinterpret : entity xil_defaultlib.xsg_bwselector_vector_reinterpret_x1 
   port map (
     in_1 => convert0_dout_net_x0,
     in_2 => convert1_dout_net_x0,
@@ -2777,7 +2777,7 @@ begin
     out_3 => reinterpret2_output_port_net,
     out_4 => reinterpret3_output_port_net_x0
   );
-  vector_reinterpret1 : entity xil_defaultlib.xsg_bwselector_vector_reinterpret1_x0 
+  vector_reinterpret1 : entity xil_defaultlib.xsg_bwselector_vector_reinterpret1_x1 
   port map (
     in_1 => convert0_dout_net,
     in_2 => convert1_dout_net,
@@ -2788,7 +2788,7 @@ begin
     out_3 => reinterpret2_output_port_net_x0,
     out_4 => reinterpret3_output_port_net
   );
-  vector2scalar : entity xil_defaultlib.xsg_bwselector_vector2scalar 
+  vector2scalar : entity xil_defaultlib.xsg_bwselector_vector2scalar_x0 
   port map (
     i_1 => reinterpret0_output_port_net,
     i_2 => reinterpret1_output_port_net,
@@ -2813,13 +2813,6 @@ begin
     in1 => concat1_y_net_x0,
     y => concat_y_net
   );
-  constant_x0 : entity xil_defaultlib.sysgen_constant_9f319455c1 
-  port map (
-    clk => '0',
-    ce => '0',
-    clr => '0',
-    op => constant_op_net
-  );
   concat1 : entity xil_defaultlib.sysgen_concat_5f04d3dc0f 
   port map (
     clk => '0',
@@ -2829,25 +2822,32 @@ begin
     in1 => concat1_y_net,
     y => concat1_y_net_x1
   );
+  constant_x0 : entity xil_defaultlib.sysgen_constant_9f319455c1 
+  port map (
+    clk => '0',
+    ce => '0',
+    clr => '0',
+    op => constant_op_net
+  );
 end structural;
--- Generated from Simulink block Vector Reinterpret1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector Reinterpret1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector_reinterpret1_x1 is
+entity xsg_bwselector_vector_reinterpret1_x2 is
   port (
     in_1 : in std_logic_vector( 16-1 downto 0 );
     in_2 : in std_logic_vector( 16-1 downto 0 );
     out_1 : out std_logic_vector( 16-1 downto 0 );
     out_2 : out std_logic_vector( 16-1 downto 0 )
   );
-end xsg_bwselector_vector_reinterpret1_x1;
-architecture structural of xsg_bwselector_vector_reinterpret1_x1 is 
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+end xsg_bwselector_vector_reinterpret1_x2;
+architecture structural of xsg_bwselector_vector_reinterpret1_x2 is 
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
   out_1 <= reinterpret0_output_port_net;
   out_2 <= reinterpret1_output_port_net;
@@ -2870,7 +2870,7 @@ begin
     output_port => reinterpret1_output_port_net
   );
 end structural;
--- Generated from Simulink block Vector Reinterpret2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector Reinterpret2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -2885,8 +2885,8 @@ entity xsg_bwselector_vector_reinterpret2 is
 end xsg_bwselector_vector_reinterpret2;
 architecture structural of xsg_bwselector_vector_reinterpret2 is 
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
   out_1 <= reinterpret0_output_port_net;
@@ -2910,19 +2910,19 @@ begin
     output_port => reinterpret1_output_port_net
   );
 end structural;
--- Generated from Simulink block Vector2Scalar
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector2Scalar
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector2scalar_x0 is
+entity xsg_bwselector_vector2scalar_x1 is
   port (
     i_1 : in std_logic_vector( 16-1 downto 0 );
     i_2 : in std_logic_vector( 16-1 downto 0 );
     o : out std_logic_vector( 32-1 downto 0 )
   );
-end xsg_bwselector_vector2scalar_x0;
-architecture structural of xsg_bwselector_vector2scalar_x0 is 
+end xsg_bwselector_vector2scalar_x1;
+architecture structural of xsg_bwselector_vector2scalar_x1 is 
   signal concat1_y_net : std_logic_vector( 32-1 downto 0 );
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
@@ -2940,19 +2940,19 @@ begin
     y => concat1_y_net
   );
 end structural;
--- Generated from Simulink block Vector2Scalar1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2/Vector2Scalar1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_vector2scalar1_x0 is
+entity xsg_bwselector_vector2scalar1_x1 is
   port (
     i_1 : in std_logic_vector( 16-1 downto 0 );
     i_2 : in std_logic_vector( 16-1 downto 0 );
     o : out std_logic_vector( 32-1 downto 0 )
   );
-end xsg_bwselector_vector2scalar1_x0;
-architecture structural of xsg_bwselector_vector2scalar1_x0 is 
+end xsg_bwselector_vector2scalar1_x1;
+architecture structural of xsg_bwselector_vector2scalar1_x1 is 
   signal concat1_y_net : std_logic_vector( 32-1 downto 0 );
   signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
@@ -2970,7 +2970,7 @@ begin
     y => concat1_y_net
   );
 end structural;
--- Generated from Simulink block SSR Converter 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Converter 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -2988,21 +2988,21 @@ entity xsg_bwselector_ssr_converter_2 is
   );
 end xsg_bwselector_ssr_converter_2;
 architecture structural of xsg_bwselector_ssr_converter_2 is 
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal constant_op_net : std_logic_vector( 96-1 downto 0 );
-  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
   signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
+  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
+  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net_x0 : std_logic_vector( 32-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
-  signal concat1_y_net : std_logic_vector( 32-1 downto 0 );
+  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal constant_op_net : std_logic_vector( 96-1 downto 0 );
   signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 32-1 downto 0 );
 begin
   re_data_out <= concat_y_net;
   im_data_out <= concat1_y_net_x1;
@@ -3012,7 +3012,7 @@ begin
   convert0_dout_net <= im_data_in_1;
   convert1_dout_net_x0 <= re_data_in_2;
   convert1_dout_net <= im_data_in_2;
-  vector_reinterpret1 : entity xil_defaultlib.xsg_bwselector_vector_reinterpret1_x1 
+  vector_reinterpret1 : entity xil_defaultlib.xsg_bwselector_vector_reinterpret1_x2 
   port map (
     in_1 => convert0_dout_net_x0,
     in_2 => convert1_dout_net_x0,
@@ -3026,13 +3026,13 @@ begin
     out_1 => reinterpret0_output_port_net,
     out_2 => reinterpret1_output_port_net
   );
-  vector2scalar : entity xil_defaultlib.xsg_bwselector_vector2scalar_x0 
+  vector2scalar : entity xil_defaultlib.xsg_bwselector_vector2scalar_x1 
   port map (
     i_1 => reinterpret0_output_port_net_x0,
     i_2 => reinterpret1_output_port_net_x0,
     o => concat1_y_net_x0
   );
-  vector2scalar1 : entity xil_defaultlib.xsg_bwselector_vector2scalar1_x0 
+  vector2scalar1 : entity xil_defaultlib.xsg_bwselector_vector2scalar1_x1 
   port map (
     i_1 => reinterpret0_output_port_net,
     i_2 => reinterpret1_output_port_net,
@@ -3064,12 +3064,12 @@ begin
     op => constant_op_net
   );
 end structural;
--- Generated from Simulink block SSR Switch
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator/SSR Switch
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_ssr_switch_x0 is
+entity xsg_bwselector_ssr_switch is
   port (
     sel : in std_logic_vector( 2-1 downto 0 );
     va0 : in std_logic_vector( 1-1 downto 0 );
@@ -3091,27 +3091,27 @@ entity xsg_bwselector_ssr_switch_x0 is
     vc : out std_logic_vector( 1-1 downto 0 );
     vd : out std_logic_vector( 128-1 downto 0 )
   );
-end xsg_bwselector_ssr_switch_x0;
-architecture structural of xsg_bwselector_ssr_switch_x0 is 
-  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
+end xsg_bwselector_ssr_switch;
+architecture structural of xsg_bwselector_ssr_switch is 
   signal mux1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
-  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
-  signal slice2_y_net : std_logic_vector( 2-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal concat1_y_net_x2 : std_logic_vector( 128-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
-  signal concat1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
-  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
   signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal clk_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
   signal concat_y_net_x0 : std_logic_vector( 128-1 downto 0 );
-  signal ce_net : std_logic;
+  signal clk_net : std_logic;
+  signal concat1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
+  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
+  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
   signal concat_y_net : std_logic_vector( 128-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
+  signal ce_net : std_logic;
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
+  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
+  signal concat1_y_net_x2 : std_logic_vector( 128-1 downto 0 );
+  signal slice2_y_net : std_logic_vector( 2-1 downto 0 );
+  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
 begin
   va <= mux_y_net;
   vb <= mux1_y_net;
@@ -3132,6 +3132,18 @@ begin
   concat1_y_net <= vd2;
   clk_net <= clk_1;
   ce_net <= ce_1;
+  mux : entity xil_defaultlib.sysgen_mux_769ff47f4a 
+  port map (
+    clr => '0',
+    sel => slice2_y_net,
+    d0 => register3_q_net,
+    d1(0) => fir_compiler_7_2_m_axis_data_tvalid_net_x1,
+    d2(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
+    d3(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
+    clk => clk_net,
+    ce => ce_net,
+    y => mux_y_net
+  );
   mux1 : entity xil_defaultlib.sysgen_mux_6973bfb62e 
   port map (
     clr => '0',
@@ -3168,20 +3180,8 @@ begin
     ce => ce_net,
     y => mux3_y_net
   );
-  mux : entity xil_defaultlib.sysgen_mux_769ff47f4a 
-  port map (
-    clr => '0',
-    sel => slice2_y_net,
-    d0 => register3_q_net,
-    d1(0) => fir_compiler_7_2_m_axis_data_tvalid_net_x1,
-    d2(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
-    d3(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
-    clk => clk_net,
-    ce => ce_net,
-    y => mux_y_net
-  );
 end structural;
--- Generated from Simulink block Coarse Decimator
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Coarse Decimator
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3219,56 +3219,56 @@ entity xsg_bwselector_coarse_decimator is
   );
 end xsg_bwselector_coarse_decimator;
 architecture structural of xsg_bwselector_coarse_decimator is 
+  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal slice2_y_net : std_logic_vector( 2-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
+  signal mux1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
   signal mux_y_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice2_y_net : std_logic_vector( 2-1 downto 0 );
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
-  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert0_dout_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x4 : std_logic;
-  signal convert0_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal clk_net : std_logic;
-  signal mux1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x3 : std_logic;
-  signal convert1_dout_net_x3 : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net_x2 : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net_x2 : std_logic_vector( 128-1 downto 0 );
-  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
+  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
   signal concat_y_net : std_logic_vector( 128-1 downto 0 );
-  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal concat_y_net_x0 : std_logic_vector( 128-1 downto 0 );
   signal concat1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
+  signal convert1_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
+  signal clk_net : std_logic;
+  signal concat1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x3 : std_logic;
+  signal convert0_dout_net_x2 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x4 : std_logic;
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net_x3 : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
+  signal convert0_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert0_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert0_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net_x2 : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal concat_y_net_x0 : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net_x2 : std_logic_vector( 16-1 downto 0 );
 begin
   re_valid_out <= fir_compiler_7_2_m_axis_data_tvalid_net;
   re_data_out <= convert1_dout_net;
@@ -3415,7 +3415,7 @@ begin
     re_data_out => concat_y_net,
     im_data_out => concat1_y_net
   );
-  ssr_switch : entity xil_defaultlib.xsg_bwselector_ssr_switch_x0 
+  ssr_switch : entity xil_defaultlib.xsg_bwselector_ssr_switch 
   port map (
     sel => slice2_y_net,
     va0 => register3_q_net,
@@ -3438,7 +3438,91 @@ begin
     vd => mux3_y_net
   );
 end structural;
--- Generated from Simulink block FIR 0 System
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 0 System/Vector FIR
+library IEEE;
+use IEEE.std_logic_1164.all;
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+entity xsg_bwselector_vector_fir_x1 is
+  port (
+    tvi : in std_logic;
+    tdi : in std_logic_vector( 16-1 downto 0 );
+    clk_1 : in std_logic;
+    ce_1 : in std_logic;
+    tvo : out std_logic;
+    tdo : out std_logic_vector( 32-1 downto 0 )
+  );
+end xsg_bwselector_vector_fir_x1;
+architecture structural of xsg_bwselector_vector_fir_x1 is 
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+begin
+  tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
+  tdo <= fir_compiler_7_2_m_axis_data_tdata_real_net;
+  fir_compiler_7_2_m_axis_data_tvalid_net_x0 <= tvi;
+  convert1_dout_net <= tdi;
+  clk_net <= clk_1;
+  ce_net <= ce_1;
+  fir_compiler_7_2 : entity xil_defaultlib.xlfir_compiler_c8d77182473f1656541cf6b048d7f2a1 
+  port map (
+    s_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
+    s_axis_data_tdata_real => convert1_dout_net,
+    src_clk => clk_net,
+    src_ce => ce_net,
+    clk => clk_net,
+    ce => ce_net,
+    s_axis_data_tready => fir_compiler_7_2_s_axis_data_tready_net,
+    m_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net,
+    m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
+  );
+end structural;
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 0 System/Vector FIR1
+library IEEE;
+use IEEE.std_logic_1164.all;
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+entity xsg_bwselector_vector_fir1_x1 is
+  port (
+    tvi : in std_logic;
+    tdi : in std_logic_vector( 16-1 downto 0 );
+    clk_1 : in std_logic;
+    ce_1 : in std_logic;
+    tdo : out std_logic_vector( 32-1 downto 0 )
+  );
+end xsg_bwselector_vector_fir1_x1;
+architecture structural of xsg_bwselector_vector_fir1_x1 is 
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal clk_net : std_logic;
+  signal ce_net : std_logic;
+  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+begin
+  tdo <= fir_compiler_7_2_m_axis_data_tdata_real_net;
+  fir_compiler_7_2_m_axis_data_tvalid_net_x0 <= tvi;
+  convert_dout_net <= tdi;
+  clk_net <= clk_1;
+  ce_net <= ce_1;
+  fir_compiler_7_2 : entity xil_defaultlib.xlfir_compiler_c8d77182473f1656541cf6b048d7f2a1 
+  port map (
+    s_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
+    s_axis_data_tdata_real => convert_dout_net,
+    src_clk => clk_net,
+    src_ce => ce_net,
+    clk => clk_net,
+    ce => ce_net,
+    s_axis_data_tready => fir_compiler_7_2_s_axis_data_tready_net,
+    m_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net,
+    m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
+  );
+end structural;
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 0 System
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3456,26 +3540,42 @@ entity xsg_bwselector_fir_0_system is
   );
 end xsg_bwselector_fir_0_system;
 architecture structural of xsg_bwselector_fir_0_system is 
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_0_m_axis_data_tdata_path0_net : std_logic_vector( 32-1 downto 0 );
-  signal ce_net : std_logic;
-  signal fir_0_s_axis_data_tready_net : std_logic;
-  signal clk_net : std_logic;
-  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_0_m_axis_data_tvalid_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal fir_0_m_axis_data_tdata_path1_net : std_logic_vector( 32-1 downto 0 );
+  signal clk_net : std_logic;
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
-  valid_out <= fir_0_m_axis_data_tvalid_net;
+  valid_out <= fir_compiler_7_2_m_axis_data_tvalid_net_x0;
   re_out <= convert2_dout_net;
   im_out <= convert3_dout_net;
-  fir_compiler_7_2_m_axis_data_tvalid_net <= valid_in;
+  fir_compiler_7_2_m_axis_data_tvalid_net_x1 <= valid_in;
   convert1_dout_net <= re_in;
   convert_dout_net <= im_in;
   clk_net <= clk_1;
   ce_net <= ce_1;
+  vector_fir : entity xil_defaultlib.xsg_bwselector_vector_fir_x1 
+  port map (
+    tvi => fir_compiler_7_2_m_axis_data_tvalid_net_x1,
+    tdi => convert1_dout_net,
+    clk_1 => clk_net,
+    ce_1 => ce_net,
+    tvo => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
+    tdo => fir_compiler_7_2_m_axis_data_tdata_real_net_x0
+  );
+  vector_fir1 : entity xil_defaultlib.xsg_bwselector_vector_fir1_x1 
+  port map (
+    tvi => fir_compiler_7_2_m_axis_data_tvalid_net_x1,
+    tdi => convert_dout_net,
+    clk_1 => clk_net,
+    ce_1 => ce_net,
+    tdo => fir_compiler_7_2_m_axis_data_tdata_real_net
+  );
   convert2 : entity xil_defaultlib.xsg_bwselector_xlconvert 
   generic map (
     bool_conversion => 0,
@@ -3492,7 +3592,7 @@ begin
   port map (
     clr => '0',
     en => "1",
-    din => fir_0_m_axis_data_tdata_path1_net,
+    din => fir_compiler_7_2_m_axis_data_tdata_real_net_x0,
     clk => clk_net,
     ce => ce_net,
     dout => convert2_dout_net
@@ -3513,27 +3613,97 @@ begin
   port map (
     clr => '0',
     en => "1",
-    din => fir_0_m_axis_data_tdata_path0_net,
+    din => fir_compiler_7_2_m_axis_data_tdata_real_net,
     clk => clk_net,
     ce => ce_net,
     dout => convert3_dout_net
   );
-  fir_0 : entity xil_defaultlib.xlfir_compiler_cc68edf79396dfed251a29648fc69207 
+end structural;
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 1 System/Vector FIR
+library IEEE;
+use IEEE.std_logic_1164.all;
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+entity xsg_bwselector_vector_fir_x0 is
+  port (
+    tvi : in std_logic_vector( 1-1 downto 0 );
+    tdi : in std_logic_vector( 16-1 downto 0 );
+    clk_1 : in std_logic;
+    ce_1 : in std_logic;
+    tvo : out std_logic;
+    tdo : out std_logic_vector( 32-1 downto 0 )
+  );
+end xsg_bwselector_vector_fir_x0;
+architecture structural of xsg_bwselector_vector_fir_x0 is 
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal ce_net : std_logic;
+  signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
+begin
+  tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
+  tdo <= fir_compiler_7_2_m_axis_data_tdata_real_net;
+  mux3_y_net <= tvi;
+  mux2_y_net <= tdi;
+  clk_net <= clk_1;
+  ce_net <= ce_1;
+  fir_compiler_7_2 : entity xil_defaultlib.xlfir_compiler_f17e7b34263bd652a7715aaef1b9ecd8 
   port map (
-    s_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net,
-    s_axis_data_tdata_path1 => convert1_dout_net,
-    s_axis_data_tdata_path0 => convert_dout_net,
+    s_axis_data_tvalid => mux3_y_net(0),
+    s_axis_data_tdata_real => mux2_y_net,
     src_clk => clk_net,
     src_ce => ce_net,
     clk => clk_net,
     ce => ce_net,
-    s_axis_data_tready => fir_0_s_axis_data_tready_net,
-    m_axis_data_tvalid => fir_0_m_axis_data_tvalid_net,
-    m_axis_data_tdata_path1 => fir_0_m_axis_data_tdata_path1_net,
-    m_axis_data_tdata_path0 => fir_0_m_axis_data_tdata_path0_net
+    s_axis_data_tready => fir_compiler_7_2_s_axis_data_tready_net,
+    m_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net,
+    m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
   );
 end structural;
--- Generated from Simulink block FIR 1 System
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 1 System/Vector FIR1
+library IEEE;
+use IEEE.std_logic_1164.all;
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+entity xsg_bwselector_vector_fir1_x0 is
+  port (
+    tvi : in std_logic_vector( 1-1 downto 0 );
+    tdi : in std_logic_vector( 16-1 downto 0 );
+    clk_1 : in std_logic;
+    ce_1 : in std_logic;
+    tdo : out std_logic_vector( 32-1 downto 0 )
+  );
+end xsg_bwselector_vector_fir1_x0;
+architecture structural of xsg_bwselector_vector_fir1_x0 is 
+  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal ce_net : std_logic;
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal clk_net : std_logic;
+begin
+  tdo <= fir_compiler_7_2_m_axis_data_tdata_real_net;
+  mux3_y_net <= tvi;
+  mux1_y_net <= tdi;
+  clk_net <= clk_1;
+  ce_net <= ce_1;
+  fir_compiler_7_2 : entity xil_defaultlib.xlfir_compiler_f17e7b34263bd652a7715aaef1b9ecd8 
+  port map (
+    s_axis_data_tvalid => mux3_y_net(0),
+    s_axis_data_tdata_real => mux1_y_net,
+    src_clk => clk_net,
+    src_ce => ce_net,
+    clk => clk_net,
+    ce => ce_net,
+    s_axis_data_tready => fir_compiler_7_2_s_axis_data_tready_net,
+    m_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net,
+    m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
+  );
+end structural;
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 1 System
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3551,19 +3721,18 @@ entity xsg_bwselector_fir_1_system is
   );
 end xsg_bwselector_fir_1_system;
 architecture structural of xsg_bwselector_fir_1_system is 
-  signal fir_1_m_axis_data_tvalid_net : std_logic;
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
   signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net_x0 : std_logic_vector( 32-1 downto 0 );
   signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
   signal clk_net : std_logic;
-  signal fir_1_m_axis_data_tdata_path0_net : std_logic_vector( 32-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
   signal ce_net : std_logic;
-  signal fir_1_m_axis_data_tdata_path1_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_1_s_axis_data_tready_net : std_logic;
   signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
 begin
-  valid_out <= fir_1_m_axis_data_tvalid_net;
+  valid_out <= fir_compiler_7_2_m_axis_data_tvalid_net_x0;
   re_out <= convert2_dout_net;
   im_out <= convert3_dout_net;
   mux3_y_net <= valid_in;
@@ -3571,6 +3740,23 @@ begin
   mux1_y_net <= im_in;
   clk_net <= clk_1;
   ce_net <= ce_1;
+  vector_fir : entity xil_defaultlib.xsg_bwselector_vector_fir_x0 
+  port map (
+    tvi => mux3_y_net,
+    tdi => mux2_y_net,
+    clk_1 => clk_net,
+    ce_1 => ce_net,
+    tvo => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
+    tdo => fir_compiler_7_2_m_axis_data_tdata_real_net_x0
+  );
+  vector_fir1 : entity xil_defaultlib.xsg_bwselector_vector_fir1_x0 
+  port map (
+    tvi => mux3_y_net,
+    tdi => mux1_y_net,
+    clk_1 => clk_net,
+    ce_1 => ce_net,
+    tdo => fir_compiler_7_2_m_axis_data_tdata_real_net
+  );
   convert2 : entity xil_defaultlib.xsg_bwselector_xlconvert 
   generic map (
     bool_conversion => 0,
@@ -3587,7 +3773,7 @@ begin
   port map (
     clr => '0',
     en => "1",
-    din => fir_1_m_axis_data_tdata_path1_net,
+    din => fir_compiler_7_2_m_axis_data_tdata_real_net_x0,
     clk => clk_net,
     ce => ce_net,
     dout => convert2_dout_net
@@ -3608,27 +3794,97 @@ begin
   port map (
     clr => '0',
     en => "1",
-    din => fir_1_m_axis_data_tdata_path0_net,
+    din => fir_compiler_7_2_m_axis_data_tdata_real_net,
     clk => clk_net,
     ce => ce_net,
     dout => convert3_dout_net
   );
-  fir_1 : entity xil_defaultlib.xlfir_compiler_7edb5ddbd2a4bf3484a7009e3fd7b76a 
+end structural;
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 2 System/Vector FIR
+library IEEE;
+use IEEE.std_logic_1164.all;
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+entity xsg_bwselector_vector_fir is
+  port (
+    tvi : in std_logic_vector( 1-1 downto 0 );
+    tdi : in std_logic_vector( 16-1 downto 0 );
+    clk_1 : in std_logic;
+    ce_1 : in std_logic;
+    tvo : out std_logic;
+    tdo : out std_logic_vector( 32-1 downto 0 )
+  );
+end xsg_bwselector_vector_fir;
+architecture structural of xsg_bwselector_vector_fir is 
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal ce_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+begin
+  tvo <= fir_compiler_7_2_m_axis_data_tvalid_net;
+  tdo <= fir_compiler_7_2_m_axis_data_tdata_real_net;
+  mux3_y_net <= tvi;
+  mux2_y_net <= tdi;
+  clk_net <= clk_1;
+  ce_net <= ce_1;
+  fir_compiler_7_2 : entity xil_defaultlib.xlfir_compiler_2c2194d219c47f3851f897f8c2672424 
   port map (
     s_axis_data_tvalid => mux3_y_net(0),
-    s_axis_data_tdata_path1 => mux2_y_net,
-    s_axis_data_tdata_path0 => mux1_y_net,
+    s_axis_data_tdata_real => mux2_y_net,
     src_clk => clk_net,
     src_ce => ce_net,
     clk => clk_net,
     ce => ce_net,
-    s_axis_data_tready => fir_1_s_axis_data_tready_net,
-    m_axis_data_tvalid => fir_1_m_axis_data_tvalid_net,
-    m_axis_data_tdata_path1 => fir_1_m_axis_data_tdata_path1_net,
-    m_axis_data_tdata_path0 => fir_1_m_axis_data_tdata_path0_net
+    s_axis_data_tready => fir_compiler_7_2_s_axis_data_tready_net,
+    m_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net,
+    m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
   );
 end structural;
--- Generated from Simulink block FIR 2 System
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 2 System/Vector FIR1
+library IEEE;
+use IEEE.std_logic_1164.all;
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+entity xsg_bwselector_vector_fir1 is
+  port (
+    tvi : in std_logic_vector( 1-1 downto 0 );
+    tdi : in std_logic_vector( 16-1 downto 0 );
+    clk_1 : in std_logic;
+    ce_1 : in std_logic;
+    tdo : out std_logic_vector( 32-1 downto 0 )
+  );
+end xsg_bwselector_vector_fir1;
+architecture structural of xsg_bwselector_vector_fir1 is 
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
+  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_s_axis_data_tready_net : std_logic;
+  signal ce_net : std_logic;
+begin
+  tdo <= fir_compiler_7_2_m_axis_data_tdata_real_net;
+  mux3_y_net <= tvi;
+  mux1_y_net <= tdi;
+  clk_net <= clk_1;
+  ce_net <= ce_1;
+  fir_compiler_7_2 : entity xil_defaultlib.xlfir_compiler_2c2194d219c47f3851f897f8c2672424 
+  port map (
+    s_axis_data_tvalid => mux3_y_net(0),
+    s_axis_data_tdata_real => mux1_y_net,
+    src_clk => clk_net,
+    src_ce => ce_net,
+    clk => clk_net,
+    ce => ce_net,
+    s_axis_data_tready => fir_compiler_7_2_s_axis_data_tready_net,
+    m_axis_data_tvalid => fir_compiler_7_2_m_axis_data_tvalid_net,
+    m_axis_data_tdata_real => fir_compiler_7_2_m_axis_data_tdata_real_net
+  );
+end structural;
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/FIR 2 System
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3646,19 +3902,18 @@ entity xsg_bwselector_fir_2_system is
   );
 end xsg_bwselector_fir_2_system;
 architecture structural of xsg_bwselector_fir_2_system is 
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
-  signal fir_2_m_axis_data_tdata_path0_net : std_logic_vector( 32-1 downto 0 );
-  signal fir_2_m_axis_data_tvalid_net : std_logic;
-  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
   signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
-  signal clk_net : std_logic;
-  signal fir_2_m_axis_data_tdata_path1_net : std_logic_vector( 32-1 downto 0 );
   signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_2_s_axis_data_tready_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal ce_net : std_logic;
+  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tdata_real_net : std_logic_vector( 32-1 downto 0 );
 begin
-  valid_out <= fir_2_m_axis_data_tvalid_net;
+  valid_out <= fir_compiler_7_2_m_axis_data_tvalid_net_x0;
   re_out <= convert2_dout_net;
   im_out <= convert3_dout_net;
   mux3_y_net <= valid_in;
@@ -3666,6 +3921,23 @@ begin
   mux1_y_net <= im_in;
   clk_net <= clk_1;
   ce_net <= ce_1;
+  vector_fir : entity xil_defaultlib.xsg_bwselector_vector_fir 
+  port map (
+    tvi => mux3_y_net,
+    tdi => mux2_y_net,
+    clk_1 => clk_net,
+    ce_1 => ce_net,
+    tvo => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
+    tdo => fir_compiler_7_2_m_axis_data_tdata_real_net_x0
+  );
+  vector_fir1 : entity xil_defaultlib.xsg_bwselector_vector_fir1 
+  port map (
+    tvi => mux3_y_net,
+    tdi => mux1_y_net,
+    clk_1 => clk_net,
+    ce_1 => ce_net,
+    tdo => fir_compiler_7_2_m_axis_data_tdata_real_net
+  );
   convert2 : entity xil_defaultlib.xsg_bwselector_xlconvert 
   generic map (
     bool_conversion => 0,
@@ -3682,7 +3954,7 @@ begin
   port map (
     clr => '0',
     en => "1",
-    din => fir_2_m_axis_data_tdata_path1_net,
+    din => fir_compiler_7_2_m_axis_data_tdata_real_net_x0,
     clk => clk_net,
     ce => ce_net,
     dout => convert2_dout_net
@@ -3703,27 +3975,13 @@ begin
   port map (
     clr => '0',
     en => "1",
-    din => fir_2_m_axis_data_tdata_path0_net,
+    din => fir_compiler_7_2_m_axis_data_tdata_real_net,
     clk => clk_net,
     ce => ce_net,
     dout => convert3_dout_net
   );
-  fir_2 : entity xil_defaultlib.xlfir_compiler_1af804b5feb07c721f63eebe3fafbd1c 
-  port map (
-    s_axis_data_tvalid => mux3_y_net(0),
-    s_axis_data_tdata_path1 => mux2_y_net,
-    s_axis_data_tdata_path0 => mux1_y_net,
-    src_clk => clk_net,
-    src_ce => ce_net,
-    clk => clk_net,
-    ce => ce_net,
-    s_axis_data_tready => fir_2_s_axis_data_tready_net,
-    m_axis_data_tvalid => fir_2_m_axis_data_tvalid_net,
-    m_axis_data_tdata_path1 => fir_2_m_axis_data_tdata_path1_net,
-    m_axis_data_tdata_path0 => fir_2_m_axis_data_tdata_path0_net
-  );
 end structural;
--- Generated from Simulink block Switch 0
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 0
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3743,23 +4001,23 @@ entity xsg_bwselector_switch_0 is
   );
 end xsg_bwselector_switch_0;
 architecture structural of xsg_bwselector_switch_0 is 
-  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal slice_v_y_net : std_logic_vector( 1-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_0_m_axis_data_tvalid_net : std_logic;
   signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal slice_v_y_net : std_logic_vector( 1-1 downto 0 );
+  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
   a <= mux3_y_net;
   b <= mux2_y_net;
   c <= mux1_y_net;
   slice_v_y_net <= sel;
-  fir_compiler_7_2_m_axis_data_tvalid_net <= a0;
-  fir_0_m_axis_data_tvalid_net <= a1;
+  fir_compiler_7_2_m_axis_data_tvalid_net_x0 <= a0;
+  fir_compiler_7_2_m_axis_data_tvalid_net <= a1;
   convert1_dout_net <= b0;
   convert2_dout_net <= b1;
   convert_dout_net <= c0;
@@ -3790,12 +4048,12 @@ begin
     ce => '0',
     clr => '0',
     sel => slice_v_y_net,
-    d0(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
-    d1(0) => fir_0_m_axis_data_tvalid_net,
+    d0(0) => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
+    d1(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
     y => mux3_y_net
   );
 end structural;
--- Generated from Simulink block Switch 1
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 1
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3815,23 +4073,23 @@ entity xsg_bwselector_switch_1 is
   );
 end xsg_bwselector_switch_1;
 architecture structural of xsg_bwselector_switch_1 is 
-  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal mux1_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal logical1_y_net : std_logic_vector( 1-1 downto 0 );
   signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
   signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal logical1_y_net : std_logic_vector( 1-1 downto 0 );
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
-  signal fir_1_m_axis_data_tvalid_net : std_logic;
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal mux1_y_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal mux2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
 begin
   a <= mux3_y_net;
   b <= mux2_y_net;
   c <= mux1_y_net;
   logical1_y_net <= sel;
   mux3_y_net_x0 <= a0;
-  fir_1_m_axis_data_tvalid_net <= a1;
+  fir_compiler_7_2_m_axis_data_tvalid_net <= a1;
   mux2_y_net_x0 <= b0;
   convert2_dout_net <= b1;
   mux1_y_net_x0 <= c0;
@@ -3863,11 +4121,11 @@ begin
     clr => '0',
     sel => logical1_y_net,
     d0 => mux3_y_net_x0,
-    d1(0) => fir_1_m_axis_data_tvalid_net,
+    d1(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
     y => mux3_y_net
   );
 end structural;
--- Generated from Simulink block Switch 2
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator/Switch 2
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3888,22 +4146,22 @@ entity xsg_bwselector_switch_2 is
 end xsg_bwselector_switch_2;
 architecture structural of xsg_bwselector_switch_2 is 
   signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
-  signal mux2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal logical_y_net : std_logic_vector( 1-1 downto 0 );
   signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal mux2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
   signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
   signal mux1_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal logical_y_net : std_logic_vector( 1-1 downto 0 );
-  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
-  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal fir_2_m_axis_data_tvalid_net : std_logic;
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
 begin
   a <= mux3_y_net;
   b <= mux2_y_net;
   c <= mux1_y_net;
   logical_y_net <= sel;
   mux3_y_net_x0 <= a0;
-  fir_2_m_axis_data_tvalid_net <= a1;
+  fir_compiler_7_2_m_axis_data_tvalid_net <= a1;
   mux2_y_net_x0 <= b0;
   convert2_dout_net <= b1;
   mux1_y_net_x0 <= c0;
@@ -3935,11 +4193,11 @@ begin
     clr => '0',
     sel => logical_y_net,
     d0 => mux3_y_net_x0,
-    d1(0) => fir_2_m_axis_data_tvalid_net,
+    d1(0) => fir_compiler_7_2_m_axis_data_tvalid_net,
     y => mux3_y_net
   );
 end structural;
--- Generated from Simulink block Fine Decimator
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/Fine Decimator
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -3959,41 +4217,41 @@ entity xsg_bwselector_fine_decimator is
   );
 end xsg_bwselector_fine_decimator;
 architecture structural of xsg_bwselector_fine_decimator is 
-  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal mux3_y_net_x1 : std_logic_vector( 1-1 downto 0 );
-  signal mux2_y_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal mux_y_net : std_logic_vector( 3-1 downto 0 );
-  signal fir_2_m_axis_data_tvalid_net : std_logic;
-  signal mux1_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal slice_x_y_net : std_logic_vector( 1-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal logical1_y_net : std_logic_vector( 1-1 downto 0 );
-  signal mux2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
-  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
-  signal clk_net : std_logic;
-  signal fir_0_m_axis_data_tvalid_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
-  signal mux1_y_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
-  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal logical_y_net : std_logic_vector( 1-1 downto 0 );
-  signal slice_w_y_net : std_logic_vector( 1-1 downto 0 );
-  signal slice_v_y_net : std_logic_vector( 1-1 downto 0 );
-  signal fir_1_m_axis_data_tvalid_net : std_logic;
-  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
   signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x2 : std_logic;
+  signal mux_y_net : std_logic_vector( 3-1 downto 0 );
+  signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x0 : std_logic;
+  signal convert3_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal mux1_y_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal clk_net : std_logic;
+  signal fir_compiler_7_2_m_axis_data_tvalid_net_x1 : std_logic;
+  signal convert2_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal convert2_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal ce_net : std_logic;
+  signal convert2_dout_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal mux2_y_net_x1 : std_logic_vector( 16-1 downto 0 );
+  signal mux1_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert3_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal mux2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal slice_v_y_net : std_logic_vector( 1-1 downto 0 );
+  signal mux3_y_net_x1 : std_logic_vector( 1-1 downto 0 );
+  signal logical_y_net : std_logic_vector( 1-1 downto 0 );
+  signal logical1_y_net : std_logic_vector( 1-1 downto 0 );
+  signal slice_x_y_net : std_logic_vector( 1-1 downto 0 );
+  signal slice_w_y_net : std_logic_vector( 1-1 downto 0 );
 begin
   re_valid_out <= mux3_y_net;
   re_data_out <= mux2_y_net;
   im_valid_out <= mux3_y_net;
   im_data_out <= mux1_y_net_x1;
-  fir_compiler_7_2_m_axis_data_tvalid_net <= re_valid_in;
+  fir_compiler_7_2_m_axis_data_tvalid_net_x2 <= re_valid_in;
   convert1_dout_net <= re_data_in;
   convert_dout_net <= im_data_in;
   mux_y_net <= decimation;
@@ -4001,12 +4259,12 @@ begin
   ce_net <= ce_1;
   fir_0_system : entity xil_defaultlib.xsg_bwselector_fir_0_system 
   port map (
-    valid_in => fir_compiler_7_2_m_axis_data_tvalid_net,
+    valid_in => fir_compiler_7_2_m_axis_data_tvalid_net_x2,
     re_in => convert1_dout_net,
     im_in => convert_dout_net,
     clk_1 => clk_net,
     ce_1 => ce_net,
-    valid_out => fir_0_m_axis_data_tvalid_net,
+    valid_out => fir_compiler_7_2_m_axis_data_tvalid_net_x1,
     re_out => convert2_dout_net_x1,
     im_out => convert3_dout_net_x1
   );
@@ -4017,7 +4275,7 @@ begin
     im_in => mux1_y_net,
     clk_1 => clk_net,
     ce_1 => ce_net,
-    valid_out => fir_1_m_axis_data_tvalid_net,
+    valid_out => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
     re_out => convert2_dout_net_x0,
     im_out => convert3_dout_net_x0
   );
@@ -4028,15 +4286,15 @@ begin
     im_in => mux1_y_net_x0,
     clk_1 => clk_net,
     ce_1 => ce_net,
-    valid_out => fir_2_m_axis_data_tvalid_net,
+    valid_out => fir_compiler_7_2_m_axis_data_tvalid_net,
     re_out => convert2_dout_net,
     im_out => convert3_dout_net
   );
   switch_0 : entity xil_defaultlib.xsg_bwselector_switch_0 
   port map (
     sel => slice_v_y_net,
-    a0 => fir_compiler_7_2_m_axis_data_tvalid_net,
-    a1 => fir_0_m_axis_data_tvalid_net,
+    a0 => fir_compiler_7_2_m_axis_data_tvalid_net_x2,
+    a1 => fir_compiler_7_2_m_axis_data_tvalid_net_x1,
     b0 => convert1_dout_net,
     b1 => convert2_dout_net_x1,
     c0 => convert_dout_net,
@@ -4049,7 +4307,7 @@ begin
   port map (
     sel => logical1_y_net,
     a0 => mux3_y_net_x0,
-    a1 => fir_1_m_axis_data_tvalid_net,
+    a1 => fir_compiler_7_2_m_axis_data_tvalid_net_x0,
     b0 => mux2_y_net_x0,
     b1 => convert2_dout_net_x0,
     c0 => mux1_y_net,
@@ -4062,7 +4320,7 @@ begin
   port map (
     sel => logical_y_net,
     a0 => mux3_y_net_x1,
-    a1 => fir_2_m_axis_data_tvalid_net,
+    a1 => fir_compiler_7_2_m_axis_data_tvalid_net,
     b0 => mux2_y_net_x1,
     b1 => convert2_dout_net,
     c0 => mux1_y_net_x0,
@@ -4124,7 +4382,7 @@ begin
     y => slice_x_y_net
   );
 end structural;
--- Generated from Simulink block SSR Converter
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Converter
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -4139,14 +4397,14 @@ entity xsg_bwselector_ssr_converter is
   );
 end xsg_bwselector_ssr_converter;
 architecture structural of xsg_bwselector_ssr_converter is 
-  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
-  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal mux2_y_net : std_logic_vector( 16-1 downto 0 );
+  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
   signal constant_op_net : std_logic_vector( 112-1 downto 0 );
+  signal reinterpret_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 1-1 downto 0 );
 begin
   re_data_out <= concat_y_net;
   im_data_out <= concat1_y_net;
@@ -4195,12 +4453,12 @@ begin
     output_port => reinterpret1_output_port_net
   );
 end structural;
--- Generated from Simulink block SSR Switch
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core/SSR Switch
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
-entity xsg_bwselector_ssr_switch is
+entity xsg_bwselector_ssr_switch_x0 is
   port (
     re_valid_in : in std_logic_vector( 1-1 downto 0 );
     re_data_in : in std_logic_vector( 128-1 downto 0 );
@@ -4217,22 +4475,22 @@ entity xsg_bwselector_ssr_switch is
     im_valid_out : out std_logic_vector( 1-1 downto 0 );
     im_data_out : out std_logic_vector( 128-1 downto 0 )
   );
-end xsg_bwselector_ssr_switch;
-architecture structural of xsg_bwselector_ssr_switch is 
+end xsg_bwselector_ssr_switch_x0;
+architecture structural of xsg_bwselector_ssr_switch_x0 is 
+  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
+  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
+  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
+  signal ce_net : std_logic;
+  signal mux1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal mux_y_net_x0 : std_logic_vector( 1-1 downto 0 );
   signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal relational1_op_net : std_logic_vector( 1-1 downto 0 );
+  signal mux1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
+  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
   signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
   signal mux2_y_net_x0 : std_logic_vector( 1-1 downto 0 );
-  signal ce_net : std_logic;
   signal clk_net : std_logic;
-  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
   signal mux3_y_net_x1 : std_logic_vector( 128-1 downto 0 );
-  signal mux_y_net_x0 : std_logic_vector( 1-1 downto 0 );
-  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
-  signal mux1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
-  signal relational1_op_net : std_logic_vector( 1-1 downto 0 );
-  signal mux1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
-  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
 begin
   re_valid_out <= mux_y_net;
   re_data_out <= mux1_y_net;
@@ -4289,7 +4547,7 @@ begin
     y => mux3_y_net
   );
 end structural;
--- Generated from Simulink block Bandwidth Selector Core
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector/Bandwidth Selector Core
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -4327,45 +4585,45 @@ architecture structural of xsg_bwselector_bandwidth_selector_core is
   signal mux_y_net_x1 : std_logic_vector( 1-1 downto 0 );
   signal mux1_y_net_x1 : std_logic_vector( 128-1 downto 0 );
   signal mux2_y_net_x1 : std_logic_vector( 1-1 downto 0 );
-  signal mux3_y_net_x1 : std_logic_vector( 128-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal relational1_op_net : std_logic_vector( 1-1 downto 0 );
-  signal clk_net : std_logic;
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal ce_net : std_logic;
-  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
-  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
-  signal constant2_op_net : std_logic_vector( 3-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal mux1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
-  signal mux2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
-  signal mux_y_net_x0 : std_logic_vector( 3-1 downto 0 );
-  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
-  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice2_y_net : std_logic_vector( 2-1 downto 0 );
-  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
+  signal relational1_op_net : std_logic_vector( 1-1 downto 0 );
   signal constant1_op_net : std_logic_vector( 3-1 downto 0 );
-  signal register_q_net : std_logic_vector( 32-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal slice2_y_net : std_logic_vector( 2-1 downto 0 );
+  signal mux_y_net : std_logic_vector( 1-1 downto 0 );
+  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
+  signal mux_y_net_x0 : std_logic_vector( 3-1 downto 0 );
+  signal mux3_y_net_x1 : std_logic_vector( 128-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
+  signal ce_net : std_logic;
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert1_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal clk_net : std_logic;
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal fir_compiler_7_2_m_axis_data_tvalid_net : std_logic;
+  signal mux1_y_net_x0 : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
+  signal mux3_y_net_x0 : std_logic_vector( 1-1 downto 0 );
+  signal mux2_y_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal mux1_y_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat_y_net : std_logic_vector( 128-1 downto 0 );
+  signal register_q_net : std_logic_vector( 32-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal concat1_y_net : std_logic_vector( 128-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal convert_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal constant2_op_net : std_logic_vector( 3-1 downto 0 );
   signal slice1_y_net : std_logic_vector( 3-1 downto 0 );
 begin
   re_valid_out <= mux_y_net_x1;
@@ -4445,7 +4703,7 @@ begin
     re_data_out => concat_y_net,
     im_data_out => concat1_y_net
   );
-  ssr_switch : entity xil_defaultlib.xsg_bwselector_ssr_switch 
+  ssr_switch : entity xil_defaultlib.xsg_bwselector_ssr_switch_x0 
   port map (
     re_valid_in => mux3_y_net_x0,
     re_data_in => concat_y_net,
@@ -4462,39 +4720,19 @@ begin
     im_valid_out => mux2_y_net_x1,
     im_data_out => mux3_y_net_x1
   );
-  constant2 : entity xil_defaultlib.sysgen_constant_b25c9b5505 
-  port map (
-    clk => '0',
-    ce => '0',
-    clr => '0',
-    op => constant2_op_net
-  );
-  relational1 : entity xil_defaultlib.sysgen_relational_3caec802ba 
-  port map (
-    clk => '0',
-    ce => '0',
-    clr => '0',
-    a => register_q_net,
-    b => constant1_op_net,
-    op => relational1_op_net
-  );
-  slice2 : entity xil_defaultlib.xsg_bwselector_xlslice 
-  generic map (
-    new_lsb => 1,
-    new_msb => 2,
-    x_width => 32,
-    y_width => 2
-  )
-  port map (
-    x => register_q_net,
-    y => slice2_y_net
-  );
   constant1 : entity xil_defaultlib.sysgen_constant_abffce7db1 
   port map (
     clk => '0',
     ce => '0',
     clr => '0',
     op => constant1_op_net
+  );
+  constant2 : entity xil_defaultlib.sysgen_constant_b25c9b5505 
+  port map (
+    clk => '0',
+    ce => '0',
+    clr => '0',
+    op => constant2_op_net
   );
   mux : entity xil_defaultlib.sysgen_mux_824b1345db 
   port map (
@@ -4505,6 +4743,15 @@ begin
     d0 => constant2_op_net,
     d1 => slice1_y_net,
     y => mux_y_net_x0
+  );
+  relational1 : entity xil_defaultlib.sysgen_relational_3caec802ba 
+  port map (
+    clk => '0',
+    ce => '0',
+    clr => '0',
+    a => register_q_net,
+    b => constant1_op_net,
+    op => relational1_op_net
   );
   slice1 : entity xil_defaultlib.xsg_bwselector_xlslice 
   generic map (
@@ -4517,8 +4764,19 @@ begin
     x => register_q_net,
     y => slice1_y_net
   );
+  slice2 : entity xil_defaultlib.xsg_bwselector_xlslice 
+  generic map (
+    new_lsb => 1,
+    new_msb => 2,
+    x_width => 32,
+    y_width => 2
+  )
+  port map (
+    x => register_q_net,
+    y => slice2_y_net
+  );
 end structural;
--- Generated from Simulink block Bandwidth Selector
+-- Generated from Simulink block xsg_bwselector/Bandwidth Selector
 library IEEE;
 use IEEE.std_logic_1164.all;
 library xil_defaultlib;
@@ -4541,41 +4799,41 @@ entity xsg_bwselector_bandwidth_selector is
   );
 end xsg_bwselector_bandwidth_selector;
 architecture structural of xsg_bwselector_bandwidth_selector is 
-  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal s_axis_re_tdata_net : std_logic_vector( 128-1 downto 0 );
-  signal s_axi_decimation_net : std_logic_vector( 32-1 downto 0 );
+  signal register_q_net : std_logic_vector( 1-1 downto 0 );
   signal ce_net : std_logic;
-  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal register2_q_net_x0 : std_logic_vector( 1-1 downto 0 );
-  signal s_axis_im_tdata_net : std_logic_vector( 128-1 downto 0 );
-  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal s_axis_re_tvalid_net : std_logic_vector( 1-1 downto 0 );
+  signal clk_net : std_logic;
   signal mux_y_net : std_logic_vector( 1-1 downto 0 );
   signal mux1_y_net : std_logic_vector( 128-1 downto 0 );
-  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
-  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
-  signal s_axis_im_tvalid_net : std_logic_vector( 1-1 downto 0 );
-  signal register_q_net : std_logic_vector( 1-1 downto 0 );
   signal mux2_y_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
   signal register2_q_net : std_logic_vector( 1-1 downto 0 );
-  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret3_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret0_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret7_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal s_axis_im_tdata_net : std_logic_vector( 128-1 downto 0 );
+  signal s_axis_re_tdata_net : std_logic_vector( 128-1 downto 0 );
   signal register3_q_net_x0 : std_logic_vector( 128-1 downto 0 );
-  signal clk_net : std_logic;
-  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal s_axi_decimation_net : std_logic_vector( 32-1 downto 0 );
+  signal register2_q_net_x0 : std_logic_vector( 1-1 downto 0 );
+  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
+  signal s_axis_im_tvalid_net : std_logic_vector( 1-1 downto 0 );
+  signal mux3_y_net : std_logic_vector( 128-1 downto 0 );
+  signal register3_q_net : std_logic_vector( 1-1 downto 0 );
+  signal reinterpret0_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret1_output_port_net_x0 : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret4_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret5_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal register_q_net_x0 : std_logic_vector( 32-1 downto 0 );
+  signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret7_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal reinterpret6_output_port_net : std_logic_vector( 16-1 downto 0 );
 begin
   s_axi_decimation_net <= s_axi_decimation;
   m_axis_im_tdata <= register3_q_net_x0;
@@ -4697,18 +4955,18 @@ entity xsg_bwselector_struct is
   );
 end xsg_bwselector_struct;
 architecture structural of xsg_bwselector_struct is 
-  signal s_axi_decimation_net : std_logic_vector( 32-1 downto 0 );
-  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
-  signal s_axis_im_tvalid_net : std_logic_vector( 1-1 downto 0 );
-  signal clk_net : std_logic;
-  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
-  signal s_axis_im_tdata_net : std_logic_vector( 128-1 downto 0 );
-  signal register3_q_net : std_logic_vector( 128-1 downto 0 );
-  signal register_q_net : std_logic_vector( 1-1 downto 0 );
-  signal s_axis_re_tvalid_net : std_logic_vector( 1-1 downto 0 );
-  signal ce_net : std_logic;
-  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
   signal s_axis_re_tdata_net : std_logic_vector( 128-1 downto 0 );
+  signal s_axi_decimation_net : std_logic_vector( 32-1 downto 0 );
+  signal s_axis_re_tvalid_net : std_logic_vector( 1-1 downto 0 );
+  signal s_axis_im_tdata_net : std_logic_vector( 128-1 downto 0 );
+  signal clk_net : std_logic;
+  signal register3_q_net : std_logic_vector( 128-1 downto 0 );
+  signal register2_q_net : std_logic_vector( 1-1 downto 0 );
+  signal register1_q_net : std_logic_vector( 128-1 downto 0 );
+  signal register_q_net : std_logic_vector( 1-1 downto 0 );
+  signal s_axis_im_tvalid_net : std_logic_vector( 1-1 downto 0 );
+  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
+  signal ce_net : std_logic;
 begin
   s_axi_decimation_net <= s_axi_decimation;
   m_axis_im_tdata <= register3_q_net;
@@ -4809,10 +5067,10 @@ entity xsg_bwselector is
 end xsg_bwselector;
 architecture structural of xsg_bwselector is 
   attribute core_generation_info : string;
-  attribute core_generation_info of structural : architecture is "xsg_bwselector,sysgen_core_2020_1,{,compilation=IP Catalog,block_icon_display=Default,family=zynquplusRFSOC,part=xczu28dr,speed=-2-e,package=ffvg1517,synthesis_language=vhdl,hdl_library=xil_defaultlib,synthesis_strategy=Vivado Synthesis Defaults,implementation_strategy=Vivado Implementation Defaults,testbench=0,interface_doc=0,ce_clr=0,clock_period=3.90625,system_simulink_period=3.90625e-09,waveform_viewer=0,axilite_interface=1,ip_catalog_plugin=0,hwcosim_burst_mode=0,simulation_time=1.6e-05,concat=12,constant=6,convert=20,fir_compiler_v7_2=9,logical=2,mux=18,register=9,reinterpret=46,relational=1,slice=21,}";
-  signal s_axi_decimation : std_logic_vector( 32-1 downto 0 );
+  attribute core_generation_info of structural : architecture is "xsg_bwselector,sysgen_core_2020_1,{,compilation=IP Catalog,block_icon_display=Default,family=zynquplusRFSOC,part=xczu28dr,speed=-2-e,package=ffvg1517,synthesis_language=vhdl,hdl_library=xil_defaultlib,synthesis_strategy=Vivado Synthesis Defaults,implementation_strategy=Vivado Implementation Defaults,testbench=0,interface_doc=0,ce_clr=0,clock_period=3.90625,system_simulink_period=3.90625e-09,waveform_viewer=0,axilite_interface=1,ip_catalog_plugin=0,hwcosim_burst_mode=0,simulation_time=1.6e-05,concat=12,constant=6,convert=20,fir_compiler_v7_2=12,logical=2,mux=18,register=9,reinterpret=46,relational=1,slice=21,}";
   signal clk_1_net : std_logic;
   signal ce_1_net : std_logic;
+  signal s_axi_decimation : std_logic_vector( 32-1 downto 0 );
   signal clk_net : std_logic;
 begin
   xsg_bwselector_axi_lite_interface : entity xil_defaultlib.xsg_bwselector_axi_lite_interface 
