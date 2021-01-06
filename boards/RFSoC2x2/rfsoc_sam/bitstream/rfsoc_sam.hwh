@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun Jan  3 21:15:14 2021" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jan  4 01:14:43 2021" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynquplusRFSOC" DEVICE="xczu28dr" NAME="block_design" PACKAGE="ffvg1517" SPEEDGRADE="-2"/>
 
@@ -670,13 +670,13 @@
             <CONNECTION INSTANCE="axi_smc" PORT="aresetn"/>
             <CONNECTION INSTANCE="radio_rfdc" PORT="m2_axis_aresetn"/>
             <CONNECTION INSTANCE="radio_ps8_axi_periph" PORT="M02_ARESETN"/>
-            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="AXI4_Lite_ARESETN"/>
-            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="IPCORE_RESETN"/>
-            <CONNECTION INSTANCE="radio_receiver_decimator" PORT="xsg_bwselector_aresetn"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="M01_ARESETN"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="M00_ARESETN"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="ARESETN"/>
+            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="AXI4_Lite_ARESETN"/>
+            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="IPCORE_RESETN"/>
+            <CONNECTION INSTANCE="radio_receiver_decimator" PORT="xsg_bwselector_aresetn"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -2473,13 +2473,13 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="240613775" FULLNAME="/radio/receiver/decimator" HWVERSION="1.0" INSTANCE="radio_receiver_decimator" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xsg_bwselector" VLNV="User_Company:RFSoC:xsg_bwselector:1.0">
+    <MODULE COREREVISION="240628298" FULLNAME="/radio/receiver/decimator" HWVERSION="1.0" INSTANCE="radio_receiver_decimator" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xsg_bwselector" VLNV="User_Company:RFSoC:xsg_bwselector:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="xsg_bwselector_s_axi" NAME="reg0" RANGE="2" USAGE="register"/>
       </ADDRESSBLOCKS>
       <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="block_design_xsg_bwselector_0_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="block_design_xsg_bwselector_0_1"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
         <PARAMETER NAME="C_XSG_BWSELECTOR_S_AXI_BASEADDR" VALUE="0x80050000"/>
         <PARAMETER NAME="C_XSG_BWSELECTOR_S_AXI_HIGHADDR" VALUE="0x8005FFFF"/>
@@ -2764,7 +2764,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="2012241143" FULLNAME="/radio/receiver/spectrum_analyser" HWVERSION="1.0" INSTANCE="radio_receiver_spectrum_analyser" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SpectrumAnalyser" VLNV="xilinx.com:ip:SpectrumAnalyser:1.0">
+    <MODULE COREREVISION="2101040055" FULLNAME="/radio/receiver/spectrum_analyser" HWVERSION="1.0" INSTANCE="radio_receiver_spectrum_analyser" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SpectrumAnalyser" VLNV="xilinx.com:ip:SpectrumAnalyser:1.0">
       <DOCUMENTS>
         <DOCUMENT SOURCE="c:/GitHub/strath_sdr/rfsoc_sam_private/boards/ip/iprepo/SpectrumAnalyser_v1_0/doc/doc_arch_axi4_lite_stream.jpg"/>
       </DOCUMENTS>
@@ -2772,7 +2772,7 @@
         <ADDRESSBLOCK ACCESS="" INTERFACE="AXI4_Lite" NAME="reg0" RANGE="65536" USAGE=""/>
       </ADDRESSBLOCKS>
       <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="block_design_SpectrumAnalyser_0_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="block_design_SpectrumAnalyser_0_1"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
         <PARAMETER NAME="C_BASEADDR" VALUE="0x80040000"/>
         <PARAMETER NAME="C_HIGHADDR" VALUE="0x8004FFFF"/>
@@ -4774,13 +4774,13 @@
             <CONNECTION INSTANCE="radio_rfdc" PORT="m2_axis_aclk"/>
             <CONNECTION INSTANCE="radio_ps8_axi_periph" PORT="M02_ACLK"/>
             <CONNECTION INSTANCE="radio_proc_sys_reset_adc2_256M" PORT="slowest_sync_clk"/>
-            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="AXI4_Lite_ACLK"/>
-            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="IPCORE_CLK"/>
-            <CONNECTION INSTANCE="radio_receiver_decimator" PORT="clk"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="ACLK"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="M00_ACLK"/>
             <CONNECTION INSTANCE="radio_receiver_axi_interconnect" PORT="M01_ACLK"/>
+            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="IPCORE_CLK"/>
+            <CONNECTION INSTANCE="radio_receiver_spectrum_analyser" PORT="AXI4_Lite_ACLK"/>
+            <CONNECTION INSTANCE="radio_receiver_decimator" PORT="clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="dac1_clk_p" SIGIS="clk" SIGNAME="radio_rfdc_dac1_clk_p">

@@ -70,15 +70,57 @@ class Accordion():
     """Helper class for accordion widgets."""
     def __init__(self,
                  title, 
-                 widgets):
+                 widgets,
+                 selected_index=0):
         self._title = title
         self._widgets = widgets
         self._vbox = ipw.VBox([])
         
         for i in range(len(self._widgets)):
             self._vbox.children+=(self._widgets[i],)
-        self._accordion = ipw.Accordion(children=[self._vbox],layout=ipw.Layout(width='auto'))
+        self._accordion = ipw.Accordion(children=[self._vbox],
+                                        layout=ipw.Layout(width='auto'),
+                                        selected_index=selected_index)
         self._accordion.set_title(0, self._title)
 
     def get_widget(self):
         return self._accordion
+    
+class DropDown():
+    """Helper class for dropdown widgets."""
+    def __init__(self,
+                 callback,
+                 options,
+                 value,
+                 description):
+    
+        def on_value_change(change):
+            callback(change['new'])
+    
+        self._dropdown = ipw.Dropdown(options=options,
+                                      value=value,
+                                      description=description,
+                                      style={'description_width': 'initial'})
+        
+        self._dropdown.observe(on_value_change, names='value')
+        
+    def get_widget(self):
+        return self._dropdown
+    
+class Image():
+    """Helper class for displaying images."""
+    def __init__(self,
+                 image_file,
+                 image_format='png',
+                 width=200,
+                 height=200):
+        
+        file = open(image_file, "rb")
+        image = file.read()
+        self._image = ipw.Image(value=image,
+                  format=image_format,
+                  width=width,
+                  height=height)
+        
+    def get_widget(self):
+        return self._image

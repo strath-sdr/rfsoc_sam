@@ -7,24 +7,46 @@ from setuptools import find_packages, setup
 # global variables
 board = os.environ['BOARD']
 repo_board_folder = f'boards/{board}/rfsoc_sam'
+common_folder = f'boards/common'
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
 board_project_dir = os.path.join(board_notebooks_dir, 'spectrum_analyser')
 
 # check whether board is supported
 def check_env():
-    if not board == 'ZCU111':
+    if not os.path.isdir(repo_board_folder):
         raise ValueError("Board {} is not supported.".format(board))
+    if not os.path.isdir(board_notebooks_dir):
+        raise ValueError(
+            "Directory {} does not exist.".format(board_notebooks_dir))
         
 # check if the path already exists, delete if so
 def check_path():
     if os.path.exists(board_project_dir):
         shutil.rmtree(board_project_dir)
 
+# copy common to jupyter home
+def copy_common():
+    src_common_dir = os.path.join(common_folder)
+    dst_common_dir = os.path.join(board_project_dir)
+    copy_tree(src_common_dir, dst_common_dir)
+
+# copy assets to jupyter home
+def copy_assets():
+    src_assets_dir = os.path.join(common_folder, 'assets')
+    dst_assets_dir = os.path.join(board_project_dir, 'assets')
+    copy_tree(src_assets_dir, dst_assets_dir)
+
 # copy overlays to python package
 def copy_overlays():
     src_ol_dir = os.path.join(repo_board_folder, 'bitstream')
     dst_ol_dir = os.path.join(board_project_dir, 'bitstream')
     copy_tree(src_ol_dir, dst_ol_dir)
+
+# copy board specific drivers
+def copy_drivers():
+    src_dr_dir = os.path.join(repo_board_folder, 'drivers')
+    dst_dr_dir = os.path.join(board_project_dir)
+    copy_tree(src_dr_dir, dst_dr_dir)
 
 # copy notebooks to jupyter home
 def copy_notebooks():
@@ -34,14 +56,17 @@ def copy_notebooks():
     
 check_env()
 check_path()
+copy_common()
+copy_assets()
 copy_overlays()
+copy_drivers()
 copy_notebooks()
 
 setup(
     name="rfsoc_sam",
     version='1.0',
     install_requires=[
-        'pynq>=2.5',
+        'pynq>=2.6',
     ],
     url='https://github.com/strath-sdr/rfsoc_sam',
     license='BSD 3-Clause License',
