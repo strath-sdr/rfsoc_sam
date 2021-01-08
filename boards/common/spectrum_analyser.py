@@ -5,13 +5,21 @@ import numpy as np
 import ipywidgets as ipw
 import struct
 import plotly.graph_objs as go
+from scipy import signal
+from PIL import Image
 
 from contextlib import contextmanager
+
+import plotly.io as pio
+pio.renderers.default = "browser"
 
 from pynq import DefaultIP
 from pynq import allocate
 
 import quick_widgets as qw
+
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class SpectrumAnalyser(DefaultIP):
     """The Spectrum Analyser object."""
@@ -84,16 +92,11 @@ class SpectrumAnalyser(DefaultIP):
         
         """Create Spectrogram Plot object for presenting the waterfall spectrum."""
         self.spectrogram = SpectrogramPlot(sample_frequency=self._sample_frequency,
-                                           number_samples=self._number_samples,
                                            centre_frequency=self._centre_frequency,
                                            nyquist_stopband=self._nyquist_stopband,
-                                           xlabel='Frequency (Hz)',
-                                           ylabel='Time (s)',
-                                           plot_width=plot_width,
-                                           plot_height=plot_height,
-                                           plot_time=10,
-                                           update_frequency=5,
-                                           downsample_factor=64)
+                                           width=plot_width,
+                                           height=plot_height,
+                                           plot_time=10,)
         
         """Create a Function Timer object to enable plot data updates through threading."""
         self.timer = FunctionTimer(plot=self.plot,
@@ -103,7 +106,7 @@ class SpectrumAnalyser(DefaultIP):
         """Create a Function Timer object to enable spectrogram plot data updates through threading."""
         self.spectro_timer = FunctionTimer(plot=self.spectrogram,
                                            dma=self,
-                                           update_frequency=5)
+                                           update_frequency=10)
         
         """Create a widget for enabling/disabling dma movement."""
         def callback_bt_dma(value, button_id):
@@ -213,10 +216,8 @@ class SpectrumAnalyser(DefaultIP):
         def callback_dd_updatetype(value):
             if value == 0:
                 self.plot.hold_max = False
-                self.spectrogram.hold_max = False
             if value == 1:
                 self.plot.hold_max = True
-                self.spectrogram.hold_max = True
         
         self.dd_updatetype = qw.DropDown(callback=callback_dd_updatetype,
                                          options=[('Continuous Update', 0),
@@ -366,7 +367,6 @@ class SpectrumAnalyser(DefaultIP):
                 running = True
             self.set_fftsize(fft_size)
             self.plot.number_samples = fft_size
-            self.spectrogram.number_samples = fft_size
             self._number_samples = int(2**(self.spectrum_fftselector+6))
             self.spectrum_typescale = \
                 int(struct.unpack('!i',struct.pack('!f',float(self._sample_frequency/(self._number_samples))))[0])
@@ -850,178 +850,134 @@ class SpectrumPlot():
     
 class SpectrogramPlot():
     def __init__(self,
-                 sample_frequency=2048e6,
-                 number_samples=4096,
+                 width=800,
+                 height=400,
                  centre_frequency=0,
+                 sample_frequency=2048e6,
                  nyquist_stopband=1,
-                 plot_time=10,
-                 update_frequency=5,
-                 downsample_factor=64,
-                 xlabel='Frequency (Hz)',
-                 ylabel='Time(s)',
-                 plot_width=800,
-                 plot_height=400,
-                 display_mode=0,
-                 spectrum_mode=True,
-                 animation_duration=0):
-    
-        self._update_frequency = update_frequency
-        self._plot_time = plot_time
-        self._number_samples = number_samples
+                 ypixel=2,
+                 plot_time=20,
+                 zmin=-140,
+                 zmax=0,
+                 display_mode=0):
+        
+        self._width = width
+        self._height = height
         self._sample_frequency = sample_frequency
-        self._downsample_factor = downsample_factor
-        
-        self._xaxis_length = int(self._number_samples/self._downsample_factor)
-        self._yaxis_length = int(self._plot_time/(1/self._update_frequency))
-        
-        self._x_data = np.arange(-self._sample_frequency/2, self._sample_frequency/2, \
-                                 self._sample_frequency/self._xaxis_length)
-        self._y_data = np.arange(0, self._plot_time, 1/self._update_frequency)*-1
-        self._z_data = np.zeros((self._yaxis_length, self._xaxis_length))        
-        
         self._centre_frequency = centre_frequency
-        self._rbw = self._sample_frequency/self._xaxis_length
-        self._upper_limit = self._sample_frequency/2
-        self._lower_limit = -self._sample_frequency/2
-        
-        self._xlabel = xlabel
-        self._ylabel = ylabel
-        
-        self._x_data = np.arange(self._lower_limit, self._upper_limit, self._rbw) + self._centre_frequency
-        self._range = (min(self._x_data), max(self._x_data))
-        self._display_mode = display_mode
-        self._spectrum_mode = spectrum_mode
         self._nyquist_stopband = nyquist_stopband
-        self._animation_duration = animation_duration
+        self._ypixel = ypixel
+        self._data = np.ones((self._height, self._width), dtype=np.uint8)*128
         
-        self.hold_max = False
+        self._image_x = -self._sample_frequency/2 + self._centre_frequency
+        self._image_y = 0
+        self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
+        self._upper_limit = (self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
         
-        layout = {
-            'hovermode' : 'closest',
-            'height' : np.ceil(plot_height),
-            'width' : np.ceil(plot_width),
-            'xaxis' : {
-                'title' : self._xlabel,
-                'showticklabels' : True,
-                'autorange' : True
-            },
+        self._plot_time = plot_time
+        self.zmin = zmin
+        self.zmax = zmax
+        self._display_mode = display_mode
+        
+        self._plot = go.FigureWidget(layout={
+            'height' : self._height,
+            'width' : self._width,
             'yaxis' : {
-                'title' : self._ylabel,
+                'showgrid' : False,
                 'range' : [-self._plot_time, 0],
-                'autorange' : False
+                'autorange' : False,
+                'title' : 'Time (s)',
+            },
+            'xaxis' : {
+                'zeroline': False,
+                'showgrid' : False,
+                'range' : [self._lower_limit, self._upper_limit],
+                'autorange' : False,
+                'title' : 'Frequency (Hz)',
             },
             'margin' : {
                 't':25,
                 'b':25,
                 'l':25,
-                'r':25
-            },
-            'showlegend' : False,
-        }
-
-        self._plot = FastFigureWidget(
-            data=go.Heatmap(
-                z=self._z_data,
-                x=self._x_data,
-                y=self._y_data,
-                colorscale = 'jet',
-                showscale=False,
-                zsmooth='fast',
-                zmin=-140,
-                zmax=0),
-            layout=layout)
+                'r':25,
+        }})
         
-        self.update_x_limits()
-        self.update_x_axis()
+        img = Image.fromarray(self._data, 'L')
+        self._plot.add_layout_image(
+            dict(
+                source=img,
+                xref="x",
+                yref="y",
+                x=self._image_x,
+                y=self._image_y,
+                sizex=self._sample_frequency,
+                sizey=self._plot_time,
+                sizing='stretch',
+                opacity=1,
+                layer="below")
+        )
         
-    """ Display Mode
-    """
+        self._update_image()
+        
+    @property
+    def data(self):
+        return self._data[0][:]
+    
+    @data.setter
+    def data(self, data):
+        value = np.fft.fftshift(data) # FFT Shift
+        value = np.array(np.interp(value, (self.zmin, self.zmax), (0, 255)), dtype=np.single) # Scale Z-Axis
+        value = np.resize(signal.resample(value, self._width), (1, self._width)) # Resample X-Axis
+        value = np.repeat(value, self._ypixel, 0) # Repeat Y-Axis
+        self._data = np.roll(self._data, self._ypixel, 0) # Roll data
+        self._data[0:self._ypixel, :] = value # Update first line
+        img = Image.fromarray(self._data, 'L') # Create image
+        self._plot.update_layout_images({'source' : img}) # Set as background
+        
+    @property
+    def ypixel(self):
+        return self._ypixel
+    
+    @ypixel.setter
+    def ypixel(self, ypixel):
+        self._ypixel = ypixel
+        
+    @property
+    def sample_frequency(self):
+        return self._sample_frequency
+    
+    @sample_frequency.setter
+    def sample_frequency(self, sample_frequency):
+        self._sample_frequency = sample_frequency
+        self._update_image()
+        
+    @property
+    def nyquist_stopband(self):
+        return self._nyquist_stopband
+    
+    @nyquist_stopband.setter
+    def nyquist_stopband(self, nyquist_stopband):
+        self._nyquist_stopband = nyquist_stopband
+        self._update_image()
+        
+    @property
+    def centre_frequency(self):
+        return self._centre_frequency
+    
+    @centre_frequency.setter
+    def centre_frequency(self, centre_frequency):
+        self._centre_frequency = centre_frequency
+        self._update_image()
+        
     @property
     def display_mode(self):
         return self._display_mode
     
     @display_mode.setter
     def display_mode(self, display_mode):
-        if display_mode in [0, 1]:
-            self._display_mode = display_mode
-            self.update_x_limits()
-            self.update_x_axis()
-        
-    """ Centre Frequency
-    """
-    @property
-    def centre_frequency(self):
-        return self._centre_frequency
-        
-    @centre_frequency.setter
-    def centre_frequency(self, fc):
-        self._centre_frequency = fc
-        self.update_x_axis()
-        
-    """ Sample Frequency
-    """
-    @property
-    def sample_frequency(self):
-        return self._sample_frequency
-        
-    @sample_frequency.setter
-    def sample_frequency(self, fs):
-        self._sample_frequency = fs
-        self._rbw = self._sample_frequency/self._xaxis_length
-        self.update_x_limits()
-        self.update_x_axis()
-        
-    """ Plot Data
-    """
-    @property
-    def data(self):
-        return self._z_data[0][:]
-    
-    @data.setter
-    def data(self, data):
-        
-        def maximum_hold(old_data, new_data):
-            return (old_data > new_data) * old_data + (old_data < new_data) * new_data
-        
-        if self._spectrum_mode:
-            fdata = np.fft.fftshift(data)
-        else:
-            fdata = data
-            
-        fdata = fdata[0:self._number_samples:self._downsample_factor]
-            
-        if self._display_mode == 0:
-            zdata = fdata[int(np.ceil((self._xaxis_length/2)*(1-self._nyquist_stopband))) \
-                               :int(self._xaxis_length - int(np.ceil((self._xaxis_length/2)*(1-self._nyquist_stopband))))]
-        elif self._display_mode == 1:
-            zdata = fdata[int(np.ceil((self._xaxis_length/2)*(1-self._nyquist_stopband))) \
-                               :int(self._xaxis_length/2)]
-        else:
-            pass
-        
-        ztemp = self._plot.data[0].z
-        
-        if self.hold_max:
-            zdata = maximum_hold(ztemp[0][0:self._xaxis_length], zdata)
-        
-        ztemp = np.roll(ztemp, 1, 0)
-        ztemp[0][0:self._xaxis_length] = zdata
-        self._plot.data[0].z = ztemp
-        
-    """ Nyquist Stopband
-    """
-    @property
-    def nyquist_stopband(self):
-        return self._nyquist_stopband
-    
-    @nyquist_stopband.setter
-    def nyquist_stopband(self, stopband):
-        self._nyquist_stopband = stopband
-        self.update_x_limits()
-        self.update_x_axis()
-        
-    """ Plot Width
-    """
+        self._display_mode = display_mode
+        self._update_image()
+
     @property
     def width(self):
         return self._plot.layout.width
@@ -1029,9 +985,7 @@ class SpectrogramPlot():
     @width.setter
     def width(self, width):
         self._plot.layout.width = width
-        
-    """ Plot Height
-    """
+
     @property
     def height(self):
         return self._plot.layout.height
@@ -1040,101 +994,22 @@ class SpectrogramPlot():
     def height(self, height):
         self._plot.layout.height = height
         
-    """ Number Samples
-    """
-    @property
-    def number_samples(self):
-        return self._number_samples
-    
-    @number_samples.setter
-    def number_samples(self, number_samples):
-        self._number_samples = number_samples
-        self._xaxis_length = int(self._number_samples/self._downsample_factor)
-        self._rbw = self._sample_frequency/self._xaxis_length
-        self.clear_plot()
-        self.update_x_limits()
-        self.update_x_axis()
-        
-    """ Plot Time
-    """
-    @property
-    def plot_time(self):
-        return self._plot_time
-    
-    @plot_time.setter
-    def plot_time(self, plot_time):
-        self._plot_time = plot_time
-        self._yaxis_length = int(self._plot_time/(1/self._update_frequency))
-        self._y_data = np.arange(0, self._plot_time, 1/self._update_frequency)*-1
-        self._plot.layout.yaxis.range = [-self._plot_time, 0]
-        self._plot.data[0].y = self._y_data
-        self.clear_plot()
-        
-    """ Update Frequency
-    """
-    @property
-    def update_frequency(self):
-        return self._update_frequency
-    
-    @update_frequency.setter
-    def update_frequency(self, update_frequency):
-        self._update_frequency = update_frequency
-        self._yaxis_length = int(self._plot_time/(1/self._update_frequency))
-        self._y_data = np.arange(0, self._plot_time, 1/self._update_frequency)*-1
-        self._plot.data[0].y = self._y_data
-        self.clear_plot()
-        
-    """ Downsample Factor
-    """
-    @property
-    def downsample_factor(self):
-        return self._downsample_factor
-    
-    @downsample_factor.setter
-    def downsample_factor(self, downsample_factor):
-        self._downsample_factor = downsample_factor
-        self._xaxis_length = int(self._number_samples/self._downsample_factor)
-        self._rbw = self._sample_frequency/self._xaxis_length
-        self.update_x_limits()
-        self.update_x_axis()
-        
-    @property
-    def zrange(self):
-        return [self._plot.data[0].zmin, self._plot.data[0].zmax]
-    
-    @zrange.setter
-    def zrange(self, zrange):
-        self._plot.data[0].zmin = zrange[0]
-        self._plot.data[0].zmax = zrange[1]
-        
-    def clear_plot(self):
-        self._z_data = np.zeros((self._yaxis_length, len(self._x_data))) - 300
-        self._plot.data[0].z = self._z_data
-        
-    def update_x_limits(self):
-        """ Updates the x-axis limits. Does not update the
-        frequency plot.
-        """
-        if self._display_mode == 0:
-            self._upper_limit = (self._sample_frequency/2)-self._rbw* \
-                np.ceil((self._xaxis_length/2)*(1-self._nyquist_stopband))
-            self._lower_limit = -(self._sample_frequency/2)+self._rbw* \
-                np.ceil((self._xaxis_length/2)*(1-self._nyquist_stopband))
-        elif self._display_mode == 1:
-            self._upper_limit = 0
-            self._lower_limit = -(self._sample_frequency/2)+self._rbw* \
-                np.ceil((self._xaxis_length/2)*(1-self._nyquist_stopband))
+    def _update_image(self):
+        if self._display_mode:
+            self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency 
+            self._upper_limit = self._centre_frequency
         else:
-            pass
-        
-    def update_x_axis(self):
-        """ Updates the x-axis of the frequency plot.
-        """
-        self._x_data = np.arange(self._lower_limit, self._upper_limit, self._rbw) + self._centre_frequency
-        self._range = (min(self._x_data), max(self._x_data))
-        self._plot.layout.xaxis.range = self._range
-        self._plot.data[0].x = self._x_data
-        self.clear_plot()
-        
+            self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency 
+            self._upper_limit = (self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
+        self._image_x = -self._sample_frequency/2 + self._centre_frequency
+        self._plot.update_layout({'xaxis': {
+                                  'range' : [self._lower_limit ,self._upper_limit]
+        }})
+        self._data = np.ones((self._height, self._width), dtype=np.uint8)*128
+        img = Image.fromarray(self._data, 'L')
+        self._plot.update_layout_images({'source' : img})
+        self._plot.update_layout_images({'x' : self._image_x})
+        self._plot.update_layout_images({'sizex' : self._sample_frequency})
+    
     def get_plot(self):
         return self._plot
