@@ -20,7 +20,7 @@ class SamOverlay(Overlay):
         
         # Start up LMX clock
         if init_rf_clks:
-            xrfclk.set_all_ref_clks(409.6)
+            xrfclk.set_ref_clks(lmk_freq=122.88, lmx_freq=409.6)
 
     def init_i2c(self):
         """Initialize the I2C control drivers on RFSoC2x2.
