@@ -6,7 +6,7 @@
 <Project Version="7" Minor="49" Path="C:/GitHub/strath_sdr/rfsoc_sam_private/boards/ip/sysgen/netlist/ip_catalog/xsg_bwselector.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="fc867914fd0f4b1d9278b97230ad0fcc"/>
+    <Option Name="Id" Val="d6b5e71eb9ef45978780146d9a997f64"/>
     <Option Name="Part" Val="xczu28dr-ffvg1517-2-e"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -78,7 +78,7 @@
       <File Path="$PSRCDIR/sources_1/imports/hdl/xsg_bwselector_bd_wrapper.vhd">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PSRCDIR/sources_1/bd/xsg_bwselector_bd/hdl/xsg_bwselector_bd_wrapper.vhd"/>
-          <Attr Name="ImportTime" Val="1609722734"/>
+          <Attr Name="ImportTime" Val="1611053733"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -95,7 +95,7 @@
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../sysgen/xsg_bwselector_mod.vhd"/>
-          <Attr Name="ImportTime" Val="1609722717"/>
+          <Attr Name="ImportTime" Val="1611053711"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -110,7 +110,7 @@
       <File Path="$PSRCDIR/constrs_1/imports/sysgen/xsg_bwselector_clock.xdc">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../sysgen/xsg_bwselector_clock.xdc"/>
-          <Attr Name="ImportTime" Val="1609722705"/>
+          <Attr Name="ImportTime" Val="1611053700"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
@@ -118,7 +118,7 @@
       <File Path="$PSRCDIR/constrs_1/imports/sysgen/xsg_bwselector.xdc">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../sysgen/xsg_bwselector.xdc"/>
-          <Attr Name="ImportTime" Val="1609722705"/>
+          <Attr Name="ImportTime" Val="1611053700"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
