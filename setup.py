@@ -27,7 +27,7 @@ def check_path():
 # copy common to jupyter home
 def copy_common():
     src_common_dir = os.path.join(common_folder)
-    dst_common_dir = os.path.join(board_project_dir)
+    dst_common_dir = os.path.join(board_project_dir, 'rfsoc_sam')
     copy_tree(src_common_dir, dst_common_dir)
 
 # copy assets to jupyter home
@@ -39,13 +39,13 @@ def copy_assets():
 # copy overlays to python package
 def copy_overlays():
     src_ol_dir = os.path.join(repo_board_folder, 'bitstream')
-    dst_ol_dir = os.path.join(board_project_dir, 'bitstream')
+    dst_ol_dir = os.path.join(board_project_dir, 'rfsoc_sam', 'bitstream')
     copy_tree(src_ol_dir, dst_ol_dir)
 
 # copy board specific drivers
 def copy_drivers():
     src_dr_dir = os.path.join(repo_board_folder, 'drivers')
-    dst_dr_dir = os.path.join(board_project_dir)
+    dst_dr_dir = os.path.join(board_project_dir, 'rfsoc_sam')
     copy_tree(src_dr_dir, dst_dr_dir)
 
 # copy notebooks to jupyter home

@@ -2,10 +2,10 @@ from pynq import DefaultIP
 from pynq import allocate
 import numpy as np
 
-class TransmitterCore(DefaultIP):
+class Controller(DefaultIP):
     
     def __init__(self, description):
-        super().__init__(description=description)
+        super().__init__(description)
         
     bindto = ['xilinx.com:ip:mw_transmitter:1.0']
     
@@ -22,4 +22,4 @@ def _create_mmio_property(addr):
     return property(_get, _set)
 
 for (name, addr) in _transmitter_props:
-    setattr(TransmitterCore, name, _create_mmio_property(addr))
+    setattr(Controller, name, _create_mmio_property(addr))

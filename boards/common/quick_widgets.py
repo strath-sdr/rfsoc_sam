@@ -1,18 +1,76 @@
 import ipywidgets as ipw
 
+class Label():
+    """Helper class for label widgets."""
+    def __init__(self,
+                 value,
+                 svalue='',
+                 evalue='',
+                 dict_id=''):
+    
+        self._svalue = svalue
+        self._evalue = evalue
+        self._label = ipw.Label(value=''.join([self._svalue,value,self._evalue]))
+        self._dict_id = dict_id
+    
+    @property
+    def value(self):
+        return self._label.value
+    
+    @value.setter
+    def value(self, value):
+        self._label.value = ''.join([self._svalue,value,self._evalue])
+        
+    def get_widget(self):
+        return self._label
+        
+        
+class DropDown():
+    """Helper class for dropdown widgets."""
+    def __init__(self,
+                 callback,
+                 options,
+                 value,
+                 description,
+                 dict_id = ''):
+    
+        def on_value_change(change):
+            callback({self._dict_id : change['new']})
+            
+        self._dict_id = dict_id
+        self._dropdown = ipw.Dropdown(options=options,
+                                      value=value,
+                                      description=description,
+                                      style={'description_width': 'initial'})
+        self._dropdown.observe(on_value_change, names='value')
+        
+    @property
+    def value(self):
+        return self._dropdown.value
+    
+    @value.setter
+    def value(self, value):
+        self._dropdown.value = value
+        
+    def get_widget(self):
+        return self._dropdown
+    
+
 class FloatText():
     """Helper class for float text widgets."""
     def __init__(self,
+                 callback,
                  value,
                  min_value,
                  max_value,
                  step,
                  description,
-                 callback
-                 ):
+                 dict_id = ''):
         
         def on_value_change(change):
-            callback(change['new'])
+            callback({self._dict_id : change['new']})
+            
+        self._dict_id = dict_id
         
         self._text_box = ipw.BoundedFloatText(
             value=value,
@@ -27,8 +85,17 @@ class FloatText():
         
         self._text_box.observe(on_value_change, names='value')
         
+    @property
+    def value(self):
+        return self._text_box.value
+    
+    @value.setter
+    def value(self, value):
+        self._text_box.value = value
+        
     def get_widget(self):
         return self._text_box
+    
     
 class Button():
     """Helper class for button widgets."""
@@ -37,9 +104,9 @@ class Button():
                  description_on = ' ',
                  description_off = ' ',
                  state = True,
-                 button_id = 0):
+                 dict_id = ''):
         self._state = state
-        self._button_id = button_id
+        self._dict_id = dict_id
         self._callback = callback
         self._description_on = description_on
         self._description_off = description_off
@@ -55,7 +122,7 @@ class Button():
         
     def on_click(self):
         self._state = not self._state
-        self._callback(value = self._state, button_id = self._button_id)
+        self._callback({self._dict_id : self._state})
         if self._state:
             self._button.style.button_color = 'royalblue'
             self._button.description = self._description_on
@@ -65,6 +132,7 @@ class Button():
             
     def get_widget(self):
         return self._button
+    
     
 class Accordion():
     """Helper class for accordion widgets."""
@@ -86,26 +154,6 @@ class Accordion():
     def get_widget(self):
         return self._accordion
     
-class DropDown():
-    """Helper class for dropdown widgets."""
-    def __init__(self,
-                 callback,
-                 options,
-                 value,
-                 description):
-    
-        def on_value_change(change):
-            callback(change['new'])
-    
-        self._dropdown = ipw.Dropdown(options=options,
-                                      value=value,
-                                      description=description,
-                                      style={'description_width': 'initial'})
-        
-        self._dropdown.observe(on_value_change, names='value')
-        
-    def get_widget(self):
-        return self._dropdown
     
 class Image():
     """Helper class for displaying images."""

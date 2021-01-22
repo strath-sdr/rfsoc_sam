@@ -16,8 +16,6 @@ pio.renderers.default = "browser"
 from pynq import DefaultIP
 from pynq import allocate
 
-import quick_widgets as qw
-
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
@@ -26,7 +24,7 @@ class SpectrumAnalyser(DefaultIP):
     def __init__(self,
                  description,
                  sample_frequency = 2048e6,
-                 update_frequency = 5,
+                 update_frequency = 10,
                  centre_frequency = 0,
                  nyquist_stopband = 1,
                  plot_width = 800,
@@ -63,7 +61,7 @@ class SpectrumAnalyser(DefaultIP):
         self.dma_bufferaddress_2 = self.buffer[2].device_address
         self.dma_enable = 0
         self.__dma_enable = 0
-        self._dma_count = 2000000 # No touchy
+        self._dma_count = 20000000 # No touchy
         
         """Initialise"""
         self._sample_frequency = int(sample_frequency)
@@ -72,9 +70,11 @@ class SpectrumAnalyser(DefaultIP):
         self._number_samples = int(2**(self.spectrum_fftselector+6))
         self._centre_frequency = centre_frequency
         self._nyquist_stopband = nyquist_stopband
+        self._width = plot_width
+        self._height = plot_height
         
         """Set plotly dark mode as default"""
-        pio.templates.default = 'plotly_dark'
+        self.plot_theme = 'plotly'
         
         """Create Spectrum Plot object for presenting the frequency spectrum."""
         self.plot = SpectrumPlot(plot_data=np.zeros((self._number_samples,), dtype=np.single),
@@ -84,8 +84,8 @@ class SpectrumAnalyser(DefaultIP):
                                   nyquist_stopband=self._nyquist_stopband,
                                   xlabel='Frequency (Hz)',
                                   ylabel='Power Spectrum (dBW)',
-                                  plot_width=plot_width,
-                                  plot_height=plot_height,
+                                  plot_width=self._width,
+                                  plot_height=self._height,
                                   display_mode=0,
                                   spectrum_mode=True,
                                   animation_duration=0)
@@ -94,207 +94,46 @@ class SpectrumAnalyser(DefaultIP):
         self.spectrogram = SpectrogramPlot(sample_frequency=self._sample_frequency,
                                            centre_frequency=self._centre_frequency,
                                            nyquist_stopband=self._nyquist_stopband,
-                                           width=plot_width,
-                                           height=plot_height,
+                                           width=self._width,
+                                           height=self._height,
                                            plot_time=10,)
         
         """Create a Function Timer object to enable plot data updates through threading."""
-        self.timer = FunctionTimer(plot=self.plot,
+        self.timer = FunctionTimer(plot=[self.plot, self.spectrogram],
                                     dma=self,
                                     update_frequency=self._update_frequency)
+
+    @property
+    def width(self):
+        return self._width
+    
+    @width.setter
+    def width(self, width):
+        self._width = width
+        self.plot.width = width
+        self.spectrogram.width = width
         
-        """Create a Function Timer object to enable spectrogram plot data updates through threading."""
-        self.spectro_timer = FunctionTimer(plot=self.spectrogram,
-                                           dma=self,
-                                           update_frequency=10)
+    @property
+    def height(self):
+        return self._height
+    
+    @height.setter
+    def height(self, height):
+        self._height = height
+        self.plot.height = height
+        self.spectrogram.height = height
         
-        """Create a widget for enabling/disabling dma movement."""
-        def callback_bt_dma(value, button_id):
-            if value:
-                self.dma_enable = 1
-            else:
-                self.dma_enable = 0
-                
-        self.bt_dma = qw.Button(callback=callback_bt_dma,
-                                description_on = 'On',
-                                description_off = 'Off',
-                                state=False,
-                                button_id=0)
-        
-        """Create a widget for enabling/disabling plotting."""
-        def callback_bt_plotting(value, button_id):
-            if value:
-                self.timer.start()
-            else:
-                self.timer.stop()
-                
-        self.bt_plotting = qw.Button(callback=callback_bt_plotting,
-                              description_on = 'On',
-                              description_off = 'Off',
-                              state=False,
-                              button_id=0)
-        
-        """Create a widget for enabling/disabling spectrogram plotting."""
-        def callback_bt_spectrogram(value, button_id):
-            if value:
-                self.spectro_timer.start()
-            else:
-                self.spectro_timer.stop()
-                
-        self.bt_spectrogram = qw.Button(callback=callback_bt_spectrogram,
-                              description_on = 'On',
-                              description_off = 'Off',
-                              state=False,
-                              button_id=0)
-        
-        """Create a widget for selecting the FFT size."""        
-        def callback_dd_fftsize(value):
-            self.fft_size = value
-        
-        self.dd_fftsize = qw.DropDown(callback=callback_dd_fftsize,
-                                      options=[('64', 64),
-                                               ('128', 128),
-                                               ('256', 256),
-                                               ('512', 512),
-                                               ('1024', 1024),
-                                               ('2048', 2048),
-                                               ('4096', 4096),
-                                               ('8192', 8192)],
-                                      value = 4096,
-                                      description = 'FFT Size:')
-        
-        """Create a widget for selecting the Spectrum Type."""
-        def callback_dd_spectrumtype(value):
-            self.spectrum_type = value
-            
-        self.dd_spectrumtype = qw.DropDown(callback=callback_dd_spectrumtype,
-                                           options=[('Power Spectrum'),
-                                                    ('Power Spectral Density')],
-                                           value='Power Spectrum',
-                                           description='Spectrum Type:')
-        
-        """Create a widget for selecting the Spectrum Units."""
-        def callback_dd_spectrumunits(value):
-            self.spectrum_units = value
-            
-        self.dd_spectrumunits = qw.DropDown(callback=callback_dd_spectrumunits,
-                                           options=[('dBW'),
-                                                    ('dBm')],
-                                           value='dBW',
-                                           description='Spectrum Units:')
-        
-        """Create a widget for selecting the window type."""
-        def callback_dd_windowtype(value):
-            self.spectrum_window = value
-            
-        self.dd_windowtype = qw.DropDown(callback=callback_dd_windowtype,
-                                         options=[('Rectangular', 'rectangular'),
-                                                  ('Bartlett', 'bartlett'),
-                                                  ('Blackman', 'blackman'),
-                                                  ('Hamming', 'hamming'),
-                                                  ('Hanning', 'hanning')],
-                                         value='rectangular',
-                                         description='')
-        
-        """Create a figure using plotly to display the selected window."""
-        layout = {
-            'hovermode' : 'closest',
-            'height' : 225,
-            'width' : 300,
-            'margin' : {
-                't':0, 'b':20, 'l':0, 'r':0
-            },
-            'showlegend' : False,
-        }
-        self.window_plot = go.FigureWidget(layout=layout,
-                                           data=[{
-                                               'x': np.arange(self.window_packetsize),
-                                               'y': np.ones(self.window_packetsize)}])
-        self.window_plot.data[0].marker.color = '#005d95'
-        
-        """Create a dropdown for plot update type."""
-        def callback_dd_updatetype(value):
-            if value == 0:
-                self.plot.hold_max = False
-            if value == 1:
-                self.plot.hold_max = True
-        
-        self.dd_updatetype = qw.DropDown(callback=callback_dd_updatetype,
-                                         options=[('Continuous Update', 0),
-                                                  ('Maximum Hold', 1)],
-                                         value=0,
-                                         description='Update Type:')
-        
-        """Create a dropdown for the displaymode."""
-        def callback_dd_displaymode(value):
-            self.plot.display_mode = value
-        
-        self.dd_displaymode = qw.DropDown(callback=callback_dd_displaymode,
-                                         options=[('Double-Sided', 0),
-                                                  ('Single-Sided', 1)],
-                                         value=0,
-                                         description='Display Mode:')
-        
-        """Create a widget for nyquist stopband selection."""
-        def callback_ft_nstopband(value):
-            self.plot.nyquist_stopband = value
-            
-        self.ft_nstopband = qw.FloatText(value=0.8,
-                                   min_value=0.5,
-                                   max_value=1.0,
-                                   step=0.01,
-                                   description='Nyquist Stopband (%):',
-                                   callback=callback_ft_nstopband)
-        
-        """Create a widget for plot width selection."""
-        def callback_ft_width(value):
-            self.plot.width = value
-            self.spectrogram.width = value
-            
-        self.ft_width = qw.FloatText(value=self.plot.width,
-                                   min_value=400,
-                                   max_value=4096,
-                                   step=1,
-                                   description='Plot Width (Px):',
-                                   callback=callback_ft_width)
-        
-        """Create a widget for plot height selection."""
-        def callback_ft_height(value):
-            self.plot.height = value
-            self.spectrogram.height = value
-            
-        self.ft_height = qw.FloatText(value=self.plot.height,
-                                   min_value=200,
-                                   max_value=2160,
-                                   step=1,
-                                   description='Plot Height (Px):',
-                                   callback=callback_ft_height)
-        
-        """Create Plot accordion for holding plot related properties."""
-        self.ac_plot = qw.Accordion(title='Plot Settings',
-                                    widgets=[self.dd_updatetype.get_widget(),
-                                             self.dd_displaymode.get_widget(),
-                                             self.ft_nstopband.get_widget(),
-                                             self.ft_width.get_widget(),
-                                             self.ft_height.get_widget()])
-        
-        """Create Spectrum Window accordion for holding window plot and dropdown selector."""
-        self.ac_window = qw.Accordion(title='Window',
-                                      widgets=[self.window_plot,
-                                               self.dd_windowtype.get_widget()])
-        
-        """Create accordion for holding control widgets."""
-        self.ac_control = qw.Accordion(title='Spectrum Analyser',
-                                       widgets=[self.dd_fftsize.get_widget(),
-                                                self.dd_spectrumtype.get_widget(),
-                                                self.dd_spectrumunits.get_widget()])
-        
-        """Create spectrum analyser."""
-        self.analyser = ipw.HBox([ipw.VBox([self.ac_control.get_widget(),
-                                             self.ac_window.get_widget()]),
-                                   self.plot.get_plot(),
-                                   self.bt_plotting.get_widget()],
-                                   layout=ipw.Layout(width='auto', height='auto'))
+    @property
+    def plotly_theme(self):
+        return pio.templates.default
+    
+    @plotly_theme.setter
+    def plotly_theme(self, theme):
+        if theme in ['seaborn', 'simple_white', 'plotly', 
+                     'plotly_white', 'plotly_dark']:
+            pio.templates.default = theme
+            self.plot._plot.layout.template = theme
+            self.spectrogram._plot.layout.template = theme
         
     @property
     def centre_frequency(self):
@@ -365,7 +204,17 @@ class SpectrumAnalyser(DefaultIP):
             if self.dma_enable:
                 self.dma_enable = 0
                 running = True
-            self.set_fftsize(fft_size)
+            self.ssr_packetsize = 0
+            self.dma_length = fft_size
+            [self.buffer[x].freebuffer() for x in range(0, 3)]
+            self.buffer = [allocate(shape=(self.dma_length,), dtype=np.single) for x in range(0, 3) ]
+            self.dma_bufferaddress_0 = self.buffer[0].device_address
+            self.dma_bufferaddress_1 = self.buffer[1].device_address
+            self.dma_bufferaddress_2 = self.buffer[2].device_address
+            self.spectrum_fftselector = int(np.log2(fft_size)-6)
+            self.window_packetsize = fft_size
+            self.window = self.window_type
+            self.ssr_packetsize = int(fft_size/8)
             self.plot.number_samples = fft_size
             self._number_samples = int(2**(self.spectrum_fftselector+6))
             self.spectrum_typescale = \
@@ -374,20 +223,59 @@ class SpectrumAnalyser(DefaultIP):
                 int(struct.unpack('!i',struct.pack('!f',float(1/(self._sample_frequency*self.window_squaresum))))[0])
             if running:
                 self.dma_enable = 1
-                
+      
     @property
-    def spectrum_window(self):
+    def window(self):
         return self.window_type
     
-    @spectrum_window.setter
-    def spectrum_window(self, window):
-        self.set_window(window_type=window)
+    @window.setter
+    def window(self, window):
+        window_size = self.window_packetsize
+        buffer = allocate(shape=(window_size,), dtype=np.int32)
+        self.window_address = buffer.device_address
+        if window == 'rectangular':
+            buffer[:] = np.int32(np.ones(window_size)[:]*2**14)
+        elif window == 'bartlett':
+            buffer[:] = np.int32(np.bartlett(window_size)[:]*2**14)
+        elif window == 'blackman':
+            buffer[:] = np.int32(np.blackman(window_size)[:]*2**14)
+        elif window == 'hamming':
+            buffer[:] = np.int32(np.hamming(window_size)[:]*2**14)
+        elif window == 'hanning':
+            buffer[:] = np.int32(np.hanning(window_size)[:]*2**14)
+        else:
+            buffer[:] = np.int32(np.ones(window_size)[:]*2**14)
+            window = 'rectangular'
+        self.window_transfer = 1
+        while not self.window_ready:
+            pass
+        self.window_transfer = 0
+        self.window_type = window
+        self.window_squaresum = np.sum((np.array(buffer, dtype=np.single)*2**-14)**2)
+        self.window_sum = np.sum((np.array(buffer, dtype=np.single)))
+        buffer.freebuffer()
         self.spectrum_typescale = \
             int(struct.unpack('!i',struct.pack('!f',float(self._sample_frequency/(self._number_samples))))[0])
         self.spectrum_powerscale = \
             int(struct.unpack('!i',struct.pack('!f',float(1/(self._sample_frequency*self.window_squaresum))))[0])
-        self.window_plot.data[0].x = np.arange(self.window_packetsize)
-        self.window_plot.data[0].y = self.get_window()
+        
+    @property
+    def spectrum_window(self):
+        window_type = self.window_type
+        window_size = self.window_packetsize
+        if window_type == 'rectangular':
+            buffer = np.array(np.ones(window_size)[:], dtype=np.single)
+        elif window_type == 'bartlett':
+            buffer = np.array(np.bartlett(window_size)[:], dtype=np.single)
+        elif window_type == 'blackman':
+            buffer = np.array(np.blackman(window_size)[:], dtype=np.single)
+        elif window_type == 'hamming':
+            buffer = np.array(np.hamming(window_size)[:], dtype=np.single)
+        elif window_type == 'hanning':
+            buffer = np.array(np.hanning(window_size)[:], dtype=np.single)
+        else:
+            buffer = np.array(np.ones(window_size)[:], dtype=np.single)
+        return buffer
         
     @property
     def dma_enable(self):
@@ -418,80 +306,29 @@ class SpectrumAnalyser(DefaultIP):
         self.plot.nyquist_stopband = nyquist_stopband
         self.spectrogram.nyquist_stopband = nyquist_stopband
         
-    def get_analyser(self):
-        return self.analyser
+    @property
+    def zmin(self):
+        return self.spectrogram.zmin
     
-    def get_window(self):
-        """Return numpy array
+    @zmin.setter
+    def zmin(self, zmin):
+        self.spectrogram.zmin = zmin
         
-        Get the window used in the preprocessing core."""
-        window_type = self.window_type
-        window_size = self.window_packetsize
-        if window_type == 'rectangular':
-            buffer = np.array(np.ones(window_size)[:], dtype=np.single)
-        elif window_type == 'bartlett':
-            buffer = np.array(np.bartlett(window_size)[:], dtype=np.single)
-        elif window_type == 'blackman':
-            buffer = np.array(np.blackman(window_size)[:], dtype=np.single)
-        elif window_type == 'hamming':
-            buffer = np.array(np.hamming(window_size)[:], dtype=np.single)
-        elif window_type == 'hanning':
-            buffer = np.array(np.hanning(window_size)[:], dtype=np.single)
-        else:
-            buffer = np.array(np.ones(window_size)[:], dtype=np.single)
-        return buffer
+    @property
+    def zmax(self):
+        return self.spectrogram.zmax
+    
+    @zmax.setter
+    def zmax(self, zmax):
+        self.spectrogram.zmax = zmax
         
-    def set_window(self, window_type='rectangular'):
-        """Return void
-        
-        Set the window used in the preprocessing core. Current selection
-        are predefined numpy windows."""
-        window_size = self.window_packetsize
-        buffer = allocate(shape=(window_size,), dtype=np.int32)
-        self.window_address = buffer.device_address
-        if window_type == 'rectangular':
-            buffer[:] = np.int32(np.ones(window_size)[:]*2**14)
-        elif window_type == 'bartlett':
-            buffer[:] = np.int32(np.bartlett(window_size)[:]*2**14)
-        elif window_type == 'blackman':
-            buffer[:] = np.int32(np.blackman(window_size)[:]*2**14)
-        elif window_type == 'hamming':
-            buffer[:] = np.int32(np.hamming(window_size)[:]*2**14)
-        elif window_type == 'hanning':
-            buffer[:] = np.int32(np.hanning(window_size)[:]*2**14)
-        else:
-            buffer[:] = np.int32(np.ones(window_size)[:]*2**14)
-            window_type = 'rectangular'
-        self.window_transfer = 1
-        while not self.window_ready:
-            pass
-        self.window_transfer = 0
-        self.window_type = window_type
-        self.window_squaresum = np.sum((np.array(buffer, dtype=np.single)*2**-14)**2)
-        self.window_sum = np.sum((np.array(buffer, dtype=np.single)))
-        buffer.freebuffer()
-        
-    def set_fftsize(self, fftsize=4096):
-        """Return void
-        
-        Set the desired FFT size. The core is configured to output the desired
-        FFT size. The auto DMA buffer is destroyed and regenerated."""               
-        # Disable the SSR Converter
-        self.ssr_packetsize = 0
-        # Set DMA registers and buffers for new size
-        self.dma_length = fftsize
-        [self.buffer[x].freebuffer() for x in range(0, 3)]
-        self.buffer = [allocate(shape=(self.dma_length,), dtype=np.single) for x in range(0, 3) ]
-        self.dma_bufferaddress_0 = self.buffer[0].device_address
-        self.dma_bufferaddress_1 = self.buffer[1].device_address
-        self.dma_bufferaddress_2 = self.buffer[2].device_address
-        # Change the FFT Size
-        self.spectrum_fftselector = int(np.log2(fftsize)-6)
-        # Setup the new window
-        self.window_packetsize = fftsize
-        self.spectrum_window = self.window_type
-        # Enable the SSR Converter with the new packetsize
-        self.ssr_packetsize = int(fftsize/8)
+    @property
+    def quality(self):
+        return self.spectrogram.quality
+    
+    @quality.setter
+    def quality(self, quality):
+        self.spectrogram.quality = quality
         
     def get_frame(self):
         """Return a numpy array single precision
@@ -499,35 +336,31 @@ class SpectrumAnalyser(DefaultIP):
         Retrieves a frame of data from memory using the last known
         pointer in hardware."""
         while not self.dma_enable:
-            time.sleep(0.1)
             pass
-        frame = np.array(self.buffer[self.dma_bufferpointer], dtype=np.single)
-        while not frame.any():
-            frame = np.array(self.buffer[self.dma_bufferpointer], dtype=np.single)
-        return frame
+        return np.array(self.buffer[self.dma_bufferpointer], dtype=np.single)
         
     bindto = ['xilinx.com:ip:SpectrumAnalyser:1.0']
     
-_spectrumAnalyser_props = [("ssr_packetsize",        0x100),
-                           ("ssr_mode",              0x104),
-                           ("_spectrum_units",       0x108),
-                           ("_spectrum_type",        0x10C),
-                           ("_spectrum_vrms",        0x110),
-                           ("spectrum_typescale",   0x114),
-                           ("spectrum_powerscale",  0x118),
-                           ("spectrum_fftselector", 0x11C),
-                           ("window_packetsize",    0x120),
-                           ("window_address",       0x124),
-                           ("window_transfer",      0x128),
-                           ("dma_length",           0x12C),
-                           ("dma_bufferaddress_0",  0x130),
-                           ("dma_bufferaddress_1",  0x134),
-                           ("dma_bufferaddress_2",  0x138),
-                           ("_dma_enable",          0x13C),
-                           ("_dma_count",           0x140),
-                           ("window_ready",         0x144),
-                           ("dma_bufferpointer",    0x148),
-                           ("dma_status",           0x14C)]
+_spectrumAnalyser_props = [("ssr_packetsize",       0x104),
+                           ("ssr_mode",             0x108),
+                           ("_spectrum_units",      0x10C),
+                           ("_spectrum_type",       0x110),
+                           ("_spectrum_vrms",       0x114),
+                           ("spectrum_typescale",   0x118),
+                           ("spectrum_powerscale",  0x11C),
+                           ("spectrum_fftselector", 0x120),
+                           ("window_packetsize",    0x124),
+                           ("window_address",       0x128),
+                           ("window_transfer",      0x12C),
+                           ("dma_length",           0x130),
+                           ("dma_bufferaddress_0",  0x134),
+                           ("dma_bufferaddress_1",  0x138),
+                           ("dma_bufferaddress_2",  0x13C),
+                           ("_dma_enable",          0x140),
+                           ("_dma_count",           0x144),
+                           ("window_ready",         0x148),
+                           ("dma_bufferpointer",    0x14C),
+                           ("dma_status",           0x150)]
 
 def _create_mmio_property(addr):
     def _get(self):
@@ -540,6 +373,7 @@ def _create_mmio_property(addr):
 
 for (name, addr) in _spectrumAnalyser_props:
     setattr(SpectrumAnalyser, name, _create_mmio_property(addr))
+    
                                   
 class FunctionTimer():
     """Thread timer class"""
@@ -565,7 +399,10 @@ class FunctionTimer():
     def _do(self):
         while not self.stopping:
             next_timer = time.time() + self._time
-            self._plot.data = self._dma.get_frame()
+            data = self._dma.get_frame()
+            if data.any():
+                for plot in self._plot:
+                    plot.data = data
             sleep_time = next_timer - time.time()
             if sleep_time > 0:
                 time.sleep(sleep_time)
@@ -581,37 +418,7 @@ class FunctionTimer():
     def stop(self):
         self.stopping = True
     
-class FastFigureWidget(go.FigureWidget):
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        
-    @contextmanager
-    def _fast_batch_anim(self, duration=0, easing="linear"):
-        """Our own copy of basedatatypes.py batch_animate"""
-        duration = self._animation_duration_validator.validate_coerce(duration)
-        easing = self._animation_easing_validator.validate_coerce(easing)
-
-        if self._in_batch_mode is True:
-            yield
-        else:
-            try:
-                self._in_batch_mode = True
-                yield
-            finally:
-                self._in_batch_mode = False
-                self._perform_batch_animate({
-                    'transition': {
-                        'duration': duration,
-                        'easing': easing
-                    },
-                    'frame': {
-                        'duration': duration,
-                        'redraw': False,
-                    },
-                    'mode': 'immediate'
-                })
-
 class SpectrumPlot():
     def __init__(self,
                  plot_data,
@@ -643,6 +450,7 @@ class SpectrumPlot():
         self._nyquist_stopband = nyquist_stopband
         self._animation_duration = animation_duration
         self.hold_max = False
+        self.enable_updates = False
         
         layout = {
             'hovermode' : 'closest',
@@ -667,7 +475,7 @@ class SpectrumPlot():
             'showlegend' : False,
         }
 
-        self._plot = FastFigureWidget(
+        self._plot = go.FigureWidget(
             layout=layout,
             data=[{
                 'x': self._x_data,
@@ -725,27 +533,29 @@ class SpectrumPlot():
     @data.setter
     def data(self, data):
         
-        def maximum_hold(old_data, new_data):
-            return (old_data > new_data) * old_data + (old_data < new_data) * new_data
+        if self.enable_updates:
         
-        if self._spectrum_mode:
-            fdata = np.fft.fftshift(data)
-        else:
-            fdata = data
-        
-        if self._display_mode == 0:
-            self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
-                               :int(self._number_samples - int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))))]
-        elif self._display_mode == 1:
-            self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
-                               :int(self._number_samples/2)]
-        else:
-            pass
-        
-        if self.hold_max:
-            self._y_data = maximum_hold(self._plot.data[0].y, self._y_data)
-            
-        self._plot.data[0].y = self._y_data
+            def maximum_hold(old_data, new_data):
+                return (old_data > new_data) * old_data + (old_data < new_data) * new_data
+
+            if self._spectrum_mode:
+                fdata = np.fft.fftshift(data)
+            else:
+                fdata = data
+
+            if self._display_mode == 0:
+                self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
+                                   :int(self._number_samples - int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))))]
+            elif self._display_mode == 1:
+                self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
+                                   :int(self._number_samples/2)]
+            else:
+                pass
+
+            if self.hold_max:
+                self._y_data = maximum_hold(self._plot.data[0].y, self._y_data)
+
+            self._plot.data[0].y = self._y_data
     
     """ X Label
     """
@@ -874,10 +684,11 @@ class SpectrogramPlot():
         self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
         self._upper_limit = (self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
         
-        self._plot_time = plot_time
+        self._plot_time = self._height
         self.zmin = zmin
         self.zmax = zmax
         self._display_mode = display_mode
+        self.enable_updates = False
         
         self._plot = go.FigureWidget(layout={
             'height' : self._height,
@@ -886,7 +697,8 @@ class SpectrogramPlot():
                 'showgrid' : False,
                 'range' : [-self._plot_time, 0],
                 'autorange' : False,
-                'title' : 'Time (s)',
+                'title' : 'Frame Number',
+                'showticklabels': True
             },
             'xaxis' : {
                 'zeroline': False,
@@ -925,14 +737,15 @@ class SpectrogramPlot():
     
     @data.setter
     def data(self, data):
-        value = np.fft.fftshift(data) # FFT Shift
-        value = np.array(np.interp(value, (self.zmin, self.zmax), (0, 255)), dtype=np.single) # Scale Z-Axis
-        value = np.resize(signal.resample(value, self._width), (1, self._width)) # Resample X-Axis
-        value = np.repeat(value, self._ypixel, 0) # Repeat Y-Axis
-        self._data = np.roll(self._data, self._ypixel, 0) # Roll data
-        self._data[0:self._ypixel, :] = value # Update first line
-        img = Image.fromarray(self._data, 'L') # Create image
-        self._plot.update_layout_images({'source' : img}) # Set as background
+        if self.enable_updates:
+            value = np.fft.fftshift(data) # FFT Shift
+            value = np.array(np.interp(value, (self.zmin, self.zmax), (0, 255)), dtype=np.single) # Scale Z-Axis
+            value = np.resize(signal.resample(value, self._width), (1, self._width)) # Resample X-Axis
+            value = np.repeat(value, self._ypixel, 0) # Repeat Y-Axis
+            self._data = np.roll(self._data, self._ypixel, 0) # Roll data
+            self._data[0:self._ypixel, :] = value # Update first line
+            img = Image.fromarray(self._data, 'L') # Create image
+            self._plot.update_layout_images({'source' : img}) # Set as background
         
     @property
     def ypixel(self):
@@ -994,6 +807,21 @@ class SpectrogramPlot():
     def height(self, height):
         self._plot.layout.height = height
         
+    @property
+    def quality(self):
+        return int(101-self._ypixel)
+    
+    @quality.setter
+    def quality(self, quality):
+        if quality in range(80, 101):
+            self._ypixel = int(101-quality)
+            self._plot_time = np.ceil(self._height/self._ypixel)
+            self._plot.update_layout({'yaxis': {
+                'range' : [-self._plot_time, 0]
+            }})
+            self._plot.update_layout_images({'sizey' : self._plot_time})
+            self._update_image()
+        
     def _update_image(self):
         if self._display_mode:
             self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency 
@@ -1003,7 +831,7 @@ class SpectrogramPlot():
             self._upper_limit = (self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
         self._image_x = -self._sample_frequency/2 + self._centre_frequency
         self._plot.update_layout({'xaxis': {
-                                  'range' : [self._lower_limit ,self._upper_limit]
+            'range' : [self._lower_limit ,self._upper_limit]
         }})
         self._data = np.ones((self._height, self._width), dtype=np.uint8)*128
         img = Image.fromarray(self._data, 'L')
