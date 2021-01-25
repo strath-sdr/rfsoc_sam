@@ -19,7 +19,7 @@ Currently, this project is in **Beta Release**. We are working on improving aspe
 
 Open a terminal in Jupyter Lab and run:
 ```sh
-pip3 install git+https://github.com/strath-sdr/rfsoc_sam_private.git
+pip3 install git+https://github.com/strath-sdr/rfsoc_sam_private@decimator_update
 ```
 
 We need to patch the current xrfdc drivers. Lets just overwrite the `__init__.py`.
