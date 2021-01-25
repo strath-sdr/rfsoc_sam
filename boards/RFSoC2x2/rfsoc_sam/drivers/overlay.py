@@ -1,5 +1,4 @@
-from pynq import Overlay
-from pynq import allocate
+from pynq import Overlay, allocate
 import xrfclk
 import xrfdc
 import os
