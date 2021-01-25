@@ -22,5 +22,16 @@ Open a terminal in Jupyter Lab and run:
 pip3 install git+https://github.com/strath-sdr/rfsoc_sam_private.git
 ```
 
+We need to patch the current xrfdc drivers. Lets just overwrite the `__init__.py`.
+```sh
+mkdir /home/xilinx/GitHub
+cd /home/xilinx/GitHub/
+git clone https://github.com/dnorthcote/ZCU111-PYNQ
+cd /home/xilinx/GitHub/ZCU111-PYNQ
+git fetch origin c4bfe346f154ee17e7797086ba1f281a757bc4e4
+git reset --hard FETCH_HEAD
+cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfdc/pkg/xrfdc/__init__.py /usr/local/lib/python3.6/dist-packages/xrfdc/__init__.py
+```
+
 ## License 
 [BSD 3-Clause](../../blob/master/LICENSE)
