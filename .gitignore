@@ -12,3 +12,4 @@ vivado.log
 *\hdl_prj
 *.autosave
 *\.hbs
+*.jou
