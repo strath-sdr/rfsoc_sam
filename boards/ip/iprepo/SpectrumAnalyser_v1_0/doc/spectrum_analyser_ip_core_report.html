@@ -100,7 +100,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">Model version
 </td>
-<td class="summaryTableSndColOddRow">1.51
+<td class="summaryTableSndColOddRow">1.53
 </td>
 </tr>
 <tr>
@@ -112,7 +112,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">IP core generated on
 </td>
-<td class="summaryTableSndColOddRow">22-Jan-2021 11:44:26
+<td class="summaryTableSndColOddRow">25-Jan-2021 07:03:59
 </td>
 </tr>
 <tr>
@@ -511,126 +511,6 @@ Target platform interface table:
 <td class="distinctCellColor">Data
 </td>
 </tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2331')">debug_valid_des</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2332')">debug_data_des</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">uint16
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2333')">debug_sof_des</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2334')">debug_eol_des</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">boolean
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2335')">debug_valid_pgen</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2336')">debug_data_pgen</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">ufix128
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2337')">debug_sof_pgen</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2338')">debug_eol_pgen</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">boolean
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2339')">debug_valid_ser</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('spectrum_analyser:2340')">debug_data_ser</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">ufix128
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -687,7 +567,7 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 </td>
 <td>0x10
 </td>
-<td>contains unique IP timestamp (yymmddHHMM): 2101221144
+<td>contains unique IP timestamp (yymmddHHMM): 2101250703
 </td>
 </tr>
 <tr>
@@ -878,10 +758,6 @@ This IP core also includes the AXI4-Stream interfaces
 The AXI4-Stream interfaces can be connected to the processor via a DMA controller, or they can be connected to other IP cores with AXI4-Stream interfaces. For example, the diagram above shows a design using AXI4-Stream interfaces as the data path, and using AXI4-Lite interface as the control path. 
 <br/><br/>
 Warning: Auto-generation of Ready signal logic on AXI4-Stream interfaces has been disabled because multiple AXI4-Stream interfaces are in use. When multiple AXI4-Stream interfaces are in use and not all interfaces assign a port to the Ready signal, HDL Coder generates the signal, but does not generate back pressure logic, which can result in samples being dropped. Interfaces without their Ready port assigned are: AXI4-Stream Imag Slave; AXI4-Stream Real Slave. It is recommended that you model the Ready port on these interfaces if your design needs to apply back pressure on the Slave interface or respond to back pressure on the Master interface.
-<br/><br/>
-This IP core also support the 
-<b>External Port </b>
-interface. To connect the external ports to the FPGA external IO pins, add FPGA pin assignment constraints in the Xilinx Vivado environment.
 <br/><br/>
 The AXI4 Slave port to pipeline register ratio selected as 35 in task 3.2 for this model. The default delay to read AXI4 register is one clock cycle.
 Depending on the selected ratio and IO connected to AXI4 interface, register pipelining is introduced in the read logic of AXI4 registers.
