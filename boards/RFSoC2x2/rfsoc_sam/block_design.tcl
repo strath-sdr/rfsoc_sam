@@ -132,7 +132,8 @@ xilinx.com:ip:usp_rf_data_converter:2.3\
 xilinx.com:ip:axis_clock_converter:1.1\
 User_Company:RFSoC:xsg_bwselector:1.0\
 xilinx.com:ip:SpectrumAnalyser:1.0\
-xilinx.com:ip:axis_subset_converter:1.1\
+xilinx.com:ip:axis_broadcaster:1.1\
+xilinx.com:ip:axis_combiner:1.1\
 xilinx.com:ip:mw_transmitter:1.0\
 "
 
@@ -207,24 +208,25 @@ proc create_hier_cell_channel_10 { parentCell nameHier } {
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_aresetn
 
-  # Create instance: axis_subset_converter, and set properties
-  set axis_subset_converter [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_subset_converter:1.1 axis_subset_converter ]
-  set_property -dict [ list \
-   CONFIG.M_TDATA_NUM_BYTES {32} \
-   CONFIG.TDATA_REMAP {tdata[127:0],tdata[127:0]} \
- ] $axis_subset_converter
+  # Create instance: axis_broadcaster, and set properties
+  set axis_broadcaster [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_broadcaster:1.1 axis_broadcaster ]
+
+  # Create instance: axis_combiner, and set properties
+  set axis_combiner [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_combiner:1.1 axis_combiner ]
 
   # Create instance: control, and set properties
   set control [ create_bd_cell -type ip -vlnv xilinx.com:ip:mw_transmitter:1.0 control ]
 
   # Create interface connections
-  connect_bd_intf_net -intf_net axis_subset_converter_M_AXIS [get_bd_intf_pins m_axis] [get_bd_intf_pins axis_subset_converter/M_AXIS]
-  connect_bd_intf_net -intf_net mw_transmitter_AXI4_Stream_Master [get_bd_intf_pins axis_subset_converter/S_AXIS] [get_bd_intf_pins control/AXI4_Stream_Master]
+  connect_bd_intf_net -intf_net axis_broadcaster_M00_AXIS [get_bd_intf_pins axis_broadcaster/M00_AXIS] [get_bd_intf_pins axis_combiner/S00_AXIS]
+  connect_bd_intf_net -intf_net axis_broadcaster_M01_AXIS [get_bd_intf_pins axis_broadcaster/M01_AXIS] [get_bd_intf_pins axis_combiner/S01_AXIS]
+  connect_bd_intf_net -intf_net axis_combiner_M_AXIS [get_bd_intf_pins m_axis] [get_bd_intf_pins axis_combiner/M_AXIS]
+  connect_bd_intf_net -intf_net control_AXI4_Stream_Master [get_bd_intf_pins axis_broadcaster/S_AXIS] [get_bd_intf_pins control/AXI4_Stream_Master]
   connect_bd_intf_net -intf_net ps8_axi_periph_M01_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins control/AXI4_Lite]
 
   # Create port connections
-  connect_bd_net -net rst_usp_rf_data_converter_256M_peripheral_aresetn [get_bd_pins s_axi_aresetn] [get_bd_pins axis_subset_converter/aresetn] [get_bd_pins control/AXI4_Lite_ARESETN] [get_bd_pins control/IPCORE_RESETN]
-  connect_bd_net -net usp_rf_data_converter_clk_dac1 [get_bd_pins s_axi_aclk] [get_bd_pins axis_subset_converter/aclk] [get_bd_pins control/AXI4_Lite_ACLK] [get_bd_pins control/IPCORE_CLK]
+  connect_bd_net -net rst_usp_rf_data_converter_256M_peripheral_aresetn [get_bd_pins s_axi_aresetn] [get_bd_pins axis_broadcaster/aresetn] [get_bd_pins axis_combiner/aresetn] [get_bd_pins control/AXI4_Lite_ARESETN] [get_bd_pins control/IPCORE_RESETN]
+  connect_bd_net -net usp_rf_data_converter_clk_dac1 [get_bd_pins s_axi_aclk] [get_bd_pins axis_broadcaster/aclk] [get_bd_pins axis_combiner/aclk] [get_bd_pins control/AXI4_Lite_ACLK] [get_bd_pins control/IPCORE_CLK]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -274,24 +276,25 @@ proc create_hier_cell_channel_00_1 { parentCell nameHier } {
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_aresetn
 
-  # Create instance: axis_subset_converter, and set properties
-  set axis_subset_converter [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_subset_converter:1.1 axis_subset_converter ]
-  set_property -dict [ list \
-   CONFIG.M_TDATA_NUM_BYTES {32} \
-   CONFIG.TDATA_REMAP {tdata[127:0],tdata[127:0]} \
- ] $axis_subset_converter
+  # Create instance: axis_broadcaster, and set properties
+  set axis_broadcaster [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_broadcaster:1.1 axis_broadcaster ]
+
+  # Create instance: axis_combiner, and set properties
+  set axis_combiner [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_combiner:1.1 axis_combiner ]
 
   # Create instance: control, and set properties
   set control [ create_bd_cell -type ip -vlnv xilinx.com:ip:mw_transmitter:1.0 control ]
 
   # Create interface connections
-  connect_bd_intf_net -intf_net axis_subset_converter_M_AXIS [get_bd_intf_pins m_axis] [get_bd_intf_pins axis_subset_converter/M_AXIS]
-  connect_bd_intf_net -intf_net mw_transmitter_AXI4_Stream_Master [get_bd_intf_pins axis_subset_converter/S_AXIS] [get_bd_intf_pins control/AXI4_Stream_Master]
+  connect_bd_intf_net -intf_net axis_broadcaster_M00_AXIS [get_bd_intf_pins axis_broadcaster/M00_AXIS] [get_bd_intf_pins axis_combiner/S00_AXIS]
+  connect_bd_intf_net -intf_net axis_broadcaster_M01_AXIS [get_bd_intf_pins axis_broadcaster/M01_AXIS] [get_bd_intf_pins axis_combiner/S01_AXIS]
+  connect_bd_intf_net -intf_net axis_combiner_M_AXIS [get_bd_intf_pins m_axis] [get_bd_intf_pins axis_combiner/M_AXIS]
+  connect_bd_intf_net -intf_net control_AXI4_Stream_Master [get_bd_intf_pins axis_broadcaster/S_AXIS] [get_bd_intf_pins control/AXI4_Stream_Master]
   connect_bd_intf_net -intf_net ps8_axi_periph_M01_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins control/AXI4_Lite]
 
   # Create port connections
-  connect_bd_net -net rst_usp_rf_data_converter_256M_peripheral_aresetn [get_bd_pins s_axi_aresetn] [get_bd_pins axis_subset_converter/aresetn] [get_bd_pins control/AXI4_Lite_ARESETN] [get_bd_pins control/IPCORE_RESETN]
-  connect_bd_net -net usp_rf_data_converter_clk_dac1 [get_bd_pins s_axi_aclk] [get_bd_pins axis_subset_converter/aclk] [get_bd_pins control/AXI4_Lite_ACLK] [get_bd_pins control/IPCORE_CLK]
+  connect_bd_net -net rst_usp_rf_data_converter_256M_peripheral_aresetn [get_bd_pins s_axi_aresetn] [get_bd_pins axis_broadcaster/aresetn] [get_bd_pins axis_combiner/aresetn] [get_bd_pins control/AXI4_Lite_ARESETN] [get_bd_pins control/IPCORE_RESETN]
+  connect_bd_net -net usp_rf_data_converter_clk_dac1 [get_bd_pins s_axi_aclk] [get_bd_pins axis_broadcaster/aclk] [get_bd_pins axis_combiner/aclk] [get_bd_pins control/AXI4_Lite_ACLK] [get_bd_pins control/IPCORE_CLK]
 
   # Restore current instance
   current_bd_instance $oldCurInst
