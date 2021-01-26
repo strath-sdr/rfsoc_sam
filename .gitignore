@@ -1,14 +1,26 @@
-*\rfsoc_pynq
-*\.Xil
-vivado.jou
-vivado.log
-*.log
+# Ignore Other
 *.htm
 .ipynb_checkpoints
 .idea
+
+# Ignore Logs
+*.log
+
+# Ignore Simulink Files
+*.autosave
 *.slxc
+*\.hbs
+*\.Xil
+*\hdl_prj
 *\slprj
 *\wavedata
-*\hdl_prj
-*.autosave
-*\.hbs
+
+# Ignore Vivado Files
+*.jou
+*vivado.txt
+*vivado.jou
+*vivado.log
+
+# Ignore ./rfstrath/rfstrath/
+**/rfsoc_sam/rfstrath
+**/rfsoc_sam/rfsoc_pynq # Backwards support
