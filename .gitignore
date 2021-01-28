@@ -23,4 +23,4 @@
 
 # Ignore ./rfstrath/rfstrath/
 **/rfsoc_sam/rfstrath
-**/rfsoc_sam/rfsoc_pynq # Backwards support
+**/rfsoc_sam/rfsoc_pynq
