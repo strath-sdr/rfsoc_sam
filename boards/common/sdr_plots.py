@@ -4,8 +4,10 @@ import plotly.graph_objs as go
 from PIL import Image
 from scipy import signal
 import warnings
+from contextlib import contextmanager
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 class Spectrum():
     def __init__(self,
@@ -20,7 +22,7 @@ class Spectrum():
                  plot_height=400,
                  display_mode=0,
                  spectrum_mode=True,
-                 animation_duration=0):
+                 animation_period=0):
     
         self._y_data = plot_data
         self._sample_frequency = sample_frequency
@@ -36,9 +38,10 @@ class Spectrum():
         self._display_mode = display_mode
         self._spectrum_mode = spectrum_mode
         self._nyquist_stopband = nyquist_stopband
-        self._animation_duration = animation_duration
+        self._flag_x = True
         self.hold_max = False
         self.enable_updates = False
+        self.animation_period = animation_period
         
         layout = {
             'hovermode' : 'closest',
@@ -65,10 +68,19 @@ class Spectrum():
 
         self._plot = go.FigureWidget(
             layout=layout,
-            data=[{
-                'x': self._x_data,
-                'y': self._y_data,
-            }])
+            data=[{'x': self._x_data,
+                   'y': self._y_data,
+                   'line' : {
+                       'color' : 'palevioletred',
+                       'width' : 0.75
+                   },
+                  },
+                  {'x': self._x_data,
+                   'y': np.zeros(self._number_samples) - 300,
+                   'fill' : 'tonexty',
+                   'fillcolor' : 'rgba(128, 128, 128, 0.5)'
+                }
+            ])
         
         self.clear_plot()
         self.update_x_limits()
@@ -143,7 +155,10 @@ class Spectrum():
             if self.hold_max:
                 self._y_data = maximum_hold(self._plot.data[0].y, self._y_data)
 
-            self._plot.data[0].y = self._y_data
+            self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
+            if self._flag_x:
+                self._plot.data[1].update({'x':self._x_data, 'y':np.zeros(self._number_samples) - 300})
+                self._flag_x = False
     
     """ X Label
     """
@@ -241,7 +256,7 @@ class Spectrum():
         self._x_data = np.arange(self._lower_limit, self._upper_limit, self._rbw) + self._centre_frequency
         self._range = (min(self._x_data), max(self._x_data))
         self._plot.layout.xaxis.range = self._range
-        self._plot.data[0].x = self._x_data            
+        self._flag_x = True
         
     def get_plot(self):
         return self._plot
@@ -251,6 +266,8 @@ class Spectrogram():
     def __init__(self,
                  width=800,
                  height=400,
+                 image_width=400,
+                 image_height=200,
                  centre_frequency=0,
                  sample_frequency=2048e6,
                  nyquist_stopband=1,
@@ -262,18 +279,20 @@ class Spectrogram():
         
         self._width = width
         self._height = height
+        self._image_width = image_width
+        self._image_height = image_height
         self._sample_frequency = sample_frequency
         self._centre_frequency = centre_frequency
         self._nyquist_stopband = nyquist_stopband
         self._ypixel = ypixel
-        self._data = np.ones((self._height, self._width), dtype=np.uint8)*128
+        self._data = np.ones((self._image_height, self._image_width), dtype=np.uint8)*128
         
         self._image_x = -self._sample_frequency/2 + self._centre_frequency
         self._image_y = 0
         self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
         self._upper_limit = (self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
         
-        self._plot_time = self._height
+        self._plot_time = self._image_height
         self.zmin = zmin
         self.zmax = zmax
         self._display_mode = display_mode
@@ -329,7 +348,7 @@ class Spectrogram():
         if self.enable_updates:
             value = np.fft.fftshift(data) # FFT Shift
             value = np.array(np.interp(value, (self.zmin, self.zmax), (0, 255)), dtype=np.single) # Scale Z-Axis
-            value = np.resize(signal.resample(value, self._width), (1, self._width)) # Resample X-Axis
+            value = np.resize(signal.resample(value, self._image_width), (1, self._image_width)) # Resample X-Axis
             value = np.repeat(value, self._ypixel, 0) # Repeat Y-Axis
             self._data = np.roll(self._data, self._ypixel, 0) # Roll data
             self._data[0:self._ypixel, :] = value # Update first line
@@ -404,7 +423,7 @@ class Spectrogram():
     def quality(self, quality):
         if quality in range(80, 101):
             self._ypixel = int(101-quality)
-            self._plot_time = np.ceil(self._height/self._ypixel)
+            self._plot_time = np.ceil(self._image_height/self._ypixel)
             self._plot.update_layout({'yaxis': {
                 'range' : [-self._plot_time, 0]
             }})
@@ -422,11 +441,11 @@ class Spectrogram():
         self._plot.update_layout({'xaxis': {
             'range' : [self._lower_limit ,self._upper_limit]
         }})
-        self._data = np.ones((self._height, self._width), dtype=np.uint8)*128
+        self._data = np.ones((self._image_height, self._image_width), dtype=np.uint8)*128
         img = Image.fromarray(self._data, 'L')
-        self._plot.update_layout_images({'source' : img})
-        self._plot.update_layout_images({'x' : self._image_x})
-        self._plot.update_layout_images({'sizex' : self._sample_frequency})
+        self._plot.update_layout_images({'source' : img,
+                                         'x' : self._image_x,
+                                         'sizex' : self._sample_frequency})
     
     def get_plot(self):
         return self._plot

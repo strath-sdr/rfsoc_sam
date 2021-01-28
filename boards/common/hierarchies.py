@@ -1,3 +1,4 @@
+import ipywidgets as ipw
 from pynq import DefaultHierarchy
 import xrfdc
 from .constants import *
@@ -72,7 +73,28 @@ class Radio(DefaultHierarchy):
         
         getattr(self, transmitter_hierarchy)._initialise_transmitter()
         getattr(self, receiver_hierarchy)._initialise_receiver()
+        
+        
+    def spectrum_analyser_application(self, config=None):
+        
+        def tab_handler(widget):
+            tab_idx = widget['new']
+            for i in range(0, len(self.receiver.channels)):
+                if i is not tab_idx:
+                    self.receiver.channels[i].frontend.stop()
+            self.receiver.channels[tab_idx].frontend.start()
+            tab.observe(tab_handler, names='selected_index')
             
+        sam = self.receiver._get_spectrum_analyser(config)
+        tab_name = [''.join(['Spectrum Analyser ', str(j)]) for j in range(0, len(sam))]
+        children = [sam[i] for i in range(0, len(sam))]
+        tab = ipw.Tab()
+        tab.children = children
+        for i in range(0, len(children)):
+            tab.set_title(i, tab_name[i])
+        tab.observe(tab_handler, 'selected_index')
+        return tab
+
     
 class Receiver(DefaultHierarchy):
     
@@ -148,7 +170,16 @@ class Receiver(DefaultHierarchy):
             'PhaseOffset':    0.0
         }
         block.UpdateEvent(xrfdc.EVENT_MIXER)
-  
+        
+    
+    def _get_spectrum_analyser(self, config=None):
+        if config is None:
+            config = [None for x in range(0, len(self.channels))]
+        sam = []
+        for i in range(0, len(self.channels)):
+            sam.append(self.channels[i].frontend.spectrum_analyser(config[i]))
+        return sam
+        
     
 class Transmitter(DefaultHierarchy):
     

@@ -93,6 +93,14 @@ class FloatText():
     def value(self, value):
         self._text_box.value = value
         
+    @property
+    def step(self):
+        return self._text_box.step
+    
+    @step.setter
+    def step(self, step):
+        self._text_box.step = step
+        
     def get_widget(self):
         return self._text_box
     
@@ -108,6 +116,7 @@ class Button():
         self._state = state
         self._dict_id = dict_id
         self._callback = callback
+        self._button_colour = 'green'
         self._description_on = description_on
         self._description_off = description_off
         self._button = ipw.Button(description=self._description_on if self._state else self._description_off,
@@ -116,18 +125,43 @@ class Button():
         self._button.on_click(lambda _: self.on_click())
         
         if self._state:
-            self._button.style.button_color = 'royalblue'
+            self._button.style.button_color = self.button_colour
         else:
-            self._button.style.button_color = 'tomato'
+            self._button.style.button_color = 'rgb(128, 128, 128)'
+            
+    @property
+    def button_colour(self):
+        return self._button_colour
+    
+    @button_colour.setter
+    def button_colour(self, button_colour):
+        self._button_colour = button_colour
+        if self._state:
+            self._button.style.button_color = self._button_colour
+            
+    @property
+    def state(self):
+        return self._state
+    
+    @state.setter
+    def state(self, state):
+        self._state = state
+        self._callback({self._dict_id : self._state})
+        if self._state:
+            self._button.style.button_color = self.button_colour
+            self._button.description = self._description_on
+        else:
+            self._button.style.button_color = 'rgb(128, 128, 128)'
+            self._button.description = self._description_off
         
     def on_click(self):
         self._state = not self._state
         self._callback({self._dict_id : self._state})
         if self._state:
-            self._button.style.button_color = 'royalblue'
+            self._button.style.button_color = self.button_colour
             self._button.description = self._description_on
         else:
-            self._button.style.button_color = 'tomato'
+            self._button.style.button_color = 'rgb(128, 128, 128)'
             self._button.description = self._description_off
             
     def get_widget(self):
@@ -169,6 +203,11 @@ class Image():
                   format=image_format,
                   width=width,
                   height=height)
+        
+    def update_image(self, image_file):
+        file = open(image_file, "rb")
+        image = file.read()
+        self._image.value = image
         
     def get_widget(self):
         return self._image

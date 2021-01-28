@@ -78,7 +78,7 @@ class SpectrumAnalyser(DefaultIP):
         self.dma_bufferaddress_2 = self.buffer[2].device_address
         self.dma_enable = 0
         self.__dma_enable = 0
-        self._dma_count = 20000000 # No touchy
+        self._dma_count = 2000000 # No touchy
         
         """Initialise"""
         self._sample_frequency = int(sample_frequency)
@@ -105,7 +105,7 @@ class SpectrumAnalyser(DefaultIP):
                              plot_height=self._height,
                              display_mode=0,
                              spectrum_mode=True,
-                             animation_duration=0)
+                             animation_period=0)
         
         """Create Spectrogram Plot object for presenting the waterfall spectrum."""
         self.spectrogram = Spectrogram(sample_frequency=self._sample_frequency,
@@ -113,7 +113,7 @@ class SpectrumAnalyser(DefaultIP):
                                        nyquist_stopband=self._nyquist_stopband,
                                        width=self._width,
                                        height=self._height,
-                                       plot_time=10,)
+                                       plot_time=10)
         
         """Create a Function Timer object to enable plot data updates through threading."""
         self.timer = FunctionTimer(plot=[self.plot, self.spectrogram],
@@ -322,6 +322,22 @@ class SpectrumAnalyser(DefaultIP):
         self._nyquist_stopband = nyquist_stopband
         self.plot.nyquist_stopband = nyquist_stopband
         self.spectrogram.nyquist_stopband = nyquist_stopband
+        
+    @property
+    def line_colour(self):
+        return self.plot._plot.data[0].line.color
+    
+    @line_colour.setter
+    def line_colour(self, line_colour):
+        self.plot._plot.data[0].line.color = line_colour
+        
+    @property
+    def line_fill(self):
+        return self.plot._plot.data[1].fillcolor
+    
+    @line_fill.setter
+    def line_fill(self, line_fill):
+        self.plot._plot.data[1].fillcolor = line_fill
         
     @property
     def zmin(self):

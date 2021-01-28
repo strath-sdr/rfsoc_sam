@@ -1,6 +1,7 @@
 import numpy as np
 import ipywidgets as ipw
 import plotly.graph_objs as go
+import matplotlib.colors as mcolors
 import time
 
 from .spectrum_analyser import SpectrumAnalyser
@@ -34,8 +35,9 @@ class RadioAnalyser():
             self._block.MixerSettings['Freq'] = centre_frequency
         else:
             self._block.MixerSettings['Freq'] = -centre_frequency
-        self._block.UpdateEvent(1)
+        self._spectrum_analyser.spectrogram.enable_updates = False
         self._spectrum_analyser.centre_frequency = centre_frequency*1e6
+        self._block.UpdateEvent(1)
         
     @property
     def decimation_factor(self):
@@ -48,17 +50,12 @@ class RadioAnalyser():
     def decimation_factor(self, decimation_factor):
         word_lut = [8, 4, 2]
         sel = int(np.log2(decimation_factor))
-        running = False
-        if self._spectrum_analyser.dma_enable:
-            self._spectrum_analyser.dma_enable = 0
-            running = True
         if decimation_factor in [2, 4, 8]:
             self._spectrum_analyser.ssr_packetsize = 0
             self._tile.ShutDown()
             self._block.DecimationFactor = decimation_factor
             self._block.FabRdVldWords = word_lut[sel-1]
             self._tile.StartUp()
-            time.sleep(0.1)
             self._spectrum_analyser.ssr_mode = 4-sel
             self._decimator.decimation_factor = 0
             self._spectrum_analyser.sample_frequency = \
@@ -70,14 +67,11 @@ class RadioAnalyser():
             self._block.DecimationFactor = 8
             self._block.FabRdVldWords = 2
             self._tile.StartUp()
-            time.sleep(0.1)
             self._spectrum_analyser.ssr_mode = 0
             self._decimator.decimation_factor = int(decimation_factor/8)
             self._spectrum_analyser.sample_frequency = \
             (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
             self._spectrum_analyser.ssr_packetsize = int(self._spectrum_analyser.fft_size/8)
-        if running:
-            self._spectrum_analyser.dma_enable = 1
             
     @property
     def sample_frequency(self):
@@ -89,16 +83,10 @@ class RadioAnalyser():
         
     @calibration_mode.setter
     def calibration_mode(self, calibration_mode):
-        running = False
-        if self._spectrum_analyser.dma_enable:
-            self._spectrum_analyser.dma_enable = 0
-            running = True
         if calibration_mode in [1, 2]:
             self._block.CalibrationMode = calibration_mode
             self._tile.ShutDown()
             self._tile.StartUp()
-        if running:
-            self._spectrum_analyser.dma_enable = 1
             
     @property
     def nyquist_stopband(self):
@@ -212,6 +200,22 @@ class RadioAnalyser():
         self._spectrum_analyser.plotly_theme = plotly_theme
         
     @property
+    def line_colour(self):
+        return self._spectrum_analyser.line_colour
+    
+    @line_colour.setter
+    def line_colour(self, line_colour):
+        self._spectrum_analyser.line_colour = line_colour
+        
+    @property
+    def line_fill(self):
+        return self._spectrum_analyser.line_fill
+    
+    @line_fill.setter
+    def line_fill(self, line_fill):
+        self._spectrum_analyser.line_fill = line_fill
+        
+    @property
     def zmin(self):
         return self._spectrum_analyser.zmin
     
@@ -252,6 +256,7 @@ class RadioFrontEnd():
         
         self._widgets = {}
         self._accordions = {}
+        self._runtime_status = {'spectrum_enable' : False, 'waterfall_enable' : False}
         self.analyser = RadioAnalyser(adc_tile=adc_tile, 
                                        adc_block=adc_block, 
                                        spectrum_analyser=spectrum_analyser, 
@@ -270,6 +275,7 @@ class RadioFrontEnd():
                         'dma_enable' : self.analyser.dma_enable,
                         'update_frequency' : self.analyser.update_frequency,
                         'plotly_theme' : self.analyser.plotly_theme,
+                        'line_colour' : self.analyser.line_colour,
                         'zmin' : self.analyser.zmin,
                         'zmax' : self.analyser.zmax,
                         'quality' : self.analyser.quality,
@@ -285,6 +291,18 @@ class RadioFrontEnd():
     @config.setter
     def config(self, config_dict):
         self._update_config(config_dict)
+        
+        
+    def start(self):
+        self.config = {'spectrum_enable' : self._runtime_status['spectrum_enable'],
+                       'waterfall_enable' : self._runtime_status['waterfall_enable']}
+        
+        
+    def stop(self):
+        self._runtime_status.update({'spectrum_enable' : self._config['spectrum_enable'],
+                                     'waterfall_enable' : self._config['waterfall_enable']})
+        self.config = {'spectrum_enable' : False,
+                       'waterfall_enable' : False}
         
         
     def _initialise_frontend(self):
@@ -348,6 +366,20 @@ class RadioFrontEnd():
                                        value='plotly',
                                        dict_id='plotly_theme',
                                        description='Plotly Theme:')})
+        
+        self._widgets.update({'line_colour' :
+                              DropDown(callback=self._update_config,
+                                       options=list(mcolors.CSS4_COLORS),
+                                       value='white',
+                                       dict_id='line_colour',
+                                       description='Line Colour:')})
+        
+        self._widgets.update({'line_fill' :
+                              DropDown(callback=self._update_config,
+                                       options=list(mcolors.CSS4_COLORS),
+                                       value='lightpink',
+                                       dict_id='line_fill',
+                                       description='Line Fill:')})
         
         self._widgets.update({'centre_frequency' : 
                               FloatText(callback=self._update_config,
@@ -454,11 +486,6 @@ class RadioFrontEnd():
                                      evalue=' kHz',
                                      dict_id='resolution_bandwidth_label')})
         
-        self._widgets.update({'pynq_image' : 
-                              Image(image_file="assets/pynq_logo.png",
-                                    width=300,
-                                    height=220)})
-        
         self._window_plot = go.FigureWidget(layout={'hovermode' : 'closest',
                                                    'height' : 225,
                                                    'width' : 300,
@@ -469,8 +496,14 @@ class RadioFrontEnd():
                                                   },
                                            data=[{
                                                'x': np.arange(self.analyser.fftsize),
-                                               'y': np.ones(self.analyser.fftsize)}])
-        self._window_plot.data[0].marker.color = '#005d95'
+                                               'y': np.ones(self.analyser.fftsize),
+                                               'line':{
+                                                   'color' : 'palevioletred',
+                                                   'width' : 2
+                                               },
+                                               'fill' : 'tozeroy',
+                                               'fillcolor' : 'rgba(128, 128, 128, 0.5)'
+                                               }])
         
         self._accordions.update({'plot_control' :
                                  Accordion(title='Plot Settings',
@@ -478,7 +511,8 @@ class RadioFrontEnd():
                                                     self._widgets['height'].get_widget(),
                                                     self._widgets['width'].get_widget(),
                                                     self._widgets['update_frequency'].get_widget(),
-                                                    self._widgets['plotly_theme'].get_widget()])})
+                                                    self._widgets['plotly_theme'].get_widget(),
+                                                    self._widgets['line_colour'].get_widget()])})
         
         self._accordions.update({'receiver_control' :
                                  Accordion(title='Receiver',
@@ -508,13 +542,12 @@ class RadioFrontEnd():
         
         self._accordions.update({'system_control' :
                                  Accordion(title='System Control',
-                                           widgets=[ipw.HBox([ipw.VBox([ipw.Label(value='Data Transfer: '),
-                                                                        ipw.Label(value='Spectrum Analyser: '),
+                                           widgets=[ipw.HBox([ipw.VBox([ipw.Label(value='Spectrum Analyser: '),
                                                                         ipw.Label(value='Spectrogram: ')]),
-                                                              ipw.VBox([self._widgets['dma_enable'].get_widget(),
-                                                                        self._widgets['spectrum_enable'].get_widget(),
+                                                              ipw.VBox([self._widgets['spectrum_enable'].get_widget(),
                                                                         self._widgets['waterfall_enable'].get_widget()])],
                                                              layout=ipw.Layout(justify_content='space-around'))])})
+        
         
         self._update_frontend()
         
@@ -528,6 +561,8 @@ class RadioFrontEnd():
         
         
     def _update_frontend(self, keys=None):
+        plot_running = self._config['spectrum_enable']
+        self.analyser.spectrum_enable = False
         if keys is None:
             keys = self._config.keys()
         for key in keys:
@@ -535,9 +570,11 @@ class RadioFrontEnd():
                 setattr(self.analyser, key, self._config[key])
                 self._widgets[key].value = self._config[key]
         for key in keys:
-            if key in ['window', 'plotly_theme', 'fftsize']:
-                self._update_figurewidgets()
+            if key in ['window', 'plotly_theme', 'fftsize', 'line_colour', 'decimation_factor', 'centre_frequency',
+                       'spectrum_enable', 'waterfall_enable']:
+                self._update_widgets(key)
         self._update_textwidgets()
+        self.analyser.spectrum_enable = plot_running
         
         
     def _update_textwidgets(self):
@@ -545,17 +582,43 @@ class RadioFrontEnd():
         self._widgets['resolution_bandwidth_label'].value = str((self.analyser.sample_frequency/self.analyser.fftsize)*1e-3)
         
         
-    def _update_figurewidgets(self):
-        self._window_plot.data[0].x = np.arange(self.analyser.fftsize)
-        self._window_plot.data[0].y = self.analyser.spectrum_window
-        self._window_plot.layout.template = self._config['plotly_theme']
-        
+    def _update_widgets(self, key):
+        if key in ['fftsize']:
+            self._window_plot.data[0].x = np.arange(self.analyser.fftsize)
+            self._window_plot.data[0].y = self.analyser.spectrum_window
+        elif key in ['window']:
+            self._window_plot.data[0].y = self.analyser.spectrum_window
+        elif key in ['line_colour']:
+            self._window_plot.data[0].line.color = self._config['line_colour']
+            self._widgets['dma_enable'].button_colour = self._config['line_colour']
+            self._widgets['spectrum_enable'].button_colour = self._config['line_colour']
+            self._widgets['waterfall_enable'].button_colour = self._config['line_colour']
+        elif key in ['plotly_theme']:
+            self._window_plot.layout.template = self._config['plotly_theme']
+        elif key in ['decimation_factor']:
+            step_dict = [10, 1, 1, 1, 0.1, 0.1, 0.1, 0.01, 0.01, 0.01]
+            self._widgets['centre_frequency'].step = step_dict[int(np.log2(self._config['decimation_factor']) - 1)]
+        elif key in ['centre_frequency']:
+            self.analyser.waterfall_enable = False
+            self._widgets['waterfall_enable'].state = False
+        elif key in ['spectrum_enable']:
+            if self._config['spectrum_enable']:
+                self._widgets['dma_enable'].state = True
+            else:
+                if not self._config['waterfall_enable']:
+                    self._widgets['dma_enable'].state = False
+        elif key in ['waterfall_enable']:
+            if self._config['waterfall_enable']:
+                self._widgets['dma_enable'].state = True
+            else:
+                if not self._config['spectrum_enable']:
+                    self._widgets['dma_enable'].state = False
+            
     
     def spectrum_analyser(self, config=None):
         if config is not None:
             self.config = config
-        return ipw.VBox([self._widgets['pynq_image'].get_widget(),
-                         ipw.HBox([ipw.VBox([self.analyser.spectrum(),
+        return ipw.VBox([ipw.HBox([ipw.VBox([self.analyser.spectrum(),
                                              self.analyser.waterfall()
                                             ]),
                                    ipw.VBox([self._accordions['system_control'].get_widget(),
