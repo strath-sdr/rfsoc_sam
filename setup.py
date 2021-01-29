@@ -38,6 +38,8 @@ def copy_assets():
     src_at_dir = os.path.join(repo_board_folder, 'assets')
     dst_at_dir = os.path.join('rfsoc_sam', 'assets')
     copy_tree(src_at_dir, dst_at_dir)
+    assets.extend(
+        [os.path.join("..", dst_at_dir, f) for f in os.listdir(dst_at_dir)])
 
 # copy board specific drivers
 def copy_drivers():
@@ -71,5 +73,6 @@ setup(
     packages=find_packages(),
     package_data={
         '': hw_data_files,
+        '': assets,
     },
     description="PYNQ example of using the RFSoC as a Spectrum Analyser.")
