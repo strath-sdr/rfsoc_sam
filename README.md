@@ -3,6 +3,10 @@
 # Spectrum Analyser on PYNQ
 This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2.
 
+<p align="center">
+  <img src="https://github.com/strath-sdr/rfsoc_sam_private/blob/decimator_update/demonstration.gif" width="950" height="500" />
+<p/>
+
 Currently, this project is in version 0.2. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
