@@ -7,7 +7,6 @@ from setuptools import find_packages, setup
 # global variables
 board = os.environ['BOARD']
 repo_board_folder = f'boards/{board}/rfsoc_sam'
-common_folder = f'boards/common'
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
 board_project_dir = os.path.join(board_notebooks_dir, 'spectrum_analyser')
 
@@ -24,18 +23,6 @@ def check_path():
     if os.path.exists(board_project_dir):
         shutil.rmtree(board_project_dir)
 
-# copy common to jupyter home
-def copy_common():
-    src_common_dir = os.path.join(common_folder)
-    dst_common_dir = os.path.join(board_project_dir, 'rfsoc_sam')
-    copy_tree(src_common_dir, dst_common_dir)
-
-# copy assets to jupyter home
-def copy_assets():
-    src_assets_dir = os.path.join(common_folder, 'assets')
-    dst_assets_dir = os.path.join(board_project_dir, 'assets')
-    copy_tree(src_assets_dir, dst_assets_dir)
-
 # copy overlays to python package
 def copy_overlays():
     src_ol_dir = os.path.join(repo_board_folder, 'bitstream')
@@ -45,7 +32,7 @@ def copy_overlays():
 # copy board specific drivers
 def copy_drivers():
     src_dr_dir = os.path.join(repo_board_folder, 'drivers')
-    dst_dr_dir = os.path.join(board_project_dir, 'rfsoc_sam')
+    dst_dr_dir = os.path.join('rfsoc_sam')
     copy_tree(src_dr_dir, dst_dr_dir)
 
 # copy notebooks to jupyter home
@@ -64,7 +51,7 @@ copy_notebooks()
 
 setup(
     name="rfsoc_sam",
-    version='1.0',
+    version='0.2',
     install_requires=[
         'pynq>=2.6',
     ],
