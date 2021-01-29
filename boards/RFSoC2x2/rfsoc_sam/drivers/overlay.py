@@ -77,8 +77,8 @@ class Overlay(Overlay):
             for i in range(0, len(self.radio.receiver.channels)):
                 if i is not tab_idx:
                     self.radio.receiver.channels[i].frontend.stop()
-            self.radioreceiver.channels[tab_idx].frontend.start()
-            tab.observe(tab_handler, names='selected_index')
+            self.radio.receiver.channels[tab_idx].frontend.start()
+            #tab.observe(tab_handler, names='selected_index')
             
         sam = self.radio.receiver._get_spectrum_analyser(config)
         tab_name = [''.join(['Spectrum Analyser ', str(j)]) for j in range(0, len(sam))]
