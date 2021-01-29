@@ -26,7 +26,7 @@ def check_path():
 # copy overlays to python package
 def copy_overlays():
     src_ol_dir = os.path.join(repo_board_folder, 'bitstream')
-    dst_ol_dir = os.path.join(board_project_dir, 'rfsoc_sam', 'bitstream')
+    dst_ol_dir = os.path.join('rfsoc_sam', 'bitstream')
     copy_tree(src_ol_dir, dst_ol_dir)
 
 # copy board specific drivers
@@ -43,8 +43,6 @@ def copy_notebooks():
     
 check_env()
 check_path()
-copy_common()
-copy_assets()
 copy_overlays()
 copy_drivers()
 copy_notebooks()
