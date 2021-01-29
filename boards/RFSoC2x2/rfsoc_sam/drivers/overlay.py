@@ -109,11 +109,12 @@ class Overlay(Overlay):
         ctl_tab = self._ctl_generator(config=[{'transmit_enable' : True},
                                               {'transmit_enable' : True}])
         
-        img = 'assets/pynq_logo_light.png'
+        this_dir = os.path.dirname(__file__)
+        img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
         if config is not None:
             if 'plotly_theme' in config:
                 if config['plotly_theme'] == 'plotly_dark':
-                    img = 'assets/pynq_logo_dark.png'
+                    img = os.path.join(this_dir, 'assets', 'pynq_logo_dark.png')
         about_html = ipw.HTML(value=about)
         pynq_image = Image(image_file=img,
                            width=300,
