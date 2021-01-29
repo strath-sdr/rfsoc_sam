@@ -634,7 +634,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>7467440b</spirit:value>
+            <spirit:value>968d5a92</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -650,7 +650,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>7467440b</spirit:value>
+            <spirit:value>968d5a92</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3218,7 +3218,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/SpectrumAnalyser.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_4416d4f3</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_a7b22025</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -5220,15 +5220,15 @@
       </xilinx:taxonomies>
       <xilinx:displayName>SpectrumAnalyser</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>2101040055</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-01-04T00:55:35Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2101250703</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-01-25T07:04:34Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="5818afee"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="464dec51"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="fa7bbd03"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="44462f58"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="39171091"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="28e7d71b"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="e80d9b61"/>
     </xilinx:packagingInfo>

@@ -24,7 +24,7 @@ namespace eval ::xilinx::dsp::planaheaddriver {
 	set IP_LifeCycle_Menu {1}
 	set IP_Logo {sysgen_icon_100.png}
 	set IP_Name {xsg_bwselector}
-	set IP_Revision {240628298}
+	set IP_Revision {241959296}
 	set IP_Socket_IP {0}
 	set IP_Socket_IP_Proj_Path {}
 	set IP_Vendor_Text {User Company}
@@ -68,7 +68,7 @@ namespace eval ::xilinx::dsp::planaheaddriver {
 	set SynthesisTool {Vivado}
 	set TargetDir {C:/GitHub/strath_sdr/rfsoc_sam_private/boards/ip/sysgen/netlist}
 	set TopLevelModule {xsg_bwselector}
-	set TopLevelSimulinkHandle 0.00317383
+	set TopLevelSimulinkHandle 38032
 	set VHDLLib {xil_defaultlib}
 	set TopLevelPortInterface {}
 	dict set TopLevelPortInterface s_axis_re_tvalid Name {s_axis_re_tvalid}

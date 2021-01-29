@@ -134,6 +134,97 @@ end behavior;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
 
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+entity sysgen_reinterpret_b9e342ce4b is
+  port (
+    input_port : in std_logic_vector((128 - 1) downto 0);
+    output_port : out std_logic_vector((128 - 1) downto 0);
+    clk : in std_logic;
+    ce : in std_logic;
+    clr : in std_logic);
+end sysgen_reinterpret_b9e342ce4b;
+architecture behavior of sysgen_reinterpret_b9e342ce4b
+is
+  signal input_port_1_40: signed((128 - 1) downto 0);
+  signal output_port_5_5_force: unsigned((128 - 1) downto 0);
+begin
+  input_port_1_40 <= std_logic_vector_to_signed(input_port);
+  output_port_5_5_force <= signed_to_unsigned(input_port_1_40);
+  output_port <= unsigned_to_std_logic_vector(output_port_5_5_force);
+end behavior;
+
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+entity sysgen_relational_dc450e9729 is
+  port (
+    a : in std_logic_vector((32 - 1) downto 0);
+    b : in std_logic_vector((1 - 1) downto 0);
+    op : out std_logic_vector((1 - 1) downto 0);
+    clk : in std_logic;
+    ce : in std_logic;
+    clr : in std_logic);
+end sysgen_relational_dc450e9729;
+architecture behavior of sysgen_relational_dc450e9729
+is
+  signal a_1_31: unsigned((32 - 1) downto 0);
+  signal b_1_34: unsigned((1 - 1) downto 0);
+  type array_type_op_mem_37_22 is array (0 to (1 - 1)) of boolean;
+  signal op_mem_37_22: array_type_op_mem_37_22 := (
+    0 => false);
+  signal op_mem_37_22_front_din: boolean;
+  signal op_mem_37_22_back: boolean;
+  signal op_mem_37_22_push_front_pop_back_en: std_logic;
+  signal cast_14_17: unsigned((32 - 1) downto 0);
+  signal result_14_3_rel: boolean;
+begin
+  a_1_31 <= std_logic_vector_to_unsigned(a);
+  b_1_34 <= std_logic_vector_to_unsigned(b);
+  op_mem_37_22_back <= op_mem_37_22(0);
+  proc_op_mem_37_22: process (clk)
+  is
+    variable i: integer;
+  begin
+    if (clk'event and (clk = '1')) then
+      if ((ce = '1') and (op_mem_37_22_push_front_pop_back_en = '1')) then
+        op_mem_37_22(0) <= op_mem_37_22_front_din;
+      end if;
+    end if;
+  end process proc_op_mem_37_22;
+  cast_14_17 <= u2u_cast(b_1_34, 0, 32, 0);
+  result_14_3_rel <= a_1_31 /= cast_14_17;
+  op_mem_37_22_front_din <= result_14_3_rel;
+  op_mem_37_22_push_front_pop_back_en <= '1';
+  op <= boolean_to_vector(op_mem_37_22_back);
+end behavior;
+
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+entity sysgen_constant_e15eed17da is
+  port (
+    op : out std_logic_vector((1 - 1) downto 0);
+    clk : in std_logic;
+    ce : in std_logic;
+    clr : in std_logic);
+end sysgen_constant_e15eed17da;
+architecture behavior of sysgen_constant_e15eed17da
+is
+begin
+  op <= "0";
+end behavior;
+
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+
 ---------------------------------------------------------------------
 --
 --  Filename      : xlslice.vhd
@@ -166,138 +257,6 @@ architecture behavior of xsg_bwselector_xlslice is
 begin
     y <= x(new_msb downto new_lsb);
 end  behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_reinterpret_439aa46949 is
-  port (
-    input_port : in std_logic_vector((16 - 1) downto 0);
-    output_port : out std_logic_vector((16 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_reinterpret_439aa46949;
-architecture behavior of sysgen_reinterpret_439aa46949
-is
-  signal input_port_1_40: unsigned((16 - 1) downto 0);
-  signal output_port_5_5_force: signed((16 - 1) downto 0);
-begin
-  input_port_1_40 <= std_logic_vector_to_unsigned(input_port);
-  output_port_5_5_force <= unsigned_to_signed(input_port_1_40);
-  output_port <= signed_to_std_logic_vector(output_port_5_5_force);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_constant_abffce7db1 is
-  port (
-    op : out std_logic_vector((3 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_constant_abffce7db1;
-architecture behavior of sysgen_constant_abffce7db1
-is
-begin
-  op <= "111";
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_constant_b25c9b5505 is
-  port (
-    op : out std_logic_vector((3 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_constant_b25c9b5505;
-architecture behavior of sysgen_constant_b25c9b5505
-is
-begin
-  op <= "000";
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_mux_824b1345db is
-  port (
-    sel : in std_logic_vector((1 - 1) downto 0);
-    d0 : in std_logic_vector((3 - 1) downto 0);
-    d1 : in std_logic_vector((3 - 1) downto 0);
-    y : out std_logic_vector((3 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_mux_824b1345db;
-architecture behavior of sysgen_mux_824b1345db
-is
-  signal sel_1_20: std_logic;
-  signal d0_1_24: std_logic_vector((3 - 1) downto 0);
-  signal d1_1_27: std_logic_vector((3 - 1) downto 0);
-  signal sel_internal_2_1_convert: std_logic_vector((1 - 1) downto 0);
-  signal unregy_join_6_1: std_logic_vector((3 - 1) downto 0);
-begin
-  sel_1_20 <= sel(0);
-  d0_1_24 <= d0;
-  d1_1_27 <= d1;
-  sel_internal_2_1_convert <= cast(std_logic_to_vector(sel_1_20), 0, 1, 0, xlUnsigned);
-  proc_switch_6_1: process (d0_1_24, d1_1_27, sel_internal_2_1_convert)
-  is
-  begin
-    case sel_internal_2_1_convert is 
-      when "0" =>
-        unregy_join_6_1 <= d0_1_24;
-      when others =>
-        unregy_join_6_1 <= d1_1_27;
-    end case;
-  end process proc_switch_6_1;
-  y <= unregy_join_6_1;
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_relational_3caec802ba is
-  port (
-    a : in std_logic_vector((32 - 1) downto 0);
-    b : in std_logic_vector((3 - 1) downto 0);
-    op : out std_logic_vector((1 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_relational_3caec802ba;
-architecture behavior of sysgen_relational_3caec802ba
-is
-  signal a_1_31: unsigned((32 - 1) downto 0);
-  signal b_1_34: unsigned((3 - 1) downto 0);
-  signal cast_18_16: unsigned((32 - 1) downto 0);
-  signal result_18_3_rel: boolean;
-begin
-  a_1_31 <= std_logic_vector_to_unsigned(a);
-  b_1_34 <= std_logic_vector_to_unsigned(b);
-  cast_18_16 <= u2u_cast(b_1_34, 0, 32, 0);
-  result_18_3_rel <= a_1_31 > cast_18_16;
-  op <= boolean_to_vector(result_18_3_rel);
-end behavior;
 
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
@@ -482,22 +441,22 @@ use xil_defaultlib.conv_pkg.all;
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-entity sysgen_reinterpret_3f7a2a62b5 is
+entity sysgen_reinterpret_439aa46949 is
   port (
     input_port : in std_logic_vector((16 - 1) downto 0);
     output_port : out std_logic_vector((16 - 1) downto 0);
     clk : in std_logic;
     ce : in std_logic;
     clr : in std_logic);
-end sysgen_reinterpret_3f7a2a62b5;
-architecture behavior of sysgen_reinterpret_3f7a2a62b5
+end sysgen_reinterpret_439aa46949;
+architecture behavior of sysgen_reinterpret_439aa46949
 is
-  signal input_port_1_40: signed((16 - 1) downto 0);
-  signal output_port_5_5_force: unsigned((16 - 1) downto 0);
+  signal input_port_1_40: unsigned((16 - 1) downto 0);
+  signal output_port_5_5_force: signed((16 - 1) downto 0);
 begin
-  input_port_1_40 <= std_logic_vector_to_signed(input_port);
-  output_port_5_5_force <= signed_to_unsigned(input_port_1_40);
-  output_port <= unsigned_to_std_logic_vector(output_port_5_5_force);
+  input_port_1_40 <= std_logic_vector_to_unsigned(input_port);
+  output_port_5_5_force <= unsigned_to_signed(input_port_1_40);
+  output_port <= signed_to_std_logic_vector(output_port_5_5_force);
 end behavior;
 
 library xil_defaultlib;
@@ -506,228 +465,39 @@ use xil_defaultlib.conv_pkg.all;
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-entity sysgen_concat_6e01873e37 is
+entity sysgen_mux_55a94068fd is
   port (
-    in0 : in std_logic_vector((16 - 1) downto 0);
-    in1 : in std_logic_vector((16 - 1) downto 0);
-    in2 : in std_logic_vector((16 - 1) downto 0);
-    in3 : in std_logic_vector((16 - 1) downto 0);
-    in4 : in std_logic_vector((16 - 1) downto 0);
-    in5 : in std_logic_vector((16 - 1) downto 0);
-    in6 : in std_logic_vector((16 - 1) downto 0);
-    in7 : in std_logic_vector((16 - 1) downto 0);
-    y : out std_logic_vector((128 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_concat_6e01873e37;
-architecture behavior of sysgen_concat_6e01873e37
-is
-  signal in0_1_23: unsigned((16 - 1) downto 0);
-  signal in1_1_27: unsigned((16 - 1) downto 0);
-  signal in2_1_31: unsigned((16 - 1) downto 0);
-  signal in3_1_35: unsigned((16 - 1) downto 0);
-  signal in4_1_39: unsigned((16 - 1) downto 0);
-  signal in5_1_43: unsigned((16 - 1) downto 0);
-  signal in6_1_47: unsigned((16 - 1) downto 0);
-  signal in7_1_51: unsigned((16 - 1) downto 0);
-  signal y_2_1_concat: unsigned((128 - 1) downto 0);
-begin
-  in0_1_23 <= std_logic_vector_to_unsigned(in0);
-  in1_1_27 <= std_logic_vector_to_unsigned(in1);
-  in2_1_31 <= std_logic_vector_to_unsigned(in2);
-  in3_1_35 <= std_logic_vector_to_unsigned(in3);
-  in4_1_39 <= std_logic_vector_to_unsigned(in4);
-  in5_1_43 <= std_logic_vector_to_unsigned(in5);
-  in6_1_47 <= std_logic_vector_to_unsigned(in6);
-  in7_1_51 <= std_logic_vector_to_unsigned(in7);
-  y_2_1_concat <= std_logic_vector_to_unsigned(unsigned_to_std_logic_vector(in0_1_23) & unsigned_to_std_logic_vector(in1_1_27) & unsigned_to_std_logic_vector(in2_1_31) & unsigned_to_std_logic_vector(in3_1_35) & unsigned_to_std_logic_vector(in4_1_39) & unsigned_to_std_logic_vector(in5_1_43) & unsigned_to_std_logic_vector(in6_1_47) & unsigned_to_std_logic_vector(in7_1_51));
-  y <= unsigned_to_std_logic_vector(y_2_1_concat);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_concat_5f04d3dc0f is
-  port (
-    in0 : in std_logic_vector((64 - 1) downto 0);
-    in1 : in std_logic_vector((64 - 1) downto 0);
-    y : out std_logic_vector((128 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_concat_5f04d3dc0f;
-architecture behavior of sysgen_concat_5f04d3dc0f
-is
-  signal in0_1_23: unsigned((64 - 1) downto 0);
-  signal in1_1_27: unsigned((64 - 1) downto 0);
-  signal y_2_1_concat: unsigned((128 - 1) downto 0);
-begin
-  in0_1_23 <= std_logic_vector_to_unsigned(in0);
-  in1_1_27 <= std_logic_vector_to_unsigned(in1);
-  y_2_1_concat <= std_logic_vector_to_unsigned(unsigned_to_std_logic_vector(in0_1_23) & unsigned_to_std_logic_vector(in1_1_27));
-  y <= unsigned_to_std_logic_vector(y_2_1_concat);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_constant_9f319455c1 is
-  port (
-    op : out std_logic_vector((64 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_constant_9f319455c1;
-architecture behavior of sysgen_constant_9f319455c1
-is
-begin
-  op <= "0000000000000000000000000000000000000000000000000000000000000000";
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_concat_471aabf868 is
-  port (
-    in0 : in std_logic_vector((16 - 1) downto 0);
-    in1 : in std_logic_vector((16 - 1) downto 0);
-    in2 : in std_logic_vector((16 - 1) downto 0);
-    in3 : in std_logic_vector((16 - 1) downto 0);
-    y : out std_logic_vector((64 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_concat_471aabf868;
-architecture behavior of sysgen_concat_471aabf868
-is
-  signal in0_1_23: unsigned((16 - 1) downto 0);
-  signal in1_1_27: unsigned((16 - 1) downto 0);
-  signal in2_1_31: unsigned((16 - 1) downto 0);
-  signal in3_1_35: unsigned((16 - 1) downto 0);
-  signal y_2_1_concat: unsigned((64 - 1) downto 0);
-begin
-  in0_1_23 <= std_logic_vector_to_unsigned(in0);
-  in1_1_27 <= std_logic_vector_to_unsigned(in1);
-  in2_1_31 <= std_logic_vector_to_unsigned(in2);
-  in3_1_35 <= std_logic_vector_to_unsigned(in3);
-  y_2_1_concat <= std_logic_vector_to_unsigned(unsigned_to_std_logic_vector(in0_1_23) & unsigned_to_std_logic_vector(in1_1_27) & unsigned_to_std_logic_vector(in2_1_31) & unsigned_to_std_logic_vector(in3_1_35));
-  y <= unsigned_to_std_logic_vector(y_2_1_concat);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_concat_b51ed76204 is
-  port (
-    in0 : in std_logic_vector((96 - 1) downto 0);
-    in1 : in std_logic_vector((32 - 1) downto 0);
-    y : out std_logic_vector((128 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_concat_b51ed76204;
-architecture behavior of sysgen_concat_b51ed76204
-is
-  signal in0_1_23: unsigned((96 - 1) downto 0);
-  signal in1_1_27: unsigned((32 - 1) downto 0);
-  signal y_2_1_concat: unsigned((128 - 1) downto 0);
-begin
-  in0_1_23 <= std_logic_vector_to_unsigned(in0);
-  in1_1_27 <= std_logic_vector_to_unsigned(in1);
-  y_2_1_concat <= std_logic_vector_to_unsigned(unsigned_to_std_logic_vector(in0_1_23) & unsigned_to_std_logic_vector(in1_1_27));
-  y <= unsigned_to_std_logic_vector(y_2_1_concat);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_constant_d468de54d8 is
-  port (
-    op : out std_logic_vector((96 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_constant_d468de54d8;
-architecture behavior of sysgen_constant_d468de54d8
-is
-begin
-  op <= "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_concat_154c3345c3 is
-  port (
-    in0 : in std_logic_vector((16 - 1) downto 0);
-    in1 : in std_logic_vector((16 - 1) downto 0);
-    y : out std_logic_vector((32 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_concat_154c3345c3;
-architecture behavior of sysgen_concat_154c3345c3
-is
-  signal in0_1_23: unsigned((16 - 1) downto 0);
-  signal in1_1_27: unsigned((16 - 1) downto 0);
-  signal y_2_1_concat: unsigned((32 - 1) downto 0);
-begin
-  in0_1_23 <= std_logic_vector_to_unsigned(in0);
-  in1_1_27 <= std_logic_vector_to_unsigned(in1);
-  y_2_1_concat <= std_logic_vector_to_unsigned(unsigned_to_std_logic_vector(in0_1_23) & unsigned_to_std_logic_vector(in1_1_27));
-  y <= unsigned_to_std_logic_vector(y_2_1_concat);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_mux_769ff47f4a is
-  port (
-    sel : in std_logic_vector((2 - 1) downto 0);
+    sel : in std_logic_vector((3 - 1) downto 0);
     d0 : in std_logic_vector((1 - 1) downto 0);
     d1 : in std_logic_vector((1 - 1) downto 0);
     d2 : in std_logic_vector((1 - 1) downto 0);
     d3 : in std_logic_vector((1 - 1) downto 0);
+    d4 : in std_logic_vector((1 - 1) downto 0);
+    d5 : in std_logic_vector((1 - 1) downto 0);
+    d6 : in std_logic_vector((1 - 1) downto 0);
+    d7 : in std_logic_vector((1 - 1) downto 0);
     y : out std_logic_vector((1 - 1) downto 0);
     clk : in std_logic;
     ce : in std_logic;
     clr : in std_logic);
-end sysgen_mux_769ff47f4a;
-architecture behavior of sysgen_mux_769ff47f4a
+end sysgen_mux_55a94068fd;
+architecture behavior of sysgen_mux_55a94068fd
 is
-  signal sel_1_20: std_logic_vector((2 - 1) downto 0);
+  signal sel_1_20: std_logic_vector((3 - 1) downto 0);
   signal d0_1_24: std_logic;
   signal d1_1_27: std_logic;
   signal d2_1_30: std_logic;
   signal d3_1_33: std_logic;
-  type array_type_pipe_20_22 is array (0 to (1 - 1)) of std_logic;
-  signal pipe_20_22: array_type_pipe_20_22 := (
+  signal d4_1_36: std_logic;
+  signal d5_1_39: std_logic;
+  signal d6_1_42: std_logic;
+  signal d7_1_45: std_logic;
+  type array_type_pipe_28_22 is array (0 to (1 - 1)) of std_logic;
+  signal pipe_28_22: array_type_pipe_28_22 := (
     0 => '0');
-  signal pipe_20_22_front_din: std_logic;
-  signal pipe_20_22_back: std_logic;
-  signal pipe_20_22_push_front_pop_back_en: std_logic;
+  signal pipe_28_22_front_din: std_logic;
+  signal pipe_28_22_back: std_logic;
+  signal pipe_28_22_push_front_pop_back_en: std_logic;
   signal unregy_join_6_1: std_logic;
 begin
   sel_1_20 <= sel;
@@ -735,34 +505,46 @@ begin
   d1_1_27 <= d1(0);
   d2_1_30 <= d2(0);
   d3_1_33 <= d3(0);
-  pipe_20_22_back <= pipe_20_22(0);
-  proc_pipe_20_22: process (clk)
+  d4_1_36 <= d4(0);
+  d5_1_39 <= d5(0);
+  d6_1_42 <= d6(0);
+  d7_1_45 <= d7(0);
+  pipe_28_22_back <= pipe_28_22(0);
+  proc_pipe_28_22: process (clk)
   is
     variable i: integer;
   begin
     if (clk'event and (clk = '1')) then
-      if ((ce = '1') and (pipe_20_22_push_front_pop_back_en = '1')) then
-        pipe_20_22(0) <= pipe_20_22_front_din;
+      if ((ce = '1') and (pipe_28_22_push_front_pop_back_en = '1')) then
+        pipe_28_22(0) <= pipe_28_22_front_din;
       end if;
     end if;
-  end process proc_pipe_20_22;
-  proc_switch_6_1: process (d0_1_24, d1_1_27, d2_1_30, d3_1_33, sel_1_20)
+  end process proc_pipe_28_22;
+  proc_switch_6_1: process (d0_1_24, d1_1_27, d2_1_30, d3_1_33, d4_1_36, d5_1_39, d6_1_42, d7_1_45, sel_1_20)
   is
   begin
     case sel_1_20 is 
-      when "00" =>
+      when "000" =>
         unregy_join_6_1 <= d0_1_24;
-      when "01" =>
+      when "001" =>
         unregy_join_6_1 <= d1_1_27;
-      when "10" =>
+      when "010" =>
         unregy_join_6_1 <= d2_1_30;
-      when others =>
+      when "011" =>
         unregy_join_6_1 <= d3_1_33;
+      when "100" =>
+        unregy_join_6_1 <= d4_1_36;
+      when "101" =>
+        unregy_join_6_1 <= d5_1_39;
+      when "110" =>
+        unregy_join_6_1 <= d6_1_42;
+      when others =>
+        unregy_join_6_1 <= d7_1_45;
     end case;
   end process proc_switch_6_1;
-  pipe_20_22_front_din <= unregy_join_6_1;
-  pipe_20_22_push_front_pop_back_en <= '1';
-  y <= std_logic_to_vector(pipe_20_22_back);
+  pipe_28_22_front_din <= unregy_join_6_1;
+  pipe_28_22_push_front_pop_back_en <= '1';
+  y <= std_logic_to_vector(pipe_28_22_back);
 end behavior;
 
 library xil_defaultlib;
@@ -771,247 +553,86 @@ use xil_defaultlib.conv_pkg.all;
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-entity sysgen_mux_6973bfb62e is
+entity sysgen_mux_35b2df22fc is
   port (
-    sel : in std_logic_vector((2 - 1) downto 0);
-    d0 : in std_logic_vector((128 - 1) downto 0);
-    d1 : in std_logic_vector((128 - 1) downto 0);
-    d2 : in std_logic_vector((128 - 1) downto 0);
-    d3 : in std_logic_vector((128 - 1) downto 0);
-    y : out std_logic_vector((128 - 1) downto 0);
+    sel : in std_logic_vector((3 - 1) downto 0);
+    d0 : in std_logic_vector((16 - 1) downto 0);
+    d1 : in std_logic_vector((16 - 1) downto 0);
+    d2 : in std_logic_vector((16 - 1) downto 0);
+    d3 : in std_logic_vector((16 - 1) downto 0);
+    d4 : in std_logic_vector((16 - 1) downto 0);
+    d5 : in std_logic_vector((16 - 1) downto 0);
+    d6 : in std_logic_vector((16 - 1) downto 0);
+    d7 : in std_logic_vector((16 - 1) downto 0);
+    y : out std_logic_vector((16 - 1) downto 0);
     clk : in std_logic;
     ce : in std_logic;
     clr : in std_logic);
-end sysgen_mux_6973bfb62e;
-architecture behavior of sysgen_mux_6973bfb62e
+end sysgen_mux_35b2df22fc;
+architecture behavior of sysgen_mux_35b2df22fc
 is
-  signal sel_1_20: std_logic_vector((2 - 1) downto 0);
-  signal d0_1_24: std_logic_vector((128 - 1) downto 0);
-  signal d1_1_27: std_logic_vector((128 - 1) downto 0);
-  signal d2_1_30: std_logic_vector((128 - 1) downto 0);
-  signal d3_1_33: std_logic_vector((128 - 1) downto 0);
-  type array_type_pipe_20_22 is array (0 to (1 - 1)) of std_logic_vector((128 - 1) downto 0);
-  signal pipe_20_22: array_type_pipe_20_22 := (
-    0 => "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-  signal pipe_20_22_front_din: std_logic_vector((128 - 1) downto 0);
-  signal pipe_20_22_back: std_logic_vector((128 - 1) downto 0);
-  signal pipe_20_22_push_front_pop_back_en: std_logic;
-  signal unregy_join_6_1: std_logic_vector((128 - 1) downto 0);
+  signal sel_1_20: std_logic_vector((3 - 1) downto 0);
+  signal d0_1_24: std_logic_vector((16 - 1) downto 0);
+  signal d1_1_27: std_logic_vector((16 - 1) downto 0);
+  signal d2_1_30: std_logic_vector((16 - 1) downto 0);
+  signal d3_1_33: std_logic_vector((16 - 1) downto 0);
+  signal d4_1_36: std_logic_vector((16 - 1) downto 0);
+  signal d5_1_39: std_logic_vector((16 - 1) downto 0);
+  signal d6_1_42: std_logic_vector((16 - 1) downto 0);
+  signal d7_1_45: std_logic_vector((16 - 1) downto 0);
+  type array_type_pipe_28_22 is array (0 to (1 - 1)) of std_logic_vector((16 - 1) downto 0);
+  signal pipe_28_22: array_type_pipe_28_22 := (
+    0 => "0000000000000000");
+  signal pipe_28_22_front_din: std_logic_vector((16 - 1) downto 0);
+  signal pipe_28_22_back: std_logic_vector((16 - 1) downto 0);
+  signal pipe_28_22_push_front_pop_back_en: std_logic;
+  signal unregy_join_6_1: std_logic_vector((16 - 1) downto 0);
 begin
   sel_1_20 <= sel;
   d0_1_24 <= d0;
   d1_1_27 <= d1;
   d2_1_30 <= d2;
   d3_1_33 <= d3;
-  pipe_20_22_back <= pipe_20_22(0);
-  proc_pipe_20_22: process (clk)
+  d4_1_36 <= d4;
+  d5_1_39 <= d5;
+  d6_1_42 <= d6;
+  d7_1_45 <= d7;
+  pipe_28_22_back <= pipe_28_22(0);
+  proc_pipe_28_22: process (clk)
   is
     variable i: integer;
   begin
     if (clk'event and (clk = '1')) then
-      if ((ce = '1') and (pipe_20_22_push_front_pop_back_en = '1')) then
-        pipe_20_22(0) <= pipe_20_22_front_din;
+      if ((ce = '1') and (pipe_28_22_push_front_pop_back_en = '1')) then
+        pipe_28_22(0) <= pipe_28_22_front_din;
       end if;
     end if;
-  end process proc_pipe_20_22;
-  proc_switch_6_1: process (d0_1_24, d1_1_27, d2_1_30, d3_1_33, sel_1_20)
+  end process proc_pipe_28_22;
+  proc_switch_6_1: process (d0_1_24, d1_1_27, d2_1_30, d3_1_33, d4_1_36, d5_1_39, d6_1_42, d7_1_45, sel_1_20)
   is
   begin
     case sel_1_20 is 
-      when "00" =>
+      when "000" =>
         unregy_join_6_1 <= d0_1_24;
-      when "01" =>
+      when "001" =>
         unregy_join_6_1 <= d1_1_27;
-      when "10" =>
+      when "010" =>
         unregy_join_6_1 <= d2_1_30;
-      when others =>
+      when "011" =>
         unregy_join_6_1 <= d3_1_33;
-    end case;
-  end process proc_switch_6_1;
-  pipe_20_22_front_din <= unregy_join_6_1;
-  pipe_20_22_push_front_pop_back_en <= '1';
-  y <= pipe_20_22_back;
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_logical_cbd80afd9a is
-  port (
-    d0 : in std_logic_vector((1 - 1) downto 0);
-    d1 : in std_logic_vector((1 - 1) downto 0);
-    d2 : in std_logic_vector((1 - 1) downto 0);
-    y : out std_logic_vector((1 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_logical_cbd80afd9a;
-architecture behavior of sysgen_logical_cbd80afd9a
-is
-  signal d0_1_24: std_logic_vector((1 - 1) downto 0);
-  signal d1_1_27: std_logic_vector((1 - 1) downto 0);
-  signal d2_1_30: std_logic_vector((1 - 1) downto 0);
-  signal fully_2_1_bit: std_logic_vector((1 - 1) downto 0);
-begin
-  d0_1_24 <= d0;
-  d1_1_27 <= d1;
-  d2_1_30 <= d2;
-  fully_2_1_bit <= d0_1_24 or d1_1_27 or d2_1_30;
-  y <= fully_2_1_bit;
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_logical_e7b2cf931e is
-  port (
-    d0 : in std_logic_vector((1 - 1) downto 0);
-    d1 : in std_logic_vector((1 - 1) downto 0);
-    y : out std_logic_vector((1 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_logical_e7b2cf931e;
-architecture behavior of sysgen_logical_e7b2cf931e
-is
-  signal d0_1_24: std_logic_vector((1 - 1) downto 0);
-  signal d1_1_27: std_logic_vector((1 - 1) downto 0);
-  signal fully_2_1_bit: std_logic_vector((1 - 1) downto 0);
-begin
-  d0_1_24 <= d0;
-  d1_1_27 <= d1;
-  fully_2_1_bit <= d0_1_24 or d1_1_27;
-  y <= fully_2_1_bit;
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_mux_5cfc090c81 is
-  port (
-    sel : in std_logic_vector((1 - 1) downto 0);
-    d0 : in std_logic_vector((16 - 1) downto 0);
-    d1 : in std_logic_vector((16 - 1) downto 0);
-    y : out std_logic_vector((16 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_mux_5cfc090c81;
-architecture behavior of sysgen_mux_5cfc090c81
-is
-  signal sel_1_20: std_logic_vector((1 - 1) downto 0);
-  signal d0_1_24: std_logic_vector((16 - 1) downto 0);
-  signal d1_1_27: std_logic_vector((16 - 1) downto 0);
-  signal unregy_join_6_1: std_logic_vector((16 - 1) downto 0);
-begin
-  sel_1_20 <= sel;
-  d0_1_24 <= d0;
-  d1_1_27 <= d1;
-  proc_switch_6_1: process (d0_1_24, d1_1_27, sel_1_20)
-  is
-  begin
-    case sel_1_20 is 
-      when "0" =>
-        unregy_join_6_1 <= d0_1_24;
+      when "100" =>
+        unregy_join_6_1 <= d4_1_36;
+      when "101" =>
+        unregy_join_6_1 <= d5_1_39;
+      when "110" =>
+        unregy_join_6_1 <= d6_1_42;
       when others =>
-        unregy_join_6_1 <= d1_1_27;
+        unregy_join_6_1 <= d7_1_45;
     end case;
   end process proc_switch_6_1;
-  y <= unregy_join_6_1;
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_mux_94065815e7 is
-  port (
-    sel : in std_logic_vector((1 - 1) downto 0);
-    d0 : in std_logic_vector((1 - 1) downto 0);
-    d1 : in std_logic_vector((1 - 1) downto 0);
-    y : out std_logic_vector((1 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_mux_94065815e7;
-architecture behavior of sysgen_mux_94065815e7
-is
-  signal sel_1_20: std_logic_vector((1 - 1) downto 0);
-  signal d0_1_24: std_logic;
-  signal d1_1_27: std_logic;
-  signal unregy_join_6_1: std_logic;
-begin
-  sel_1_20 <= sel;
-  d0_1_24 <= d0(0);
-  d1_1_27 <= d1(0);
-  proc_switch_6_1: process (d0_1_24, d1_1_27, sel_1_20)
-  is
-  begin
-    case sel_1_20 is 
-      when "0" =>
-        unregy_join_6_1 <= d0_1_24;
-      when others =>
-        unregy_join_6_1 <= d1_1_27;
-    end case;
-  end process proc_switch_6_1;
-  y <= std_logic_to_vector(unregy_join_6_1);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_concat_b05fc24dc2 is
-  port (
-    in0 : in std_logic_vector((112 - 1) downto 0);
-    in1 : in std_logic_vector((16 - 1) downto 0);
-    y : out std_logic_vector((128 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_concat_b05fc24dc2;
-architecture behavior of sysgen_concat_b05fc24dc2
-is
-  signal in0_1_23: unsigned((112 - 1) downto 0);
-  signal in1_1_27: unsigned((16 - 1) downto 0);
-  signal y_2_1_concat: unsigned((128 - 1) downto 0);
-begin
-  in0_1_23 <= std_logic_vector_to_unsigned(in0);
-  in1_1_27 <= std_logic_vector_to_unsigned(in1);
-  y_2_1_concat <= std_logic_vector_to_unsigned(unsigned_to_std_logic_vector(in0_1_23) & unsigned_to_std_logic_vector(in1_1_27));
-  y <= unsigned_to_std_logic_vector(y_2_1_concat);
-end behavior;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-entity sysgen_constant_1ff53682d3 is
-  port (
-    op : out std_logic_vector((112 - 1) downto 0);
-    clk : in std_logic;
-    ce : in std_logic;
-    clr : in std_logic);
-end sysgen_constant_1ff53682d3;
-architecture behavior of sysgen_constant_1ff53682d3
-is
-begin
-  op <= "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+  pipe_28_22_front_din <= unregy_join_6_1;
+  pipe_28_22_push_front_pop_back_en <= '1';
+  y <= pipe_28_22_back;
 end behavior;
 
 library xil_defaultlib;
@@ -1140,6 +761,76 @@ use xil_defaultlib.conv_pkg.all;
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
+entity sysgen_concat_b05fc24dc2 is
+  port (
+    in0 : in std_logic_vector((112 - 1) downto 0);
+    in1 : in std_logic_vector((16 - 1) downto 0);
+    y : out std_logic_vector((128 - 1) downto 0);
+    clk : in std_logic;
+    ce : in std_logic;
+    clr : in std_logic);
+end sysgen_concat_b05fc24dc2;
+architecture behavior of sysgen_concat_b05fc24dc2
+is
+  signal in0_1_23: unsigned((112 - 1) downto 0);
+  signal in1_1_27: unsigned((16 - 1) downto 0);
+  signal y_2_1_concat: unsigned((128 - 1) downto 0);
+begin
+  in0_1_23 <= std_logic_vector_to_unsigned(in0);
+  in1_1_27 <= std_logic_vector_to_unsigned(in1);
+  y_2_1_concat <= std_logic_vector_to_unsigned(unsigned_to_std_logic_vector(in0_1_23) & unsigned_to_std_logic_vector(in1_1_27));
+  y <= unsigned_to_std_logic_vector(y_2_1_concat);
+end behavior;
+
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+entity sysgen_constant_1ff53682d3 is
+  port (
+    op : out std_logic_vector((112 - 1) downto 0);
+    clk : in std_logic;
+    ce : in std_logic;
+    clr : in std_logic);
+end sysgen_constant_1ff53682d3;
+architecture behavior of sysgen_constant_1ff53682d3
+is
+begin
+  op <= "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+end behavior;
+
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+entity sysgen_reinterpret_3f7a2a62b5 is
+  port (
+    input_port : in std_logic_vector((16 - 1) downto 0);
+    output_port : out std_logic_vector((16 - 1) downto 0);
+    clk : in std_logic;
+    ce : in std_logic;
+    clr : in std_logic);
+end sysgen_reinterpret_3f7a2a62b5;
+architecture behavior of sysgen_reinterpret_3f7a2a62b5
+is
+  signal input_port_1_40: signed((16 - 1) downto 0);
+  signal output_port_5_5_force: unsigned((16 - 1) downto 0);
+begin
+  input_port_1_40 <= std_logic_vector_to_signed(input_port);
+  output_port_5_5_force <= signed_to_unsigned(input_port_1_40);
+  output_port <= unsigned_to_std_logic_vector(output_port_5_5_force);
+end behavior;
+
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 entity xsg_bwselector_axi_lite_interface is 
     port(
         s_axi_decimation : out std_logic_vector(31 downto 0);
@@ -1227,55 +918,37 @@ use IEEE.numeric_std.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
 
-entity xlfir_compiler_77585be71a3fcdcbdad3183d582a337c is 
+entity xlfir_compiler_1eb83f552fd9c59e0967d3d99cbc3b26 is 
   port(
     ce:in std_logic;
     clk:in std_logic;
-    m_axis_data_tdata_vect0:out std_logic_vector(31 downto 0);
-    m_axis_data_tdata_vect1:out std_logic_vector(31 downto 0);
-    m_axis_data_tdata_vect2:out std_logic_vector(31 downto 0);
-    m_axis_data_tdata_vect3:out std_logic_vector(31 downto 0);
+    m_axis_data_tdata_real:out std_logic_vector(31 downto 0);
     m_axis_data_tvalid:out std_logic;
     s_axis_data_tdata_vect0:in std_logic_vector(15 downto 0);
     s_axis_data_tdata_vect1:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect2:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect3:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect4:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect5:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect6:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect7:in std_logic_vector(15 downto 0);
     s_axis_data_tready:out std_logic;
     s_axis_data_tvalid:in std_logic;
     src_ce:in std_logic;
     src_clk:in std_logic
   );
-end xlfir_compiler_77585be71a3fcdcbdad3183d582a337c; 
+end xlfir_compiler_1eb83f552fd9c59e0967d3d99cbc3b26; 
 
-architecture behavior of xlfir_compiler_77585be71a3fcdcbdad3183d582a337c  is
+architecture behavior of xlfir_compiler_1eb83f552fd9c59e0967d3d99cbc3b26  is
   component xsg_bwselector_fir_compiler_v7_2_i0
     port(
       aclk:in std_logic;
       aclken:in std_logic;
-      m_axis_data_tdata:out std_logic_vector(127 downto 0);
+      m_axis_data_tdata:out std_logic_vector(31 downto 0);
       m_axis_data_tvalid:out std_logic;
-      s_axis_data_tdata:in std_logic_vector(127 downto 0);
+      s_axis_data_tdata:in std_logic_vector(31 downto 0);
       s_axis_data_tready:out std_logic;
       s_axis_data_tvalid:in std_logic
     );
 end component;
-signal m_axis_data_tdata_net: std_logic_vector(127 downto 0) := (others=>'0');
-signal s_axis_data_tdata_net: std_logic_vector(127 downto 0) := (others=>'0');
+signal m_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
+signal s_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
 begin
-  m_axis_data_tdata_vect3 <= m_axis_data_tdata_net(127 downto 96);
-  m_axis_data_tdata_vect2 <= m_axis_data_tdata_net(95 downto 64);
-  m_axis_data_tdata_vect1 <= m_axis_data_tdata_net(63 downto 32);
-  m_axis_data_tdata_vect0 <= m_axis_data_tdata_net(31 downto 0);
-  s_axis_data_tdata_net(127 downto 112) <= s_axis_data_tdata_vect7;
-  s_axis_data_tdata_net(111 downto 96) <= s_axis_data_tdata_vect6;
-  s_axis_data_tdata_net(95 downto 80) <= s_axis_data_tdata_vect5;
-  s_axis_data_tdata_net(79 downto 64) <= s_axis_data_tdata_vect4;
-  s_axis_data_tdata_net(63 downto 48) <= s_axis_data_tdata_vect3;
-  s_axis_data_tdata_net(47 downto 32) <= s_axis_data_tdata_vect2;
+  m_axis_data_tdata_real <= m_axis_data_tdata_net(31 downto 0);
   s_axis_data_tdata_net(31 downto 16) <= s_axis_data_tdata_vect1;
   s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_vect0;
   xsg_bwselector_fir_compiler_v7_2_i0_instance : xsg_bwselector_fir_compiler_v7_2_i0
@@ -1298,252 +971,38 @@ use IEEE.numeric_std.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
 
-entity xlfir_compiler_b2a36ee9c093246bbf53aedb97dcea8e is 
+entity xlfir_compiler_2163b25948ec1959d2c5ebcf7f8f4abd is 
   port(
     ce:in std_logic;
     clk:in std_logic;
-    m_axis_data_tdata_vect0:out std_logic_vector(31 downto 0);
-    m_axis_data_tdata_vect1:out std_logic_vector(31 downto 0);
+    m_axis_data_tdata_real:out std_logic_vector(31 downto 0);
     m_axis_data_tvalid:out std_logic;
-    s_axis_data_tdata_vect0:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect1:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect2:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect3:in std_logic_vector(15 downto 0);
+    s_axis_data_tdata_real:in std_logic_vector(15 downto 0);
     s_axis_data_tready:out std_logic;
     s_axis_data_tvalid:in std_logic;
     src_ce:in std_logic;
     src_clk:in std_logic
   );
-end xlfir_compiler_b2a36ee9c093246bbf53aedb97dcea8e; 
+end xlfir_compiler_2163b25948ec1959d2c5ebcf7f8f4abd; 
 
-architecture behavior of xlfir_compiler_b2a36ee9c093246bbf53aedb97dcea8e  is
+architecture behavior of xlfir_compiler_2163b25948ec1959d2c5ebcf7f8f4abd  is
   component xsg_bwselector_fir_compiler_v7_2_i1
     port(
       aclk:in std_logic;
       aclken:in std_logic;
-      m_axis_data_tdata:out std_logic_vector(63 downto 0);
+      m_axis_data_tdata:out std_logic_vector(31 downto 0);
       m_axis_data_tvalid:out std_logic;
-      s_axis_data_tdata:in std_logic_vector(63 downto 0);
+      s_axis_data_tdata:in std_logic_vector(15 downto 0);
       s_axis_data_tready:out std_logic;
       s_axis_data_tvalid:in std_logic
     );
 end component;
-signal m_axis_data_tdata_net: std_logic_vector(63 downto 0) := (others=>'0');
-signal s_axis_data_tdata_net: std_logic_vector(63 downto 0) := (others=>'0');
+signal m_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
+signal s_axis_data_tdata_net: std_logic_vector(15 downto 0) := (others=>'0');
 begin
-  m_axis_data_tdata_vect1 <= m_axis_data_tdata_net(63 downto 32);
-  m_axis_data_tdata_vect0 <= m_axis_data_tdata_net(31 downto 0);
-  s_axis_data_tdata_net(63 downto 48) <= s_axis_data_tdata_vect3;
-  s_axis_data_tdata_net(47 downto 32) <= s_axis_data_tdata_vect2;
-  s_axis_data_tdata_net(31 downto 16) <= s_axis_data_tdata_vect1;
-  s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_vect0;
+  m_axis_data_tdata_real <= m_axis_data_tdata_net(31 downto 0);
+  s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_real;
   xsg_bwselector_fir_compiler_v7_2_i1_instance : xsg_bwselector_fir_compiler_v7_2_i1
-    port map(
-      aclk=>clk,
-      aclken=>ce,
-      m_axis_data_tdata=>m_axis_data_tdata_net,
-      m_axis_data_tvalid=>m_axis_data_tvalid,
-      s_axis_data_tdata=>s_axis_data_tdata_net,
-      s_axis_data_tready=>s_axis_data_tready,
-      s_axis_data_tvalid=>s_axis_data_tvalid
-    );
-end behavior;
-
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-entity xlfir_compiler_af3721e210868ca8451d0c9d4ed84b4a is 
-  port(
-    ce:in std_logic;
-    clk:in std_logic;
-    m_axis_data_tdata_real:out std_logic_vector(31 downto 0);
-    m_axis_data_tvalid:out std_logic;
-    s_axis_data_tdata_vect0:in std_logic_vector(15 downto 0);
-    s_axis_data_tdata_vect1:in std_logic_vector(15 downto 0);
-    s_axis_data_tready:out std_logic;
-    s_axis_data_tvalid:in std_logic;
-    src_ce:in std_logic;
-    src_clk:in std_logic
-  );
-end xlfir_compiler_af3721e210868ca8451d0c9d4ed84b4a; 
-
-architecture behavior of xlfir_compiler_af3721e210868ca8451d0c9d4ed84b4a  is
-  component xsg_bwselector_fir_compiler_v7_2_i2
-    port(
-      aclk:in std_logic;
-      aclken:in std_logic;
-      m_axis_data_tdata:out std_logic_vector(31 downto 0);
-      m_axis_data_tvalid:out std_logic;
-      s_axis_data_tdata:in std_logic_vector(31 downto 0);
-      s_axis_data_tready:out std_logic;
-      s_axis_data_tvalid:in std_logic
-    );
-end component;
-signal m_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
-signal s_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
-begin
-  m_axis_data_tdata_real <= m_axis_data_tdata_net(31 downto 0);
-  s_axis_data_tdata_net(31 downto 16) <= s_axis_data_tdata_vect1;
-  s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_vect0;
-  xsg_bwselector_fir_compiler_v7_2_i2_instance : xsg_bwselector_fir_compiler_v7_2_i2
-    port map(
-      aclk=>clk,
-      aclken=>ce,
-      m_axis_data_tdata=>m_axis_data_tdata_net,
-      m_axis_data_tvalid=>m_axis_data_tvalid,
-      s_axis_data_tdata=>s_axis_data_tdata_net,
-      s_axis_data_tready=>s_axis_data_tready,
-      s_axis_data_tvalid=>s_axis_data_tvalid
-    );
-end behavior;
-
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-entity xlfir_compiler_c8d77182473f1656541cf6b048d7f2a1 is 
-  port(
-    ce:in std_logic;
-    clk:in std_logic;
-    m_axis_data_tdata_real:out std_logic_vector(31 downto 0);
-    m_axis_data_tvalid:out std_logic;
-    s_axis_data_tdata_real:in std_logic_vector(15 downto 0);
-    s_axis_data_tready:out std_logic;
-    s_axis_data_tvalid:in std_logic;
-    src_ce:in std_logic;
-    src_clk:in std_logic
-  );
-end xlfir_compiler_c8d77182473f1656541cf6b048d7f2a1; 
-
-architecture behavior of xlfir_compiler_c8d77182473f1656541cf6b048d7f2a1  is
-  component xsg_bwselector_fir_compiler_v7_2_i3
-    port(
-      aclk:in std_logic;
-      aclken:in std_logic;
-      m_axis_data_tdata:out std_logic_vector(31 downto 0);
-      m_axis_data_tvalid:out std_logic;
-      s_axis_data_tdata:in std_logic_vector(15 downto 0);
-      s_axis_data_tready:out std_logic;
-      s_axis_data_tvalid:in std_logic
-    );
-end component;
-signal m_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
-signal s_axis_data_tdata_net: std_logic_vector(15 downto 0) := (others=>'0');
-begin
-  m_axis_data_tdata_real <= m_axis_data_tdata_net(31 downto 0);
-  s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_real;
-  xsg_bwselector_fir_compiler_v7_2_i3_instance : xsg_bwselector_fir_compiler_v7_2_i3
-    port map(
-      aclk=>clk,
-      aclken=>ce,
-      m_axis_data_tdata=>m_axis_data_tdata_net,
-      m_axis_data_tvalid=>m_axis_data_tvalid,
-      s_axis_data_tdata=>s_axis_data_tdata_net,
-      s_axis_data_tready=>s_axis_data_tready,
-      s_axis_data_tvalid=>s_axis_data_tvalid
-    );
-end behavior;
-
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-entity xlfir_compiler_f17e7b34263bd652a7715aaef1b9ecd8 is 
-  port(
-    ce:in std_logic;
-    clk:in std_logic;
-    m_axis_data_tdata_real:out std_logic_vector(31 downto 0);
-    m_axis_data_tvalid:out std_logic;
-    s_axis_data_tdata_real:in std_logic_vector(15 downto 0);
-    s_axis_data_tready:out std_logic;
-    s_axis_data_tvalid:in std_logic;
-    src_ce:in std_logic;
-    src_clk:in std_logic
-  );
-end xlfir_compiler_f17e7b34263bd652a7715aaef1b9ecd8; 
-
-architecture behavior of xlfir_compiler_f17e7b34263bd652a7715aaef1b9ecd8  is
-  component xsg_bwselector_fir_compiler_v7_2_i4
-    port(
-      aclk:in std_logic;
-      aclken:in std_logic;
-      m_axis_data_tdata:out std_logic_vector(31 downto 0);
-      m_axis_data_tvalid:out std_logic;
-      s_axis_data_tdata:in std_logic_vector(15 downto 0);
-      s_axis_data_tready:out std_logic;
-      s_axis_data_tvalid:in std_logic
-    );
-end component;
-signal m_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
-signal s_axis_data_tdata_net: std_logic_vector(15 downto 0) := (others=>'0');
-begin
-  m_axis_data_tdata_real <= m_axis_data_tdata_net(31 downto 0);
-  s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_real;
-  xsg_bwselector_fir_compiler_v7_2_i4_instance : xsg_bwselector_fir_compiler_v7_2_i4
-    port map(
-      aclk=>clk,
-      aclken=>ce,
-      m_axis_data_tdata=>m_axis_data_tdata_net,
-      m_axis_data_tvalid=>m_axis_data_tvalid,
-      s_axis_data_tdata=>s_axis_data_tdata_net,
-      s_axis_data_tready=>s_axis_data_tready,
-      s_axis_data_tvalid=>s_axis_data_tvalid
-    );
-end behavior;
-
-
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
-
-library xil_defaultlib;
-use xil_defaultlib.conv_pkg.all;
-
-entity xlfir_compiler_2c2194d219c47f3851f897f8c2672424 is 
-  port(
-    ce:in std_logic;
-    clk:in std_logic;
-    m_axis_data_tdata_real:out std_logic_vector(31 downto 0);
-    m_axis_data_tvalid:out std_logic;
-    s_axis_data_tdata_real:in std_logic_vector(15 downto 0);
-    s_axis_data_tready:out std_logic;
-    s_axis_data_tvalid:in std_logic;
-    src_ce:in std_logic;
-    src_clk:in std_logic
-  );
-end xlfir_compiler_2c2194d219c47f3851f897f8c2672424; 
-
-architecture behavior of xlfir_compiler_2c2194d219c47f3851f897f8c2672424  is
-  component xsg_bwselector_fir_compiler_v7_2_i5
-    port(
-      aclk:in std_logic;
-      aclken:in std_logic;
-      m_axis_data_tdata:out std_logic_vector(31 downto 0);
-      m_axis_data_tvalid:out std_logic;
-      s_axis_data_tdata:in std_logic_vector(15 downto 0);
-      s_axis_data_tready:out std_logic;
-      s_axis_data_tvalid:in std_logic
-    );
-end component;
-signal m_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
-signal s_axis_data_tdata_net: std_logic_vector(15 downto 0) := (others=>'0');
-begin
-  m_axis_data_tdata_real <= m_axis_data_tdata_net(31 downto 0);
-  s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_real;
-  xsg_bwselector_fir_compiler_v7_2_i5_instance : xsg_bwselector_fir_compiler_v7_2_i5
     port map(
       aclk=>clk,
       aclken=>ce,
