@@ -71,5 +71,5 @@ setup(
     packages=find_packages(),
     package_data={
         '': hw_data_files,
-    }
+    },
     description="PYNQ example of using the RFSoC as a Spectrum Analyser.")
