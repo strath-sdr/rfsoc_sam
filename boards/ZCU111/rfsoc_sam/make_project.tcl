@@ -1,4 +1,4 @@
-set overlay_name "rfstrath"
+set overlay_name "rfsoc_sam"
 set design_name "block_design"
 set iprepo_dir ./../../ip/iprepo
 
