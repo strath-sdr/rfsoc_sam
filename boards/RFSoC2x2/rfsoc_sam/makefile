@@ -1,7 +1,7 @@
 overlay_name := rfsoc_sam
 design_name := block_design
 
-all: project block_design bitstream
+all: project block_design bitstream_file
 	@echo
 	@tput setaf 2 ; "Built $(overlay_name) successfully!"; tput sgr0;
 	@echo
