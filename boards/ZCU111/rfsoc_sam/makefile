@@ -12,5 +12,5 @@ project:
 block_design:
 	vivado -mode batch -source make_block_design.tcl -notrace
 
-bitstream:
+bitstream_file:
 	vivado -mode batch -source make_bitstream.tcl -notrace
