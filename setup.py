@@ -6,10 +6,11 @@ from setuptools import find_packages, setup
 
 # global variables
 package_name = 'rfsoc_sam'
+pip_name = 'rfsoc-sam'
 board = os.environ['BOARD']
 repo_board_folder = f'boards/{board}/rfsoc_sam'
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
-board_project_dir = os.path.join(board_notebooks_dir, package_name)
+board_project_dir = os.path.join(board_notebooks_dir, 'strath-sdr', 'standalone', pip_name)
 
 data_files = []
 
@@ -54,21 +55,12 @@ def copy_notebooks():
     dst_nb_dir = os.path.join(board_project_dir)
     copy_tree(src_nb_dir, dst_nb_dir)
     
-# copy notebooks to python package
-def copy_notebooks_package():
-    src_nb_dir = os.path.join(repo_board_folder, 'notebooks')
-    dst_nb_dir = os.path.join(package_name, 'notebooks')
-    copy_tree(src_nb_dir, dst_nb_dir)
-    data_files.extend(
-        [os.path.join("..", dst_nb_dir, f) for f in os.listdir(dst_nb_dir)])
-    
 check_env()
 check_path()
 copy_overlays()
 copy_assets()
 copy_drivers()
 copy_notebooks()
-copy_notebooks_package()
 
 setup(
     name=package_name,
