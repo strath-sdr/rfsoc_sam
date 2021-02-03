@@ -84,7 +84,7 @@ class Overlay(Overlay):
         ctl_tab = self._ctl_generator(config=[{'transmit_enable' : True},
                                               {'transmit_enable' : True},
                                               {'transmit_enable' : True},
-                                              {'transmit_enable' : True])
+                                              {'transmit_enable' : True}])
         
         this_dir = os.path.dirname(__file__)
         img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
