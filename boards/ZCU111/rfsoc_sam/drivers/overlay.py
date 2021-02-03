@@ -42,7 +42,7 @@ class Overlay(Overlay):
     def init_rf_clks(self, lmx_freq=409.6):
         """Initialise the LMX and LMK clocks for RF-DC operation.
         """
-        xrfclk.set_all_ref_clks(lmx_freq=lmx_freq)
+        xrfclk.set_all_ref_clks(lmx_freq)
         
         
     def _sam_generator(self, config=None):
