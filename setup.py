@@ -12,7 +12,7 @@ board_project_dir = os.path.join(board_notebooks_dir, 'spectrum_analyser')
 
 # check whether board is supported
 def check_env():
-    if not board == 'ZCU111':
+    if not (board == 'ZCU111' or board == 'RFSOC'):
         raise ValueError("Board {} is not supported.".format(board))
         
 # check if the path already exists, delete if so
