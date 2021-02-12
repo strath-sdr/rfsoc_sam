@@ -272,7 +272,7 @@ class ReceiverFrontEnd():
                         'fftsize' : self.analyser.fftsize,
                         'spectrum_type' : self.analyser.spectrum_type,
                         'spectrum_units' : self.analyser.spectrum_units,
-                        'window' : self.analyser.window,
+                        'window' : 'blackman',
                         'height' : self.analyser.height,
                         'spectrum_enable' : self.analyser.spectrum_enable,
                         'waterfall_enable' : self.analyser.waterfall_enable,
@@ -538,9 +538,7 @@ class ReceiverFrontEnd():
                                                         ipw.VBox([self._widgets['nyquist_stopband'].get_widget(),
                                                                  self._widgets['height'].get_widget(),
                                                                  self._widgets['width'].get_widget(),
-                                                                 self._widgets['update_frequency'].get_widget(),
-                                                                 self._widgets['plotly_theme'].get_widget(),
-                                                                 self._widgets['line_colour'].get_widget()])                                                        
+                                                                 self._widgets['update_frequency'].get_widget()])                                                        
                                                         ])})
         self._accordions['properties'].set_title(0, 'Receiver')
         self._accordions['properties'].set_title(1, 'Spectrum Analyser')
