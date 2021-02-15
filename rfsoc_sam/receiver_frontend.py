@@ -33,6 +33,8 @@ class RadioAnalyser():
     @centre_frequency.setter
     def centre_frequency(self, centre_frequency):
         nyquist_zone = int(np.ceil(centre_frequency/(self._block.BlockStatus['SamplingFreq']*1e3/2)))
+        if nyquist_zone == 0:
+            nyquist_zone = 1
         if nyquist_zone != self._block.NyquistZone:
             self._block.NyquistZone = nyquist_zone
         if (nyquist_zone % 2) == 0:
