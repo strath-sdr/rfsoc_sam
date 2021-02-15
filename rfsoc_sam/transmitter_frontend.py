@@ -86,7 +86,7 @@ class RadioTransmitterControl():
             self._controller.enable = 0;
         
 
-class TransmitterFrontEnd():
+class RadioTransmitterGUI():
     """Software wrapper for the transmitter frontend.
     
     The transmit controller software wrapper may be coupled

@@ -250,7 +250,7 @@ class RadioAnalyser():
         return self._spectrum_analyser.spectrogram.get_plot()
     
     
-class ReceiverFrontEnd():
+class RadioAnalyserGUI():
     
     def __init__(self, 
                  adc_tile,
@@ -627,3 +627,29 @@ class ReceiverFrontEnd():
                                             ])
                                   ])
                         ])
+
+
+class ConfigurationThread():
+
+    def __init__(self,
+                 callback):
+
+        self._callback = callback
+        self._running = False
+        self.update = False
+
+    def _do(self):
+        while self._running:
+            self.update = False
+            self._callback()
+            if not self.update:
+                self._running = False
+
+    def start(self):
+        if not self.running:
+            thread = threading.Thread(target=self._do)
+            thread.start()
+            self._running = True
+
+    def stop(self):
+        self._running = False

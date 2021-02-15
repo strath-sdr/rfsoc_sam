@@ -6,8 +6,8 @@ from pynq import DefaultHierarchy
 from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
 from .controller import Controller
-from .transmitter_frontend import TransmitterFrontEnd
-from .receiver_frontend import ReceiverFrontEnd
+from .transmitter_frontend import RadioTransmitterGUI
+from .receiver_frontend import RadioAnalyserGUI
 
 
 class AdcChannel(DefaultHierarchy):
@@ -34,7 +34,7 @@ class AdcChannel(DefaultHierarchy):
 
     
     def _initialise_channel(self):
-        self.frontend = ReceiverFrontEnd(adc_tile=self._tile,
+        self.frontend = RadioAnalyserGUI(adc_tile=self._tile,
                                          adc_block=self._block,
                                          spectrum_analyser=self.spectrum_analyser,
                                          decimator=self.decimator)
@@ -60,6 +60,6 @@ class DacChannel(DefaultHierarchy):
         
     
     def _initialise_channel(self):
-        self.frontend = TransmitterFrontEnd(dac_tile=self._tile,
+        self.frontend = RadioTransmitterGUI(dac_tile=self._tile,
                                             dac_block=self._block,
                                             controller=self.control)
