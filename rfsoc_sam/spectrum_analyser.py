@@ -17,7 +17,7 @@ class SpectrumAnalyser(DefaultIP):
     
     The Spectrum Analyser contains an SSR converter,
     reprogrammable window upto 8192 samples, several
-    FFT cores (N=62 to N=8192), a spectrum processor
+    FFT cores (N=64 to N=8192), a spectrum processor
     for converting to power spectrum, PSD and dB, and
     finally an automatic DMA that transfers the
     spectrum to memory when ready.
@@ -141,7 +141,7 @@ class SpectrumAnalyser(DefaultIP):
     def __init__(self,
                  description,
                  sample_frequency = 2048e6,
-                 update_frequency = 10,
+                 update_frequency = 8,
                  centre_frequency = 0,
                  nyquist_stopband = 1,
                  plot_width = 800,
@@ -267,7 +267,7 @@ class SpectrumAnalyser(DefaultIP):
     def plotly_theme(self, theme):
         if theme in ['seaborn', 'simple_white', 'plotly', 
                      'plotly_white', 'plotly_dark']:
-            pio.templates.default = theme
+            #pio.templates.default = theme
             self.plot.template = theme
             self.spectrogram.template = theme
         

@@ -161,13 +161,16 @@ class Button():
     @state.setter
     def state(self, state):
         self._state = state
-        self._callback({self._dict_id : self._state})
         if self._state:
             self._button.style.button_color = self.button_colour
             self._button.description = self._description_on
         else:
             self._button.style.button_color = 'rgb(128, 128, 128)'
             self._button.description = self._description_off
+
+    def configure_state(self, state):
+        self.state = state
+        self._callback({self._dict_id : self._state})
         
     def on_click(self):
         self._state = not self._state

@@ -39,7 +39,6 @@ class RadioAnalyser():
             self._block.MixerSettings['Freq'] = centre_frequency
         else:
             self._block.MixerSettings['Freq'] = -centre_frequency
-        self._spectrum_analyser.spectrogram.enable_updates = False
         self._spectrum_analyser.centre_frequency = centre_frequency*1e6
         self._block.UpdateEvent(1)
         
@@ -55,23 +54,27 @@ class RadioAnalyser():
         word_lut = [8, 4, 2]
         sel = int(np.log2(decimation_factor))
         if decimation_factor in [2, 4, 8]:
-            self._spectrum_analyser.ssr_packetsize = 0
-            self._tile.ShutDown()
             self._block.DecimationFactor = decimation_factor
             self._block.FabRdVldWords = word_lut[sel-1]
-            self._tile.StartUp()
+            self._spectrum_analyser.ssr_packetsize = 0
             self._spectrum_analyser.ssr_mode = 4-sel
+            time.sleep(0.25)
+            self._tile.ShutDown()
+            self._tile.StartUp()
+            time.sleep(0.25)
             self._decimator.decimation_factor = 0
             self._spectrum_analyser.sample_frequency = \
             (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
             self._spectrum_analyser.ssr_packetsize = int(self._spectrum_analyser.fft_size/8)
         elif decimation_factor in [16, 32, 64, 128, 256, 512, 1024]:
-            self._spectrum_analyser.ssr_packetsize = 0
-            self._tile.ShutDown()
             self._block.DecimationFactor = 8
             self._block.FabRdVldWords = 2
-            self._tile.StartUp()
+            self._spectrum_analyser.ssr_packetsize = 0
             self._spectrum_analyser.ssr_mode = 0
+            time.sleep(0.25)
+            self._tile.ShutDown()
+            self._tile.StartUp()
+            time.sleep(0.25)
             self._decimator.decimation_factor = int(decimation_factor/8)
             self._spectrum_analyser.sample_frequency = \
             (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
@@ -260,6 +263,8 @@ class RadioAnalyserGUI():
         
         self._widgets = {}
         self._accordions = {}
+        self._running_update = False
+        self._update_que = []
         self._runtime_status = {'spectrum_enable' : False, 'waterfall_enable' : False}
         self.analyser = RadioAnalyser(adc_tile=adc_tile, 
                                        adc_block=adc_block, 
@@ -530,8 +535,7 @@ class RadioAnalyserGUI():
                                                         ipw.VBox([self._widgets['fftsize'].get_widget(),
                                                                  self._widgets['spectrum_type'].get_widget(),
                                                                  self._widgets['spectrum_units'].get_widget()]),
-                                                        ipw.VBox([self._widgets['quality'].get_widget(),
-                                                                 self._widgets['zmin'].get_widget(),
+                                                        ipw.VBox([self._widgets['zmin'].get_widget(),
                                                                  self._widgets['zmax'].get_widget()]),
                                                         ipw.VBox([self._window_plot,
                                                                   self._widgets['window'].get_widget()]),
@@ -546,7 +550,7 @@ class RadioAnalyserGUI():
         self._accordions['properties'].set_title(3, 'Window Settings')
         self._accordions['properties'].set_title(4, 'Plot Settings')
         
-        self._update_frontend()
+        self._update_config(self._config)
         
         
     def _update_config(self, config_dict):
@@ -554,38 +558,51 @@ class RadioAnalyserGUI():
             if key not in self._config:
                 raise KeyError(''.join(['Key ', str(key), ' not in dictionary.']))
         self._config.update(config_dict)
-        self._update_frontend(config_dict.keys())
+        self._update_que.append(config_dict.keys())
+        if not self._running_update:
+            self._update_frontend()
         
         
-    def _update_frontend(self, keys=None):
-        plot_running = self._config['spectrum_enable']
-        self.analyser.spectrum_enable = False
-        if keys is None:
-            keys = self._config.keys()
-        for key in keys:
-            if key in self._config:
-                setattr(self.analyser, key, self._config[key])
-                self._widgets[key].value = self._config[key]
-        for key in keys:
-            if key in ['window', 'plotly_theme', 'fftsize', 'line_colour', 'decimation_factor', 'centre_frequency',
-                       'spectrum_enable', 'waterfall_enable']:
-                self._update_widgets(key)
-        self._update_textwidgets()
-        self.analyser.spectrum_enable = plot_running
+    def _update_frontend(self):
+        self._running_update = True
+        if self._update_que:
+            plot_running = self._config['spectrum_enable']
+            self.analyser.spectrum_enable = False
+            while self._running_update:
+                keys = self._update_que.pop(0)
+                for key in keys:
+                    if key in self._config:
+                        if key in ['centre_frequency', 'decimation_factor', 'quality']:
+                            self._widgets['waterfall_enable'].state = False
+                            self.analyser.waterfall_enable = False
+                        setattr(self.analyser, key, self._config[key])
+                        self._widgets[key].value = self._config[key]
+                        if key in ['plotly_theme', 'line_colour', 'decimation_factor',
+                                'spectrum_enable', 'waterfall_enable']:
+                            self._update_widgets(key)
+                        if key in ['fftsize', 'window']:
+                            self._update_figurewidgets(key)
+                self._update_textwidgets()
+                if not self._update_que:
+                    self.analyser.spectrum_enable = plot_running
+                    self._running_update = False
         
         
     def _update_textwidgets(self):
         self._widgets['sample_frequency_label'].value = str(self.analyser.sample_frequency*1e-6)
         self._widgets['resolution_bandwidth_label'].value = str((self.analyser.sample_frequency/self.analyser.fftsize)*1e-3)
-        
-        
-    def _update_widgets(self, key):
+
+
+    def _update_figurewidgets(self, key):
         if key in ['fftsize']:
             self._window_plot.data[0].x = np.arange(self.analyser.fftsize)
             self._window_plot.data[0].y = self.analyser.spectrum_window
         elif key in ['window']:
             self._window_plot.data[0].y = self.analyser.spectrum_window
-        elif key in ['line_colour']:
+        
+        
+    def _update_widgets(self, key):
+        if key in ['line_colour']:
             self._window_plot.data[0].line.color = self._config['line_colour']
             self._widgets['dma_enable'].button_colour = self._config['line_colour']
             self._widgets['spectrum_enable'].button_colour = self._config['line_colour']
@@ -595,21 +612,18 @@ class RadioAnalyserGUI():
         elif key in ['decimation_factor']:
             step_dict = [10, 1, 1, 1, 0.1, 0.1, 0.1, 0.01, 0.01, 0.01]
             self._widgets['centre_frequency'].step = step_dict[int(np.log2(self._config['decimation_factor']) - 1)]
-        elif key in ['centre_frequency']:
-            self.analyser.waterfall_enable = False
-            self._widgets['waterfall_enable'].state = False
         elif key in ['spectrum_enable']:
             if self._config['spectrum_enable']:
-                self._widgets['dma_enable'].state = True
+                self._widgets['dma_enable'].configure_state(True)
             else:
                 if not self._config['waterfall_enable']:
-                    self._widgets['dma_enable'].state = False
+                    self._widgets['dma_enable'].configure_state(False)
         elif key in ['waterfall_enable']:
             if self._config['waterfall_enable']:
-                self._widgets['dma_enable'].state = True
+                self._widgets['dma_enable'].configure_state(True)
             else:
                 if not self._config['spectrum_enable']:
-                    self._widgets['dma_enable'].state = False
+                    self._widgets['dma_enable'].configure_state(False)
             
     
     def spectrum_analyser(self, config=None):
@@ -627,29 +641,3 @@ class RadioAnalyserGUI():
                                             ])
                                   ])
                         ])
-
-
-class ConfigurationThread():
-
-    def __init__(self,
-                 callback):
-
-        self._callback = callback
-        self._running = False
-        self.update = False
-
-    def _do(self):
-        while self._running:
-            self.update = False
-            self._callback()
-            if not self.update:
-                self._running = False
-
-    def start(self):
-        if not self.running:
-            thread = threading.Thread(target=self._do)
-            thread.start()
-            self._running = True
-
-    def stop(self):
-        self._running = False
