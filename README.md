@@ -1,6 +1,6 @@
 <img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
 
-# Spectrum Analyser on PYNQ
+# Spectrum Analyzer on PYNQ
 This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2.
 
 <p align="center">
@@ -26,6 +26,7 @@ Open a terminal in Jupyter Lab and run:
 pip3 install git+https://github.com/strath-sdr/rfsoc_sam_private
 ```
 
+### ZCU111 Setup
 We need to patch the current xrfdc drivers. Lets just overwrite the `__init__.py` for now.
 ```sh
 mkdir /home/xilinx/GitHub
