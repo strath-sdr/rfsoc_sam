@@ -10,7 +10,7 @@ pip_name = 'rfsoc-sam'
 board = os.environ['BOARD']
 repo_board_folder = f'boards/{board}/rfsoc_sam'
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
-board_project_dir = os.path.join(board_notebooks_dir, 'strath-rfsoc', 'spectrum-analyser')
+board_project_dir = os.path.join(board_notebooks_dir, 'spectrum-analyser')
 
 data_files = []
 
