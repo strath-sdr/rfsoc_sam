@@ -13,8 +13,7 @@ __support__ = '<a href="https://github.com/strath-sdr/rfsoc_sam" target="_blank"
 about = ''.join(['<br><b>', __info__, '</b><br>', __channels__, ' ', __board__,
                  ' ', __release__, '<br>', 'Version ', __version_number__,
                  ': ', __version_name__, '<br>Date: ', __date__, '<br><br>',
-                 '<b>Authors</b>: <br>', __author1__, '<br>', __author2__,
-                 '<br><br>', '<b>Organisation:</b> <br>', __organisation__,
+                 '<b>Organisation:</b> <br>', __organisation__,
                  '<br><br>', '<b>Support</b>:<br>', __support__])
 
 from pynq import Overlay, allocate
