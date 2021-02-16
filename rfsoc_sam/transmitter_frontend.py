@@ -128,6 +128,8 @@ class RadioTransmitterGUI():
         """
         self._widgets = {}
         self._accordions = {}
+        self._running_update = False
+        self._update_que = []
         self.controller = RadioTransmitterControl(dac_tile=dac_tile,
                                                   dac_block=dac_block,
                                                   controller=controller)
@@ -205,7 +207,9 @@ class RadioTransmitterGUI():
             if key not in self._config:
                 raise KeyError(''.join(['Key ', str(key), ' not in dictionary.']))
         self._config.update(config_dict)
-        self._update_frontend(config_dict.keys())
+        self._update_que.append(config_dict.keys())
+        if not self._running_update:
+            self._update_frontend()
         
     def _update_frontend(self, keys=None):
         """A hidden method for updating the frontend widgets
@@ -215,12 +219,16 @@ class RadioTransmitterGUI():
         to update in the configuration dict. Savig a bit of processing
         time.
         """
-        if keys is None:
-            keys = self._config.keys()
-        for key in keys:
-            if key in self._config:
-                setattr(self.controller, key, self._config[key])
-                self._widgets[key].value = self._config[key]
+        self._running_update = True
+        if self._update_que:
+            while self._running_update:
+                keys = self._update_que.pop(0)
+                for key in keys:
+                    if key in self._config:
+                        setattr(self.controller, key, self._config[key])
+                        self._widgets[key].value = self._config[key]
+                if not self._update_que:
+                    self._running_update = False
                 
     def transmitter_control(self, config=None):
         """Returns an instance of the transmitter frontend
