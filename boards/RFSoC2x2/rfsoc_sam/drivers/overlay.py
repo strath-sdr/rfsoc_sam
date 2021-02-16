@@ -7,7 +7,7 @@ __version_number__ = '0.2'
 __channels__ = 'Dual-channel'
 __board__ = 'RFSoC2x2'
 __release__ = 'release'
-__info__ = 'PYNQ on RFSoC: Spectrum Analyser.'
+__info__ = 'PYNQ on RFSoC: Spectrum Analyzer.'
 __support__ = '<a href="https://github.com/strath-sdr/rfsoc_sam" target="_blank" rel="noopener noreferrer">https://github.com/strath-sdr/rfsoc_sam</a>'
 
 about = ''.join(['<br><b>', __info__, '</b><br>', __channels__, ' ', __board__,
@@ -81,7 +81,7 @@ class Overlay(Overlay):
             #tab.observe(tab_handler, names='selected_index')
             
         sam = self.radio.receiver._get_spectrum_analyser(config)
-        tab_name = [''.join(['Spectrum Analyser ', str(j)]) for j in range(0, len(sam))]
+        tab_name = [''.join(['Spectrum Analyzer ', str(j)]) for j in range(0, len(sam))]
         children = [sam[i] for i in range(0, len(sam))]
         tab = ipw.Tab(children=children,
                       layout=ipw.Layout(height='initial',
@@ -104,7 +104,7 @@ class Overlay(Overlay):
         return tab
     
     
-    def spectrum_analyser(self, config=None):
+    def spectrum_analyzer(self, config=None):
         sam_tab = self._sam_generator([config, config])
         ctl_tab = self._ctl_generator(config=[{'transmit_enable' : True},
                                               {'transmit_enable' : True}])

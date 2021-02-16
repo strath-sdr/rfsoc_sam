@@ -523,7 +523,7 @@ class RadioAnalyserGUI():
                                                }])
         
         self._accordions.update({'system' :
-                                 ipw.Accordion(children=[ipw.HBox([ipw.VBox([ipw.Label(value='Spectrum Analyser: '),
+                                 ipw.Accordion(children=[ipw.HBox([ipw.VBox([ipw.Label(value='Spectrum Analyzer: '),
                                                                         ipw.Label(value='Spectrogram: ')]),
                                                               ipw.VBox([self._widgets['spectrum_enable'].get_widget(),
                                                                         self._widgets['waterfall_enable'].get_widget()])],
@@ -547,7 +547,7 @@ class RadioAnalyserGUI():
                                                                  self._widgets['update_frequency'].get_widget()])                                                        
                                                         ])})
         self._accordions['properties'].set_title(0, 'Receiver')
-        self._accordions['properties'].set_title(1, 'Spectrum Analyser')
+        self._accordions['properties'].set_title(1, 'Spectrum Analyzer')
         self._accordions['properties'].set_title(2, 'Spectrogram')
         self._accordions['properties'].set_title(3, 'Window Settings')
         self._accordions['properties'].set_title(4, 'Plot Settings')
