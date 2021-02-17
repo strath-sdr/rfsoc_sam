@@ -599,7 +599,7 @@ class RadioAnalyserGUI():
                         if key in ['fftsize', 'window']:
                             self._update_figurewidgets(key)
                 self._update_textwidgets()
-                time.sleep(0.1)
+                time.sleep(0.2)
                 if not self._update_que:
                     self.analyser.spectrum_enable = plot_running
                     self._running_update = False
