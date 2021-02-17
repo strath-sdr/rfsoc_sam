@@ -579,7 +579,7 @@ class RadioAnalyserGUI():
                 for key in keys:
                     if key in self._config:
                         if key in ['centre_frequency', 'decimation_factor', 'quality']:
-                            self._widgets['waterfall_enable'].state = False
+                            self._widgets['waterfall_enable'].value = False
                             self.analyser.waterfall_enable = False
                         setattr(self.analyser, key, self._config[key])
                         self._widgets[key].value = self._config[key]
