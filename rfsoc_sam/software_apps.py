@@ -1,3 +1,7 @@
+__author__ = "David Northcote"
+__organisation__ = "The Univeristy of Strathclyde"
+__support__ = "https://github.com/strath-sdr/rfsoc_sam"
+
 import plotly.graph_objs as go
 import numpy as np
 import ipywidgets as ipw
