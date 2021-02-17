@@ -576,14 +576,16 @@ class RadioAnalyserGUI():
         self._config.update(config_dict)
         self._update_que.append(config_dict.keys())
         if not self._running_update:
+            self._running_update = True
             self._update_frontend()
         
         
     def _update_frontend(self):
-        self._running_update = True
         if self._update_que:
             plot_running = self._config['spectrum_enable']
             self.analyser.spectrum_enable = False
+            while self.analyser._spectrum_analyser.dma_status != 32:
+                time.sleep(0.1)
             while self._running_update:
                 keys = self._update_que.pop(0)
                 for key in keys:
@@ -603,6 +605,7 @@ class RadioAnalyserGUI():
                 if not self._update_que:
                     self.analyser.spectrum_enable = plot_running
                     self._running_update = False
+        self._running_update = False
         
         
     def _update_textwidgets(self):

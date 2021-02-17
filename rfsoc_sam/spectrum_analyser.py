@@ -183,8 +183,8 @@ class SpectrumAnalyser(DefaultIP):
         self._dma_length = 4096
         self._buffer = [allocate(shape=(self._dma_length,), dtype=np.single) for x in range(0, 3) ]
         self._dma_bufferaddress_0 = self._buffer[0].device_address
-        self._dma_bufferaddress_1 = self._buffer[1].device_address
-        self._dma_bufferaddress_2 = self._buffer[2].device_address
+        self._dma_bufferaddress_1 = self._buffer[0].device_address
+        self._dma_bufferaddress_2 = self._buffer[0].device_address
         self.dma_enable = 0
         self.__dma_enable = 0
         self._dma_count = 1000000 # No touchy
@@ -357,8 +357,8 @@ class SpectrumAnalyser(DefaultIP):
             [self._buffer[x].freebuffer() for x in range(0, 3)]
             self._buffer = [allocate(shape=(self._dma_length,), dtype=np.single) for x in range(0, 3) ]
             self._dma_bufferaddress_0 = self._buffer[0].device_address
-            self._dma_bufferaddress_1 = self._buffer[1].device_address
-            self._dma_bufferaddress_2 = self._buffer[2].device_address
+            self._dma_bufferaddress_1 = self._buffer[0].device_address
+            self._dma_bufferaddress_2 = self._buffer[0].device_address
             self._spectrum_fftselector = int(np.log2(fft_size)-6)
             self._window_packetsize = fft_size
             self.window = self._window_type
@@ -530,7 +530,7 @@ class SpectrumAnalyser(DefaultIP):
         """
         while not self.dma_enable:
             pass
-        return np.array(self._buffer[self.dma_bufferpointer], dtype=np.single)
+        return np.array(self._buffer[0], dtype=np.single)
         
     bindto = ['xilinx.com:ip:SpectrumAnalyser:1.0']
     
