@@ -17,6 +17,7 @@ class RadioAnalyser():
     def __init__(self, 
                  adc_tile,
                  adc_block,
+                 adc_description,
                  spectrum_analyser,
                  decimator):
         
@@ -24,6 +25,7 @@ class RadioAnalyser():
         self._block = adc_block
         self._spectrum_analyser = spectrum_analyser
         self._decimator = decimator
+        self._adc_description = adc_description
         
         
     @property
@@ -60,10 +62,7 @@ class RadioAnalyser():
             self._block.FabRdVldWords = word_lut[sel-1]
             self._spectrum_analyser.ssr_packetsize = 0
             self._spectrum_analyser.ssr_mode = 4-sel
-            time.sleep(0.25)
-            self._tile.ShutDown()
-            self._tile.StartUp()
-            time.sleep(0.25)
+            self._safe_restart()
             self._decimator.decimation_factor = 0
             self._spectrum_analyser.sample_frequency = \
             (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
@@ -73,10 +72,7 @@ class RadioAnalyser():
             self._block.FabRdVldWords = 2
             self._spectrum_analyser.ssr_packetsize = 0
             self._spectrum_analyser.ssr_mode = 0
-            time.sleep(0.25)
-            self._tile.ShutDown()
-            self._tile.StartUp()
-            time.sleep(0.25)
+            self._safe_restart()
             self._decimator.decimation_factor = int(decimation_factor/8)
             self._spectrum_analyser.sample_frequency = \
             (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
@@ -94,8 +90,7 @@ class RadioAnalyser():
     def calibration_mode(self, calibration_mode):
         if calibration_mode in [1, 2]:
             self._block.CalibrationMode = calibration_mode
-            self._tile.ShutDown()
-            self._tile.StartUp()
+            self._safe_restart()
             
     @property
     def nyquist_stopband(self):
@@ -253,6 +248,19 @@ class RadioAnalyser():
     
     def waterfall(self):
         return self._spectrum_analyser.spectrogram.get_plot()
+
+    def _safe_restart(self):
+        tile_number = self._adc_description[0]
+        self._tile.ShutDown()
+        running = self._tile._parent.IPStatus['ADCTileStatus'][tile_number]['PowerUpState']
+        while running:
+            time.sleep(0.1)
+            running = self._tile._parent.IPStatus['ADCTileStatus'][tile_number]['PowerUpState']
+        self._tile.StartUp()
+        running = self._tile._parent.IPStatus['ADCTileStatus'][tile_number]['PowerUpState']
+        while not running:
+            time.sleep(0.1)
+            running = self._tile._parent.IPStatus['ADCTileStatus'][tile_number]['PowerUpState']
     
     
 class RadioAnalyserGUI():
@@ -260,6 +268,7 @@ class RadioAnalyserGUI():
     def __init__(self, 
                  adc_tile,
                  adc_block,
+                 adc_description,
                  spectrum_analyser,
                  decimator):
         
@@ -270,7 +279,8 @@ class RadioAnalyserGUI():
         self._stopped = False
         self._runtime_status = {'spectrum_enable' : False, 'waterfall_enable' : False}
         self.analyser = RadioAnalyser(adc_tile=adc_tile, 
-                                       adc_block=adc_block, 
+                                       adc_block=adc_block,
+                                       adc_description=adc_description,
                                        spectrum_analyser=spectrum_analyser, 
                                        decimator=decimator)
         self._config = {'centre_frequency' : self.analyser.centre_frequency,
@@ -589,6 +599,7 @@ class RadioAnalyserGUI():
                         if key in ['fftsize', 'window']:
                             self._update_figurewidgets(key)
                 self._update_textwidgets()
+                time.sleep(0.1)
                 if not self._update_que:
                     self.analyser.spectrum_enable = plot_running
                     self._running_update = False

@@ -27,15 +27,17 @@ class AdcChannel(DefaultHierarchy):
                 decimator is not None)
     
     
-    def __init__(self, description, tile=None, block=None):
+    def __init__(self, description, tile=None, block=None, adc_description=None):
         super().__init__(description)
         self._tile = tile
         self._block = block
+        self._adc_description = adc_description
 
     
     def _initialise_channel(self):
         self.frontend = RadioAnalyserGUI(adc_tile=self._tile,
                                          adc_block=self._block,
+                                         adc_description=self._adc_description,
                                          spectrum_analyser=self.spectrum_analyser,
                                          decimator=self.decimator)
 

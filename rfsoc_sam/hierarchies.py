@@ -41,6 +41,7 @@ class Radio(DefaultHierarchy):
         dac_tiles = []
         adc_blocks = []
         dac_blocks = []
+        adc_descriptions = []
         
         for hier, details in description['hierarchies'].items():
             if details['driver'] == Transmitter:
@@ -61,6 +62,7 @@ class Radio(DefaultHierarchy):
                     [''.join(['C_ADC', str(i), '_Enable'])] == '1':
                         adc_tiles.append(getattr(self, rfdc_core).adc_tiles[i])
                         adc_blocks.append(getattr(self, rfdc_core).adc_tiles[i].blocks[j])
+                        adc_descriptions.append([i, j])
                 
         for i in range(0, NUM_DAC_TILES):
             for j in range(0, NUM_DAC_BLOCKS):
@@ -75,6 +77,7 @@ class Radio(DefaultHierarchy):
         getattr(self, receiver_hierarchy)._tiles = adc_tiles
         getattr(self, transmitter_hierarchy)._blocks = dac_blocks
         getattr(self, receiver_hierarchy)._blocks = adc_blocks
+        getattr(self, receiver_hierarchy)._adc_descriptions = adc_descriptions
         
         getattr(self, transmitter_hierarchy)._initialise_transmitter()
         getattr(self, receiver_hierarchy)._initialise_receiver()
@@ -88,11 +91,12 @@ class Receiver(DefaultHierarchy):
                 description['fullpath'].split('/')[-1] == 'receiver')
                    
     
-    def __init__(self, description, tiles=None, blocks=None):
+    def __init__(self, description, tiles=None, blocks=None, adc_descriptions=None):
         super().__init__(description)
         self.channels = []
         self._tiles = tiles
         self._blocks = blocks
+        self._adc_descriptions = adc_descriptions
         channels = []
         
         for hier, details in description['hierarchies'].items():
@@ -132,6 +136,7 @@ class Receiver(DefaultHierarchy):
         for i in range(0, len(self.channels)):
             self.channels[i]._tile = self._tiles[i]
             self.channels[i]._block = self._blocks[i]
+            self.channels[i]._adc_description = self._adc_descriptions[i]
                 
     
     def _initialise_adc_tile(self, tile):
