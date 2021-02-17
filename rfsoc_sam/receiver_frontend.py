@@ -242,6 +242,10 @@ class RadioAnalyser():
     @quality.setter
     def quality(self, quality):
         self._spectrum_analyser.quality = quality
+
+    @property
+    def dma_status(self):
+        return self._spectrum_analyser.dma_status
             
     def spectrum(self):
         return self._spectrum_analyser.plot.get_plot()
@@ -584,7 +588,7 @@ class RadioAnalyserGUI():
         if self._update_que:
             plot_running = self._config['spectrum_enable']
             self.analyser.spectrum_enable = False
-            while self.analyser._spectrum_analyser.dma_status != 32:
+            while self.analyser.dma_status != 32:
                 time.sleep(0.1)
             while self._running_update:
                 keys = self._update_que.pop(0)
