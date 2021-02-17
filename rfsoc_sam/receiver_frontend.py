@@ -267,6 +267,7 @@ class RadioAnalyserGUI():
         self._accordions = {}
         self._running_update = False
         self._update_que = []
+        self._stopped = False
         self._runtime_status = {'spectrum_enable' : False, 'waterfall_enable' : False}
         self.analyser = RadioAnalyser(adc_tile=adc_tile, 
                                        adc_block=adc_block, 
@@ -307,13 +308,16 @@ class RadioAnalyserGUI():
     def start(self):
         self.config = {'spectrum_enable' : self._runtime_status['spectrum_enable'],
                        'waterfall_enable' : self._runtime_status['waterfall_enable']}
+        self._stopped = False
         
         
     def stop(self):
-        self._runtime_status.update({'spectrum_enable' : self._config['spectrum_enable'],
-                                     'waterfall_enable' : self._config['waterfall_enable']})
-        self.config = {'spectrum_enable' : False,
-                       'waterfall_enable' : False}
+        if not self._stopped:
+            self._runtime_status.update({'spectrum_enable' : self._config['spectrum_enable'],
+                                        'waterfall_enable' : self._config['waterfall_enable']})
+            self.config = {'spectrum_enable' : False,
+                           'waterfall_enable' : False}
+            self._stopped = True
         
         
     def _initialise_frontend(self):

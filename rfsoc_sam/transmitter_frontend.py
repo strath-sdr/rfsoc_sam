@@ -81,9 +81,9 @@ class RadioTransmitterControl():
     @transmit_enable.setter
     def transmit_enable(self, enable):
         if enable:
-            self._controller.enable = 1;
+            self._controller.enable = 1
         else:
-            self._controller.enable = 0;
+            self._controller.enable = 0
         
 
 class RadioTransmitterGUI():
@@ -135,7 +135,8 @@ class RadioTransmitterGUI():
                                                   controller=controller)
         self._config = {'centre_frequency' : np.round(self.controller.centre_frequency),
                         'amplitude' : self.controller.amplitude,
-                        'transmit_enable' : self.controller.transmit_enable}
+                        'transmit_enable' : self.controller.transmit_enable,
+                        'line_colour' : 'palevioletred'}
         self._initialise_frontend()
         
     @property
@@ -189,12 +190,28 @@ class RadioTransmitterGUI():
                                      description_off = 'Off',
                                      state=False,
                                      dict_id='transmit_enable')})
-        
-        """An accordion to host the transmitter control widgets."""
-        self._accordions.update({'transmitter_control' : 
-                                 Accordion(title='Transmitter Control',
-                                           widgets=[self._widgets['centre_frequency'].get_widget(),
-                                                    self._widgets['amplitude'].get_widget()])})
+
+        """The transmit system accordion"""
+        self._accordions.update({'system' :
+                                 ipw.Accordion(children=[ipw.HBox([ipw.VBox([ipw.Label(value='Transmitter: ')]),
+                                                                   ipw.VBox([self._widgets['transmit_enable'].get_widget()])],
+                                                                   layout=ipw.Layout(justify_content='space-around'))],
+                                               layout=ipw.Layout(justify_content='flex-start',
+                                                                 width='initial'))})
+
+        self._accordions['system'].set_title(0, 'System')
+
+        """The transmit properties accordion."""
+        self._accordions.update({'properties' :
+                                 ipw.Accordion(children=[ipw.VBox([self._widgets['centre_frequency'].get_widget(),
+                                                                  self._widgets['amplitude'].get_widget()])],
+                                               layout=ipw.Layout(justify_content='flex-start',
+                                                                 width='initial'))})
+
+        self._accordions['properties'].set_title(0, 'Transmitter Control')
+
+        self._update_config(self._config)
+
         
     def _update_config(self, config_dict):
         """A hidden method for updating the configuration dict.
@@ -210,25 +227,30 @@ class RadioTransmitterGUI():
         self._update_que.append(config_dict.keys())
         if not self._running_update:
             self._update_frontend()
+
         
-    def _update_frontend(self, keys=None):
+    def _update_frontend(self):
         """A hidden method for updating the frontend widgets
         with the given keys.
-        
-        They keys argument allows the system to know which keys
-        to update in the configuration dict. Savig a bit of processing
-        time.
         """
         self._running_update = True
         if self._update_que:
             while self._running_update:
                 keys = self._update_que.pop(0)
                 for key in keys:
-                    if key in self._config:
+                    if key in self._widgets:
                         setattr(self.controller, key, self._config[key])
                         self._widgets[key].value = self._config[key]
+                    if key in ['line_colour']:
+                        self._update_widgets(key)
                 if not self._update_que:
                     self._running_update = False
+
+
+    def _update_widgets(self, key):
+        if key in ['line_colour']:
+            self._widgets['transmit_enable'].button_colour = self._config['line_colour']
+
                 
     def transmitter_control(self, config=None):
         """Returns an instance of the transmitter frontend
@@ -239,4 +261,6 @@ class RadioTransmitterGUI():
         """
         if config is not None:
             self.config = config
-        return ipw.VBox([self._accordions['transmitter_control'].get_widget()])
+        return ipw.VBox([self._accordions['system'],
+                         self._accordions['properties']],
+                         layout=ipw.Layout(justify_content='flex-start'))

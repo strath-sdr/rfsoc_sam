@@ -155,11 +155,11 @@ class Button():
             self._button.style.button_color = self._button_colour
             
     @property
-    def state(self):
+    def value(self):
         return self._state
     
-    @state.setter
-    def state(self, state):
+    @value.setter
+    def value(self, state):
         self._state = state
         if self._state:
             self._button.style.button_color = self.button_colour
@@ -169,7 +169,7 @@ class Button():
             self._button.description = self._description_off
 
     def configure_state(self, state):
-        self.state = state
+        self.value = state
         self._callback({self._dict_id : self._state})
         
     def on_click(self):
