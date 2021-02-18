@@ -259,6 +259,7 @@ class Spectrum():
         self._x_data = np.arange(self._lower_limit, self._upper_limit, self._rbw) + self._centre_frequency
         self._range = (min(self._x_data), max(self._x_data))
         self._plot.layout.xaxis.range = self._range
+        self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
         self._plot.data[1].update({'x':self._x_data, 'y':np.zeros(self._number_samples) - 300})
         
     def get_plot(self):
