@@ -20,7 +20,7 @@ Currently, this project is in version 0.2. We are working on improving aspects o
 * Simple dashboard for more convenient control/visualisation 
 
 ## Quick Start
-Follow the instructions below to install the spectrum analyser now. **You will need to give your board access to the internet**.
+Follow the instructions below to install the Spectrum Analyser now. **You will need to give your board access to the internet**.
 * Power on your RFSoC2x2 or ZCU111 development board with an SD Card containing a fresh PYNQ v2.6 image.
 * Navigate to Jupyter Labs by opening a browser (preferably Chrome) and connecting to `http://<board_ip_address>:9090/lab`.
 * We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
@@ -41,10 +41,10 @@ Now follow the board specific setup instructions as follows. The ZCU111 developm
 Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser and Voila 0.1.13. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
 
 ```sh
-pip3 install --force-reinstall --no-deps git+https://github.com/strath-sdr/rfsoc_sam_private
+pip3 install --force-reinstall --no-deps git+https://github.com/strath-sdr/rfsoc_sam
 ```
 
-This will forcefully reinstall the latest version of the Spectrum Analyser to your development board. You will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
+This will forcefully install the latest version of the Spectrum Analyser to your development board. You will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
 
 ### ZCU111 Setup
 The ZCU111 image requres a few changes to operate correctly. It is absolutely essential that the xrfdc package is patched. If you would like to use Voila, you will also need to follow the Voila package installation instructions. Voila is not essential, and is only required if you would like to explore the Spectrum Analyser dashboard using a standalone server.
@@ -70,7 +70,21 @@ pip3 install terminado==0.8.1 pyzmq==17 notebook==5.2.2 nbconvert==5.5.0 jupyter
 pip3 install voila==0.1.13
 ```
 
-The above process takes around 10 ~ 15 minutes. You now have Voila installed.
+The above process takes around 10 ~ 15 minutes. You now have Voila installed. We should restart the Jupyter server to ensure all changes take effect. In the terminal window run the following:
+
+```sh
+systemctl restart jupyter.service
+```
+
+Wait about 1 minute and refresh your web page.
+
+**(spectrum-analyser)** This final step will install the Spectrum Analyser to your ZCU111 development board. The Spectrum Analyser does not come preinstalled on the ZCU111 PYNQ image. Run the code below in the jupyter terminal to install the Spectrum Analyser.
+
+```sh
+pip3 install git+https://github.com/strath-sdr/rfsoc_sam
+```
+
+Once installation has complete you will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
 
 ## License 
 [BSD 3-Clause](../../blob/master/LICENSE)
