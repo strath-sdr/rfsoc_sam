@@ -37,7 +37,7 @@ Follow the instructions below to install the Spectrum Analyser now. **You will n
 
 Now follow the board specific setup instructions as follows. The ZCU111 development board has a more complicated setup than the RFSoC2x2. Please pay particular attention to the steps involved. You may corrupt your PYNQ image if the steps are not followed correctly.
 
-### RFSoC2x2 Setup
+## RFSoC2x2 Setup
 Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser and Voila 0.1.13. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
 
 ```sh
@@ -46,7 +46,7 @@ pip3 install --force-reinstall --no-deps git+https://github.com/strath-sdr/rfsoc
 
 This will forcefully install the latest version of the Spectrum Analyser to your development board. You will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
 
-### ZCU111 Setup
+## ZCU111 Setup
 The ZCU111 image requres a few changes to operate correctly. It is absolutely essential that the xrfdc package is patched. If you would like to use Voila, you will also need to follow the Voila package installation instructions. Voila is not essential, and is only required if you would like to explore the Spectrum Analyser dashboard using a standalone server.
 
 We first need to patch the current xrfdc drivers, this procedure will overwrite the xrfdc's `__init__.py`. You will not lose any current xrfdc functionality. You will gain thresholding capabilities and fabric read and write register configuration. These are required by the Spectrum Analyser to operate correctly.
