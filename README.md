@@ -86,5 +86,25 @@ pip3 install git+https://github.com/strath-sdr/rfsoc_sam
 
 Once installation has complete you will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
 
+## Using the Project Files
+The following software is required to use the project files in this repository.
+- Vivado Design Suite 2020.1
+- System Generator for DSP
+- MATLAB R2020a
+
+### Vivado
+This project can be built with Vivado from the command line. Open Vivado 2020.1 and execute the following into the tcl console:
+```sh
+cd /<repository-location>/boards/<board-name>/rfsoc_sam/
+make project
+make block_design
+make bitstream_file
+```
+
+Alternatively, you can run the entire project build by executing the following into the tcl console:
+```sh
+make all
+```
+
 ## License 
 [BSD 3-Clause](../../blob/master/LICENSE)
