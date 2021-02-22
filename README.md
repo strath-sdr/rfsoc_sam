@@ -1,4 +1,4 @@
-<img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
+<img src="strathclyde_banner.png" width="100%">
 
 # Spectrum Analyser on PYNQ
 This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2.
@@ -7,7 +7,7 @@ This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/P
   <img src="../master/demonstration.gif" width="663" height="502" />
 <p/>
 
-Currently, this project is in version 0.2. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.2.1. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
 * Up to 2 GHz bandwidth for inspection
@@ -85,6 +85,29 @@ pip3 install git+https://github.com/strath-sdr/rfsoc_sam
 ```
 
 Once installation has complete you will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
+
+## Using the Project Files
+The following software is required to use the project files in this repository.
+- Vivado Design Suite 2020.1
+- System Generator for DSP
+- MATLAB R2020a
+
+### Vivado
+This project can be built with Vivado from the command line. Open Vivado 2020.1 and execute the following into the tcl console:
+```sh
+cd /<repository-location>/boards/<board-name>/rfsoc_sam/
+```
+Now that we have moved into the correct directory, make the Vivado project by running the make commands below sequentially.
+```sh
+make project
+make block_design
+make bitstream_file
+```
+
+Alternatively, you can run the entire project build by executing the following into the tcl console:
+```sh
+make all
+```
 
 ## License 
 [BSD 3-Clause](../../blob/master/LICENSE)
