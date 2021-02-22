@@ -7,7 +7,7 @@ This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/P
   <img src="../master/demonstration.gif" width="663" height="502" />
 <p/>
 
-Currently, this project is in version 0.2. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.2.0. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
 * Up to 2 GHz bandwidth for inspection
