@@ -1,4 +1,4 @@
-<img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
+<img src="strathclyde_banner.png" width="100%">
 
 # Spectrum Analyser on PYNQ
 This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2.
