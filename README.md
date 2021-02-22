@@ -7,7 +7,7 @@ This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/P
   <img src="../master/demonstration.gif" width="663" height="502" />
 <p/>
 
-Currently, this project is in version 0.2.0. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.2.1. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
 * Up to 2 GHz bandwidth for inspection
@@ -96,6 +96,9 @@ The following software is required to use the project files in this repository.
 This project can be built with Vivado from the command line. Open Vivado 2020.1 and execute the following into the tcl console:
 ```sh
 cd /<repository-location>/boards/<board-name>/rfsoc_sam/
+```
+Now that we have moved into the correct directory, make the Vivado project by running the make commands below sequentially.
+```sh
 make project
 make block_design
 make bitstream_file
