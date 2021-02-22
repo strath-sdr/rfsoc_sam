@@ -1,114 +1,90 @@
 <img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
 
-# Spectrum Analyser on PYNQ & ZCU111
+# Spectrum Analyser on PYNQ
+This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2.
+
 <p align="center">
-  <img src="../../blob/master/img/spectrum-analyser.gif" width="935" height="360" />
+  <img src="../master/demonstration.gif" width="663" height="502" />
 <p/>
 
-This repository is compatible with [PYNQ image v2.5](https://github.com/Xilinx/PYNQ/releases) for [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html).
-
-Alongside the hardware files and Python overlay, two notebooks are included: the first (_RFSoC Spectrum Analyser.ipynb_) is an explanatory notebook which provides detailed information on the hardware design and Python overlay as well as how these interact. The second notebook (_RFSoC Spectrum Analyser-Voila.ipynb_) is used to launch the [Voila](https://github.com/voila-dashboards/voila) dashboard.
-
-Voila is a tool which transforms Jupyter Notebooks into standalone web applications, making it much easier to control and visualise the Spectrum Analyser without having to scroll up and down a notebook repeatedly. 
-
-Currently, this project is in **Beta Release**. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.2. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
-* Up to 256 MHz bandwidth for inspection
-* Inspect range 0 - 1.024 GHz
-* 3 available ADCs to select from at runtime 
+* Up to 2 GHz bandwidth for inspection
+* Inspect range 0 - 4.096 GHz
 * Adaptive bandwidth control and center frequency selection
 * Reprogrammable windowing
-* Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectrum [dBm/Hz]) 
+* Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectrum [dB]) 
 * PYNQ abstracted allowing Python to interface with the hardware
 * [Plotly](https://plot.ly/) visualisation of spectrum and spectrogram (waterfall)
-* Voila dashboard for more convenient control/visualisation 
+* Simple dashboard for more convenient control/visualisation 
 
 ## Quick Start
+Follow the instructions below to install the Spectrum Analyser now. **You will need to give your board access to the internet**.
+* Power on your RFSoC2x2 or ZCU111 development board with an SD Card containing a fresh PYNQ v2.6 image.
+* Navigate to Jupyter Labs by opening a browser (preferably Chrome) and connecting to `http://<board_ip_address>:9090/lab`.
+* We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
-Open a terminal in Jupyter Lab and run:
-```sh
-pip3 install git+https://github.com/strath-sdr/rfsoc_sam.git
-```
-
-## First Time Setup (~40 mins)
-
-### Required Hardware
-- [x] Laptop/Computer
-- [x] ZCU111 + breakout card 
-- [x] power cable
-- [x] micro usb to usb cable
-- [x] micro SD card
-- [x] ethernet cable
-- [x] one/two antennae (if using)
-- [x] loopback cable
-- [x] ethernet usb adapter (if required)
-- [x] usb wifi dongle (if not doing shared internet over ethernet)
-
-### Required Software (host)
-- [x] Web browser (chrome) 
-
-### Board Setup 
-One DAC and three ADCs are made available in this design. The table below details how the notebooks will refer to these ADCs and which tile/channel they correspond to. The image illustrates where the SMA connections for the data converters in use are located on the board itself. 
-
-|Converter| Tile | Channel | Colour |
-|:----:   |:----:|:-------:|:------:|
-| DAC     |  1   |    2    |  Red   |
-| ADC0    |  0   |    0    |  Blue |
-| ADC1    |  0   |    1    | Purple   |
-| ADC2    |  1   |    0    | Orange |
- 
-If using the loopback cable, ensure it is connected between the DAC and one of the three available ADCs (the image below shows it connected to ADC0). Connect antennae to the remaining ADCs if desired. 
-	
 <p align="center">
-<img src="../../blob/master/img/rfsoc_setup.png" width="900" height="505">
+  <img src="../master/open_jupyter_launcher.jpg" width="50%" height="50%" />
 <p/>
 
+* Now open a terminal in Jupyter as illustrated below:
 
-### Configure PYNQ Image
+<p align="center">
+  <img src="../master/open_terminal_window.jpg" width="50%" height="50%" />
+<p/>
 
-Obtain a [PYNQ 2.5 image](https://github.com/Xilinx/PYNQ/releases)
+Now follow the board specific setup instructions as follows. The ZCU111 development board has a more complicated setup than the RFSoC2x2. Please pay particular attention to the steps involved. You may corrupt your PYNQ image if the steps are not followed correctly.
 
-Install **Voila** and the [gridstack](https://github.com/voila-dashboards/voila-gridstack) template on the ZCU111, then upgrade Jupyter.
+## RFSoC2x2 Setup
+Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser and Voila 0.1.13. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
 
-Open a terminal in Jupyter Lab and run the following:
 ```sh
-pip3 install voila
-pip3 install voila-gridstack
-pip3 install --upgrade jupyter 
+pip3 install --force-reinstall --no-deps git+https://github.com/strath-sdr/rfsoc_sam
 ```
 
-Clone this repository to the board using pip:
-```sh 
-pip3 install git+https://github.com/strath-sdr/rfsoc_sam.git
+This will forcefully install the latest version of the Spectrum Analyser to your development board. You will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
+
+## ZCU111 Setup
+The ZCU111 image requres a few changes to operate correctly. It is absolutely essential that the xrfdc package is patched. If you would like to use Voila, you will also need to follow the Voila package installation instructions. Voila is not essential, and is only required if you would like to explore the Spectrum Analyser dashboard using a standalone server.
+
+We first need to patch the current xrfdc drivers, this procedure will overwrite the xrfdc's `__init__.py`. You will not lose any current xrfdc functionality. You will gain thresholding capabilities and fabric read and write register configuration. These are required by the Spectrum Analyser to operate correctly.
+
+**(xrfdc patch)** In the terminal window, run the following script:
+```sh
+mkdir /home/xilinx/GitHub
+cd /home/xilinx/GitHub/
+git clone https://github.com/dnorthcote/ZCU111-PYNQ
+cd /home/xilinx/GitHub/ZCU111-PYNQ
+cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfdc/pkg/xrfdc/__init__.py /usr/local/lib/python3.6/dist-packages/xrfdc/__init__.py
 ```
 
-The bitstream was created using Vivado 2019.1 so this throws up some errors on the current 2.5 image.
+**(voila installation)** This step is completely optional. To install Voila for rapid dashboarding, in the terminal window, run the following script:
+```sh
+apt remove -y python3-terminado
+apt remove -y python3-zmq
 
-To fix this edit the file "/usr/local/lib/python3.6/dist-packages/xrfdc/config.py" on the board.
+pip3 install terminado==0.8.1 pyzmq==17 notebook==5.2.2 nbconvert==5.5.0 jupyter-client==5.3.1 ipykernel==4.8.2 nbsphinx==0.3.1
 
-Comment out lines 46,47,60,90,91. These relate to:
-> _DAC_DDP: FifoEnable, AdderEnable
-
-> _ADC_DDP: FifoEnable
-
-> Config:   MasterADCTile, MasterDACTile
-
-## Running the Spectrum Analyser Dashboard 
-	
-To generate the voila dashboard from the notebook (in JupyterLab terminal):
-```sh	
-voila --template=gridstack jupyter_notebooks/spectrum_analyser/RFSoC\ Spectrum\ Analyser-Voila.ipynb --theme=dark
+pip3 install voila==0.1.13
 ```
-Open a new browser tab or window and go to the address output in the terminal, usually "http://localhost:8866/" - where localhost is the IP of the board.
 
-It will take a minute or so to load as it has to run all the cells including loading the bitstream. 
-The scaling of the dashboard will depend on the screen resolution/aspect ratio. 
-It should scale on the horizontal but you may need to tinker with the vertical by adjusting the zoom on the browser and refreshing the page so the plotly plots re-adjust.
+The above process takes around 10 ~ 15 minutes. You now have Voila installed. We should restart the Jupyter server to ensure all changes take effect. In the terminal window run the following:
 
-> **Note:** If you desire more control over the layout of the dashboard, you can edit the cell metadata in the dashboard notebook.
+```sh
+systemctl restart jupyter.service
+```
 
-To restart the dashboard, shutdown the terminal in which the Voila command was run and open a new terminal. Re-run the Voila command. 
+Wait about 1 minute and refresh your web page.
+
+**(spectrum-analyser)** This final step will install the Spectrum Analyser to your ZCU111 development board. The Spectrum Analyser does not come preinstalled on the ZCU111 PYNQ image. Run the code below in the jupyter terminal to install the Spectrum Analyser.
+
+```sh
+pip3 install git+https://github.com/strath-sdr/rfsoc_sam
+```
+
+Once installation has complete you will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
 
 ## License 
 [BSD 3-Clause](../../blob/master/LICENSE)
