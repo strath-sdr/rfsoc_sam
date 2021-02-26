@@ -1,7 +1,7 @@
 <img src="strathclyde_banner.png" width="100%">
 
 # Spectrum Analyser on PYNQ
-This repository is compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2.
+This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2 development board.
 
 <p align="center">
   <img src="../master/demonstration.gif" width="663" height="502" />
@@ -35,7 +35,7 @@ Follow the instructions below to install the Spectrum Analyser now. **You will n
   <img src="../master/open_terminal_window.jpg" width="50%" height="50%" />
 <p/>
 
-Now follow the board specific setup instructions as follows. The ZCU111 development board has a more complicated setup than the RFSoC2x2. Please pay particular attention to the steps involved. You may corrupt your PYNQ image if the steps are not followed correctly.
+Now follow the board specific setup instructions as follows. The ZCU111 development board has a more complicated setup than the RFSoC2x2. Please pay particular attention to the steps involved.
 
 ## RFSoC2x2 Setup
 Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser and Voila 0.1.13. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
@@ -47,9 +47,7 @@ pip3 install --force-reinstall --no-deps git+https://github.com/strath-sdr/rfsoc
 This will forcefully install the latest version of the Spectrum Analyser to your development board. You will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
 
 ## ZCU111 Setup
-The ZCU111 image requres a few changes to operate correctly. It is absolutely essential that the xrfdc package is patched. If you would like to use Voila, you will also need to follow the Voila package installation instructions. Voila is not essential, and is only required if you would like to explore the Spectrum Analyser dashboard using a standalone server.
-
-We first need to patch the current xrfdc drivers, this procedure will overwrite the xrfdc's `__init__.py`. You will not lose any current xrfdc functionality. You will gain thresholding capabilities and fabric read and write register configuration. These are required by the Spectrum Analyser to operate correctly.
+The ZCU111 image requres a few changes to operate correctly. It is absolutely essential that the xrfdc package is patched. This procedure will overwrite the xrfdc's `__init__.py`. You will not lose any current xrfdc functionality. You will gain thresholding capabilities and fabric read and write register configuration. These are required by the Spectrum Analyser to operate correctly.
 
 **(xrfdc patch)** In the terminal window, run the following script:
 ```sh
@@ -60,23 +58,7 @@ cd /home/xilinx/GitHub/ZCU111-PYNQ
 cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfdc/pkg/xrfdc/__init__.py /usr/local/lib/python3.6/dist-packages/xrfdc/__init__.py
 ```
 
-**(voila installation)** This step is completely optional. To install Voila for rapid dashboarding, in the terminal window, run the following script:
-```sh
-apt remove -y python3-terminado
-apt remove -y python3-zmq
-
-pip3 install terminado==0.8.1 pyzmq==17 notebook==5.2.2 nbconvert==5.5.0 jupyter-client==5.3.1 ipykernel==4.8.2 nbsphinx==0.3.1
-
-pip3 install voila==0.1.13
-```
-
-The above process takes around 10 ~ 15 minutes. You now have Voila installed. We should restart the Jupyter server to ensure all changes take effect. In the terminal window run the following:
-
-```sh
-systemctl restart jupyter.service
-```
-
-Wait about 1 minute and refresh your web page.
+**(voila installation)** This repository uses Voila to create simple web applications using Jupyter notebooks. If you would like to use Voila on your ZCU111 development board, simply follow the instructions outlined in this [blog post](https://strath-sdr.github.io/pynq/linux/zynq/fpga/voila/2021/02/22/install-voila-on-pynq-v2-6.html).
 
 **(spectrum-analyser)** This final step will install the Spectrum Analyser to your ZCU111 development board. The Spectrum Analyser does not come preinstalled on the ZCU111 PYNQ image. Run the code below in the jupyter terminal to install the Spectrum Analyser.
 
