@@ -66,7 +66,7 @@ setup(
     name=package_name,
     version='0.2.2',
     install_requires=[
-        'pynq>=2.6',
+        'pynq==2.6',
     ],
     url='https://github.com/strath-sdr/rfsoc_sam',
     license='BSD 3-Clause License',
