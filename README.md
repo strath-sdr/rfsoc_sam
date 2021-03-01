@@ -7,7 +7,7 @@ This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ imag
   <img src="../master/demonstration.gif" width="663" height="502" />
 <p/>
 
-Currently, this project is in version 0.2.1. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.2.2. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
 * Up to 2 GHz bandwidth for inspection
