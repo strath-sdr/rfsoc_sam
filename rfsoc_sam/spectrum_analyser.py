@@ -532,7 +532,7 @@ class SpectrumAnalyser(DefaultIP):
             pass
         return np.array(self._buffer[0], dtype=np.single)
         
-    bindto = ['xilinx.com:ip:SpectrumAnalyser:1.0']
+    bindto = ['xilinx.com:ip:SpectrumAnalyser:1.1']
     
 _spectrumAnalyser_props = [("ssr_packetsize",       0x104),
                            ("ssr_mode",             0x108),
