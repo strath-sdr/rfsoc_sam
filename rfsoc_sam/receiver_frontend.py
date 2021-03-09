@@ -67,7 +67,7 @@ class RadioAnalyser():
             self._spectrum_analyser.sample_frequency = \
             (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
             self._spectrum_analyser.ssr_packetsize = int(self._spectrum_analyser.fft_size/8)
-        elif decimation_factor in [16, 32, 64, 128, 256, 512, 1024]:
+        elif decimation_factor in [16, 32, 64, 128, 256, 512, 1024, 2048]:
             self._block.DecimationFactor = 8
             self._block.FabRdVldWords = 2
             self._spectrum_analyser.ssr_packetsize = 0
@@ -350,7 +350,7 @@ class RadioAnalyserGUI():
         
         self._widgets.update({'decimation_factor' : 
                               DropDown(callback=self._update_config,
-                                       options=[2, 4, 8, 16, 32, 64, 128, 256, 512, 1024],
+                                       options=[2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048],
                                        value=self._config['decimation_factor'],
                                        dict_id='decimation_factor',
                                        description='Decimation Factor:')})
