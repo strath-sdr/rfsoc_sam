@@ -656,8 +656,8 @@ class RadioAnalyserGUI():
         elif key in ['plotly_theme']:
             self._window_plot.layout.template = self._config['plotly_theme']
         elif key in ['decimation_factor']:
-            step_dict = [10, 1, 1, 1, 0.1, 0.1, 0.1, 0.01, 0.01, 0.01]
-            self._widgets['centre_frequency'].step = step_dict[int(np.log2(self._config['decimation_factor']) - 1)]
+            step_list = [10, 1, 1, 1, 0.1, 0.1, 0.1, 0.01, 0.01, 0.01, 0.001]
+            self._widgets['centre_frequency'].step = step_list[int(np.log2(self._config['decimation_factor']) - 1)]
         elif key in ['spectrum_enable']:
             if self._config['spectrum_enable']:
                 self._widgets['dma_enable'].configure_state(True)
