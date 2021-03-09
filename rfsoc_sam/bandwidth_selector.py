@@ -17,13 +17,13 @@ class BandwidthSelector(DefaultIP):
     
     @decimation_factor.setter
     def decimation_factor(self, decimation_factor):
-        if decimation_factor in [0, 2, 4, 8, 16, 32, 64, 128]:
+        if decimation_factor in [0, 2, 4, 8, 16, 32, 64, 128, 256]:
             if decimation_factor > 0:
                 self._decimation_factor = int(np.log2(decimation_factor))
             else:
                 self._decimation_factor = 0
         
-    bindto = ['User_Company:RFSoC:xsg_bwselector:1.0']
+    bindto = ['strath.ac.uk:RFSoC:xsg_bwselector:1.1']
     
 _bwselector_props = [("_decimation_factor",   0x00)]
 

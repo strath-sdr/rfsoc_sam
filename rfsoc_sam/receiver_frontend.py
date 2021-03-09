@@ -244,6 +244,17 @@ class RadioAnalyser():
         self._spectrum_analyser.quality = quality
 
     @property
+    def post_process(self):
+        return self._spectrum_analyser.plot.post_process
+
+    @post_process.setter
+    def post_process(self, post_process):
+        if post_process == 'max':
+            self._spectrum_analyser.plot.post_process = 'max'
+        else:
+            self._spectrum_analyser.plot.post_process = 'none'
+
+    @property
     def dma_status(self):
         return self._spectrum_analyser.dma_status
             
@@ -305,7 +316,8 @@ class RadioAnalyserGUI():
                         'zmin' : self.analyser.zmin,
                         'zmax' : self.analyser.zmax,
                         'quality' : self.analyser.quality,
-                        'width' : self.analyser.width}
+                        'width' : self.analyser.width,
+                        'post_process' : self.analyser.post_process}
         self._initialise_frontend()
         
                              
@@ -359,6 +371,15 @@ class RadioAnalyserGUI():
                                        value=self._config['spectrum_units'],
                                        dict_id='spectrum_units',
                                        description='Spectrum Units:',
+                                       description_width='100px')})
+
+        self._widgets.update({'post_process' :
+                              DropDown(callback=self._update_config,
+                                       options=[('None', 'none'),
+                                                ('Max', 'max')],
+                                       value=self._config['post_process'],
+                                       dict_id='post_process',
+                                       description='Post Processing:',
                                        description_width='100px')})
         
         self._widgets.update({'fftsize' : 
@@ -550,19 +571,20 @@ class RadioAnalyserGUI():
         
         self._accordions.update({'properties' :
                                  ipw.Accordion(children=[ipw.VBox([self._widgets['centre_frequency'].get_widget(),
-                                                                 self._widgets['decimation_factor'].get_widget(),
-                                                                 self._widgets['calibration_mode'].get_widget()]),
+                                                                   self._widgets['decimation_factor'].get_widget(),
+                                                                   self._widgets['calibration_mode'].get_widget()]),
                                                         ipw.VBox([self._widgets['fftsize'].get_widget(),
-                                                                 self._widgets['spectrum_type'].get_widget(),
-                                                                 self._widgets['spectrum_units'].get_widget()]),
+                                                                  self._widgets['post_process'].get_widget(),
+                                                                  self._widgets['spectrum_type'].get_widget(),
+                                                                  self._widgets['spectrum_units'].get_widget()]),
                                                         ipw.VBox([self._widgets['zmin'].get_widget(),
-                                                                 self._widgets['zmax'].get_widget()]),
+                                                                  self._widgets['zmax'].get_widget()]),
                                                         ipw.VBox([self._window_plot,
                                                                   self._widgets['window'].get_widget()]),
                                                         ipw.VBox([self._widgets['nyquist_stopband'].get_widget(),
-                                                                 self._widgets['height'].get_widget(),
-                                                                 self._widgets['width'].get_widget(),
-                                                                 self._widgets['update_frequency'].get_widget()])                                                        
+                                                                  self._widgets['height'].get_widget(),
+                                                                  self._widgets['width'].get_widget(),
+                                                                  self._widgets['update_frequency'].get_widget()])                                                        
                                                         ])})
         self._accordions['properties'].set_title(0, 'Receiver')
         self._accordions['properties'].set_title(1, 'Spectrum Analyzer')
