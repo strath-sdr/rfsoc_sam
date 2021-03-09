@@ -39,7 +39,7 @@ class Spectrum():
         self._display_mode = display_mode
         self._spectrum_mode = spectrum_mode
         self._nyquist_stopband = nyquist_stopband
-        self.hold_max = False
+        self.post_process = 'none'
         self.enable_updates = False
         
         layout = {
@@ -175,7 +175,7 @@ class Spectrum():
             else:
                 pass
 
-            if self.hold_max:
+            if self.post_process == 'max':
                 self._y_data = maximum_hold(self._plot.data[0].y, self._y_data)
 
             self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
@@ -259,8 +259,10 @@ class Spectrum():
         self._x_data = np.arange(self._lower_limit, self._upper_limit, self._rbw) + self._centre_frequency
         self._range = (min(self._x_data), max(self._x_data))
         self._plot.layout.xaxis.range = self._range
+        if self.post_process == 'max':
+            self._y_data = np.zeros(len(self._x_data)) - 300
         self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
-        self._plot.data[1].update({'x':self._x_data, 'y':np.zeros(self._number_samples) - 300})
+        self._plot.data[1].update({'x':self._x_data, 'y':np.zeros(len(self._x_data)) - 300})
         
     def get_plot(self):
         return self._plot
