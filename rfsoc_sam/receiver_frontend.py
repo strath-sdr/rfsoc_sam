@@ -560,7 +560,7 @@ class RadioAnalyserGUI():
         
         self._widgets.update({'resolution_bandwidth_label' :
                                Label(value=str((self.analyser.sample_frequency/self.analyser.fftsize)*1e-3),
-                                     svalue='RBW: ',
+                                     svalue='Frequency Resolution: ',
                                      evalue=' kHz',
                                      dict_id='resolution_bandwidth_label')})
         
