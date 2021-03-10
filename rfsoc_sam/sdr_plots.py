@@ -158,31 +158,27 @@ class Spectrum():
         
         if self.enable_updates:
 
-            if (not any(np.isnan(data))) and (not any(np.isinf(data))) and (not any(data == 0)):
-        
-                def maximum_hold(old_data, new_data):
-                    old_data = np.array(old_data, np.single)
-                    new_data = np.array(new_data, np.single)
-                    return (old_data > new_data) * old_data + (old_data < new_data) * new_data
+            if self._spectrum_mode:
+                fdata = np.fft.fftshift(data)
+            else:
+                fdata = data
 
-                if self._spectrum_mode:
-                    fdata = np.fft.fftshift(data)
-                else:
-                    fdata = data
+            if self._display_mode == 0:
+                self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
+                                :int(self._number_samples - int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))))]
+            elif self._display_mode == 1:
+                self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
+                                :int(self._number_samples/2)]
+            else:
+                pass
 
-                if self._display_mode == 0:
-                    self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
-                                    :int(self._number_samples - int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))))]
-                elif self._display_mode == 1:
-                    self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
-                                    :int(self._number_samples/2)]
-                else:
-                    pass
+            if self.post_process == 'max':
+                self._y_data = np.maximum(self._plot.data[0].y, self._y_data)
 
-                if self.post_process == 'max':
-                    self._y_data = maximum_hold(self._plot.data[0].y, self._y_data)
+            if self.post_process == 'min':
+                self._y_data = np.minimum(self._plot.data[0].y, self._y_data)
 
-                self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
+            self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
     
     @property
     def xlabel(self):
@@ -265,6 +261,8 @@ class Spectrum():
         self._plot.layout.xaxis.range = self._range
         if self.post_process == 'max':
             self._y_data = np.zeros(len(self._x_data)) - 300
+        if self.post_process == 'min':
+            self._y_data = np.zeros(len(self._x_data)) + 300
         self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
         self._plot.data[1].update({'x':self._x_data, 'y':np.zeros(len(self._x_data)) - 300})
         

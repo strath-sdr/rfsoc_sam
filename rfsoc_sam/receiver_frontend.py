@@ -251,6 +251,8 @@ class RadioAnalyser():
     def post_process(self, post_process):
         if post_process == 'max':
             self._spectrum_analyser.plot.post_process = 'max'
+        elif post_process == 'min':
+            self._spectrum_analyser.plot.post_process = 'min'
         else:
             self._spectrum_analyser.plot.post_process = 'none'
 
@@ -376,7 +378,8 @@ class RadioAnalyserGUI():
         self._widgets.update({'post_process' :
                               DropDown(callback=self._update_config,
                                        options=[('None', 'none'),
-                                                ('Max', 'max')],
+                                                ('Maximum Hold', 'max'),
+                                                ('Minimum Hold', 'min')],
                                        value=self._config['post_process'],
                                        dict_id='post_process',
                                        description='Post Processing:',
