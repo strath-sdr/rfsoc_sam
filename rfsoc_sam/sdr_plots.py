@@ -161,6 +161,8 @@ class Spectrum():
             if (not any(np.isnan(data))) and (not any(np.isinf(data))) and (not any(data == 0)):
         
                 def maximum_hold(old_data, new_data):
+                    old_data = np.array(old_data, np.single)
+                    new_data = np.array(new_data, np.single)
                     return (old_data > new_data) * old_data + (old_data < new_data) * new_data
 
                 if self._spectrum_mode:
