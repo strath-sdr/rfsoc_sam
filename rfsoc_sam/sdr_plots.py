@@ -23,6 +23,7 @@ class Spectrum():
                  plot_width=800,
                  plot_height=400,
                  display_mode=0,
+                 data_windowsize=16,
                  spectrum_mode=True):
     
         self._y_data = plot_data
@@ -39,6 +40,8 @@ class Spectrum():
         self._display_mode = display_mode
         self._spectrum_mode = spectrum_mode
         self._nyquist_stopband = nyquist_stopband
+        self._data_window = np.empty(1)
+        self.data_windowsize = data_windowsize
         self.post_process = 'none'
         self.enable_updates = False
         
@@ -84,6 +87,15 @@ class Spectrum():
         self.clear_plot()
         self.update_x_limits()
         self.update_x_axis()
+        
+    @property
+    def data_windowsize(self):
+        return self._data_window.shape[0]
+    
+    @data_windowsize.setter
+    def data_windowsize(self, data_windowsize):
+        temp_average = np.average(self._y_data)
+        self._data_window = np.full((data_windowsize, self._number_samples), fill_value=temp_average, dtype=np.single)
         
     @property
     def line_colour(self):
@@ -158,25 +170,26 @@ class Spectrum():
         
         if self.enable_updates:
 
-            if self._spectrum_mode:
-                fdata = np.fft.fftshift(data)
-            else:
-                fdata = data
-
-            if self._display_mode == 0:
-                self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
-                                :int(self._number_samples - int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))))]
-            elif self._display_mode == 1:
-                self._y_data = fdata[int(np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))) \
-                                :int(self._number_samples/2)]
-            else:
-                pass
-
+            fdata = np.fft.fftshift(data)
+                
+            if self.post_process == 'average':
+                self._data_window = np.roll(self._data_window, shift=1, axis=0)
+                self._data_window[0, :] = fdata
+                fdata = np.average(self._data_window, axis=0)
+                
+            fdata = fdata[int(np.ceil((self._number_samples/2)* \
+                                             (1-self._nyquist_stopband))) \
+                            :int(self._number_samples - \
+                                 int(np.ceil((self._number_samples/2)* \
+                                             (1-self._nyquist_stopband))))]
+            
             if self.post_process == 'max':
-                self._y_data = np.maximum(self._plot.data[0].y, self._y_data)
+                fdata = np.maximum(self._plot.data[0].y, fdata)
 
             if self.post_process == 'min':
-                self._y_data = np.minimum(self._plot.data[0].y, self._y_data)
+                fdata = np.minimum(self._plot.data[0].y, fdata)
+                
+            self._y_data = fdata
 
             self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
     
@@ -263,6 +276,10 @@ class Spectrum():
             self._y_data = np.zeros(len(self._x_data)) - 300
         if self.post_process == 'min':
             self._y_data = np.zeros(len(self._x_data)) + 300
+        if self.post_process == 'average':
+            temp_average = np.average(self._y_data)
+            self._y_data = np.zeros(len(self._x_data)) + temp_average
+            self.data_windowsize = self._data_window.shape[0]
         self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
         self._plot.data[1].update({'x':self._x_data, 'y':np.zeros(len(self._x_data)) - 300})
         

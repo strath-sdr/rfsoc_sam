@@ -9,7 +9,7 @@ import matplotlib.colors as mcolors
 import time
 from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
-from .quick_widgets import FloatText, Button, Accordion, DropDown, Label, Image
+from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image
 
 
 class RadioAnalyser():
@@ -77,6 +77,15 @@ class RadioAnalyser():
             self._spectrum_analyser.sample_frequency = \
             (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
             self._spectrum_analyser.ssr_packetsize = int(self._spectrum_analyser.fft_size/8)
+            
+    @property
+    def number_frames(self):
+        return self._spectrum_analyser.plot.data_windowsize
+    
+    @number_frames.setter
+    def number_frames(self, number_frames):
+        if number_frames in range(0, 65):
+            self._spectrum_analyser.plot.data_windowsize = number_frames
             
     @property
     def sample_frequency(self):
@@ -249,10 +258,8 @@ class RadioAnalyser():
 
     @post_process.setter
     def post_process(self, post_process):
-        if post_process == 'max':
-            self._spectrum_analyser.plot.post_process = 'max'
-        elif post_process == 'min':
-            self._spectrum_analyser.plot.post_process = 'min'
+        if post_process in ['max', 'min', 'average']:
+            self._spectrum_analyser.plot.post_process = post_process
         else:
             self._spectrum_analyser.plot.post_process = 'none'
 
@@ -319,7 +326,8 @@ class RadioAnalyserGUI():
                         'zmax' : self.analyser.zmax,
                         'quality' : self.analyser.quality,
                         'width' : self.analyser.width,
-                        'post_process' : self.analyser.post_process}
+                        'post_process' : self.analyser.post_process,
+                        'number_frames' : self.analyser.number_frames}
         self._initialise_frontend()
         
                              
@@ -379,7 +387,8 @@ class RadioAnalyserGUI():
                               DropDown(callback=self._update_config,
                                        options=[('None', 'none'),
                                                 ('Maximum Hold', 'max'),
-                                                ('Minimum Hold', 'min')],
+                                                ('Minimum Hold', 'min'),
+                                                ('Running Average', 'average')],
                                        value=self._config['post_process'],
                                        dict_id='post_process',
                                        description='Post Processing:',
@@ -436,6 +445,15 @@ class RadioAnalyserGUI():
                                        value='lightpink',
                                        dict_id='line_fill',
                                        description='Line Fill:')})
+        
+        self._widgets.update({'number_frames' : 
+                              IntText(callback=self._update_config,
+                                        value=self._config['number_frames'],
+                                        min_value=1,
+                                        max_value=64,
+                                        step=1,
+                                        dict_id='number_frames',
+                                        description='Average Frames:')})
         
         self._widgets.update({'centre_frequency' : 
                               FloatText(callback=self._update_config,
@@ -578,6 +596,7 @@ class RadioAnalyserGUI():
                                                                    self._widgets['calibration_mode'].get_widget()]),
                                                         ipw.VBox([self._widgets['fftsize'].get_widget(),
                                                                   self._widgets['post_process'].get_widget(),
+                                                                  self._widgets['number_frames'].get_widget(),
                                                                   self._widgets['spectrum_type'].get_widget(),
                                                                   self._widgets['spectrum_units'].get_widget()]),
                                                         ipw.VBox([self._widgets['zmin'].get_widget(),
