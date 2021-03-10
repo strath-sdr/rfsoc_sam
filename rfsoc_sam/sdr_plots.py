@@ -158,7 +158,7 @@ class Spectrum():
         
         if self.enable_updates:
 
-            if not any(np.isnan(data)):
+            if (not any(np.isnan(data))) or (not any(np.isinf(data))):
         
                 def maximum_hold(old_data, new_data):
                     return (old_data > new_data) * old_data + (old_data < new_data) * new_data
