@@ -103,11 +103,11 @@ class RadioAnalyser():
             
     @property
     def nyquist_stopband(self):
-        return self._spectrum_analyser.nyquist_stopband
+        return self._spectrum_analyser.nyquist_stopband * 100
     
     @nyquist_stopband.setter
     def nyquist_stopband(self, nyquist_stopband):
-        self._spectrum_analyser.nyquist_stopband = nyquist_stopband
+        self._spectrum_analyser.nyquist_stopband = nyquist_stopband/100
         
     @property
     def fftsize(self):
@@ -258,7 +258,7 @@ class RadioAnalyser():
 
     @post_process.setter
     def post_process(self, post_process):
-        if post_process in ['max', 'min', 'average']:
+        if post_process in ['max', 'min', 'average', 'median']:
             self._spectrum_analyser.plot.post_process = post_process
         else:
             self._spectrum_analyser.plot.post_process = 'none'
@@ -307,11 +307,11 @@ class RadioAnalyserGUI():
                                        adc_description=adc_description,
                                        spectrum_analyser=spectrum_analyser, 
                                        decimator=decimator)
-        self._config = {'centre_frequency' : self.analyser.centre_frequency,
-                        'nyquist_stopband' : 0.8,
+        self._config = {'centre_frequency' : 819,
+                        'nyquist_stopband' : 80,
                         'decimation_factor' : self.analyser.decimation_factor,
                         'calibration_mode' : self.analyser.calibration_mode,
-                        'fftsize' : self.analyser.fftsize,
+                        'fftsize' : 2048,
                         'spectrum_type' : self.analyser.spectrum_type,
                         'spectrum_units' : self.analyser.spectrum_units,
                         'window' : 'blackman',
@@ -326,8 +326,8 @@ class RadioAnalyserGUI():
                         'zmax' : self.analyser.zmax,
                         'quality' : self.analyser.quality,
                         'width' : self.analyser.width,
-                        'post_process' : self.analyser.post_process,
-                        'number_frames' : self.analyser.number_frames}
+                        'post_process' : 'average',
+                        'number_frames' : 8}
         self._initialise_frontend()
         
                              
@@ -388,7 +388,8 @@ class RadioAnalyserGUI():
                                        options=[('None', 'none'),
                                                 ('Maximum Hold', 'max'),
                                                 ('Minimum Hold', 'min'),
-                                                ('Running Average', 'average')],
+                                                ('Running Average', 'average'),
+                                                ('Running Median', 'median')],
                                        value=self._config['post_process'],
                                        dict_id='post_process',
                                        description='Post Processing:',
@@ -453,7 +454,7 @@ class RadioAnalyserGUI():
                                         max_value=64,
                                         step=1,
                                         dict_id='number_frames',
-                                        description='Average Frames:')})
+                                        description='Number Frames:')})
         
         self._widgets.update({'centre_frequency' : 
                               FloatText(callback=self._update_config,
@@ -467,9 +468,9 @@ class RadioAnalyserGUI():
         self._widgets.update({'nyquist_stopband' : 
                               FloatText(callback=self._update_config,
                                         value=self._config['nyquist_stopband'],
-                                        min_value=0.5,
-                                        max_value=1.0,
-                                        step=0.01,
+                                        min_value=50,
+                                        max_value=100,
+                                        step=1,
                                         dict_id='nyquist_stopband',
                                         description='Nyquist Stopband (%):')})
         

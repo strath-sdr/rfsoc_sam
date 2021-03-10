@@ -177,6 +177,11 @@ class Spectrum():
                 self._data_window[0, :] = fdata
                 fdata = np.average(self._data_window, axis=0)
                 
+            if self.post_process == 'median':
+                self._data_window = np.roll(self._data_window, shift=1, axis=0)
+                self._data_window[0, :] = fdata
+                fdata = np.median(self._data_window, axis=0)
+                
             fdata = fdata[int(np.ceil((self._number_samples/2)* \
                                              (1-self._nyquist_stopband))) \
                             :int(self._number_samples - \
@@ -184,10 +189,10 @@ class Spectrum():
                                              (1-self._nyquist_stopband))))]
             
             if self.post_process == 'max':
-                fdata = np.maximum(self._plot.data[0].y, fdata)
+                fdata = np.maximum(self._y_data, fdata)
 
             if self.post_process == 'min':
-                fdata = np.minimum(self._plot.data[0].y, fdata)
+                fdata = np.minimum(self._y_data, fdata)
                 
             self._y_data = fdata
 
@@ -272,15 +277,14 @@ class Spectrum():
         self._x_data = np.arange(self._lower_limit, self._upper_limit, self._rbw) + self._centre_frequency
         self._range = (min(self._x_data), max(self._x_data))
         self._plot.layout.xaxis.range = self._range
+        temp_average = np.average(self._y_data)
+        self._y_data = np.zeros(len(self._x_data)) + temp_average
+        self.data_windowsize = self._data_window.shape[0]
         if self.post_process == 'max':
             self._y_data = np.zeros(len(self._x_data)) - 300
         if self.post_process == 'min':
             self._y_data = np.zeros(len(self._x_data)) + 300
-        if self.post_process == 'average':
-            temp_average = np.average(self._y_data)
-            self._y_data = np.zeros(len(self._x_data)) + temp_average
-            self.data_windowsize = self._data_window.shape[0]
-        self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
+        #self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
         self._plot.data[1].update({'x':self._x_data, 'y':np.zeros(len(self._x_data)) - 300})
         
     def get_plot(self):
