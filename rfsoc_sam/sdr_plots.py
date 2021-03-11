@@ -299,16 +299,18 @@ class Spectrum():
         if self.display_max:
             self._plot.data[2].update({'x':[self._x_data[j] for j in self._max_indices],
                                        'y':[self._y_data[j] for j in self._max_indices]})
+            self._plot.plotly_relayout({'xaxis' : {'range' : self._range}})
         else:
             self._plot.data[2].update({'x':None,
                                        'y':None})
         if self.display_min:
             self._plot.data[3].update({'x':[self._x_data[j] for j in self._min_indices],
                                        'y':[self._y_data[j] for j in self._min_indices]})
+            self._plot.plotly_relayout({'xaxis' : {'range' : self._range}})
         else:
             self._plot.data[3].update({'x':None,
                                        'y':None})
-        self._plot.plotly_relayout({'xaxis' : {'range' : self._range}})
+        
         
     def _apply_analysis(self):
         if self.display_max:
