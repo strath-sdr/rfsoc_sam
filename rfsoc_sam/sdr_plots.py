@@ -46,6 +46,12 @@ class Spectrum():
         self._spectrum_mode = spectrum_mode
         self._nyquist_stopband = nyquist_stopband
         self._data_window = np.empty(1)
+        self._min_indices = [0]
+        self._max_indices = [0]
+        self.display_min = False
+        self.display_max = False
+        self._number_min_indices = 1
+        self._number_max_indices = 1
         self.data_windowsize = data_windowsize
         self.post_process = 'none'
         self.enable_updates = False
@@ -93,6 +99,32 @@ class Spectrum():
                 fillcolor = 'rgba(128, 128, 128, 0.5)'
             )
         )
+        
+        plot_data.append(
+            go.Scatter(
+                x = [self._x_data[j] for j in self._max_indices],
+                y = [self._y_data[j] for j in self._max_indices],
+                mode='markers',
+                marker={
+                    'size' : 8,
+                    'color' : 'red',
+                    'symbol' : 'cross'
+                }
+            )
+        )
+        
+        plot_data.append(
+            go.Scatter(
+                x = [self._x_data[j] for j in self._min_indices],
+                y = [self._y_data[j] for j in self._min_indices],
+                mode='markers',
+                marker={
+                    'size' : 8,
+                    'color' : 'blue',
+                    'symbol' : 'cross'
+                }
+            )
+        )
 
         self._plot = go.FigureWidget(
             layout=layout,
@@ -102,6 +134,22 @@ class Spectrum():
         self._clear_plot()
         self._update_x_limits()
         self._update_x_axis()
+        
+    @property
+    def number_min_indices(self):
+        return self._number_min_indices
+    
+    @number_min_indices.setter
+    def number_min_indices(self, number_min_indices):
+        self._number_min_indices = number_min_indices
+        
+    @property
+    def number_max_indices(self):
+        return self._number_max_indices
+    
+    @number_max_indices.setter
+    def number_max_indices(self, number_max_indices):
+        self._number_max_indices = number_max_indices
         
     @property
     def data_windowsize(self):
@@ -188,6 +236,8 @@ class Spectrum():
             self._y_data_current = data
             self._y_data = self._y_data_current[self._lower_index:self._upper_index]
             self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
+            self._apply_analysis()
+            self._display_analysis()
     
     @property
     def xlabel(self):
@@ -245,6 +295,27 @@ class Spectrum():
         self._update_x_limits()
         self._update_x_axis()
         
+    def _display_analysis(self):
+        if self.display_max:
+            self._plot.data[2].update({'x':[self._x_data[j] for j in self._max_indices],
+                                       'y':[self._y_data[j] for j in self._max_indices]})
+        else:
+            self._plot.data[2].update({'x':None,
+                                       'y':None})
+        if self.display_min:
+            self._plot.data[3].update({'x':[self._x_data[j] for j in self._min_indices],
+                                       'y':[self._y_data[j] for j in self._min_indices]})
+        else:
+            self._plot.data[3].update({'x':None,
+                                       'y':None})
+        self._plot.plotly_relayout({'xaxis' : {'range' : self._range}})
+        
+    def _apply_analysis(self):
+        if self.display_max:
+            self._max_indices = self._y_data.argsort()[-self._number_max_indices:]
+        if self.display_min:
+            self._min_indices = self._y_data.argsort()[:self._number_min_indices]
+        
     def _apply_post_process(self, data):
         fdata = np.fft.fftshift(data)
         if self.post_process == 'average':
@@ -284,7 +355,7 @@ class Spectrum():
                                  self._upper_limit,
                                  self._rbw) + self._centre_frequency
         self._range = (min(self._x_data), max(self._x_data))
-        self._plot.layout.xaxis.range = self._range
+        self._plot.update_layout({'xaxis' : {'range' : self._range}})
         self.data_windowsize = self._data_window.shape[0]
         if self.post_process == 'max':
             self._y_data = np.zeros(len(self._x_data)) - 300

@@ -65,6 +65,39 @@ class DropDown():
     def get_widget(self):
         return self._dropdown
     
+    
+class CheckBox():
+    """Helper class for CheckBox widgets.
+    """
+    def __init__(self,
+                 callback,
+                 value,
+                 description,
+                 dict_id = '',
+                 description_width='150px',
+                 layout_width='300px'):
+    
+        def on_value_change(change):
+            callback({self._dict_id : change['new']})
+            
+        self._dict_id = dict_id
+        self._checkbox = ipw.Checkbox(value=value,
+                                      description=description,
+                                      style={'description_width': description_width},
+                                      layout = {'width': layout_width},)
+        self._checkbox.observe(on_value_change, names='value')
+        
+    @property
+    def value(self):
+        return self._checkbox.value
+    
+    @value.setter
+    def value(self, value):
+        self._checkbox.value = value
+        
+    def get_widget(self):
+        return self._checkbox
+    
 
 class FloatText():
     """Helper class for float text widgets.
@@ -120,7 +153,7 @@ class FloatText():
     
     
 class IntText():
-    """Helper class for float text widgets.
+    """Helper class for integer text widgets.
     """
     def __init__(self,
                  callback,

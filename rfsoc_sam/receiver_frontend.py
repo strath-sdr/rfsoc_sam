@@ -9,7 +9,7 @@ import matplotlib.colors as mcolors
 import time
 from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
-from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image
+from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image, CheckBox
 
 
 class RadioAnalyser():
@@ -262,6 +262,38 @@ class RadioAnalyser():
             self._spectrum_analyser.plot.post_process = post_process
         else:
             self._spectrum_analyser.plot.post_process = 'none'
+            
+    @property
+    def display_max(self):
+        return self._spectrum_analyser.plot.display_max
+    
+    @display_max.setter
+    def display_max(self, display_max):
+        self._spectrum_analyser.plot.display_max = display_max
+        
+    @property
+    def display_min(self):
+        return self._spectrum_analyser.plot.display_min
+    
+    @display_min.setter
+    def display_min(self, display_min):
+        self._spectrum_analyser.plot.display_min = display_min
+        
+    @property
+    def number_max_indices(self):
+        return self._spectrum_analyser.plot.number_max_indices
+    
+    @number_max_indices.setter
+    def number_max_indices(self, number_max_indices):
+        self._spectrum_analyser.plot.number_max_indices = number_max_indices
+        
+    @property
+    def number_min_indices(self):
+        return self._spectrum_analyser.plot.number_min_indices
+    
+    @number_min_indices.setter
+    def number_min_indices(self, number_min_indices):
+        self._spectrum_analyser.plot.number_min_indices = number_min_indices
 
     @property
     def dma_status(self):
@@ -327,7 +359,11 @@ class RadioAnalyserGUI():
                         'quality' : self.analyser.quality,
                         'width' : self.analyser.width,
                         'post_process' : 'average',
-                        'number_frames' : 8}
+                        'number_frames' : 8,
+                        'display_max' : False,
+                        'display_min' : False,
+                        'number_max_indices' : 1,
+                        'number_min_indices' : 1}
         self._initialise_frontend()
         
                              
@@ -400,8 +436,7 @@ class RadioAnalyserGUI():
                                        options=[64, 128, 256, 512, 1024, 2048, 4096, 8192],
                                        value=4096,
                                        dict_id='fftsize',
-                                       description = 'FFT Size:',
-                                       description_width='100px')})
+                                       description = 'FFT Size:')})
         
         self._widgets.update({'calibration_mode' : 
                               DropDown(callback=self._update_config,
@@ -455,6 +490,24 @@ class RadioAnalyserGUI():
                                         step=1,
                                         dict_id='number_frames',
                                         description='Number Frames:')})
+        
+        self._widgets.update({'number_max_indices' : 
+                              IntText(callback=self._update_config,
+                                        value=self._config['number_max_indices'],
+                                        min_value=1,
+                                        max_value=64,
+                                        step=1,
+                                        dict_id='number_max_indices',
+                                        description='Number of Maximums:')})
+        
+        self._widgets.update({'number_min_indices' : 
+                              IntText(callback=self._update_config,
+                                        value=self._config['number_min_indices'],
+                                        min_value=1,
+                                        max_value=64,
+                                        step=1,
+                                        dict_id='number_min_indices',
+                                        description='Number of Minimums:')})
         
         self._widgets.update({'centre_frequency' : 
                               FloatText(callback=self._update_config,
@@ -564,6 +617,18 @@ class RadioAnalyserGUI():
                                      evalue=' kHz',
                                      dict_id='resolution_bandwidth_label')})
         
+        self._widgets.update({'display_max' :
+                              CheckBox(callback=self._update_config,
+                                       description='Display Maximum',
+                                       value=self._config['display_max'],
+                                       dict_id='display_max')})
+        
+        self._widgets.update({'display_min' :
+                              CheckBox(callback=self._update_config,
+                                       description='Display Minimum',
+                                       value=self._config['display_min'],
+                                       dict_id='display_min')})
+        
         self._window_plot = go.FigureWidget(layout={'hovermode' : 'closest',
                                                    'height' : 225,
                                                    'width' : 300,
@@ -591,15 +656,29 @@ class RadioAnalyserGUI():
                                                               layout=ipw.Layout(justify_content='space-around'))])})
         self._accordions['system'].set_title(0, 'System')
         
+        self._accordions.update({'spectrum_control' :
+                                 ipw.Accordion(children=[ipw.VBox([self._widgets['post_process'].get_widget(),
+                                                                   self._widgets['number_frames'].get_widget()
+                                                                  ]),
+                                                         ipw.VBox([self._widgets['spectrum_type'].get_widget(),
+                                                                   self._widgets['spectrum_units'].get_widget()
+                                                                  ]),
+                                                         ipw.VBox([self._widgets['number_max_indices'].get_widget(),
+                                                                   self._widgets['display_max'].get_widget(),
+                                                                   self._widgets['number_min_indices'].get_widget(),
+                                                                   self._widgets['display_min'].get_widget()
+                                                                  ])
+                                                        ])})
+        self._accordions['spectrum_control'].set_title(0, 'Mode')
+        self._accordions['spectrum_control'].set_title(1, 'Type')
+        self._accordions['spectrum_control'].set_title(2, 'Analysis')
+        
         self._accordions.update({'properties' :
                                  ipw.Accordion(children=[ipw.VBox([self._widgets['centre_frequency'].get_widget(),
                                                                    self._widgets['decimation_factor'].get_widget(),
+                                                                   self._widgets['fftsize'].get_widget(),
                                                                    self._widgets['calibration_mode'].get_widget()]),
-                                                        ipw.VBox([self._widgets['fftsize'].get_widget(),
-                                                                  self._widgets['post_process'].get_widget(),
-                                                                  self._widgets['number_frames'].get_widget(),
-                                                                  self._widgets['spectrum_type'].get_widget(),
-                                                                  self._widgets['spectrum_units'].get_widget()]),
+                                                        ipw.VBox([self._accordions['spectrum_control']]),
                                                         ipw.VBox([self._widgets['zmin'].get_widget(),
                                                                   self._widgets['zmax'].get_widget()]),
                                                         ipw.VBox([self._window_plot,
