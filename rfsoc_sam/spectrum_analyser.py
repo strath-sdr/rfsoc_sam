@@ -312,12 +312,12 @@ class SpectrumAnalyser(DefaultIP):
     @spectrum_type.setter
     def spectrum_type(self, spectrum_type):
         if spectrum_type == 'Power Spectrum':
-            self.plot.clear_plot()
+            self.plot._clear_plot()
             self._spectrum_type = 1
             self.plot.ylabel = ''.join([spectrum_type, ' (', self.spectrum_units, ')'])
             self.plot.yrange = [-150 + self._spectrum_units*30, 0 + self._spectrum_units*30]
         elif spectrum_type == 'Power Spectral Density':
-            self.plot.clear_plot()
+            self.plot._clear_plot()
             self._spectrum_type = 0
             self.plot.ylabel = ''.join([spectrum_type, ' (', self.spectrum_units, ')'])
             self.plot.yrange = [-210 + self._spectrum_units*30, -60 + self._spectrum_units*30]     
