@@ -109,8 +109,8 @@ class Spectrum():
         
         plot_data.append(
             go.Scatter(
-                x = [self._x_data[j] for j in self._max_indices],
-                y = [self._y_data[j] for j in self._max_indices],
+                x = None,
+                y = None,
                 mode='markers',
                 marker={
                     'size' : 8,
@@ -122,8 +122,8 @@ class Spectrum():
         
         plot_data.append(
             go.Scatter(
-                x = [self._x_data[j] for j in self._min_indices],
-                y = [self._y_data[j] for j in self._min_indices],
+                x = None,
+                y = None,
                 mode='markers',
                 marker={
                     'size' : 8,
@@ -422,7 +422,11 @@ class Spectrum():
         self._ddc_plan.fs_rf = self._sample_frequency
         self._ddc_plan.fc = self._centre_frequency
         self._ddc_plan.dec = self._decimation_factor
-        self._ddc_plan.nco = self._centre_frequency
+        nyquist_zone = np.floor(self._centre_frequency/(self._sample_frequency/2)) + 1
+        if (nyquist_zone % 2) == 0:
+            self._ddc_plan.nco = self._centre_frequency
+        else:
+            self._ddc_plan.nco = -self._centre_frequency
         rx_alias = self._ddc_plan.rx_alias
         rx_alias['x'] = rx_alias['x'] + self._centre_frequency
         self._plot.data[4].update({
@@ -430,10 +434,9 @@ class Spectrum():
             'y' : [rx_alias['ymin'], rx_alias['ymax']],
         })
         
-        
     def get_plot(self):
         return self._plot
-
+    
 
 class Spectrogram():
     def __init__(self,
