@@ -8,7 +8,11 @@ import plotly.graph_objs as go
 import warnings
 from PIL import Image
 from scipy import signal
+from rfsoc_freqplan import calculation
 warnings.simplefilter(action='ignore', category=FutureWarning)
+
+IL_FACTOR = 8
+PLL_REF=409.6e6
 
 
 class Spectrum():
@@ -24,16 +28,19 @@ class Spectrum():
                  plot_height=400,
                  display_mode=0,
                  data_windowsize=16,
-                 spectrum_mode=True):
+                 spectrum_mode=True,
+                 decimation_factor=2):
     
         self._y_data = plot_data
         self._y_data_current = plot_data
         self._sample_frequency = sample_frequency
         self._number_samples = number_samples
+        self._decimation_factor = decimation_factor
         self._centre_frequency = centre_frequency
-        self._rbw = self._sample_frequency/self._number_samples
-        self._upper_limit = self._sample_frequency/2
-        self._lower_limit = -self._sample_frequency/2
+        self._rbw = (self._sample_frequency/self._decimation_factor) \
+            /self._number_samples
+        self._upper_limit = (self._sample_frequency/self._decimation_factor)/2
+        self._lower_limit = -(self._sample_frequency/self._decimation_factor)/2
         self._upper_index = self._number_samples-1
         self._lower_index = 0
         self._xlabel = xlabel
@@ -48,13 +55,13 @@ class Spectrum():
         self._data_window = np.empty(1)
         self._min_indices = [0]
         self._max_indices = [0]
-        self.display_min = False
-        self.display_max = False
         self._number_min_indices = 1
         self._number_max_indices = 1
         self.data_windowsize = data_windowsize
         self.post_process = 'none'
         self.enable_updates = False
+        self.display_min = False
+        self.display_max = False
         
         layout = {
             'hovermode' : 'closest',
@@ -125,12 +132,46 @@ class Spectrum():
                 }
             )
         )
+        
+        self._ddc_plan = calculation.FrequencyPlannerDDC(
+            fs_rf=self._sample_frequency,
+            il_factor=IL_FACTOR,
+            fc=self._centre_frequency,
+            dec=self._decimation_factor,
+            nco=self._centre_frequency,
+            pll_ref=PLL_REF
+        )
+        
+        rx_alias = self._ddc_plan.rx_alias
+        rx_alias['x'] = rx_alias['x'] + self._centre_frequency
+        
+        plot_data.append(
+            go.Scatter(
+                x = [rx_alias['x'], rx_alias['x']],
+                y = [rx_alias['ymin'], rx_alias['ymax']],
+                name = rx_alias['label'],
+                line = dict(color=rx_alias['color'])
+            )
+        )
 
         self._plot = go.FigureWidget(
             layout=layout,
             data=plot_data
         )
         
+        self._clear_plot()
+        self._update_x_limits()
+        self._update_x_axis()
+        
+    @property
+    def decimation_factor(self):
+        return self._decimation_factor
+    
+    @decimation_factor.setter
+    def decimation_factor(self, decimation_factor):
+        self._decimation_factor = decimation_factor
+        self._rbw = (self._sample_frequency/self._decimation_factor) \
+            /self._number_samples
         self._clear_plot()
         self._update_x_limits()
         self._update_x_axis()
@@ -220,7 +261,8 @@ class Spectrum():
     @sample_frequency.setter
     def sample_frequency(self, fs):
         self._sample_frequency = fs
-        self._rbw = self._sample_frequency/self._number_samples
+        self._rbw = (self._sample_frequency/self._decimation_factor) \
+            /self._number_samples
         self._clear_plot()
         self._update_x_limits()
         self._update_x_axis()
@@ -290,7 +332,8 @@ class Spectrum():
     @number_samples.setter
     def number_samples(self, number_samples):
         self._number_samples = number_samples
-        self._rbw = self._sample_frequency/self._number_samples
+        self._rbw = (self._sample_frequency/self._decimation_factor) \
+            /self._number_samples
         self._clear_plot()
         self._update_x_limits()
         self._update_x_axis()
@@ -342,9 +385,9 @@ class Spectrum():
         self._plot.data[0].y = zdata
         
     def _update_x_limits(self):
-        self._upper_limit = (self._sample_frequency/2)-self._rbw* \
+        self._upper_limit = ((self._sample_frequency/self._decimation_factor)/2)-self._rbw* \
             np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))
-        self._lower_limit = -(self._sample_frequency/2)+self._rbw* \
+        self._lower_limit = -((self._sample_frequency/self._decimation_factor)/2)+self._rbw* \
             np.ceil((self._number_samples/2)*(1-self._nyquist_stopband))
         self._upper_index = int(self._number_samples- \
                                 int(np.ceil((self._number_samples/2)* \
@@ -373,6 +416,20 @@ class Spectrum():
             'x':self._x_data,
             'y':np.zeros(len(self._x_data)) - 300
         })
+        self._update_ddc_plan()
+        
+    def _update_ddc_plan(self):
+        self._ddc_plan.fs_rf = self._sample_frequency
+        self._ddc_plan.fc = self._centre_frequency
+        self._ddc_plan.dec = self._decimation_factor
+        self._ddc_plan.nco = self._centre_frequency
+        rx_alias = self._ddc_plan.rx_alias
+        rx_alias['x'] = rx_alias['x'] + self._centre_frequency
+        self._plot.data[4].update({
+            'x' : [rx_alias['x'], rx_alias['x']],
+            'y' : [rx_alias['ymin'], rx_alias['ymax']],
+        })
+        
         
     def get_plot(self):
         return self._plot
@@ -385,7 +442,8 @@ class Spectrogram():
                  image_width=400,
                  image_height=200,
                  centre_frequency=0,
-                 sample_frequency=2048e6,
+                 sample_frequency=4096e6,
+                 decimation_factor=2,
                  nyquist_stopband=1,
                  ypixel=2,
                  plot_time=20,
@@ -398,15 +456,16 @@ class Spectrogram():
         self._image_width = image_width
         self._image_height = image_height
         self._sample_frequency = sample_frequency
+        self._decimation_factor = decimation_factor
         self._centre_frequency = centre_frequency
         self._nyquist_stopband = nyquist_stopband
         self._ypixel = ypixel
         self._data = np.ones((self._image_height, self._image_width), dtype=np.uint8)*128
         
-        self._image_x = -self._sample_frequency/2 + self._centre_frequency
+        self._image_x = -(self._sample_frequency/self._decimation_factor)/2 + self._centre_frequency
         self._image_y = 0
-        self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
-        self._upper_limit = (self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
+        self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency
+        self._upper_limit = ((self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency
         
         self._plot_time = self._image_height
         self.zmin = zmin
@@ -446,7 +505,7 @@ class Spectrogram():
                 yref="y",
                 x=self._image_x,
                 y=self._image_y,
-                sizex=self._sample_frequency,
+                sizex=(self._sample_frequency/self._decimation_factor),
                 sizey=self._plot_time,
                 sizing='stretch',
                 opacity=1,
@@ -494,6 +553,15 @@ class Spectrogram():
     @sample_frequency.setter
     def sample_frequency(self, sample_frequency):
         self._sample_frequency = sample_frequency
+        self._update_image()
+        
+    @property
+    def decimation_factor(self):
+        return self._decimation_factor
+    
+    @decimation_factor.setter
+    def decimation_factor(self, decimation_factor):
+        self._decimation_factor = decimation_factor
         self._update_image()
         
     @property
@@ -556,12 +624,12 @@ class Spectrogram():
         
     def _update_image(self):
         if self._display_mode:
-            self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency 
+            self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency 
             self._upper_limit = self._centre_frequency
         else:
-            self._lower_limit = (-self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency 
-            self._upper_limit = (self._sample_frequency/2) * self._nyquist_stopband + self._centre_frequency
-        self._image_x = -self._sample_frequency/2 + self._centre_frequency
+            self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency 
+            self._upper_limit = ((self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency
+        self._image_x = -(self._sample_frequency/self._decimation_factor)/2 + self._centre_frequency
         self._plot.update_layout({'xaxis': {
             'range' : [self._lower_limit ,self._upper_limit]
         }})
@@ -569,7 +637,7 @@ class Spectrogram():
         img = Image.fromarray(self._data, 'L')
         self._plot.update_layout_images({'source' : img,
                                          'x' : self._image_x,
-                                         'sizex' : self._sample_frequency})
+                                         'sizex' : (self._sample_frequency/self._decimation_factor)})
     
     def get_plot(self):
         return self._plot

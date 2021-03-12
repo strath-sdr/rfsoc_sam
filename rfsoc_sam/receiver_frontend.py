@@ -64,8 +64,8 @@ class RadioAnalyser():
             self._spectrum_analyser.ssr_mode = 4-sel
             self._safe_restart()
             self._decimator.decimation_factor = 0
-            self._spectrum_analyser.sample_frequency = \
-            (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
+            self._spectrum_analyser.sample_frequency = self._block.BlockStatus['SamplingFreq']*1e9
+            self._spectrum_analyser.decimation_factor = decimation_factor
             self._spectrum_analyser.ssr_packetsize = int(self._spectrum_analyser.fft_size/8)
         elif decimation_factor in [16, 32, 64, 128, 256, 512, 1024, 2048]:
             self._block.DecimationFactor = 8
@@ -74,8 +74,8 @@ class RadioAnalyser():
             self._spectrum_analyser.ssr_mode = 0
             self._safe_restart()
             self._decimator.decimation_factor = int(decimation_factor/8)
-            self._spectrum_analyser.sample_frequency = \
-            (self._block.BlockStatus['SamplingFreq']/decimation_factor)*1e9
+            self._spectrum_analyser.sample_frequency = self._block.BlockStatus['SamplingFreq']*1e9
+            self._spectrum_analyser.decimation_factor = decimation_factor
             self._spectrum_analyser.ssr_packetsize = int(self._spectrum_analyser.fft_size/8)
             
     @property
@@ -89,7 +89,7 @@ class RadioAnalyser():
             
     @property
     def sample_frequency(self):
-        return self._spectrum_analyser.sample_frequency
+        return self._block.BlockStatus['SamplingFreq']*1e9
             
     @property
     def calibration_mode(self):
@@ -606,13 +606,13 @@ class RadioAnalyserGUI():
                                      dict_id='waterfall_enable')})
         
         self._widgets.update({'sample_frequency_label' :
-                               Label(value=str(self.analyser.sample_frequency*1e-6),
+                               Label(value=str((self.analyser.sample_frequency/self.analyser.decimation_factor)*1e-6),
                                      svalue='Sample Frequency: ',
                                      evalue=' MHz',
                                      dict_id='sample_frequency_label')})
         
         self._widgets.update({'resolution_bandwidth_label' :
-                               Label(value=str((self.analyser.sample_frequency/self.analyser.fftsize)*1e-3),
+                               Label(value=str(((self.analyser.sample_frequency/self.analyser.decimation_factor)/self.analyser.fftsize)*1e-3),
                                      svalue='Frequency Resolution: ',
                                      evalue=' kHz',
                                      dict_id='resolution_bandwidth_label')})
@@ -737,8 +737,8 @@ class RadioAnalyserGUI():
         
         
     def _update_textwidgets(self):
-        self._widgets['sample_frequency_label'].value = str(self.analyser.sample_frequency*1e-6)
-        self._widgets['resolution_bandwidth_label'].value = str((self.analyser.sample_frequency/self.analyser.fftsize)*1e-3)
+        self._widgets['sample_frequency_label'].value = str((self.analyser.sample_frequency/self.analyser.decimation_factor)*1e-6)
+        self._widgets['resolution_bandwidth_label'].value = str(((self.analyser.sample_frequency/self.analyser.decimation_factor)/self.analyser.fftsize)*1e-3)
 
 
     def _update_figurewidgets(self, key):
