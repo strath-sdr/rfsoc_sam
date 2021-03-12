@@ -296,6 +296,14 @@ class RadioAnalyser():
         self._spectrum_analyser.plot.number_min_indices = number_min_indices
 
     @property
+    def display_ddc_plan(self):
+        return self._spectrum_analyser.plot.display_ddc_plan
+    
+    @display_ddc_plan.setter
+    def display_ddc_plan(self, display_ddc_plan):
+        self._spectrum_analyser.plot.display_ddc_plan = display_ddc_plan
+        
+    @property
     def dma_status(self):
         return self._spectrum_analyser.dma_status
             
@@ -612,7 +620,8 @@ class RadioAnalyserGUI():
                                      dict_id='sample_frequency_label')})
         
         self._widgets.update({'resolution_bandwidth_label' :
-                               Label(value=str(((self.analyser.sample_frequency/self.analyser.decimation_factor)/self.analyser.fftsize)*1e-3),
+                               Label(value=str(((self.analyser.sample_frequency/self.analyser.decimation_factor)/ \
+                                                self.analyser.fftsize)*1e-3),
                                      svalue='Frequency Resolution: ',
                                      evalue=' kHz',
                                      dict_id='resolution_bandwidth_label')})
@@ -737,8 +746,10 @@ class RadioAnalyserGUI():
         
         
     def _update_textwidgets(self):
-        self._widgets['sample_frequency_label'].value = str((self.analyser.sample_frequency/self.analyser.decimation_factor)*1e-6)
-        self._widgets['resolution_bandwidth_label'].value = str(((self.analyser.sample_frequency/self.analyser.decimation_factor)/self.analyser.fftsize)*1e-3)
+        self._widgets['sample_frequency_label'].value = str((self.analyser.sample_frequency/ \
+                                                             self.analyser.decimation_factor)*1e-6)
+        self._widgets['resolution_bandwidth_label'].value = str(((self.analyser.sample_frequency/ \
+                                                                  self.analyser.decimation_factor)/self.analyser.fftsize)*1e-3)
 
 
     def _update_figurewidgets(self, key):

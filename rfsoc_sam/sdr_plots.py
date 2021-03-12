@@ -57,11 +57,13 @@ class Spectrum():
         self._max_indices = [0]
         self._number_min_indices = 1
         self._number_max_indices = 1
+        self.ddc_centre_frequency = 0
         self.data_windowsize = data_windowsize
         self.post_process = 'none'
         self.enable_updates = False
         self.display_min = False
         self.display_max = False
+        self.display_ddc_plan = []
         
         layout = {
             'hovermode' : 'closest',
@@ -92,6 +94,7 @@ class Spectrum():
             go.Scatter(
                 x = self._x_data,
                 y = self._y_data,
+                name = 'Spectrum',
                 line = {'color' : 'palevioletred',
                         'width' : 0.75
                        }
@@ -102,6 +105,7 @@ class Spectrum():
             go.Scatter(
                 x = self._x_data,
                 y = np.zeros(self._number_samples) - 300,
+                name = '',
                 fill = 'tonexty',
                 fillcolor = 'rgba(128, 128, 128, 0.5)'
             )
@@ -111,8 +115,9 @@ class Spectrum():
             go.Scatter(
                 x = None,
                 y = None,
-                mode='markers',
-                marker={
+                mode = 'markers',
+                name = 'Maximum',
+                marker = {
                     'size' : 8,
                     'color' : 'red',
                     'symbol' : 'cross'
@@ -124,8 +129,9 @@ class Spectrum():
             go.Scatter(
                 x = None,
                 y = None,
-                mode='markers',
-                marker={
+                mode = 'markers',
+                name = 'Minimum',
+                marker = {
                     'size' : 8,
                     'color' : 'blue',
                     'symbol' : 'cross'
@@ -136,23 +142,30 @@ class Spectrum():
         self._ddc_plan = calculation.FrequencyPlannerDDC(
             fs_rf=self._sample_frequency,
             il_factor=IL_FACTOR,
-            fc=self._centre_frequency,
+            fc=self.ddc_centre_frequency,
             dec=self._decimation_factor,
             nco=self._centre_frequency,
             pll_ref=PLL_REF
         )
         
-        rx_alias = self._ddc_plan.rx_alias
-        rx_alias['x'] = rx_alias['x'] + self._centre_frequency
+        self._spurs_list = ['rx_alias', 'rx_image', 'nyquist_up', 'nyquist_down',
+                            'hd2', 'hd2_image', 'hd3', 'hd3_image',
+                            'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image',
+                            'tis_spur', 'tis_spur_image', 'offset_spur', 'offset_spur_image']
         
-        plot_data.append(
-            go.Scatter(
-                x = [rx_alias['x'], rx_alias['x']],
-                y = [rx_alias['ymin'], rx_alias['ymax']],
-                name = rx_alias['label'],
-                line = dict(color=rx_alias['color'])
+        for spur in self._spurs_list:
+            spur_data = getattr(self._ddc_plan, spur)
+            spur_data['x'] = spur_data['x'] + self._centre_frequency
+        
+            plot_data.append(
+                go.Scatter(
+                    x = None,
+                    y = None,
+                    name = spur_data['label'],
+                    line = dict(color=spur_data['color'])
+                )
             )
-        )
+            self.display_ddc_plan.append(False)
 
         self._plot = go.FigureWidget(
             layout=layout,
@@ -419,20 +432,30 @@ class Spectrum():
         self._update_ddc_plan()
         
     def _update_ddc_plan(self):
-        self._ddc_plan.fs_rf = self._sample_frequency
-        self._ddc_plan.fc = self._centre_frequency
-        self._ddc_plan.dec = self._decimation_factor
-        nyquist_zone = np.floor(self._centre_frequency/(self._sample_frequency/2)) + 1
-        if (nyquist_zone % 2) == 0:
-            self._ddc_plan.nco = self._centre_frequency
-        else:
-            self._ddc_plan.nco = -self._centre_frequency
-        rx_alias = self._ddc_plan.rx_alias
-        rx_alias['x'] = rx_alias['x'] + self._centre_frequency
-        self._plot.data[4].update({
-            'x' : [rx_alias['x'], rx_alias['x']],
-            'y' : [rx_alias['ymin'], rx_alias['ymax']],
-        })
+        if any(self.display_ddc_plan):
+            self._ddc_plan.fs_rf = self._sample_frequency
+            self._ddc_plan.fc = self.ddc_centre_frequency
+            self._ddc_plan.dec = self._decimation_factor
+            nyquist_zone = np.floor(self._centre_frequency/(self._sample_frequency/2)) + 1
+            if (nyquist_zone % 2) == 0:
+                self._ddc_plan.nco = self._centre_frequency
+            else:
+                self._ddc_plan.nco = -self._centre_frequency
+
+            for index, spur in enumerate(self._spurs_list):
+                if self.display_ddc_plan[index]:
+                    spur_data = getattr(self._ddc_plan, spur)
+                    if (spur_data['x'] >= self._lower_limit) and (spur_data['x'] <= self._upper_limit):
+                        xvalue = spur_data['x'] + self._centre_frequency
+                        self._plot.data[4+index].update({
+                            'x' : [xvalue, xvalue],
+                            'y' : [spur_data['ymin'], spur_data['ymax']],
+                        })
+                    else:
+                        self._plot.data[4+index].update({
+                            'x' : None,
+                            'y' : None,
+                        })
         
     def get_plot(self):
         return self._plot
@@ -467,8 +490,10 @@ class Spectrogram():
         
         self._image_x = -(self._sample_frequency/self._decimation_factor)/2 + self._centre_frequency
         self._image_y = 0
-        self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency
-        self._upper_limit = ((self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency
+        self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * \
+            self._nyquist_stopband + self._centre_frequency
+        self._upper_limit = ((self._sample_frequency/self._decimation_factor)/2) * \
+            self._nyquist_stopband + self._centre_frequency
         
         self._plot_time = self._image_height
         self.zmin = zmin
