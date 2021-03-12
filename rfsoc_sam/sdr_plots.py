@@ -413,7 +413,7 @@ class Spectrum():
                                  self._upper_limit,
                                  self._rbw) + self._centre_frequency
         self._range = (min(self._x_data), max(self._x_data))
-        self._plot.update_layout({'xaxis' : {'range' : self._range}})
+        self._plot.plotly_relayout({'xaxis' : {'range' : self._range}})
         self.data_windowsize = self._data_window.shape[0]
         if self.post_process == 'max':
             self._y_data = np.zeros(len(self._x_data)) - 300
