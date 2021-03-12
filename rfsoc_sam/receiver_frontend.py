@@ -11,6 +11,11 @@ from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
 from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image, CheckBox
 
+DDC_SPURS = ['rx_alias', 'rx_image', 'nyquist_up', 'nyquist_down',
+             'hd2', 'hd2_image', 'hd3', 'hd3_image',
+             'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image',
+             'tis_spur', 'tis_spur_image', 'offset_spur', 'offset_spur_image']
+
 
 class RadioAnalyser():
     
