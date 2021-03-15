@@ -73,6 +73,7 @@ class CheckBox():
                  callback,
                  value,
                  description,
+                 indent=True,
                  dict_id = '',
                  description_width='150px',
                  layout_width='300px'):
@@ -83,6 +84,7 @@ class CheckBox():
         self._dict_id = dict_id
         self._checkbox = ipw.Checkbox(value=value,
                                       description=description,
+                                      indent=indent,
                                       style={'description_width': description_width},
                                       layout = {'width': layout_width},)
         self._checkbox.observe(on_value_change, names='value')

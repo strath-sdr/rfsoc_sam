@@ -309,6 +309,69 @@ class RadioAnalyser():
         self._spectrum_analyser.plot.display_ddc_plan = display_ddc_plan
         
     @property
+    def ddc_centre_frequency(self):
+        return self._spectrum_analyser.plot.ddc_centre_frequency*1e-6
+    
+    @ddc_centre_frequency.setter
+    def ddc_centre_frequency(self, ddc_centre_frequency):
+        self._spectrum_analyser.plot.ddc_centre_frequency = ddc_centre_frequency*1e6
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    @property
+    def ddc_plan_hd2_db(self):
+        return self._spectrum_analyser.plot.ddc_plan.hd2_db
+    
+    @ddc_plan_hd2_db.setter
+    def ddc_plan_hd2_db(self, hd2_db):
+        self._spectrum_analyser.plot.ddc_plan.hd2_db = hd2_db
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    @property
+    def ddc_plan_hd3_db(self):
+        return self._spectrum_analyser.plot.ddc_plan.hd3_db
+    
+    @ddc_plan_hd3_db.setter
+    def ddc_plan_hd3_db(self, hd3_db):
+        self._spectrum_analyser.plot.ddc_plan.hd3_db = hd3_db
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    @property
+    def ddc_plan_nsd_db(self):
+        return self._spectrum_analyser.plot.ddc_plan.nsd_db
+    
+    @ddc_plan_nsd_db.setter
+    def ddc_plan_nsd_db(self, nsd_db):
+        self._spectrum_analyser.plot.ddc_plan.nsd_db = nsd_db
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    @property
+    def ddc_plan_pll_mix_db(self):
+        return self._spectrum_analyser.plot.ddc_plan.pll_mix_db
+    
+    @ddc_plan_pll_mix_db.setter
+    def ddc_plan_pll_mix_db(self, pll_mix_db):
+        self._spectrum_analyser.plot.ddc_plan.pll_mix_db = pll_mix_db
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    @property
+    def ddc_plan_off_spur_db(self):
+        return self._spectrum_analyser.plot.ddc_plan.off_spur_db
+    
+    @ddc_plan_off_spur_db.setter
+    def ddc_plan_off_spur_db(self, off_spur_db):
+        self._spectrum_analyser.plot.ddc_plan.off_spur_db = off_spur_db
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    @property
+    def ddc_plan_tis_spur_db(self):
+        return self._spectrum_analyser.plot.ddc_plan.tis_spur_db
+    
+    @ddc_plan_tis_spur_db.setter
+    def ddc_plan_tis_spur_db(self, tis_spur_db):
+        self._spectrum_analyser.plot.ddc_plan.tis_spur_db = tis_spur_db
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    @property
     def dma_status(self):
         return self._spectrum_analyser.dma_status
             
@@ -330,6 +393,57 @@ class RadioAnalyser():
         while not running:
             time.sleep(0.1)
             running = self._tile._parent.IPStatus['ADCTileStatus'][tile_number]['PowerUpState']
+            
+_freq_planner_props = [("enable_rx_alias"),
+                       ("enable_rx_image"),
+                       ("enable_nyquist_up"),
+                       ("enable_nyquist_down"),
+                       ("enable_hd2"),
+                       ("enable_hd2_image"),
+                       ("enable_hd3"),
+                       ("enable_hd3_image"),
+                       ("enable_pll_mix_up"),
+                       ("enable_pll_mix_up_image"),
+                       ("enable_pll_mix_down"),
+                       ("enable_pll_mix_down_image"),
+                       ("enable_tis_spur"),
+                       ("enable_tis_spur_image"),
+                       ("enable_offset_spur"),
+                       ("enable_offset_spur_image")]
+
+_freq_planner_desc = [("RX Alias"),
+                      ("RX Image"),
+                      ("Nyquist Up"),
+                      ("Nyquist Down"),
+                      ("HD2"),
+                      ("HD2 Image"),
+                      ("HD3"),
+                      ("HD3 Image"),
+                      ("PLL Mix Up"),
+                      ("PLL Mix Up Image"),
+                      ("PLL Mix Down"),
+                      ("PLL Mix Down Image"),
+                      ("TIS Spur"),
+                      ("TIS Spur Image"),
+                      ("Offset Spur"),
+                      ("Offset Spur Image")]
+
+def _create_mmio_property(idx):
+
+    def _get(self):
+        return self._spectrum_analyser.plot.display_ddc_plan[idx]
+    
+    def _set(self, value):
+        if value:
+            self._spectrum_analyser.plot.display_ddc_plan[idx] = True
+        else:
+            self._spectrum_analyser.plot.display_ddc_plan[idx] = False
+        self._spectrum_analyser.plot.update_ddc_plan()
+        
+    return property(_get, _set)
+
+for idx, name in enumerate(_freq_planner_props):
+    setattr(RadioAnalyser, name, _create_mmio_property(idx))
     
     
 class RadioAnalyserGUI():
@@ -359,7 +473,7 @@ class RadioAnalyserGUI():
                         'fftsize' : 2048,
                         'spectrum_type' : self.analyser.spectrum_type,
                         'spectrum_units' : self.analyser.spectrum_units,
-                        'window' : 'blackman',
+                        'window' : 'hanning',
                         'height' : self.analyser.height,
                         'spectrum_enable' : self.analyser.spectrum_enable,
                         'waterfall_enable' : self.analyser.waterfall_enable,
@@ -372,11 +486,34 @@ class RadioAnalyserGUI():
                         'quality' : self.analyser.quality,
                         'width' : self.analyser.width,
                         'post_process' : 'average',
-                        'number_frames' : 8,
+                        'number_frames' : 6,
                         'display_max' : False,
                         'display_min' : False,
                         'number_max_indices' : 1,
-                        'number_min_indices' : 1}
+                        'number_min_indices' : 1,
+                        'enable_rx_alias' : False,
+                        'enable_rx_image' : False,
+                        'enable_nyquist_up' : False,
+                        'enable_nyquist_down' : False,
+                        'enable_hd2' : False,
+                        'enable_hd2_image' : False,
+                        'enable_hd3' : False,
+                        'enable_hd3_image' : False,
+                        'enable_pll_mix_up' : False,
+                        'enable_pll_mix_up_image' : False,
+                        'enable_pll_mix_down' : False,
+                        'enable_pll_mix_down_image' : False,
+                        'enable_tis_spur' : False,
+                        'enable_tis_spur_image' : False,
+                        'enable_offset_spur' : False,
+                        'enable_offset_spur_image' : False,
+                        'ddc_centre_frequency' : 0,
+                        'ddc_plan_hd2_db' : self.analyser.ddc_plan_hd2_db,
+                        'ddc_plan_hd3_db' : self.analyser.ddc_plan_hd3_db,
+                        'ddc_plan_nsd_db' : self.analyser.ddc_plan_nsd_db,
+                        'ddc_plan_pll_mix_db' : self.analyser.ddc_plan_pll_mix_db,
+                        'ddc_plan_off_spur_db' : self.analyser.ddc_plan_off_spur_db,
+                        'ddc_plan_tis_spur_db' : self.analyser.ddc_plan_tis_spur_db}
         self._initialise_frontend()
         
                              
@@ -406,6 +543,78 @@ class RadioAnalyserGUI():
         
         
     def _initialise_frontend(self):
+        
+        self._widgets.update({'ddc_centre_frequency' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ddc_centre_frequency'],
+                                        min_value=0,
+                                        max_value=self.analyser._block.BlockStatus['SamplingFreq']*1e3,
+                                        step=1,
+                                        dict_id='ddc_centre_frequency',
+                                        description='Centre Frequency (MHz):')})
+        
+        self._widgets.update({'ddc_plan_hd2_db' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ddc_plan_hd2_db'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ddc_plan_hd2_db',
+                                        description='HD2 (dB)')})
+        
+        self._widgets.update({'ddc_plan_hd3_db' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ddc_plan_hd3_db'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ddc_plan_hd3_db',
+                                        description='HD3 (dB)')})
+        
+        self._widgets.update({'ddc_plan_nsd_db' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ddc_plan_nsd_db'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ddc_plan_nsd_db',
+                                        description='NSD (dBFs/Hz)')})
+        
+        self._widgets.update({'ddc_plan_pll_mix_db' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ddc_plan_pll_mix_db'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ddc_plan_pll_mix_db',
+                                        description='PLL Ref Mixing (dB)')})
+        
+        self._widgets.update({'ddc_plan_off_spur_db' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ddc_plan_off_spur_db'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ddc_plan_off_spur_db',
+                                        description='Offset Spur (dB)')})
+        
+        self._widgets.update({'ddc_plan_tis_spur_db' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ddc_plan_tis_spur_db'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ddc_plan_tis_spur_db',
+                                        description='TI Spur (dB)')})
+        
+        for idx, freq_prop in enumerate(_freq_planner_props):
+            self._widgets.update({freq_prop :
+                                  CheckBox(callback=self._update_config,
+                                           description=_freq_planner_desc[idx],
+                                           value=self._config[freq_prop],
+                                           indent=False,
+                                           layout_width='150px',
+                                           dict_id=freq_prop)})
         
         self._widgets.update({'decimation_factor' : 
                               DropDown(callback=self._update_config,
@@ -497,12 +706,13 @@ class RadioAnalyserGUI():
         
         self._widgets.update({'number_frames' : 
                               IntText(callback=self._update_config,
-                                        value=self._config['number_frames'],
-                                        min_value=1,
-                                        max_value=64,
-                                        step=1,
-                                        dict_id='number_frames',
-                                        description='Number Frames:')})
+                                      value=self._config['number_frames'],
+                                      min_value=1,
+                                      max_value=64,
+                                      step=1,
+                                      dict_id='number_frames',
+                                      description='Number Frames:',
+                                      description_width='100px')})
         
         self._widgets.update({'number_max_indices' : 
                               IntText(callback=self._update_config,
@@ -662,14 +872,6 @@ class RadioAnalyserGUI():
                                                'fillcolor' : 'rgba(128, 128, 128, 0.5)'
                                                }])
         
-        self._accordions.update({'system' :
-                                 ipw.Accordion(children=[ipw.HBox([ipw.VBox([ipw.Label(value='Spectrum Analyzer: '),
-                                                                        ipw.Label(value='Spectrogram: ')]),
-                                                              ipw.VBox([self._widgets['spectrum_enable'].get_widget(),
-                                                                        self._widgets['waterfall_enable'].get_widget()])],
-                                                              layout=ipw.Layout(justify_content='space-around'))])})
-        self._accordions['system'].set_title(0, 'System')
-        
         self._accordions.update({'spectrum_control' :
                                  ipw.Accordion(children=[ipw.VBox([self._widgets['post_process'].get_widget(),
                                                                    self._widgets['number_frames'].get_widget()
@@ -688,11 +890,29 @@ class RadioAnalyserGUI():
         self._accordions['spectrum_control'].set_title(2, 'Analysis')
         
         self._accordions.update({'properties' :
-                                 ipw.Accordion(children=[ipw.VBox([self._widgets['centre_frequency'].get_widget(),
+                                 ipw.Accordion(children=[ipw.HBox(
+                                     [ipw.VBox([ipw.Label(value='Spectrum Analyzer: ', layout=ipw.Layout(width='150px')),
+                                                ipw.Label(value='Spectrogram: ', layout=ipw.Layout(width='150px'))]),
+                                      ipw.VBox([self._widgets['spectrum_enable'].get_widget(),
+                                                self._widgets['waterfall_enable'].get_widget()])],
+                                     layout=ipw.Layout(justify_content='space-around')),
+                                                         ipw.VBox([self._widgets['centre_frequency'].get_widget(),
                                                                    self._widgets['decimation_factor'].get_widget(),
                                                                    self._widgets['fftsize'].get_widget(),
                                                                    self._widgets['calibration_mode'].get_widget()]),
                                                         ipw.VBox([self._accordions['spectrum_control']]),
+                                                        ipw.VBox([self._widgets['ddc_centre_frequency'].get_widget(),
+                                                                  self._widgets['ddc_plan_hd2_db'].get_widget(),
+                                                                  self._widgets['ddc_plan_hd3_db'].get_widget(),
+                                                                  self._widgets['ddc_plan_pll_mix_db'].get_widget(),
+                                                                  self._widgets['ddc_plan_off_spur_db'].get_widget(),
+                                                                  self._widgets['ddc_plan_tis_spur_db'].get_widget(),
+                                                                  self._widgets['ddc_plan_nsd_db'].get_widget(),
+                                                            ipw.HBox([
+                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(0,int(len(_freq_planner_props)/2))]),
+                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
+                                                            ])
+                                                        ]),
                                                         ipw.VBox([self._widgets['zmin'].get_widget(),
                                                                   self._widgets['zmax'].get_widget()]),
                                                         ipw.VBox([self._window_plot,
@@ -702,11 +922,13 @@ class RadioAnalyserGUI():
                                                                   self._widgets['width'].get_widget(),
                                                                   self._widgets['update_frequency'].get_widget()])                                                        
                                                         ])})
-        self._accordions['properties'].set_title(0, 'Receiver')
-        self._accordions['properties'].set_title(1, 'Spectrum Analyzer')
-        self._accordions['properties'].set_title(2, 'Spectrogram')
-        self._accordions['properties'].set_title(3, 'Window Settings')
-        self._accordions['properties'].set_title(4, 'Plot Settings')
+        self._accordions['properties'].set_title(0, 'System')
+        self._accordions['properties'].set_title(1, 'Receiver')
+        self._accordions['properties'].set_title(2, 'Spectrum Analyzer')
+        self._accordions['properties'].set_title(3, 'Frequency Planner')
+        self._accordions['properties'].set_title(4, 'Spectrogram')
+        self._accordions['properties'].set_title(5, 'Window Settings')
+        self._accordions['properties'].set_title(6, 'Plot Settings')
         
         self._update_config(self._config)
         
@@ -800,8 +1022,6 @@ class RadioAnalyserGUI():
                                                        self._widgets['resolution_bandwidth_label'].get_widget()],
                                                       layout=ipw.Layout(justify_content='flex-end'))
                                             ]),
-                                   ipw.VBox([self._accordions['system'],
                                              self._accordions['properties']
                                             ])
                                   ])
-                        ])

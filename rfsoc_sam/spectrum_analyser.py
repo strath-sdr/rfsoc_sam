@@ -141,7 +141,7 @@ class SpectrumAnalyser(DefaultIP):
     def __init__(self,
                  description,
                  sample_frequency = 4096e6,
-                 update_frequency = 8,
+                 update_frequency = 6,
                  centre_frequency = 0,
                  decimation_factor = 2,
                  nyquist_stopband = 1,

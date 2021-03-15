@@ -72,7 +72,7 @@ class Spectrum():
             'xaxis' : {
                 'title' : self._xlabel,
                 'showticklabels' : True,
-                'autorange' : True
+                'autorange' : False
             },
             'yaxis' : {
                 'title' : self._ylabel,
@@ -139,7 +139,7 @@ class Spectrum():
             )
         )
         
-        self._ddc_plan = calculation.FrequencyPlannerDDC(
+        self.ddc_plan = calculation.FrequencyPlannerDDC(
             fs_rf=self._sample_frequency,
             il_factor=IL_FACTOR,
             fc=self.ddc_centre_frequency,
@@ -154,7 +154,7 @@ class Spectrum():
                             'tis_spur', 'tis_spur_image', 'offset_spur', 'offset_spur_image']
         
         for spur in self._spurs_list:
-            spur_data = getattr(self._ddc_plan, spur)
+            spur_data = getattr(self.ddc_plan, spur)
             spur_data['x'] = spur_data['x'] + self._centre_frequency
         
             plot_data.append(
@@ -431,33 +431,38 @@ class Spectrum():
             'x':self._x_data,
             'y':np.zeros(len(self._x_data)) - 300
         })
-        self._update_ddc_plan()
+        self.update_ddc_plan()
         
-    def _update_ddc_plan(self):
+    def update_ddc_plan(self):
         if any(self.display_ddc_plan):
-            self._ddc_plan.fs_rf = self._sample_frequency
-            self._ddc_plan.fc = self.ddc_centre_frequency
-            self._ddc_plan.dec = self._decimation_factor
+            self.ddc_plan.fs_rf = self._sample_frequency
+            self.ddc_plan.fc = self.ddc_centre_frequency
+            self.ddc_plan.dec = self._decimation_factor
             nyquist_zone = np.floor(self._centre_frequency/(self._sample_frequency/2)) + 1
             if (nyquist_zone % 2) == 0:
-                self._ddc_plan.nco = self._centre_frequency
+                self.ddc_plan.nco = self._centre_frequency
             else:
-                self._ddc_plan.nco = -self._centre_frequency
+                self.ddc_plan.nco = -self._centre_frequency
 
-            for index, spur in enumerate(self._spurs_list):
-                if self.display_ddc_plan[index]:
-                    spur_data = getattr(self._ddc_plan, spur)
-                    if (spur_data['x'] >= self._lower_limit) and (spur_data['x'] <= self._upper_limit):
-                        xvalue = spur_data['x'] + self._centre_frequency
-                        self._plot.data[4+index].update({
-                            'x' : [xvalue, xvalue],
-                            'y' : [spur_data['ymin'], spur_data['ymax']],
-                        })
-                    else:
-                        self._plot.data[4+index].update({
-                            'x' : None,
-                            'y' : None,
-                        })
+        for index, spur in enumerate(self._spurs_list):
+            if self.display_ddc_plan[index]:
+                spur_data = getattr(self.ddc_plan, spur)
+                if (spur_data['x'] >= self._lower_limit) and (spur_data['x'] <= self._upper_limit):
+                    xvalue = spur_data['x'] + self._centre_frequency
+                    self._plot.data[4+index].update({
+                        'x' : [xvalue, xvalue],
+                        'y' : [spur_data['ymin'], spur_data['ymax']],
+                    })
+                else:
+                    self._plot.data[4+index].update({
+                        'x' : None,
+                        'y' : None,
+                    })
+            else:
+                self._plot.data[4+index].update({
+                    'x' : None,
+                    'y' : None,
+                })
         
     def get_plot(self):
         return self._plot
