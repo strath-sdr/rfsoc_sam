@@ -6,6 +6,7 @@ import ipywidgets as ipw
 import numpy as np
 import plotly.graph_objs as go
 import warnings
+import matplotlib.pyplot as plt
 from PIL import Image
 from scipy import signal
 from rfsoc_freqplan import calculation
@@ -72,7 +73,7 @@ class Spectrum():
             'xaxis' : {
                 'title' : self._xlabel,
                 'showticklabels' : True,
-                'autorange' : False
+                'autorange' : True
             },
             'yaxis' : {
                 'title' : self._ylabel,
@@ -480,9 +481,9 @@ class Spectrogram():
                  nyquist_stopband=1,
                  ypixel=2,
                  plot_time=20,
-                 zmin=-140,
+                 zmin=-80,
                  zmax=0,
-                 display_mode=0):
+                 cmap='jet'):
         
         self._width = width
         self._height = height
@@ -494,6 +495,7 @@ class Spectrogram():
         self._nyquist_stopband = nyquist_stopband
         self._ypixel = ypixel
         self._data = np.ones((self._image_height, self._image_width, 3), dtype=np.uint8)*128
+        self.cmap = cmap
         
         self._image_x = -(self._sample_frequency/self._decimation_factor)/2 + self._centre_frequency
         self._image_y = 0
@@ -505,7 +507,6 @@ class Spectrogram():
         self._plot_time = self._image_height
         self.zmin = zmin
         self.zmax = zmax
-        self._display_mode = display_mode
         self.enable_updates = False
         
         self._plot = go.FigureWidget(layout={
@@ -515,8 +516,9 @@ class Spectrogram():
                 'showgrid' : False,
                 'range' : [-self._plot_time, 0],
                 'autorange' : False,
-                'title' : 'Frame Number',
-                'showticklabels': True
+                'title' : '',
+                'showticklabels' : True,
+                'visible' : True
             },
             'xaxis' : {
                 'zeroline': False,
@@ -565,11 +567,13 @@ class Spectrogram():
     def data(self, data):
         if self.enable_updates:
             value = np.fft.fftshift(data) # FFT Shift
-            value = np.array(np.interp(value, (self.zmin, self.zmax), (0, 255)), dtype=np.single) # Scale Z-Axis
+            value = np.array(np.interp(value, (self.zmin, self.zmax), (0, 1)), dtype=np.single) # Scale Z-Axis
             value = np.resize(signal.resample(value, self._image_width), (1, self._image_width)) # Resample X-Axis
             value = np.repeat(value, self._ypixel, 0) # Repeat Y-Axis
+            cm = plt.get_cmap(self.cmap)
+            value = cm(value)
             self._data = np.roll(self._data, self._ypixel, 0) # Roll data
-            self._data[0:self._ypixel, :, :] = np.stack((value, value, value), axis=2) # Update first line
+            self._data[0:self._ypixel, :, :] = (value[:, :, :3]*255).astype(np.uint8) # Update first line
             img = Image.fromarray(self._data, 'RGB') # Create image
             self._plot.update_layout_images({'source' : img}) # Set as background
         
@@ -615,15 +619,6 @@ class Spectrogram():
     @centre_frequency.setter
     def centre_frequency(self, centre_frequency):
         self._centre_frequency = centre_frequency
-        self._update_image()
-        
-    @property
-    def display_mode(self):
-        return self._display_mode
-    
-    @display_mode.setter
-    def display_mode(self, display_mode):
-        self._display_mode = display_mode
         self._update_image()
 
     @property

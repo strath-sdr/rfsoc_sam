@@ -293,6 +293,22 @@ class RadioAnalyser():
         self._spectrum_analyser.plot.number_max_indices = number_max_indices
         
     @property
+    def colour_map(self):
+        return self._spectrum_analyser.spectrogram.cmap
+    
+    @colour_map.setter
+    def colour_map(self, colour_map):
+        self._spectrum_analyser.spectrogram.cmap = colour_map
+        
+    @property
+    def spectrogram_performance(self):
+        return self._spectrum_analyser.spectrogram.ypixel
+    
+    @spectrogram_performance.setter
+    def spectrogram_performance(self, performance):
+        self._spectrum_analyser.spectrogram.ypixel = performance
+        
+    @property
     def number_min_indices(self):
         return self._spectrum_analyser.plot.number_min_indices
     
@@ -478,7 +494,7 @@ class RadioAnalyserGUI():
                         'spectrum_enable' : self.analyser.spectrum_enable,
                         'waterfall_enable' : self.analyser.waterfall_enable,
                         'dma_enable' : self.analyser.dma_enable,
-                        'update_frequency' : self.analyser.update_frequency,
+                        'update_frequency' : 8,
                         'plotly_theme' : self.analyser.plotly_theme,
                         'line_colour' : self.analyser.line_colour,
                         'zmin' : self.analyser.zmin,
@@ -491,6 +507,8 @@ class RadioAnalyserGUI():
                         'display_min' : False,
                         'number_max_indices' : 1,
                         'number_min_indices' : 1,
+                        'colour_map' : self.analyser.colour_map,
+                        'spectrogram_performance' : 4,
                         'enable_rx_alias' : False,
                         'enable_rx_image' : False,
                         'enable_nyquist_up' : False,
@@ -690,6 +708,23 @@ class RadioAnalyserGUI():
                                        dict_id='plotly_theme',
                                        description='Plotly Theme:')})
         
+        self._widgets.update({'colour_map' :
+                              DropDown(callback=self._update_config,
+                                       options=[('Grey'   ,    'gray'),
+                                                ('Spring' ,  'spring'),
+                                                ('Summer' ,  'summer'),
+                                                ('Autumn' ,  'autumn'),
+                                                ('Winter' ,  'winter'),
+                                                ('Cool'   ,    'cool'),
+                                                ('Hot'    ,     'hot'),
+                                                ('Copper' ,  'copper'),
+                                                ('Rainbow', 'rainbow'),
+                                                ('Jet'    ,     'jet')],
+                                       value='gray',
+                                       dict_id='colour_map',
+                                       description='Colour Map:',
+                                       description_width='100px')})
+        
         self._widgets.update({'line_colour' :
                               DropDown(callback=self._update_config,
                                        options=list(mcolors.CSS4_COLORS),
@@ -703,6 +738,16 @@ class RadioAnalyserGUI():
                                        value='lightpink',
                                        dict_id='line_fill',
                                        description='Line Fill:')})
+        
+        self._widgets.update({'spectrogram_performance' :
+                              DropDown(callback=self._update_config,
+                                       options=[('Low', 8),
+                                                ('Medium', 4),
+                                                ('High', 2)],
+                                       value=2,
+                                       dict_id='spectrogram_performance',
+                                       description='Resolution:',
+                                       description_width='100px')})
         
         self._widgets.update({'number_frames' : 
                               IntText(callback=self._update_config,
@@ -878,16 +923,11 @@ class RadioAnalyserGUI():
                                                                   ]),
                                                          ipw.VBox([self._widgets['spectrum_type'].get_widget(),
                                                                    self._widgets['spectrum_units'].get_widget()
-                                                                  ]),
-                                                         ipw.VBox([self._widgets['number_max_indices'].get_widget(),
-                                                                   self._widgets['display_max'].get_widget(),
-                                                                   self._widgets['number_min_indices'].get_widget(),
-                                                                   self._widgets['display_min'].get_widget()
                                                                   ])
                                                         ])})
         self._accordions['spectrum_control'].set_title(0, 'Mode')
         self._accordions['spectrum_control'].set_title(1, 'Type')
-        self._accordions['spectrum_control'].set_title(2, 'Analysis')
+        #self._accordions['spectrum_control'].set_title(2, 'Analysis')
         
         self._accordions.update({'properties' :
                                  ipw.Accordion(children=[ipw.HBox(
@@ -898,10 +938,11 @@ class RadioAnalyserGUI():
                                      layout=ipw.Layout(justify_content='space-around')),
                                                          ipw.VBox([self._widgets['centre_frequency'].get_widget(),
                                                                    self._widgets['decimation_factor'].get_widget(),
-                                                                   self._widgets['fftsize'].get_widget(),
-                                                                   self._widgets['calibration_mode'].get_widget()]),
+                                                                   self._widgets['fftsize'].get_widget()]),
                                                         ipw.VBox([self._accordions['spectrum_control']]),
-                                                        ipw.VBox([self._widgets['zmin'].get_widget(),
+                                                        ipw.VBox([self._widgets['spectrogram_performance'].get_widget(),
+                                                                  self._widgets['colour_map'].get_widget(),
+                                                                  self._widgets['zmin'].get_widget(),
                                                                   self._widgets['zmax'].get_widget()]),
                                                         ipw.VBox([self._window_plot,
                                                                   self._widgets['window'].get_widget()]),
