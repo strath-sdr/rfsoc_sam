@@ -901,6 +901,17 @@ class RadioAnalyserGUI():
                                                                    self._widgets['fftsize'].get_widget(),
                                                                    self._widgets['calibration_mode'].get_widget()]),
                                                         ipw.VBox([self._accordions['spectrum_control']]),
+                                                        ipw.VBox([self._widgets['zmin'].get_widget(),
+                                                                  self._widgets['zmax'].get_widget()]),
+                                                        ipw.VBox([self._window_plot,
+                                                                  self._widgets['window'].get_widget()]),
+                                                        ipw.VBox([self._widgets['nyquist_stopband'].get_widget(),
+                                                                  self._widgets['height'].get_widget(),
+                                                                  self._widgets['width'].get_widget(),
+                                                                  self._widgets['update_frequency'].get_widget()])                                                        
+                                                        ])})
+        
+        """ Frequency Planner Widgets
                                                         ipw.VBox([self._widgets['ddc_centre_frequency'].get_widget(),
                                                                   self._widgets['ddc_plan_hd2_db'].get_widget(),
                                                                   self._widgets['ddc_plan_hd3_db'].get_widget(),
@@ -913,22 +924,15 @@ class RadioAnalyserGUI():
                                                                 ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
                                                             ])
                                                         ]),
-                                                        ipw.VBox([self._widgets['zmin'].get_widget(),
-                                                                  self._widgets['zmax'].get_widget()]),
-                                                        ipw.VBox([self._window_plot,
-                                                                  self._widgets['window'].get_widget()]),
-                                                        ipw.VBox([self._widgets['nyquist_stopband'].get_widget(),
-                                                                  self._widgets['height'].get_widget(),
-                                                                  self._widgets['width'].get_widget(),
-                                                                  self._widgets['update_frequency'].get_widget()])                                                        
-                                                        ])})
+        """
+        
         self._accordions['properties'].set_title(0, 'System')
         self._accordions['properties'].set_title(1, 'Receiver')
         self._accordions['properties'].set_title(2, 'Spectrum Analyzer')
-        self._accordions['properties'].set_title(3, 'Frequency Planner')
-        self._accordions['properties'].set_title(4, 'Spectrogram')
-        self._accordions['properties'].set_title(5, 'Window Settings')
-        self._accordions['properties'].set_title(6, 'Plot Settings')
+        #self._accordions['properties'].set_title(3, 'Frequency Planner')
+        self._accordions['properties'].set_title(3, 'Spectrogram')
+        self._accordions['properties'].set_title(4, 'Window Settings')
+        self._accordions['properties'].set_title(5, 'Plot Settings')
         
         self._update_config(self._config)
         
@@ -977,7 +981,6 @@ class RadioAnalyserGUI():
                                                              self.analyser.decimation_factor)*1e-6)
         self._widgets['resolution_bandwidth_label'].value = str(((self.analyser.sample_frequency/ \
                                                                   self.analyser.decimation_factor)/self.analyser.fftsize)*1e-3)
-
 
     def _update_figurewidgets(self, key):
         if key in ['fftsize']:

@@ -12,7 +12,7 @@ from rfsoc_freqplan import calculation
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 IL_FACTOR = 8
-PLL_REF=409.6e6
+PLL_REF = 409.6e6
 
 
 class Spectrum():
@@ -493,7 +493,7 @@ class Spectrogram():
         self._centre_frequency = centre_frequency
         self._nyquist_stopband = nyquist_stopband
         self._ypixel = ypixel
-        self._data = np.ones((self._image_height, self._image_width), dtype=np.uint8)*128
+        self._data = np.ones((self._image_height, self._image_width, 3), dtype=np.uint8)*128
         
         self._image_x = -(self._sample_frequency/self._decimation_factor)/2 + self._centre_frequency
         self._image_y = 0
@@ -532,7 +532,7 @@ class Spectrogram():
                 'r':25,
         }})
         
-        img = Image.fromarray(self._data, 'L')
+        img = Image.fromarray(self._data, 'RGB')
         self._plot.add_layout_image(
             dict(
                 source=img,
@@ -569,8 +569,8 @@ class Spectrogram():
             value = np.resize(signal.resample(value, self._image_width), (1, self._image_width)) # Resample X-Axis
             value = np.repeat(value, self._ypixel, 0) # Repeat Y-Axis
             self._data = np.roll(self._data, self._ypixel, 0) # Roll data
-            self._data[0:self._ypixel, :] = value # Update first line
-            img = Image.fromarray(self._data, 'L') # Create image
+            self._data[0:self._ypixel, :, :] = np.stack((value, value, value), axis=2) # Update first line
+            img = Image.fromarray(self._data, 'RGB') # Create image
             self._plot.update_layout_images({'source' : img}) # Set as background
         
     @property
@@ -658,18 +658,14 @@ class Spectrogram():
             self._update_image()
         
     def _update_image(self):
-        if self._display_mode:
-            self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency 
-            self._upper_limit = self._centre_frequency
-        else:
-            self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency 
-            self._upper_limit = ((self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency
+        self._lower_limit = (-(self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency 
+        self._upper_limit = ((self._sample_frequency/self._decimation_factor)/2) * self._nyquist_stopband + self._centre_frequency
         self._image_x = -(self._sample_frequency/self._decimation_factor)/2 + self._centre_frequency
         self._plot.update_layout({'xaxis': {
             'range' : [self._lower_limit ,self._upper_limit]
         }})
-        self._data = np.ones((self._image_height, self._image_width), dtype=np.uint8)*128
-        img = Image.fromarray(self._data, 'L')
+        self._data = np.ones((self._image_height, self._image_width, 3), dtype=np.uint8)*128
+        img = Image.fromarray(self._data, 'RGB')
         self._plot.update_layout_images({'source' : img,
                                          'x' : self._image_x,
                                          'sizex' : (self._sample_frequency/self._decimation_factor)})
