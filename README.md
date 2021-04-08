@@ -3,9 +3,9 @@
 # Spectrum Analyser on PYNQ
 This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2 development board.
 
-<figure align="center">
+<p align="center">
   <img src="./demonstration.gif" width="75%" height="75%" />
-</figure>
+</p>
 
 Currently, this project is in version 0.3.0. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
@@ -19,9 +19,9 @@ Currently, this project is in version 0.3.0. We are working on improving aspects
 * [Plotly](https://plot.ly/) visualisation of spectrum and spectrogram (waterfall)
 * Simple dashboard for more convenient control/visualisation
 
-<figure align="center">
+<p align="center">
   <img src="./demonstration_4g.gif" width="50%" height="50%" />
-</figure>
+</p>
 
 ## Quick Start
 Follow the instructions below to install the Spectrum Analyser now. **You will need to give your board access to the internet**.
@@ -29,15 +29,15 @@ Follow the instructions below to install the Spectrum Analyser now. **You will n
 * Navigate to Jupyter Labs by opening a browser (preferably Chrome) and connecting to `http://<board_ip_address>:9090/lab`.
 * We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
-<figure align="center">
+<p align="center">
   <img src="./open_jupyter_launcher.jpg" width="50%" height="50%" />
-</figure>
+</p>
 
 * Now open a terminal in Jupyter as illustrated below:
 
-<figure align="center">
+<p align="center">
   <img src="./open_terminal_window.jpg" width="50%" height="50%" />
-</figure>
+</p>
 
 Now follow the board specific setup instructions as follows. The ZCU111 development board has a more complicated setup than the RFSoC2x2. Please pay particular attention to the steps involved.
 
