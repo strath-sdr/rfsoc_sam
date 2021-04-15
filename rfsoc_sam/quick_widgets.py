@@ -65,6 +65,41 @@ class DropDown():
     def get_widget(self):
         return self._dropdown
     
+    
+class CheckBox():
+    """Helper class for CheckBox widgets.
+    """
+    def __init__(self,
+                 callback,
+                 value,
+                 description,
+                 indent=True,
+                 dict_id = '',
+                 description_width='150px',
+                 layout_width='300px'):
+    
+        def on_value_change(change):
+            callback({self._dict_id : change['new']})
+            
+        self._dict_id = dict_id
+        self._checkbox = ipw.Checkbox(value=value,
+                                      description=description,
+                                      indent=indent,
+                                      style={'description_width': description_width},
+                                      layout = {'width': layout_width},)
+        self._checkbox.observe(on_value_change, names='value')
+        
+    @property
+    def value(self):
+        return self._checkbox.value
+    
+    @value.setter
+    def value(self, value):
+        self._checkbox.value = value
+        
+    def get_widget(self):
+        return self._checkbox
+    
 
 class FloatText():
     """Helper class for float text widgets.
@@ -86,6 +121,59 @@ class FloatText():
         self._dict_id = dict_id
         
         self._text_box = ipw.BoundedFloatText(
+            value=value,
+            min=min_value,
+            max=max_value,
+            step=step,
+            description=description,
+            continuous_update=False,
+            style={'description_width': description_width},
+            layout = {'width': layout_width},
+            disabled=False
+        )
+        
+        self._text_box.observe(on_value_change, names='value')
+        
+    @property
+    def value(self):
+        return self._text_box.value
+    
+    @value.setter
+    def value(self, value):
+        self._text_box.value = value
+        
+    @property
+    def step(self):
+        return self._text_box.step
+    
+    @step.setter
+    def step(self, step):
+        self._text_box.step = step
+        
+    def get_widget(self):
+        return self._text_box
+    
+    
+class IntText():
+    """Helper class for integer text widgets.
+    """
+    def __init__(self,
+                 callback,
+                 value,
+                 min_value,
+                 max_value,
+                 step,
+                 description,
+                 dict_id = '',
+                 description_width='150px',
+                 layout_width='300px'):
+        
+        def on_value_change(change):
+            callback({self._dict_id : change['new']})
+
+        self._dict_id = dict_id
+        
+        self._text_box = ipw.BoundedIntText(
             value=value,
             min=min_value,
             max=max_value,

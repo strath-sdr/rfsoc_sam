@@ -140,9 +140,10 @@ class SpectrumAnalyser(DefaultIP):
     
     def __init__(self,
                  description,
-                 sample_frequency = 2048e6,
-                 update_frequency = 8,
+                 sample_frequency = 4096e6,
+                 update_frequency = 6,
                  centre_frequency = 0,
+                 decimation_factor = 2,
                  nyquist_stopband = 1,
                  plot_width = 800,
                  plot_height = 400):
@@ -192,6 +193,7 @@ class SpectrumAnalyser(DefaultIP):
         """Initialise
         """
         self._sample_frequency = int(sample_frequency)
+        self._decimation_factor = decimation_factor
         self._update_frequency = update_frequency
         self._last_buffer = np.zeros(self._dma_length, dtype=np.single) - 300
         self._number_samples = int(2**(self._spectrum_fftselector+6))
@@ -208,6 +210,7 @@ class SpectrumAnalyser(DefaultIP):
         """
         self.plot = Spectrum(plot_data=np.zeros((self._number_samples,), dtype=np.single),
                              sample_frequency=self._sample_frequency,
+                             decimation_factor=2,
                              number_samples=self._number_samples,
                              centre_frequency=self._centre_frequency,
                              nyquist_stopband=self._nyquist_stopband,
@@ -312,15 +315,14 @@ class SpectrumAnalyser(DefaultIP):
     @spectrum_type.setter
     def spectrum_type(self, spectrum_type):
         if spectrum_type == 'Power Spectrum':
-            self.plot.clear_plot()
+            self.plot._clear_plot()
             self._spectrum_type = 1
             self.plot.ylabel = ''.join([spectrum_type, ' (', self.spectrum_units, ')'])
-            self.plot.yrange = [-150 + self._spectrum_units*30, 0 + self._spectrum_units*30]
+            
         elif spectrum_type == 'Power Spectral Density':
-            self.plot.clear_plot()
+            self.plot._clear_plot()
             self._spectrum_type = 0
-            self.plot.ylabel = ''.join([spectrum_type, ' (', self.spectrum_units, ')'])
-            self.plot.yrange = [-210 + self._spectrum_units*30, -60 + self._spectrum_units*30]     
+            self.plot.ylabel = ''.join([spectrum_type, ' (', self.spectrum_units, ')'])   
         
     @property
     def update_frequency(self):
@@ -330,8 +332,8 @@ class SpectrumAnalyser(DefaultIP):
     
     @update_frequency.setter
     def update_frequency(self, update_frequency):
-        if update_frequency > 10:
-            self.timer.update_frequency = 10
+        if update_frequency > 16:
+            self.timer.update_frequency = 16
         elif update_frequency < 1:
             self.timer.update_frequency = 1
         else:
@@ -366,9 +368,9 @@ class SpectrumAnalyser(DefaultIP):
             self.plot.number_samples = fft_size
             self._number_samples = int(2**(self._spectrum_fftselector+6))
             self._spectrum_typescale = \
-                int(struct.unpack('!i',struct.pack('!f',float(self._sample_frequency/(self._number_samples))))[0])
+                int(struct.unpack('!i',struct.pack('!f',float((self._sample_frequency/self._decimation_factor)/(self._number_samples))))[0])
             self._spectrum_powerscale = \
-                int(struct.unpack('!i',struct.pack('!f',float(1/(self._sample_frequency*self._window_squaresum))))[0])
+                int(struct.unpack('!i',struct.pack('!f',float(1/((self._sample_frequency/self._decimation_factor)*self._window_squaresum))))[0])
             if running:
                 self.dma_enable = 1
       
@@ -405,9 +407,9 @@ class SpectrumAnalyser(DefaultIP):
         self._window_sum = np.sum((np.array(buffer, dtype=np.single)))
         buffer.freebuffer()
         self._spectrum_typescale = \
-            int(struct.unpack('!i',struct.pack('!f',float(self._sample_frequency/(self._number_samples))))[0])
+            int(struct.unpack('!i',struct.pack('!f',float((self._sample_frequency/self._decimation_factor)/(self._number_samples))))[0])
         self._spectrum_powerscale = \
-            int(struct.unpack('!i',struct.pack('!f',float(1/(self._sample_frequency*self._window_squaresum))))[0])
+            int(struct.unpack('!i',struct.pack('!f',float(1/((self._sample_frequency/self._decimation_factor)*self._window_squaresum))))[0])
         
     @property
     def spectrum_window(self):
@@ -444,10 +446,7 @@ class SpectrumAnalyser(DefaultIP):
         
     @property
     def sample_frequency(self):
-        """The sample frequency of the time domain signal. This property
-        does not correlate with the RF-DC sample frequency. It is simply
-        used to inform the spectrum and spectrogram plots of the overall
-        system sample frequency.
+        """The sample frequency of the time domain signal.
         """
         return self._sample_frequency
     
@@ -456,6 +455,18 @@ class SpectrumAnalyser(DefaultIP):
         self._sample_frequency = sample_frequency
         self.plot.sample_frequency = sample_frequency
         self.spectrogram.sample_frequency = sample_frequency
+        
+    @property
+    def decimation_factor(self):
+        """The decimation factor of the RF DC frontend and bwselector.
+        """
+        return self._decimation_factor
+    
+    @decimation_factor.setter
+    def decimation_factor(self, decimation_factor):
+        self._decimation_factor = decimation_factor
+        self.plot.decimation_factor = decimation_factor
+        self.spectrogram.decimation_factor = decimation_factor
         
     @property
     def nyquist_stopband(self):
@@ -532,7 +543,7 @@ class SpectrumAnalyser(DefaultIP):
             pass
         return np.array(self._buffer[0], dtype=np.single)
         
-    bindto = ['xilinx.com:ip:SpectrumAnalyser:1.0']
+    bindto = ['xilinx.com:ip:SpectrumAnalyser:1.1']
     
 _spectrumAnalyser_props = [("ssr_packetsize",       0x104),
                            ("ssr_mode",             0x108),

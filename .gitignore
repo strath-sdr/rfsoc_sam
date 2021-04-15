@@ -14,6 +14,7 @@
 *\hdl_prj
 *\slprj
 *\wavedata
+*\netlist
 
 # Ignore Vivado Files
 *.jou
@@ -24,3 +25,4 @@
 # Ignore ./rfstrath/rfstrath/
 **/rfsoc_sam/rfstrath
 **/rfsoc_sam/rfsoc_pynq
+**/rfsoc_sam/rfsoc_sam
