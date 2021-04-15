@@ -309,6 +309,26 @@ class RadioAnalyser():
         self._spectrum_analyser.spectrogram.ypixel = performance
         
     @property
+    def ymin(self):
+        return self._spectrum_analyser.plot.yrange[0]
+    
+    @ymin.setter
+    def ymin(self, ymin):
+        temp_range = list(self._spectrum_analyser.plot.yrange)
+        temp_range[0] = ymin
+        self._spectrum_analyser.plot.yrange = tuple(temp_range)
+        
+    @property
+    def ymax(self):
+        return self._spectrum_analyser.plot.yrange[1]
+    
+    @ymax.setter
+    def ymax(self, ymax):
+        temp_range = list(self._spectrum_analyser.plot.yrange)
+        temp_range[1] = ymax
+        self._spectrum_analyser.plot.yrange = tuple(temp_range)
+        
+    @property
     def number_min_indices(self):
         return self._spectrum_analyser.plot.number_min_indices
     
@@ -509,6 +529,8 @@ class RadioAnalyserGUI():
                         'number_min_indices' : 1,
                         'colour_map' : self.analyser.colour_map,
                         'spectrogram_performance' : 4,
+                        'ymin' : self.analyser.ymin,
+                        'ymax' : self.analyser.ymax,
                         'enable_rx_alias' : False,
                         'enable_rx_image' : False,
                         'enable_nyquist_up' : False,
@@ -777,6 +799,26 @@ class RadioAnalyserGUI():
                                         dict_id='number_min_indices',
                                         description='Number of Minimums:')})
         
+        self._widgets.update({'ymin' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ymin'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ymin',
+                                        description='Y-Low (dB):',
+                                        description_width='100px')})
+        
+        self._widgets.update({'ymax' : 
+                              FloatText(callback=self._update_config,
+                                        value=self._config['ymax'],
+                                        min_value=-300,
+                                        max_value=300,
+                                        step=1,
+                                        dict_id='ymax',
+                                        description='Y-High (dB):',
+                                        description_width='100px')})
+        
         self._widgets.update({'centre_frequency' : 
                               FloatText(callback=self._update_config,
                                         value=self._config['centre_frequency'],
@@ -917,18 +959,6 @@ class RadioAnalyserGUI():
                                                'fillcolor' : 'rgba(128, 128, 128, 0.5)'
                                                }])
         
-        self._accordions.update({'spectrum_control' :
-                                 ipw.Accordion(children=[ipw.VBox([self._widgets['post_process'].get_widget(),
-                                                                   self._widgets['number_frames'].get_widget()
-                                                                  ]),
-                                                         ipw.VBox([self._widgets['spectrum_type'].get_widget(),
-                                                                   self._widgets['spectrum_units'].get_widget()
-                                                                  ])
-                                                        ])})
-        self._accordions['spectrum_control'].set_title(0, 'Mode')
-        self._accordions['spectrum_control'].set_title(1, 'Type')
-        #self._accordions['spectrum_control'].set_title(2, 'Analysis')
-        
         self._accordions.update({'properties' :
                                  ipw.Accordion(children=[ipw.HBox(
                                      [ipw.VBox([ipw.Label(value='Spectrum Analyzer: ', layout=ipw.Layout(width='150px')),
@@ -936,10 +966,15 @@ class RadioAnalyserGUI():
                                       ipw.VBox([self._widgets['spectrum_enable'].get_widget(),
                                                 self._widgets['waterfall_enable'].get_widget()])],
                                      layout=ipw.Layout(justify_content='space-around')),
-                                                         ipw.VBox([self._widgets['centre_frequency'].get_widget(),
+                                                        ipw.VBox([self._widgets['centre_frequency'].get_widget(),
                                                                    self._widgets['decimation_factor'].get_widget(),
                                                                    self._widgets['fftsize'].get_widget()]),
-                                                        ipw.VBox([self._accordions['spectrum_control']]),
+                                                        ipw.VBox([self._widgets['post_process'].get_widget(),
+                                                                  self._widgets['number_frames'].get_widget(),
+                                                                  self._widgets['spectrum_type'].get_widget(),
+                                                                  self._widgets['spectrum_units'].get_widget(),
+                                                                  self._widgets['ymin'].get_widget(),
+                                                                  self._widgets['ymax'].get_widget()]),
                                                         ipw.VBox([self._widgets['spectrogram_performance'].get_widget(),
                                                                   self._widgets['colour_map'].get_widget(),
                                                                   self._widgets['zmin'].get_widget(),
@@ -1016,13 +1051,14 @@ class RadioAnalyserGUI():
                     self._running_update = False
         self._running_update = False
         
-        
+
     def _update_textwidgets(self):
         self._widgets['sample_frequency_label'].value = str((self.analyser.sample_frequency/ \
                                                              self.analyser.decimation_factor)*1e-6)
         self._widgets['resolution_bandwidth_label'].value = str(((self.analyser.sample_frequency/ \
                                                                   self.analyser.decimation_factor)/self.analyser.fftsize)*1e-3)
 
+        
     def _update_figurewidgets(self, key):
         if key in ['fftsize']:
             self._window_plot.data[0].x = np.arange(self.analyser.fftsize)

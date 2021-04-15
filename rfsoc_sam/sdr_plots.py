@@ -50,6 +50,7 @@ class Spectrum():
                                  self._upper_limit,
                                  self._rbw) + self._centre_frequency
         self._range = (min(self._x_data), max(self._x_data))
+        self._yrange = [-150, 0]
         self._display_mode = display_mode
         self._spectrum_mode = spectrum_mode
         self._nyquist_stopband = nyquist_stopband
@@ -77,8 +78,8 @@ class Spectrum():
             },
             'yaxis' : {
                 'title' : self._ylabel,
-                'range' : [-150, 0],
-                'autorange' : False
+                'range' : self._yrange,
+                'autorange' : True
             },
             'margin' : {
                 't':25,
@@ -88,6 +89,8 @@ class Spectrum():
             },
             'showlegend' : False,
         }
+        
+        config = {'displayModeBar' : False}
         
         plot_data = []
         
@@ -170,7 +173,7 @@ class Spectrum():
 
         self._plot = go.FigureWidget(
             layout=layout,
-            data=plot_data
+            data=plot_data,
         )
         
         self._clear_plot()
@@ -234,11 +237,12 @@ class Spectrum():
         
     @property
     def yrange(self):
-        return self._plot.layout.yaxis.range
+        return self._yrange
     
     @yrange.setter
     def yrange(self, yrange):
-        self._plot.layout.yaxis.range = yrange
+        self._yrange = yrange
+        self._plot.layout.yaxis.range = self._yrange
         
     @property
     def template(self):
@@ -370,7 +374,6 @@ class Spectrum():
             self._plot.data[3].update({'x':None,
                                        'y':None})
         
-        
     def _apply_analysis(self):
         if self.display_max:
             self._max_indices = self._y_data.argsort()[-self._number_max_indices:]
@@ -495,6 +498,7 @@ class Spectrogram():
         self._nyquist_stopband = nyquist_stopband
         self._ypixel = ypixel
         self._data = np.ones((self._image_height, self._image_width, 3), dtype=np.uint8)*128
+        self._data_status = False
         self.cmap = cmap
         
         self._image_x = -(self._sample_frequency/self._decimation_factor)/2 + self._centre_frequency
@@ -566,6 +570,7 @@ class Spectrogram():
     @data.setter
     def data(self, data):
         if self.enable_updates:
+            self._data_status = True
             value = np.fft.fftshift(data) # FFT Shift
             value = np.array(np.interp(value, (self.zmin, self.zmax), (0, 1)), dtype=np.single) # Scale Z-Axis
             value = np.resize(signal.resample(value, self._image_width), (1, self._image_width)) # Resample X-Axis
@@ -576,6 +581,7 @@ class Spectrogram():
             self._data[0:self._ypixel, :, :] = (value[:, :, :3]*255).astype(np.uint8) # Update first line
             img = Image.fromarray(self._data, 'RGB') # Create image
             self._plot.update_layout_images({'source' : img}) # Set as background
+            self._data_status = False
         
     @property
     def ypixel(self):
@@ -583,7 +589,14 @@ class Spectrogram():
     
     @ypixel.setter
     def ypixel(self, ypixel):
-        self._ypixel = ypixel
+        if self.enable_updates:
+            self.enable_updates = False
+            while self._data_status:
+                pass
+            self._ypixel = ypixel
+            self.enable_updates = True
+        else:
+            self._ypixel = ypixel
         
     @property
     def sample_frequency(self):
