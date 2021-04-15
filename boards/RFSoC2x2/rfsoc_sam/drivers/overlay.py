@@ -24,6 +24,7 @@ from .hierarchies import *
 from .quick_widgets import Image
 from ipywidgets import IntProgress
 from IPython.display import display
+from IPython.display import clear_output
 import time
 import threading
 
@@ -176,6 +177,7 @@ class Overlay(Overlay):
         sidebar = ipw.VBox([pynq_image.get_widget(), about_html, ])
         app = ipw.HBox([sidebar, app_tab])
         load_bar.value = 100;
+        clear_output(wait=True)
         return app
     
     
