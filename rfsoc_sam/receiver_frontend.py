@@ -89,8 +89,8 @@ class RadioAnalyser():
     
     @number_frames.setter
     def number_frames(self, number_frames):
-        if number_frames in range(0, 65):
-            self._spectrum_analyser.plot.data_windowsize = number_frames
+        if number_frames in range(1, 65):
+            self._spectrum_analyser.plot.data_windowsize = int(number_frames)
             
     @property
     def sample_frequency(self):
@@ -771,16 +771,6 @@ class RadioAnalyserGUI():
                                        description='Resolution:',
                                        description_width='100px')})
         
-        self._widgets.update({'number_frames' : 
-                              IntText(callback=self._update_config,
-                                      value=self._config['number_frames'],
-                                      min_value=1,
-                                      max_value=64,
-                                      step=1,
-                                      dict_id='number_frames',
-                                      description='Number Frames:',
-                                      description_width='100px')})
-        
         self._widgets.update({'number_max_indices' : 
                               IntText(callback=self._update_config,
                                         value=self._config['number_max_indices'],
@@ -798,6 +788,16 @@ class RadioAnalyserGUI():
                                         step=1,
                                         dict_id='number_min_indices',
                                         description='Number of Minimums:')})
+        
+        self._widgets.update({'number_frames' : 
+                              FloatText(callback=self._update_config,
+                                      value=self._config['number_frames'],
+                                      min_value=1,
+                                      max_value=64,
+                                      step=1,
+                                      dict_id='number_frames',
+                                      description='Number Frames:',
+                                      description_width='100px')})
         
         self._widgets.update({'ymin' : 
                               FloatText(callback=self._update_config,
