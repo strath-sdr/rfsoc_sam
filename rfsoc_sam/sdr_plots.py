@@ -520,7 +520,7 @@ class Spectrogram():
                 'showgrid' : False,
                 'range' : [-self._plot_time, 0],
                 'autorange' : False,
-                'title' : '',
+                'title' : 'Frame Number',
                 'showticklabels' : True,
                 'visible' : True
             },

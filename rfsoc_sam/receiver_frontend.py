@@ -514,7 +514,7 @@ class RadioAnalyserGUI():
                         'spectrum_enable' : self.analyser.spectrum_enable,
                         'waterfall_enable' : self.analyser.waterfall_enable,
                         'dma_enable' : self.analyser.dma_enable,
-                        'update_frequency' : 8,
+                        'update_frequency' : 10,
                         'plotly_theme' : self.analyser.plotly_theme,
                         'line_colour' : self.analyser.line_colour,
                         'zmin' : self.analyser.zmin,
@@ -855,14 +855,23 @@ class RadioAnalyserGUI():
                                         dict_id='width',
                                         description='Plot Width (Px):')})
         
-        self._widgets.update({'update_frequency' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['update_frequency'],
-                                        min_value=5,
-                                        max_value=12,
-                                        step=1,
-                                        dict_id='update_frequency',
-                                        description='Update Frequency:')})
+        #self._widgets.update({'update_frequency' : 
+        #                      FloatText(callback=self._update_config,
+        #                                value=self._config['update_frequency'],
+        #                                min_value=5,
+        #                                max_value=12,
+        #                                step=1,
+        #                                dict_id='update_frequency',
+        #                                description='Update Frequency:')})
+        
+        self._widgets.update({'update_frequency' :
+                              DropDown(callback=self._update_config,
+                                       options=[('Low',    5),
+                                                ('Medium', 10),
+                                                ('High',   15)],
+                                       value=5,
+                                       dict_id='update_frequency',
+                                       description='Plot Performance:')})
         
         self._widgets.update({'zmin' : 
                               FloatText(callback=self._update_config,

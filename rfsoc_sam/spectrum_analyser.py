@@ -332,8 +332,8 @@ class SpectrumAnalyser(DefaultIP):
     
     @update_frequency.setter
     def update_frequency(self, update_frequency):
-        if update_frequency > 10:
-            self.timer.update_frequency = 10
+        if update_frequency > 16:
+            self.timer.update_frequency = 16
         elif update_frequency < 1:
             self.timer.update_frequency = 1
         else:
