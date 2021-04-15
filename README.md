@@ -4,10 +4,10 @@
 This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2 development board.
 
 <p align="center">
-  <img src="../master/demonstration.gif" width="663" height="502" />
-<p/>
+  <img src="./demonstration.gif" width="75%" height="75%" />
+</p>
 
-Currently, this project is in version 0.2.2. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.3.0. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
 * Up to 2 GHz bandwidth for inspection
@@ -17,7 +17,11 @@ Currently, this project is in version 0.2.2. We are working on improving aspects
 * Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectrum [dB]) 
 * PYNQ abstracted allowing Python to interface with the hardware
 * [Plotly](https://plot.ly/) visualisation of spectrum and spectrogram (waterfall)
-* Simple dashboard for more convenient control/visualisation 
+* Simple dashboard for more convenient control/visualisation
+
+<p align="center">
+  <img src="./demonstration_4g.gif" width="50%" height="50%" />
+</p>
 
 ## Quick Start
 Follow the instructions below to install the Spectrum Analyser now. **You will need to give your board access to the internet**.
@@ -26,14 +30,14 @@ Follow the instructions below to install the Spectrum Analyser now. **You will n
 * We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
 <p align="center">
-  <img src="../master/open_jupyter_launcher.jpg" width="50%" height="50%" />
-<p/>
+  <img src="./open_jupyter_launcher.jpg" width="50%" height="50%" />
+</p>
 
 * Now open a terminal in Jupyter as illustrated below:
 
 <p align="center">
-  <img src="../master/open_terminal_window.jpg" width="50%" height="50%" />
-<p/>
+  <img src="./open_terminal_window.jpg" width="50%" height="50%" />
+</p>
 
 Now follow the board specific setup instructions as follows. The ZCU111 development board has a more complicated setup than the RFSoC2x2. Please pay particular attention to the steps involved.
 
