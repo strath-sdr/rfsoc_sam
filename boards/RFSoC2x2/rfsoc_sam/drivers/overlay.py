@@ -153,7 +153,8 @@ class Overlay(Overlay):
                            height=200)
         sidebar = ipw.VBox([pynq_image.get_widget(), about_html, ])
         app = ipw.HBox([sidebar, sam_tab, ipw.VBox([ipw.HBox([ctl_tab])])])
-        load_bar.value = 100;
+        load_bar.value = 100
+        clear_output(wait=True)
         return app
 
     
@@ -176,7 +177,7 @@ class Overlay(Overlay):
                            height=200)
         sidebar = ipw.VBox([pynq_image.get_widget(), about_html, ])
         app = ipw.HBox([sidebar, app_tab])
-        load_bar.value = 100;
+        load_bar.value = 100
         clear_output(wait=True)
         return app
     
