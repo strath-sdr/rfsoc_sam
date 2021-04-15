@@ -22,6 +22,14 @@ import xrfdc
 import os
 from .hierarchies import *
 from .quick_widgets import Image
+from ipywidgets import IntProgress
+from IPython.display import display
+import time
+import threading
+
+load_progress = 0
+max_count = 100
+load_bar = IntProgress(min=load_progress, max=max_count) # instantiate the bar
 
 
 class Overlay(Overlay):
@@ -108,8 +116,7 @@ class Overlay(Overlay):
                 if i is not tab_idx:
                     self.radio.receiver.channels[i].frontend.stop()
             if tab_idx < len(self.radio.receiver.channels):
-                self.radio.receiver.channels[tab_idx].frontend.start()
-            
+                self.radio.receiver.channels[tab_idx].frontend.start()   
         sam = self.radio.receiver._get_spectrum_analyser(config_analyser)
         ctl = self.radio.transmitter._get_transmitter_control(config_transmitter)
         tab_name = [''.join(['Spectrum Analyzer ', str(j)]) for j in range(0, len(sam))]
@@ -126,6 +133,9 @@ class Overlay(Overlay):
     
     
     def spectrum_analyzer(self, config=None):
+        display(load_bar) # display the bar
+        thread = threading.Thread(target=self._update_progress)
+        thread.start()
         sam_tab = self._sam_generator([config, config])
         ctl_tab = self._ctl_generator(config=[{'transmit_enable' : True},
                                               {'transmit_enable' : True}])
@@ -142,10 +152,14 @@ class Overlay(Overlay):
                            height=200)
         sidebar = ipw.VBox([pynq_image.get_widget(), about_html, ])
         app = ipw.HBox([sidebar, sam_tab, ipw.VBox([ipw.HBox([ctl_tab])])])
+        load_bar.value = 100;
         return app
 
     
     def spectrum_analyzer_application(self, config=None):
+        display(load_bar) # display the bar
+        thread = threading.Thread(target=self._update_progress)
+        thread.start()
         app_tab = self._app_generator(config_analyser=[config, config],
                                       config_transmitter=[{'transmit_enable' : True},
                                                           {'transmit_enable' : True}])
@@ -161,4 +175,14 @@ class Overlay(Overlay):
                            height=200)
         sidebar = ipw.VBox([pynq_image.get_widget(), about_html, ])
         app = ipw.HBox([sidebar, app_tab])
+        load_bar.value = 100;
         return app
+    
+    
+    def _update_progress(self):
+        while load_bar.value is not 100:
+            if load_bar.value < 100:
+                load_bar.value = load_bar.value + 1
+                time.sleep(0.5)
+            else:
+                pass
