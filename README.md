@@ -45,6 +45,7 @@ Now follow the board specific setup instructions as follows. The ZCU111 developm
 Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser and Voila 0.1.13. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
 
 ```sh
+pip3 install https://github.com/strath-sdr/rfsoc_frequency_planner/archive/v0.1.0.tar.gz
 pip3 install --force-reinstall --no-deps git+https://github.com/strath-sdr/rfsoc_sam
 ```
 
