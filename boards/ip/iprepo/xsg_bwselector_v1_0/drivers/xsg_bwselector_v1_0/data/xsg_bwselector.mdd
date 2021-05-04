@@ -1,8 +1,0 @@
-OPTION psf_version = 2.1;
-BEGIN driver xsg_bwselector
- OPTION supported_peripherals = (xsg_bwselector_v1_0);
- OPTION driver_state = ACTIVE;
- OPTION copyfiles = all;
- OPTION name = xsg_bwselector;
- OPTION version = 1.0;
-END driver
