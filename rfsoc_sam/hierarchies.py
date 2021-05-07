@@ -168,6 +168,13 @@ class Receiver(DefaultHierarchy):
         for i in range(0, len(self.channels)):
             sam.append(self.channels[i].frontend.spectrum_analyser(config[i]))
         return sam
+    
+    
+    def _get_constellation_plot(self):
+        iqp = []
+        for i in range(0, len(self.channels)):
+            iqp.append(self.channels[i].frontend.constellation_plot())
+        return iqp
         
     
 class Transmitter(DefaultHierarchy):

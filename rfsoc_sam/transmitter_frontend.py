@@ -5,7 +5,7 @@ __support__ = "https://github.com/strath-sdr/rfsoc_sam"
 import numpy as np
 import ipywidgets as ipw
 from .controller import Controller
-from .quick_widgets import FloatText, Button, Accordion
+from .quick_widgets import FloatText, Button, Accordion, DropDown, QuickButton
 
 
 class RadioTransmitterControl():
@@ -32,13 +32,13 @@ class RadioTransmitterControl():
     def __init__(self,
                  dac_tile,
                  dac_block,
-                 controller):
+                 ofdm_transmitter):
         """Construct an instance of the software wrapper for
         the transmit controller.
         """
         self._tile = dac_tile
         self._block = dac_block
-        self._controller = controller
+        self._ofdm_transmitter = ofdm_transmitter
         
     @property
     def centre_frequency(self):
@@ -61,19 +61,18 @@ class RadioTransmitterControl():
     def amplitude(self):
         """The value in volts of the signal amplitude.
         """
-        return float((self._controller.value & 0xFFFF)/0x7FFF)
+        return self._ofdm_transmitter.value
     
     @amplitude.setter
     def amplitude(self, amplitude):
-        int_temp = int(amplitude*0x7FFF)
-        self._controller.value = (int_temp << 16) + int_temp
+        self._ofdm_transmitter.value = amplitude
         
     @property
     def transmit_enable(self):
         """If true, enables the passthrough of
         the amplitude register to the DAC Block input.
         """
-        if self._controller.enable:
+        if self._ofdm_transmitter.enable:
             return True
         else:
             return False
@@ -81,9 +80,22 @@ class RadioTransmitterControl():
     @transmit_enable.setter
     def transmit_enable(self, enable):
         if enable:
-            self._controller.enable = 1
+            self._ofdm_transmitter.enable = True
         else:
-            self._controller.enable = 0
+            self._ofdm_transmitter.enable = False
+            
+    @property
+    def modulation(self):
+        """The modulation of the OFDM transmitter.
+        """
+        return self._ofdm_transmitter.modulation
+    
+    @modulation.setter
+    def modulation(self, modulation):
+        self._ofdm_transmitter.modulation = modulation
+        
+    def reset_transmission(self):
+        self._ofdm_transmitter.reset_transmission()
         
 
 class RadioTransmitterGUI():
@@ -122,7 +134,7 @@ class RadioTransmitterGUI():
     def __init__(self,
                  dac_tile,
                  dac_block,
-                 controller):
+                 ofdm_transmitter):
         """Construct an instance of the software wrapper for
         the transmit controller.
         """
@@ -132,10 +144,11 @@ class RadioTransmitterGUI():
         self._update_que = []
         self.controller = RadioTransmitterControl(dac_tile=dac_tile,
                                                   dac_block=dac_block,
-                                                  controller=controller)
+                                                  ofdm_transmitter=ofdm_transmitter)
         self._config = {'centre_frequency' : np.round(self.controller.centre_frequency),
                         'amplitude' : self.controller.amplitude,
                         'transmit_enable' : self.controller.transmit_enable,
+                        'modulation' : self.controller.modulation,
                         'line_colour' : 'palevioletred'}
         self._initialise_frontend()
         
@@ -177,11 +190,35 @@ class RadioTransmitterGUI():
                               FloatText(callback=self._update_config,
                                         value=self._config['amplitude'],
                                         min_value=0,
-                                        max_value=1.0,
+                                        max_value=1.99,
                                         step=0.1,
                                         dict_id='amplitude',
-                                        description='Amplitude (V):',
+                                        description='Amplitude (Vpp):',
                                         description_width='200px')})
+        
+        self._widgets.update({'reset_transmission' :
+                              QuickButton(callback=self.controller.reset_transmission,
+                                          description_on='Resetting',
+                                          description_off='Reset',
+                                          state=False,
+                                          dict_id='reset_transmission')})
+        
+        self._widgets.update({'modulation' : 
+                              DropDown(callback=self._update_config,
+                                       options=[('BPSK'),
+                                                ('QPSK'),
+                                                ('8-PSK'),
+                                                ('16-QAM'),
+                                                ('32-QAM'),
+                                                ('64-QAM'),
+                                                ('128-QAM'),
+                                                ('256-QAM'),
+                                                ('512-QAM'),
+                                                ('1024-QAM')],
+                                       value=self._config['modulation'],
+                                       dict_id='modulation',
+                                       description='Digital Modulation:',
+                                       description_width='200px')})
         
         """The transmit enable button widget."""
         self._widgets.update({'transmit_enable' :
@@ -193,8 +230,10 @@ class RadioTransmitterGUI():
 
         """The transmit system accordion"""
         self._accordions.update({'system' :
-                                 ipw.Accordion(children=[ipw.HBox([ipw.VBox([ipw.Label(value='Transmitter: ')]),
-                                                                   ipw.VBox([self._widgets['transmit_enable'].get_widget()])],
+                                 ipw.Accordion(children=[ipw.HBox([ipw.VBox([ipw.Label(value='Transmitter: '),
+                                                                             ipw.Label(value='Reset Transmitter: ')]),
+                                                                   ipw.VBox([self._widgets['transmit_enable'].get_widget(),
+                                                                             self._widgets['reset_transmission'].get_widget()])],
                                                                    layout=ipw.Layout(justify_content='space-around'))],
                                                layout=ipw.Layout(justify_content='flex-start',
                                                                  width='initial'))})
@@ -204,7 +243,8 @@ class RadioTransmitterGUI():
         """The transmit properties accordion."""
         self._accordions.update({'properties' :
                                  ipw.Accordion(children=[ipw.VBox([self._widgets['centre_frequency'].get_widget(),
-                                                                  self._widgets['amplitude'].get_widget()])],
+                                                                   self._widgets['amplitude'].get_widget(),
+                                                                   self._widgets['modulation'].get_widget()])],
                                                layout=ipw.Layout(justify_content='flex-start',
                                                                  width='initial'))})
 
@@ -250,6 +290,7 @@ class RadioTransmitterGUI():
     def _update_widgets(self, key):
         if key in ['line_colour']:
             self._widgets['transmit_enable'].button_colour = self._config['line_colour']
+            self._widgets['reset_transmission'].button_colour = self._config['line_colour']
 
                 
     def transmitter_control(self, config=None):

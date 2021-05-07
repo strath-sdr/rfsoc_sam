@@ -3,10 +3,10 @@ __author2__ = 'Lewis McLaughlin'
 __organisation__ = 'The University of Strathclyde'
 __date__ = '15th April 2021'
 __version_name__ = '<a href="https://www.google.com/search?q=ben+donich" target="_blank" rel="noopener noreferrer">Ben Donich</a>'
-__version_number__ = '0.3.0'
-__channels__ = 'Dual-channel'
+__version_number__ = '0.3.1-alpha'
+__channels__ = 'Single-channel OFDM'
 __board__ = 'RFSoC2x2'
-__release__ = 'release'
+__release__ = 'Prototype'
 __info__ = 'PYNQ on RFSoC: Spectrum Analyzer.'
 __support__ = '<a href="https://github.com/strath-sdr/rfsoc_sam" target="_blank" rel="noopener noreferrer">https://github.com/strath-sdr/rfsoc_sam</a>'
 
@@ -76,7 +76,7 @@ class Overlay(Overlay):
         """Initialise the LMX and LMK clocks for RF-DC operation.
         """
         xrfclk.set_ref_clks(lmk_freq=lmk_freq, lmx_freq=lmx_freq)
-        
+           
         
     def _sam_generator(self, config=None):
         def tab_handler(widget):
@@ -116,21 +116,31 @@ class Overlay(Overlay):
             for i in range(0, len(self.radio.receiver.channels)):
                 if i is not tab_idx:
                     self.radio.receiver.channels[i].frontend.stop()
+            for i in range(len(self.radio.receiver.channels), len(self.radio.receiver.channels)*2):
+                if i is not tab_idx:
+                    self.radio.receiver.channels[len(self.radio.receiver.channels)*2-1-i].frontend._widgets['constellation_enable'].configure_state(False)
             if tab_idx < len(self.radio.receiver.channels):
-                self.radio.receiver.channels[tab_idx].frontend.start()   
+                self.radio.receiver.channels[tab_idx].frontend.start()
         sam = self.radio.receiver._get_spectrum_analyser(config_analyser)
         ctl = self.radio.transmitter._get_transmitter_control(config_transmitter)
+        iqp = self.radio.receiver._get_constellation_plot()
         tab_name = [''.join(['Spectrum Analyzer ', str(j)]) for j in range(0, len(sam))]
-        tab_name.extend([''.join(['Transmitter Control ', str(j)]) for j in range(0, len(ctl))])
+        tab_name.extend([''.join(['Constellation Plot ', str(j)]) for j in range(0, len(iqp))])
+        tab_name_tx = [''.join(['Transmitter ', str(j)]) for j in range(0, len(sam))]
         children = [sam[i] for i in range(0, len(sam))]
-        children.extend([ctl[i] for i in range(0, len(ctl))])
+        children.extend([iqp[i] for i in range(0, len(iqp))])
         tab = ipw.Tab(children=children,
                       layout=ipw.Layout(height='initial',
                                         width='initial'))
+        tab_tx = ipw.Tab(children=[ctl[i] for i in range(0, len(ctl))],
+                         layout=ipw.Layout(height='initial',
+                                           width='initial'))
+        for i in range(0, len(ctl)):
+            tab_tx.set_title(i, tab_name_tx[i])
         for i in range(0, len(children)):
             tab.set_title(i, tab_name[i])
         tab.observe(tab_handler, 'selected_index')
-        return tab
+        return ipw.HBox([tab, tab_tx])
     
     
     def spectrum_analyzer(self, config=None):
@@ -138,8 +148,7 @@ class Overlay(Overlay):
         thread = threading.Thread(target=self._update_progress)
         thread.start()
         sam_tab = self._sam_generator([config, config])
-        ctl_tab = self._ctl_generator(config=[{'transmit_enable' : True},
-                                              {'transmit_enable' : True}])
+        ctl_tab = self._ctl_generator()
         
         this_dir = os.path.dirname(__file__)
         img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
@@ -158,18 +167,17 @@ class Overlay(Overlay):
         return app
 
     
-    def spectrum_analyzer_application(self, config=None):
+    def spectrum_analyzer_application(self, config_rx=None, config_tx=None):
         display(load_bar) # display the bar
         thread = threading.Thread(target=self._update_progress)
         thread.start()
-        app_tab = self._app_generator(config_analyser=[config, config],
-                                      config_transmitter=[{'transmit_enable' : True},
-                                                          {'transmit_enable' : True}])
+        app_tab = self._app_generator(config_analyser=[config_rx, config_rx],
+                                      config_transmitter=[config_tx, config_tx])
         this_dir = os.path.dirname(__file__)
         img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
-        if config is not None:
-            if 'plotly_theme' in config:
-                if config['plotly_theme'] == 'plotly_dark':
+        if config_rx is not None:
+            if 'plotly_theme' in config_rx:
+                if config_rx['plotly_theme'] == 'plotly_dark':
                     img = os.path.join(this_dir, 'assets', 'pynq_logo_dark.png')
         about_html = ipw.HTML(value=about)
         pynq_image = Image(image_file=img,

@@ -9,7 +9,7 @@ import matplotlib.colors as mcolors
 import time
 from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
-from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image, CheckBox
+from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image, CheckBox, QuickButton
 
 DDC_SPURS = ['rx_alias', 'rx_image', 'nyquist_up', 'nyquist_down',
              'hd2', 'hd2_image', 'hd3', 'hd3_image',
@@ -24,14 +24,33 @@ class RadioAnalyser():
                  adc_block,
                  adc_description,
                  spectrum_analyser,
-                 decimator):
+                 ofdm_receiver,
+                 decimator,
+                 inspector):
         
         self._tile = adc_tile
         self._block = adc_block
         self._spectrum_analyser = spectrum_analyser
         self._decimator = decimator
+        self._ofdm_receiver = ofdm_receiver
+        self._inspector = inspector
         self._adc_description = adc_description
         
+        self._ofdm_receiver.reset_synchronisation()
+        
+    @property
+    def constellation_enable(self):
+        if self._inspector.stopped:
+            return False
+        else:
+            return True
+        
+    @constellation_enable.setter
+    def constellation_enable(self, enable):
+        if enable:
+            self._inspector.start()
+        else:
+            self._inspector.stop()
         
     @property
     def centre_frequency(self):
@@ -216,6 +235,7 @@ class RadioAnalyser():
     @plotly_theme.setter
     def plotly_theme(self, plotly_theme):
         self._spectrum_analyser.plotly_theme = plotly_theme
+        self._inspector._c_plot._plot.layout.template = plotly_theme
         
     @property
     def line_colour(self):
@@ -416,6 +436,9 @@ class RadioAnalyser():
     
     def waterfall(self):
         return self._spectrum_analyser.spectrogram.get_plot()
+    
+    def reset_ofdm_receiver(self):
+        self._ofdm_receiver.reset_synchronisation()
 
     def _safe_restart(self):
         tile_number = self._adc_description[0]
@@ -430,10 +453,42 @@ class RadioAnalyser():
             time.sleep(0.1)
             running = self._tile._parent.IPStatus['ADCTileStatus'][tile_number]['PowerUpState']
             
+#_freq_planner_props = [("enable_rx_alias"),
+#                       ("enable_rx_image"),
+#                       ("enable_nyquist_up"),
+#                       ("enable_nyquist_down"),
+#                       ("enable_hd2"),
+#                       ("enable_hd2_image"),
+#                       ("enable_hd3"),
+#                       ("enable_hd3_image"),
+#                       ("enable_pll_mix_up"),
+#                       ("enable_pll_mix_up_image"),
+#                       ("enable_pll_mix_down"),
+#                       ("enable_pll_mix_down_image"),
+#                       ("enable_tis_spur"),
+#                       ("enable_tis_spur_image"),
+#                       ("enable_offset_spur"),
+#                       ("enable_offset_spur_image")]
+
+#_freq_planner_desc = [("RX Alias"),
+#                      ("RX Image"),
+#                      ("Nyquist Up"),
+#                      ("Nyquist Down"),
+#                      ("HD2"),
+#                      ("HD2 Image"),
+#                      ("HD3"),
+#                      ("HD3 Image"),
+#                      ("PLL Mix Up"),
+#                      ("PLL Mix Up Image"),
+#                      ("PLL Mix Down"),
+#                      ("PLL Mix Down Image"),
+#                      ("TIS Spur"),
+#                      ("TIS Spur Image"),
+#                      ("Offset Spur"),
+#                      ("Offset Spur Image")]
+
 _freq_planner_props = [("enable_rx_alias"),
                        ("enable_rx_image"),
-                       ("enable_nyquist_up"),
-                       ("enable_nyquist_down"),
                        ("enable_hd2"),
                        ("enable_hd2_image"),
                        ("enable_hd3"),
@@ -441,16 +496,10 @@ _freq_planner_props = [("enable_rx_alias"),
                        ("enable_pll_mix_up"),
                        ("enable_pll_mix_up_image"),
                        ("enable_pll_mix_down"),
-                       ("enable_pll_mix_down_image"),
-                       ("enable_tis_spur"),
-                       ("enable_tis_spur_image"),
-                       ("enable_offset_spur"),
-                       ("enable_offset_spur_image")]
+                       ("enable_pll_mix_down_image")]
 
-_freq_planner_desc = [("RX Alias"),
-                      ("RX Image"),
-                      ("Nyquist Up"),
-                      ("Nyquist Down"),
+_freq_planner_desc = [("Fc"),
+                      ("Fc Image"),
                       ("HD2"),
                       ("HD2 Image"),
                       ("HD3"),
@@ -458,11 +507,7 @@ _freq_planner_desc = [("RX Alias"),
                       ("PLL Mix Up"),
                       ("PLL Mix Up Image"),
                       ("PLL Mix Down"),
-                      ("PLL Mix Down Image"),
-                      ("TIS Spur"),
-                      ("TIS Spur Image"),
-                      ("Offset Spur"),
-                      ("Offset Spur Image")]
+                      ("PLL Mix Down Image")]
 
 def _create_mmio_property(idx):
 
@@ -489,7 +534,9 @@ class RadioAnalyserGUI():
                  adc_block,
                  adc_description,
                  spectrum_analyser,
-                 decimator):
+                 decimator,
+                 ofdm_receiver,
+                 inspector):
         
         self._widgets = {}
         self._accordions = {}
@@ -497,11 +544,14 @@ class RadioAnalyserGUI():
         self._update_que = []
         self._stopped = False
         self._runtime_status = {'spectrum_enable' : False, 'waterfall_enable' : False}
+        self._inspector = inspector
         self.analyser = RadioAnalyser(adc_tile=adc_tile, 
                                        adc_block=adc_block,
                                        adc_description=adc_description,
                                        spectrum_analyser=spectrum_analyser, 
-                                       decimator=decimator)
+                                       decimator=decimator,
+                                       ofdm_receiver=ofdm_receiver,
+                                       inspector=self._inspector)
         self._config = {'centre_frequency' : 819,
                         'nyquist_stopband' : 80,
                         'decimation_factor' : self.analyser.decimation_factor,
@@ -513,6 +563,7 @@ class RadioAnalyserGUI():
                         'height' : self.analyser.height,
                         'spectrum_enable' : self.analyser.spectrum_enable,
                         'waterfall_enable' : self.analyser.waterfall_enable,
+                        'constellation_enable' : self.analyser.constellation_enable,
                         'dma_enable' : self.analyser.dma_enable,
                         'update_frequency' : 10,
                         'plotly_theme' : self.analyser.plotly_theme,
@@ -533,8 +584,6 @@ class RadioAnalyserGUI():
                         'ymax' : self.analyser.ymax,
                         'enable_rx_alias' : False,
                         'enable_rx_image' : False,
-                        'enable_nyquist_up' : False,
-                        'enable_nyquist_down' : False,
                         'enable_hd2' : False,
                         'enable_hd2_image' : False,
                         'enable_hd3' : False,
@@ -543,10 +592,6 @@ class RadioAnalyserGUI():
                         'enable_pll_mix_up_image' : False,
                         'enable_pll_mix_down' : False,
                         'enable_pll_mix_down_image' : False,
-                        'enable_tis_spur' : False,
-                        'enable_tis_spur_image' : False,
-                        'enable_offset_spur' : False,
-                        'enable_offset_spur_image' : False,
                         'ddc_centre_frequency' : 0,
                         'ddc_plan_hd2_db' : self.analyser.ddc_plan_hd2_db,
                         'ddc_plan_hd3_db' : self.analyser.ddc_plan_hd3_db,
@@ -903,6 +948,13 @@ class RadioAnalyserGUI():
                                         description='Quality (%):',
                                         description_width='100px')})
         
+        self._widgets.update({'constellation_enable' :
+                              Button(callback=self._update_config,
+                                     description_on = 'On',
+                                     description_off = 'Off',
+                                     state=False,
+                                     dict_id='constellation_enable')})
+        
         self._widgets.update({'dma_enable' :
                               Button(callback=self._update_config,
                                      description_on = 'On',
@@ -923,6 +975,13 @@ class RadioAnalyserGUI():
                                      description_off = 'Off',
                                      state=False,
                                      dict_id='waterfall_enable')})
+        
+        self._widgets.update({'reset_ofdm_receiver' :
+                              QuickButton(callback=self.analyser.reset_ofdm_receiver,
+                                     description_on = 'Resetting',
+                                     description_off = 'Reset',
+                                     state=False,
+                                     dict_id='reset_ofdm_receiver')})
         
         self._widgets.update({'sample_frequency_label' :
                                Label(value=str((self.analyser.sample_frequency/self.analyser.decimation_factor)*1e-6),
@@ -984,6 +1043,12 @@ class RadioAnalyserGUI():
                                                                   self._widgets['spectrum_units'].get_widget(),
                                                                   self._widgets['ymin'].get_widget(),
                                                                   self._widgets['ymax'].get_widget()]),
+                                                        ipw.VBox([self._widgets['ddc_centre_frequency'].get_widget(),
+                                                            ipw.HBox([
+                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(0,int(len(_freq_planner_props)/2))]),
+                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
+                                                            ])
+                                                        ]),
                                                         ipw.VBox([self._widgets['spectrogram_performance'].get_widget(),
                                                                   self._widgets['colour_map'].get_widget(),
                                                                   self._widgets['zmin'].get_widget(),
@@ -1014,10 +1079,22 @@ class RadioAnalyserGUI():
         self._accordions['properties'].set_title(0, 'System')
         self._accordions['properties'].set_title(1, 'Receiver')
         self._accordions['properties'].set_title(2, 'Spectrum Analyzer')
-        #self._accordions['properties'].set_title(3, 'Frequency Planner')
-        self._accordions['properties'].set_title(3, 'Spectrogram')
-        self._accordions['properties'].set_title(4, 'Window Settings')
-        self._accordions['properties'].set_title(5, 'Plot Settings')
+        self._accordions['properties'].set_title(3, 'Frequency Planner')
+        self._accordions['properties'].set_title(4, 'Spectrogram')
+        self._accordions['properties'].set_title(5, 'Window Settings')
+        self._accordions['properties'].set_title(6, 'Plot Settings')
+        
+        """The transmit system accordion"""
+        self._accordions.update({'constellation_properties' :
+                                 ipw.Accordion(children=[ipw.HBox([ipw.VBox([ipw.Label(value='Constellation: ', layout=ipw.Layout(width='150px')),
+                                                                             ipw.Label(value='Reset Receiver: ', layout=ipw.Layout(width='150px'))]),
+                                                                   ipw.VBox([self._widgets['constellation_enable'].get_widget(),
+                                                                             self._widgets['reset_ofdm_receiver'].get_widget()])],
+                                                                   layout=ipw.Layout(justify_content='space-around'))],
+                                               layout=ipw.Layout(justify_content='flex-start',
+                                                                 width='initial'))})
+
+        self._accordions['constellation_properties'].set_title(0, 'System')
         
         self._update_config(self._config)
         
@@ -1082,6 +1159,8 @@ class RadioAnalyserGUI():
             self._widgets['dma_enable'].button_colour = self._config['line_colour']
             self._widgets['spectrum_enable'].button_colour = self._config['line_colour']
             self._widgets['waterfall_enable'].button_colour = self._config['line_colour']
+            self._widgets['constellation_enable'].button_colour = self._config['line_colour']
+            self._widgets['reset_ofdm_receiver'].button_colour = self._config['line_colour']
         elif key in ['plotly_theme']:
             self._window_plot.layout.template = self._config['plotly_theme']
         elif key in ['decimation_factor']:
@@ -1114,3 +1193,8 @@ class RadioAnalyserGUI():
                                              self._accordions['properties']
                                             ])
                                   ])
+    
+    def constellation_plot(self):
+        return ipw.HBox([self._inspector.constellation_plot(),
+                         self._accordions['constellation_properties']
+                        ])
