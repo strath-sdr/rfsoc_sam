@@ -81,15 +81,19 @@ class AdcChannel(DefaultHierarchy):
     def checkhierarchy(description):
         spectrum_analyser = None
         decimator = None
+        other_ip = False
                 
         for ip, details in description['ip'].items():
             if details['driver'] == SpectrumAnalyser:
                 spectrum_analyser = ip
             elif details['driver'] == BandwidthSelector:
                 decimator = ip
+            else:
+                other_ip = True
                 
         return (spectrum_analyser is not None and
-                decimator is not None)
+                decimator is not None and
+                other_ip is not True)
     
     
     def __init__(self, description, tile=None, block=None, adc_description=None):
@@ -112,12 +116,16 @@ class DacChannel(DefaultHierarchy):
     @staticmethod
     def checkhierarchy(description):
         controller = None
+        other_ip = False
                 
         for ip, details in description['ip'].items():
             if details['driver'] == Controller:
                 controller = ip
+            else:
+                other_ip = True
                 
-        return (controller is not None)
+        return (controller is not None and
+                other_ip is not True)
     
     
     def __init__(self, description, tile=None, block=None):
