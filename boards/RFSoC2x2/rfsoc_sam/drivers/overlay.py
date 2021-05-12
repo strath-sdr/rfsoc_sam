@@ -38,7 +38,7 @@ class Overlay(Overlay):
     def __init__(self, overlay_system='sam', init_rf_clks=True, **kwargs):
 
         if not isinstance(overlay_system, str):
-            raise TypeError("Argument overlay_system must be of type string."))
+            raise TypeError("Argument overlay_system must be of type string.")
         
         if overlay_system is 'sam':
             this_dir = os.path.dirname(__file__)
