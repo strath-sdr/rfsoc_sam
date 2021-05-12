@@ -8,8 +8,8 @@ from .bandwidth_selector import BandwidthSelector
 from .controller import Controller
 from .ofdm import OfdmTransmitter, OfdmReceiver
 from .inspector import InspectorCore, DataInspector
-from .transmitter_frontend import RadioTransmitterGUI
-from .receiver_frontend import RadioAnalyserGUI
+from .transmitter_frontend import RadioTransmitterGUI, RadioOfdmTransmitterGUI
+from .receiver_frontend import RadioAnalyserGUI, RadioOfdmAnalyserGUI
 
 
 class AdcOfdmChannel(DefaultHierarchy):
@@ -41,13 +41,13 @@ class AdcOfdmChannel(DefaultHierarchy):
         
 
     def _initialise_channel(self):
-        self.frontend = RadioAnalyserGUI(adc_tile=self._tile,
-                                         adc_block=self._block,
-                                         adc_description=self._adc_description,
-                                         spectrum_analyser=self.spectrum_analyser,
-                                         decimator=self.decimator,
-                                         ofdm_receiver=self.ofdm_receiver,
-                                         inspector=self.DataInspector)
+        self.frontend = RadioOfdmAnalyserGUI(adc_tile=self._tile,
+                                             adc_block=self._block,
+                                             adc_description=self._adc_description,
+                                             spectrum_analyser=self.spectrum_analyser,
+                                             decimator=self.decimator,
+                                             ofdm_receiver=self.ofdm_receiver,
+                                             inspector=self.DataInspector)
 
         
 class DacOfdmChannel(DefaultHierarchy):
@@ -70,9 +70,9 @@ class DacOfdmChannel(DefaultHierarchy):
         
     
     def _initialise_channel(self):
-        self.frontend = RadioTransmitterGUI(dac_tile=self._tile,
-                                            dac_block=self._block,
-                                            ofdm_transmitter=self.ofdm_transmitter)
+        self.frontend = RadioOfdmTransmitterGUI(dac_tile=self._tile,
+                                                dac_block=self._block,
+                                                ofdm_transmitter=self.ofdm_transmitter)
         
 
 class AdcChannel(DefaultHierarchy):
