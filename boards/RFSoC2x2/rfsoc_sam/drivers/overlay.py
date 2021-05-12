@@ -149,6 +149,8 @@ class Overlay(Overlay):
         sam_tab = self._sam_generator([config, config])
         ctl_tab = self._ctl_generator(config=[{'transmit_enable' : True},
                                               {'transmit_enable' : True}])
+
+
         
         this_dir = os.path.dirname(__file__)
         img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
@@ -174,6 +176,8 @@ class Overlay(Overlay):
         app_tab = self._app_generator(config_analyser=[config, config],
                                       config_transmitter=[{'transmit_enable' : True},
                                                           {'transmit_enable' : True}])
+
+                                                          
         this_dir = os.path.dirname(__file__)
         img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
         if config is not None:

@@ -1,9 +1,9 @@
 __author1__ = 'David Northcote'
 __author2__ = 'Lewis McLaughlin'
 __organisation__ = 'The University of Strathclyde'
-__date__ = '15th April 2021'
+__date__ = '12th May 2021'
 __version_name__ = '<a href="https://www.google.com/search?q=ben+donich" target="_blank" rel="noopener noreferrer">Ben Donich</a>'
-__version_number__ = '0.3.0'
+__version_number__ = '0.3.1'
 __channels__ = 'Quad-channel'
 __board__ = 'ZCU111'
 __release__ = 'release'
@@ -35,18 +35,52 @@ load_bar = IntProgress(min=load_progress, max=max_count) # instantiate the bar
 
 class Overlay(Overlay):
     
-    def __init__(self, bitfile_name=None, init_rf_clks=True, **kwargs):
+    def __init__(self, overlay_system='sam', init_rf_clks=True, **kwargs):
         
-        if bitfile_name is None:
+        if not isinstance(overlay_system, str):
+            raise TypeError("Argument overlay_system must be of type string.")
+        
+        if overlay_system is 'sam':
             this_dir = os.path.dirname(__file__)
             bitfile_name = os.path.join(this_dir, 'bitstream', 'rfsoc_sam.bit')
+        elif overlay_system is 'ofdm':
+            this_dir = os.path.dirname(__file__)
+            bitfile_name = os.path.join(this_dir, 'bitstream', 'rfsoc_sam_ofdm.bit')
+            __channels__ = 'Single-channel OFDM'
+        else:
+            raise ValueError(''.join(["Unknown overlay design ", overlay_system]))
         
         super().__init__(bitfile_name, **kwargs)
+
+
 
         if init_rf_clks:
             self.init_rf_clks()
                 
-                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def init_rf_clks(self, lmx_freq=409.6):
         """Initialise the LMX and LMK clocks for RF-DC operation.
         """
@@ -54,14 +88,12 @@ class Overlay(Overlay):
         
         
     def _sam_generator(self, config=None):
-        
         def tab_handler(widget):
             tab_idx = widget['new']
             for i in range(0, len(self.radio.receiver.channels)):
                 if i is not tab_idx:
                     self.radio.receiver.channels[i].frontend.stop()
             self.radio.receiver.channels[tab_idx].frontend.start()
-            #tab.observe(tab_handler, names='selected_index')
             
         sam = self.radio.receiver._get_spectrum_analyser(config)
         tab_name = [''.join(['Spectrum Analyzer ', str(j)]) for j in range(0, len(sam))]
@@ -95,7 +127,6 @@ class Overlay(Overlay):
                     self.radio.receiver.channels[i].frontend.stop()
             if tab_idx < len(self.radio.receiver.channels):
                 self.radio.receiver.channels[tab_idx].frontend.start()
-            
         sam = self.radio.receiver._get_spectrum_analyser(config_analyser)
         ctl = self.radio.transmitter._get_transmitter_control(config_transmitter)
         tab_name = [''.join(['Spectrum Analyzer ', str(j)]) for j in range(0, len(sam))]
@@ -172,3 +203,114 @@ class Overlay(Overlay):
             else:
                 pass
             
+
+    def _sam_ofdm_generator(self, config=None):
+        def tab_handler(widget):
+            tab_idx = widget['new']
+            for i in range(0, len(self.radio.receiver.channels)):
+                if i is not tab_idx:
+                    self.radio.receiver.channels[i].frontend.stop()
+            self.radio.receiver.channels[tab_idx].frontend.start()
+            
+        sam = self.radio.receiver._get_spectrum_analyser(config)
+        tab_name = [''.join(['Spectrum Analyzer ', str(j)]) for j in range(0, len(sam))]
+        children = [sam[i] for i in range(0, len(sam))]
+        tab = ipw.Tab(children=children,
+                      layout=ipw.Layout(height='initial',
+                                        width='initial'))
+        for i in range(0, len(children)):
+            tab.set_title(i, tab_name[i])
+        tab.observe(tab_handler, 'selected_index')
+        return tab
+    
+        
+    def _ctl_ofdm_generator(self, config=None):            
+        ctl = self.radio.transmitter._get_transmitter_control(config)
+        tab_name = [''.join(['Transmitter Control ', str(j)]) for j in range(0, len(ctl))]
+        children = [ctl[i] for i in range(0, len(ctl))]
+        tab = ipw.Tab(children=children,
+                      layout=ipw.Layout(height='initial',
+                                        width='initial'))
+        for i in range(0, len(children)):
+            tab.set_title(i, tab_name[i])
+        return tab
+
+
+    def _app_ofdm_generator(self, config_analyser=None, config_transmitter=None):
+        def tab_handler(widget):
+            tab_idx = widget['new']
+            for i in range(0, len(self.radio.receiver.channels)):
+                if i is not tab_idx:
+                    self.radio.receiver.channels[i].frontend.stop()
+            for i in range(len(self.radio.receiver.channels), len(self.radio.receiver.channels)*2):
+                if i is not tab_idx:
+                    self.radio.receiver.channels[len(self.radio.receiver.channels)*2-1-i].frontend._widgets['constellation_enable'].configure_state(False)
+            if tab_idx < len(self.radio.receiver.channels):
+                self.radio.receiver.channels[tab_idx].frontend.start()
+        sam = self.radio.receiver._get_spectrum_analyser(config_analyser)
+        ctl = self.radio.transmitter._get_transmitter_control(config_transmitter)
+        iqp = self.radio.receiver._get_constellation_plot()
+        tab_name = [''.join(['Spectrum Analyzer ', str(j)]) for j in range(0, len(sam))]
+        tab_name.extend([''.join(['Constellation Plot ', str(j)]) for j in range(0, len(iqp))])
+        tab_name_tx = [''.join(['Transmitter ', str(j)]) for j in range(0, len(sam))]
+        children = [sam[i] for i in range(0, len(sam))]
+        children.extend([iqp[i] for i in range(0, len(iqp))])
+        tab = ipw.Tab(children=children,
+                      layout=ipw.Layout(height='initial',
+                                        width='initial'))
+        tab_tx = ipw.Tab(children=[ctl[i] for i in range(0, len(ctl))],
+                         layout=ipw.Layout(height='initial',
+                                           width='initial'))
+        for i in range(0, len(ctl)):
+            tab_tx.set_title(i, tab_name_tx[i])
+        for i in range(0, len(children)):
+            tab.set_title(i, tab_name[i])
+        tab.observe(tab_handler, 'selected_index')
+        return ipw.HBox([tab, tab_tx])
+    
+    
+    def spectrum_ofdm_analyzer(self, config=None):
+        display(load_bar) # display the bar
+        thread = threading.Thread(target=self._update_progress)
+        thread.start()
+        sam_tab = self._sam_ofdm_generator([config, config])
+        ctl_tab = self._ctl_ofdm_generator()
+        
+        this_dir = os.path.dirname(__file__)
+        img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
+        if config is not None:
+            if 'plotly_theme' in config:
+                if config['plotly_theme'] == 'plotly_dark':
+                    img = os.path.join(this_dir, 'assets', 'pynq_logo_dark.png')
+        about_html = ipw.HTML(value=about)
+        pynq_image = Image(image_file=img,
+                           width=300,
+                           height=200)
+        sidebar = ipw.VBox([pynq_image.get_widget(), about_html, ])
+        app = ipw.HBox([sidebar, sam_tab, ipw.VBox([ipw.HBox([ctl_tab])])])
+        load_bar.value = 100
+        clear_output(wait=True)
+        return app
+
+    
+    def spectrum_ofdm_analyzer_application(self, config_rx=None, config_tx=None):
+        display(load_bar) # display the bar
+        thread = threading.Thread(target=self._update_progress)
+        thread.start()
+        app_tab = self._app_ofdm_generator(config_analyser=[config_rx, config_rx],
+                                           config_transmitter=[config_tx, config_tx])
+        this_dir = os.path.dirname(__file__)
+        img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
+        if config_rx is not None:
+            if 'plotly_theme' in config_rx:
+                if config_rx['plotly_theme'] == 'plotly_dark':
+                    img = os.path.join(this_dir, 'assets', 'pynq_logo_dark.png')
+        about_html = ipw.HTML(value=about)
+        pynq_image = Image(image_file=img,
+                           width=300,
+                           height=200)
+        sidebar = ipw.VBox([pynq_image.get_widget(), about_html, ])
+        app = ipw.HBox([sidebar, app_tab])
+        load_bar.value = 100
+        clear_output(wait=True)
+        return app
