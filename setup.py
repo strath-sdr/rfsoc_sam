@@ -8,8 +8,8 @@ from setuptools import find_packages, setup
 package_name = 'rfsoc_sam'
 pip_name = 'rfsoc-sam'
 board = os.environ['BOARD']
-board_folder = f'boards/{board}'
-repo_board_folder = [f'boards/{board}/rfsoc_sam', f'boards/{board}/rfsoc_sam_ofdm']
+repo_board_folder = f'boards/{board}/rfsoc_sam'
+alt_overlay_folder = [f'boards/{board}/rfsoc_sam', f'boards/{board}/rfsoc_sam_ofdm']
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
 board_project_dir = os.path.join(board_notebooks_dir, 'spectrum-analyzer')
 
@@ -17,7 +17,7 @@ data_files = []
 
 # check whether board is supported
 def check_env():
-    if not os.path.isdir(board_folder):
+    if not os.path.isdir(repo_board_folder):
         raise ValueError("Board {} is not supported.".format(board))
     if not os.path.isdir(board_notebooks_dir):
         raise ValueError(
@@ -30,7 +30,7 @@ def check_path():
 
 # copy overlays to python package
 def copy_overlays():
-    for repo_folder in repo_board_folder:
+    for repo_folder in alt_overlay_folder:
         src_ol_dir = os.path.join(repo_folder, 'bitstream')
         dst_ol_dir = os.path.join(package_name, 'bitstream')
         copy_tree(src_ol_dir, dst_ol_dir)
