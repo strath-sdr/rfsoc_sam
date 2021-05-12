@@ -273,7 +273,7 @@ class Overlay(Overlay):
         display(load_bar) # display the bar
         thread = threading.Thread(target=self._update_progress)
         thread.start()
-        sam_tab = self._sam_ofdm_generator([config, config])
+        sam_tab = self._sam_ofdm_generator([config])
         ctl_tab = self._ctl_ofdm_generator()
         
         this_dir = os.path.dirname(__file__)
@@ -297,8 +297,8 @@ class Overlay(Overlay):
         display(load_bar) # display the bar
         thread = threading.Thread(target=self._update_progress)
         thread.start()
-        app_tab = self._app_ofdm_generator(config_analyser=[config_rx, config_rx],
-                                           config_transmitter=[config_tx, config_tx])
+        app_tab = self._app_ofdm_generator(config_analyser=[config_rx],
+                                           config_transmitter=[config_tx])
         this_dir = os.path.dirname(__file__)
         img = os.path.join(this_dir, 'assets', 'pynq_logo_light.png')
         if config_rx is not None:
