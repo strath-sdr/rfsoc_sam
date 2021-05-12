@@ -725,8 +725,8 @@ proc create_hier_cell_radio { parentCell nameHier } {
    CONFIG.DAC1_Enable {1} \
    CONFIG.DAC1_Fabric_Freq {256.000} \
    CONFIG.DAC1_Outclk_Freq {256.000} \
-   CONFIG.DAC1_PLL_Enable {false} \
-   CONFIG.DAC1_Refclk_Freq {4096.000} \
+   CONFIG.DAC1_PLL_Enable {true} \
+   CONFIG.DAC1_Refclk_Freq {409.600} \
    CONFIG.DAC1_Sampling_Rate {4.096} \
    CONFIG.DAC_Data_Type10 {0} \
    CONFIG.DAC_Data_Type11 {0} \
@@ -1611,7 +1611,6 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
-  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -1623,4 +1622,6 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
+
+common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
