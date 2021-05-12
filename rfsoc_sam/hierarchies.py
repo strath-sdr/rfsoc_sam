@@ -100,7 +100,9 @@ class Receiver(DefaultHierarchy):
         channels = []
         
         for hier, details in description['hierarchies'].items():
-            if details['driver'] == AdcChannel:
+            if details['driver'] == AdcOfdmChannel:
+                channels.append(hier)
+            elif details['driver'] == AdcChannel:
                 channels.append(hier)
         channels = sorted(channels)
                 
@@ -193,6 +195,8 @@ class Transmitter(DefaultHierarchy):
         channels = []
         
         for hier, details in description['hierarchies'].items():
+            if details['driver'] == DacOfdmChannel:
+                channels.append(hier)
             if details['driver'] == DacChannel:
                 channels.append(hier)
         channels = sorted(channels)
