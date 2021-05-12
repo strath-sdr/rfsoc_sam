@@ -2128,7 +2128,8 @@ class RadioAnalyserGUI():
                                                                   self._widgets['spectrum_units'].get_widget(),
                                                                   self._widgets['ymin'].get_widget(),
                                                                   self._widgets['ymax'].get_widget()]),
-                                                        ipw.VBox([self._widgets['ddc_centre_frequency'].get_widget(),
+                                                        ipw.VBox([ipw.Label(value='Experimental Control Panel'),
+                                                                  self._widgets['ddc_centre_frequency'].get_widget(),
                                                             ipw.HBox([
                                                                 ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(0,int(len(_freq_planner_props)/2))]),
                                                                 ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
