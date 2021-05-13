@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed May 12 23:41:15 2021" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu May 13 11:49:47 2021" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynquplusRFSOC" BOARD="xilinx.com:zcu111:part0:1.2" DEVICE="xczu28dr" NAME="block_design" PACKAGE="ffvg1517" SPEEDGRADE="-2"/>
 
@@ -34,6 +34,16 @@
         <CONNECTION INSTANCE="clk_wiz_256M" PORT="clk_in1_p"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="O" NAME="vout11_v_n" SIGIS="undef" SIGNAME="radio_rfdc_vout11_n">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="radio_rfdc" PORT="vout11_n"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="vout11_v_p" SIGIS="undef" SIGNAME="radio_rfdc_vout11_p">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="radio_rfdc" PORT="vout11_p"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT CLKFREQUENCY="100000000" DIR="I" NAME="adc1_clk_clk_n" SIGIS="clk" SIGNAME="radio_rfdc_adc1_clk_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="radio_rfdc" PORT="adc1_clk_n"/>
@@ -44,24 +54,14 @@
         <CONNECTION INSTANCE="radio_rfdc" PORT="adc1_clk_p"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" NAME="vin1_23_v_n" SIGIS="undef" SIGNAME="radio_rfdc_vin1_23_n">
+    <PORT DIR="I" NAME="vin1_01_v_n" SIGIS="undef" SIGNAME="radio_rfdc_vin1_01_n">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="radio_rfdc" PORT="vin1_23_n"/>
+        <CONNECTION INSTANCE="radio_rfdc" PORT="vin1_01_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" NAME="vin1_23_v_p" SIGIS="undef" SIGNAME="radio_rfdc_vin1_23_p">
+    <PORT DIR="I" NAME="vin1_01_v_p" SIGIS="undef" SIGNAME="radio_rfdc_vin1_01_p">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="radio_rfdc" PORT="vin1_23_p"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="vout11_v_n" SIGIS="undef" SIGNAME="radio_rfdc_vout11_n">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="radio_rfdc" PORT="vout11_n"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="vout11_v_p" SIGIS="undef" SIGNAME="radio_rfdc_vout11_p">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="radio_rfdc" PORT="vout11_p"/>
+        <CONNECTION INSTANCE="radio_rfdc" PORT="vin1_01_p"/>
       </CONNECTIONS>
     </PORT>
   </EXTERNALPORTS>
@@ -89,6 +89,12 @@
         <PORTMAP LOGICAL="CLK_P" PHYSICAL="sys_clk_clk_p"/>
       </PORTMAPS>
     </BUSINTERFACE>
+    <BUSINTERFACE BUSNAME="radio_rfdc_vout11" NAME="vout11" TYPE="INITIATOR">
+      <PORTMAPS>
+        <PORTMAP LOGICAL="V_N" PHYSICAL="vout11_v_n"/>
+        <PORTMAP LOGICAL="V_P" PHYSICAL="vout11_v_p"/>
+      </PORTMAPS>
+    </BUSINTERFACE>
     <BUSINTERFACE BUSNAME="External_Interface_adc1_clk" NAME="adc1_clk" TYPE="TARGET">
       <PARAMETER NAME="CAN_DEBUG" VALUE="false"/>
       <PARAMETER NAME="FREQ_HZ" VALUE="409600000.0"/>
@@ -97,16 +103,10 @@
         <PORTMAP LOGICAL="CLK_P" PHYSICAL="adc1_clk_clk_p"/>
       </PORTMAPS>
     </BUSINTERFACE>
-    <BUSINTERFACE BUSNAME="External_Interface_vin1_23" NAME="vin1_23" TYPE="TARGET">
+    <BUSINTERFACE BUSNAME="External_Interface_vin1_01" NAME="vin1_01" TYPE="TARGET">
       <PORTMAPS>
-        <PORTMAP LOGICAL="V_N" PHYSICAL="vin1_23_v_n"/>
-        <PORTMAP LOGICAL="V_P" PHYSICAL="vin1_23_v_p"/>
-      </PORTMAPS>
-    </BUSINTERFACE>
-    <BUSINTERFACE BUSNAME="radio_rfdc_vout11" NAME="vout11" TYPE="INITIATOR">
-      <PORTMAPS>
-        <PORTMAP LOGICAL="V_N" PHYSICAL="vout11_v_n"/>
-        <PORTMAP LOGICAL="V_P" PHYSICAL="vout11_v_p"/>
+        <PORTMAP LOGICAL="V_N" PHYSICAL="vin1_01_v_n"/>
+        <PORTMAP LOGICAL="V_P" PHYSICAL="vin1_01_v_p"/>
       </PORTMAPS>
     </BUSINTERFACE>
   </EXTERNALINTERFACES>
@@ -8278,22 +8278,22 @@
       <PORTS>
         <PORT DIR="I" LEFT="127" NAME="s_axis_im_tdata" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="radio_rfdc" PORT="m13_axis_tdata"/>
+            <CONNECTION INSTANCE="radio_rfdc" PORT="m11_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="0" NAME="s_axis_im_tvalid" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="radio_rfdc" PORT="m13_axis_tvalid"/>
+            <CONNECTION INSTANCE="radio_rfdc" PORT="m11_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="127" NAME="s_axis_re_tdata" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="radio_rfdc" PORT="m12_axis_tdata"/>
+            <CONNECTION INSTANCE="radio_rfdc" PORT="m10_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="0" NAME="s_axis_re_tvalid" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="radio_rfdc" PORT="m12_axis_tvalid"/>
+            <CONNECTION INSTANCE="radio_rfdc" PORT="m10_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="256000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="radio_rfdc_clk_adc1">
@@ -8373,12 +8373,12 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="s_axis_im_tready" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="radio_rfdc" PORT="m13_axis_tready"/>
+            <CONNECTION INSTANCE="radio_rfdc" PORT="m11_axis_tready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="s_axis_re_tready" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="radio_rfdc" PORT="m12_axis_tready"/>
+            <CONNECTION INSTANCE="radio_rfdc" PORT="m10_axis_tready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="xsg_bwselector_s_axi_awready" SIGIS="undef" SIGNAME="radio_receiver_channel_10_axi_interconnect_M00_AXI_awready">
@@ -8461,7 +8461,7 @@
             <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_re_tvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="radio_rfdc_m13_axis" NAME="s_axis_im" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="radio_rfdc_m11_axis" NAME="s_axis_im" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="LAYERED_METADATA" VALUE="xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 128} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value true}}}}}}"/>
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
@@ -8481,7 +8481,7 @@
             <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_im_tready"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="radio_rfdc_m12_axis" NAME="s_axis_re" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="radio_rfdc_m10_axis" NAME="s_axis_re" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="LAYERED_METADATA" VALUE="xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 128} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value true}}}}}}"/>
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
@@ -9499,13 +9499,13 @@
         <PARAMETER NAME="C_ADC1_Decimation" VALUE="2"/>
         <PARAMETER NAME="C_ADC1_Clock_Source" VALUE="1"/>
         <PARAMETER NAME="C_ADC1_Clock_Dist" VALUE="0"/>
-        <PARAMETER NAME="C_ADC_Slice10_Enable" VALUE="false"/>
+        <PARAMETER NAME="C_ADC_Slice10_Enable" VALUE="true"/>
         <PARAMETER NAME="C_ADC_Dither10" VALUE="true"/>
-        <PARAMETER NAME="C_ADC_Data_Type10" VALUE="0"/>
-        <PARAMETER NAME="C_ADC_Decimation_Mode10" VALUE="0"/>
+        <PARAMETER NAME="C_ADC_Data_Type10" VALUE="1"/>
+        <PARAMETER NAME="C_ADC_Decimation_Mode10" VALUE="2"/>
         <PARAMETER NAME="C_ADC_CalOpt_Mode10" VALUE="1"/>
-        <PARAMETER NAME="C_ADC_Mixer_Type10" VALUE="3"/>
-        <PARAMETER NAME="C_ADC_Mixer_Mode10" VALUE="2"/>
+        <PARAMETER NAME="C_ADC_Mixer_Type10" VALUE="2"/>
+        <PARAMETER NAME="C_ADC_Mixer_Mode10" VALUE="0"/>
         <PARAMETER NAME="C_ADC_Data_Width10" VALUE="8"/>
         <PARAMETER NAME="C_ADC_Coarse_Mixer_Freq10" VALUE="0"/>
         <PARAMETER NAME="C_ADC_NCO_Freq10" VALUE="0.0"/>
@@ -9515,14 +9515,14 @@
         <PARAMETER NAME="C_ADC_Bypass_BG_Cal10" VALUE="false"/>
         <PARAMETER NAME="C_ADC_RESERVED_1_10" VALUE="false"/>
         <PARAMETER NAME="C_ADC_TDD_RTS10" VALUE="0"/>
-        <PARAMETER NAME="C_ADC10_Dig_Port" VALUE="0"/>
-        <PARAMETER NAME="C_ADC_Slice11_Enable" VALUE="false"/>
+        <PARAMETER NAME="C_ADC10_Dig_Port" VALUE="1"/>
+        <PARAMETER NAME="C_ADC_Slice11_Enable" VALUE="true"/>
         <PARAMETER NAME="C_ADC_Dither11" VALUE="true"/>
-        <PARAMETER NAME="C_ADC_Data_Type11" VALUE="0"/>
-        <PARAMETER NAME="C_ADC_Decimation_Mode11" VALUE="0"/>
+        <PARAMETER NAME="C_ADC_Data_Type11" VALUE="1"/>
+        <PARAMETER NAME="C_ADC_Decimation_Mode11" VALUE="2"/>
         <PARAMETER NAME="C_ADC_CalOpt_Mode11" VALUE="1"/>
-        <PARAMETER NAME="C_ADC_Mixer_Type11" VALUE="3"/>
-        <PARAMETER NAME="C_ADC_Mixer_Mode11" VALUE="2"/>
+        <PARAMETER NAME="C_ADC_Mixer_Type11" VALUE="2"/>
+        <PARAMETER NAME="C_ADC_Mixer_Mode11" VALUE="0"/>
         <PARAMETER NAME="C_ADC_Data_Width11" VALUE="8"/>
         <PARAMETER NAME="C_ADC_Coarse_Mixer_Freq11" VALUE="0"/>
         <PARAMETER NAME="C_ADC_NCO_Freq11" VALUE="0.0"/>
@@ -9532,14 +9532,14 @@
         <PARAMETER NAME="C_ADC_Bypass_BG_Cal11" VALUE="false"/>
         <PARAMETER NAME="C_ADC_RESERVED_1_11" VALUE="false"/>
         <PARAMETER NAME="C_ADC_TDD_RTS11" VALUE="0"/>
-        <PARAMETER NAME="C_ADC11_Dig_Port" VALUE="0"/>
-        <PARAMETER NAME="C_ADC_Slice12_Enable" VALUE="true"/>
+        <PARAMETER NAME="C_ADC11_Dig_Port" VALUE="1"/>
+        <PARAMETER NAME="C_ADC_Slice12_Enable" VALUE="false"/>
         <PARAMETER NAME="C_ADC_Dither12" VALUE="true"/>
-        <PARAMETER NAME="C_ADC_Data_Type12" VALUE="1"/>
-        <PARAMETER NAME="C_ADC_Decimation_Mode12" VALUE="2"/>
+        <PARAMETER NAME="C_ADC_Data_Type12" VALUE="0"/>
+        <PARAMETER NAME="C_ADC_Decimation_Mode12" VALUE="0"/>
         <PARAMETER NAME="C_ADC_CalOpt_Mode12" VALUE="1"/>
-        <PARAMETER NAME="C_ADC_Mixer_Type12" VALUE="2"/>
-        <PARAMETER NAME="C_ADC_Mixer_Mode12" VALUE="0"/>
+        <PARAMETER NAME="C_ADC_Mixer_Type12" VALUE="3"/>
+        <PARAMETER NAME="C_ADC_Mixer_Mode12" VALUE="1"/>
         <PARAMETER NAME="C_ADC_Data_Width12" VALUE="8"/>
         <PARAMETER NAME="C_ADC_Coarse_Mixer_Freq12" VALUE="0"/>
         <PARAMETER NAME="C_ADC_NCO_Freq12" VALUE="0"/>
@@ -9549,14 +9549,14 @@
         <PARAMETER NAME="C_ADC_Bypass_BG_Cal12" VALUE="false"/>
         <PARAMETER NAME="C_ADC_RESERVED_1_12" VALUE="false"/>
         <PARAMETER NAME="C_ADC_TDD_RTS12" VALUE="0"/>
-        <PARAMETER NAME="C_ADC12_Dig_Port" VALUE="1"/>
-        <PARAMETER NAME="C_ADC_Slice13_Enable" VALUE="true"/>
+        <PARAMETER NAME="C_ADC12_Dig_Port" VALUE="0"/>
+        <PARAMETER NAME="C_ADC_Slice13_Enable" VALUE="false"/>
         <PARAMETER NAME="C_ADC_Dither13" VALUE="true"/>
-        <PARAMETER NAME="C_ADC_Data_Type13" VALUE="1"/>
-        <PARAMETER NAME="C_ADC_Decimation_Mode13" VALUE="2"/>
+        <PARAMETER NAME="C_ADC_Data_Type13" VALUE="0"/>
+        <PARAMETER NAME="C_ADC_Decimation_Mode13" VALUE="0"/>
         <PARAMETER NAME="C_ADC_CalOpt_Mode13" VALUE="1"/>
-        <PARAMETER NAME="C_ADC_Mixer_Type13" VALUE="2"/>
-        <PARAMETER NAME="C_ADC_Mixer_Mode13" VALUE="0"/>
+        <PARAMETER NAME="C_ADC_Mixer_Type13" VALUE="3"/>
+        <PARAMETER NAME="C_ADC_Mixer_Mode13" VALUE="1"/>
         <PARAMETER NAME="C_ADC_Data_Width13" VALUE="8"/>
         <PARAMETER NAME="C_ADC_Coarse_Mixer_Freq13" VALUE="0"/>
         <PARAMETER NAME="C_ADC_NCO_Freq13" VALUE="0"/>
@@ -9566,7 +9566,7 @@
         <PARAMETER NAME="C_ADC_Bypass_BG_Cal13" VALUE="false"/>
         <PARAMETER NAME="C_ADC_RESERVED_1_13" VALUE="false"/>
         <PARAMETER NAME="C_ADC_TDD_RTS13" VALUE="0"/>
-        <PARAMETER NAME="C_ADC13_Dig_Port" VALUE="1"/>
+        <PARAMETER NAME="C_ADC13_Dig_Port" VALUE="0"/>
         <PARAMETER NAME="C_ADC2_Enable" VALUE="0"/>
         <PARAMETER NAME="C_ADC2_PLL_Enable" VALUE="false"/>
         <PARAMETER NAME="C_ADC2_Sampling_Rate" VALUE="2.0"/>
@@ -10194,13 +10194,13 @@
         <PARAMETER NAME="ADC1_Refclk_Div" VALUE="1"/>
         <PARAMETER NAME="ADC1_Clock_Source" VALUE="1"/>
         <PARAMETER NAME="ADC1_Clock_Dist" VALUE="0"/>
-        <PARAMETER NAME="ADC_Slice10_Enable" VALUE="false"/>
+        <PARAMETER NAME="ADC_Slice10_Enable" VALUE="true"/>
         <PARAMETER NAME="ADC_Dither10" VALUE="true"/>
-        <PARAMETER NAME="ADC_Data_Type10" VALUE="0"/>
-        <PARAMETER NAME="ADC_Decimation_Mode10" VALUE="0"/>
+        <PARAMETER NAME="ADC_Data_Type10" VALUE="1"/>
+        <PARAMETER NAME="ADC_Decimation_Mode10" VALUE="2"/>
         <PARAMETER NAME="ADC_CalOpt_Mode10" VALUE="1"/>
-        <PARAMETER NAME="ADC_Mixer_Type10" VALUE="3"/>
-        <PARAMETER NAME="ADC_Mixer_Mode10" VALUE="2"/>
+        <PARAMETER NAME="ADC_Mixer_Type10" VALUE="2"/>
+        <PARAMETER NAME="ADC_Mixer_Mode10" VALUE="0"/>
         <PARAMETER NAME="ADC_Data_Width10" VALUE="8"/>
         <PARAMETER NAME="ADC_Coarse_Mixer_Freq10" VALUE="0"/>
         <PARAMETER NAME="ADC_NCO_Freq10" VALUE="0.0"/>
@@ -10210,13 +10210,13 @@
         <PARAMETER NAME="ADC_Bypass_BG_Cal10" VALUE="false"/>
         <PARAMETER NAME="ADC_RESERVED_1_10" VALUE="false"/>
         <PARAMETER NAME="ADC_TDD_RTS10" VALUE="0"/>
-        <PARAMETER NAME="ADC_Slice11_Enable" VALUE="false"/>
+        <PARAMETER NAME="ADC_Slice11_Enable" VALUE="true"/>
         <PARAMETER NAME="ADC_Dither11" VALUE="true"/>
-        <PARAMETER NAME="ADC_Data_Type11" VALUE="0"/>
-        <PARAMETER NAME="ADC_Decimation_Mode11" VALUE="0"/>
+        <PARAMETER NAME="ADC_Data_Type11" VALUE="1"/>
+        <PARAMETER NAME="ADC_Decimation_Mode11" VALUE="2"/>
         <PARAMETER NAME="ADC_CalOpt_Mode11" VALUE="1"/>
-        <PARAMETER NAME="ADC_Mixer_Type11" VALUE="3"/>
-        <PARAMETER NAME="ADC_Mixer_Mode11" VALUE="2"/>
+        <PARAMETER NAME="ADC_Mixer_Type11" VALUE="2"/>
+        <PARAMETER NAME="ADC_Mixer_Mode11" VALUE="0"/>
         <PARAMETER NAME="ADC_Data_Width11" VALUE="8"/>
         <PARAMETER NAME="ADC_Coarse_Mixer_Freq11" VALUE="0"/>
         <PARAMETER NAME="ADC_NCO_Freq11" VALUE="0.0"/>
@@ -10226,13 +10226,13 @@
         <PARAMETER NAME="ADC_Bypass_BG_Cal11" VALUE="false"/>
         <PARAMETER NAME="ADC_RESERVED_1_11" VALUE="false"/>
         <PARAMETER NAME="ADC_TDD_RTS11" VALUE="0"/>
-        <PARAMETER NAME="ADC_Slice12_Enable" VALUE="true"/>
+        <PARAMETER NAME="ADC_Slice12_Enable" VALUE="false"/>
         <PARAMETER NAME="ADC_Dither12" VALUE="true"/>
-        <PARAMETER NAME="ADC_Data_Type12" VALUE="1"/>
-        <PARAMETER NAME="ADC_Decimation_Mode12" VALUE="2"/>
+        <PARAMETER NAME="ADC_Data_Type12" VALUE="0"/>
+        <PARAMETER NAME="ADC_Decimation_Mode12" VALUE="0"/>
         <PARAMETER NAME="ADC_CalOpt_Mode12" VALUE="1"/>
-        <PARAMETER NAME="ADC_Mixer_Type12" VALUE="2"/>
-        <PARAMETER NAME="ADC_Mixer_Mode12" VALUE="0"/>
+        <PARAMETER NAME="ADC_Mixer_Type12" VALUE="3"/>
+        <PARAMETER NAME="ADC_Mixer_Mode12" VALUE="1"/>
         <PARAMETER NAME="ADC_Data_Width12" VALUE="8"/>
         <PARAMETER NAME="ADC_Coarse_Mixer_Freq12" VALUE="0"/>
         <PARAMETER NAME="ADC_NCO_Freq12" VALUE="0"/>
@@ -10242,13 +10242,13 @@
         <PARAMETER NAME="ADC_Bypass_BG_Cal12" VALUE="false"/>
         <PARAMETER NAME="ADC_RESERVED_1_12" VALUE="false"/>
         <PARAMETER NAME="ADC_TDD_RTS12" VALUE="0"/>
-        <PARAMETER NAME="ADC_Slice13_Enable" VALUE="true"/>
+        <PARAMETER NAME="ADC_Slice13_Enable" VALUE="false"/>
         <PARAMETER NAME="ADC_Dither13" VALUE="true"/>
-        <PARAMETER NAME="ADC_Data_Type13" VALUE="1"/>
-        <PARAMETER NAME="ADC_Decimation_Mode13" VALUE="2"/>
+        <PARAMETER NAME="ADC_Data_Type13" VALUE="0"/>
+        <PARAMETER NAME="ADC_Decimation_Mode13" VALUE="0"/>
         <PARAMETER NAME="ADC_CalOpt_Mode13" VALUE="1"/>
-        <PARAMETER NAME="ADC_Mixer_Type13" VALUE="2"/>
-        <PARAMETER NAME="ADC_Mixer_Mode13" VALUE="0"/>
+        <PARAMETER NAME="ADC_Mixer_Type13" VALUE="3"/>
+        <PARAMETER NAME="ADC_Mixer_Mode13" VALUE="1"/>
         <PARAMETER NAME="ADC_Data_Width13" VALUE="8"/>
         <PARAMETER NAME="ADC_Coarse_Mixer_Freq13" VALUE="0"/>
         <PARAMETER NAME="ADC_NCO_Freq13" VALUE="0"/>
@@ -11035,14 +11035,14 @@
             <CONNECTION INSTANCE="block_design_imp" PORT="sysref_in_diff_n"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="vin1_23_p" SIGIS="undef" SIGNAME="radio_rfdc_vin1_23_p">
+        <PORT DIR="I" NAME="vin1_01_p" SIGIS="undef" SIGNAME="radio_rfdc_vin1_01_p">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="block_design_imp" PORT="vin1_23_v_p"/>
+            <CONNECTION INSTANCE="block_design_imp" PORT="vin1_01_v_p"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="vin1_23_n" SIGIS="undef" SIGNAME="radio_rfdc_vin1_23_n">
+        <PORT DIR="I" NAME="vin1_01_n" SIGIS="undef" SIGNAME="radio_rfdc_vin1_01_n">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="block_design_imp" PORT="vin1_23_v_n"/>
+            <CONNECTION INSTANCE="block_design_imp" PORT="vin1_01_v_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="vout11_p" SIGIS="undef" SIGNAME="radio_rfdc_vout11_p">
@@ -11065,32 +11065,32 @@
             <CONNECTION INSTANCE="radio_rfdc" PORT="clk_adc1"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="127" NAME="m12_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tdata">
+        <PORT DIR="O" LEFT="127" NAME="m10_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="radio_receiver_channel_10_decimator" PORT="s_axis_re_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="m12_axis_tvalid" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tvalid">
+        <PORT DIR="O" NAME="m10_axis_tvalid" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="radio_receiver_channel_10_decimator" PORT="s_axis_re_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="m12_axis_tready" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tready">
+        <PORT DIR="I" NAME="m10_axis_tready" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_re_tready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="radio_receiver_channel_10_decimator" PORT="s_axis_re_tready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="127" NAME="m13_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tdata">
+        <PORT DIR="O" LEFT="127" NAME="m11_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="radio_receiver_channel_10_decimator" PORT="s_axis_im_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="m13_axis_tvalid" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tvalid">
+        <PORT DIR="O" NAME="m11_axis_tvalid" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="radio_receiver_channel_10_decimator" PORT="s_axis_im_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="m13_axis_tready" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tready">
+        <PORT DIR="I" NAME="m11_axis_tready" SIGIS="undef" SIGNAME="radio_receiver_channel_10_decimator_s_axis_im_tready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="radio_receiver_channel_10_decimator" PORT="s_axis_im_tready"/>
           </CONNECTIONS>
@@ -11170,7 +11170,7 @@
             <PORTMAP LOGICAL="WVALID" PHYSICAL="s_axi_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="radio_rfdc_m12_axis" NAME="m12_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="radio_rfdc_m10_axis" NAME="m10_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
@@ -11185,12 +11185,12 @@
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PORTMAPS>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="m12_axis_tdata"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="m12_axis_tready"/>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="m12_axis_tvalid"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m10_axis_tdata"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m10_axis_tready"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m10_axis_tvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="radio_rfdc_m13_axis" NAME="m13_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="radio_rfdc_m11_axis" NAME="m11_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="16"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
@@ -11205,9 +11205,9 @@
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PORTMAPS>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="m13_axis_tdata"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="m13_axis_tready"/>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="m13_axis_tvalid"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m11_axis_tdata"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m11_axis_tready"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m11_axis_tvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="radio_transmitter_channel_11_ofdm_interpolator_m_axis" NAME="s11_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
@@ -11246,10 +11246,10 @@
             <PORTMAP LOGICAL="CLK_P" PHYSICAL="dac1_clk_p"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="External_Interface_vin1_23" NAME="vin1_23" TYPE="TARGET" VLNV="xilinx.com:interface:diff_analog_io:1.0">
+        <BUSINTERFACE BUSNAME="External_Interface_vin1_01" NAME="vin1_01" TYPE="TARGET" VLNV="xilinx.com:interface:diff_analog_io:1.0">
           <PORTMAPS>
-            <PORTMAP LOGICAL="V_N" PHYSICAL="vin1_23_n"/>
-            <PORTMAP LOGICAL="V_P" PHYSICAL="vin1_23_p"/>
+            <PORTMAP LOGICAL="V_N" PHYSICAL="vin1_01_n"/>
+            <PORTMAP LOGICAL="V_P" PHYSICAL="vin1_01_p"/>
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="radio_rfdc_vout11" NAME="vout11" TYPE="INITIATOR" VLNV="xilinx.com:interface:diff_analog_io:1.0">
