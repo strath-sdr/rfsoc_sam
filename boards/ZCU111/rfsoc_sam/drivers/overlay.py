@@ -16,6 +16,7 @@ about = ''.join(['<br><b>', __info__, '</b><br>', __channels__, ' ', __board__,
                  '<b>Organisation:</b> <br>', __organisation__,
                  '<br><br>', '<b>Support</b>:<br>', __support__])
 
+
 from pynq import Overlay, allocate
 import xrfclk
 import xrfdc
@@ -33,9 +34,20 @@ max_count = 100
 load_bar = IntProgress(min=load_progress, max=max_count) # instantiate the bar
 
 
+def generate_about():
+    global about
+    about = ''.join(['<br><b>', __info__, '</b><br>', __channels__, ' ', __board__,
+                    ' ', __release__, '<br>', 'Version ', __version_number__,
+                    ': ', __version_name__, '<br>Date: ', __date__, '<br><br>',
+                    '<b>Organisation:</b> <br>', __organisation__,
+                    '<br><br>', '<b>Support</b>:<br>', __support__])
+
+
 class Overlay(Overlay):
     
     def __init__(self, overlay_system='sam', init_rf_clks=True, **kwargs):
+
+        global __channels__
         
         if not isinstance(overlay_system, str):
             raise TypeError("Argument overlay_system must be of type string.")
@@ -47,6 +59,7 @@ class Overlay(Overlay):
             this_dir = os.path.dirname(__file__)
             bitfile_name = os.path.join(this_dir, 'bitstream', 'rfsoc_sam_ofdm.bit')
             __channels__ = 'Single-channel OFDM'
+            generate_about()
         else:
             raise ValueError(''.join(["Unknown overlay design ", overlay_system]))
         
