@@ -26,3 +26,7 @@
 **/rfsoc_sam/rfstrath
 **/rfsoc_sam/rfsoc_pynq
 **/rfsoc_sam/rfsoc_sam
+**/rfsoc_sam_ofdm/rfsoc_sam_ofdm
+**/rfsoc_sam_ofdm/iprepo
+**/rfsoc_sam_ofdm/rfsoc_ofdm
+**/rfsoc_sam_ofdm/rfsoc_radio

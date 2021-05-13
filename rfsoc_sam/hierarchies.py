@@ -100,7 +100,9 @@ class Receiver(DefaultHierarchy):
         channels = []
         
         for hier, details in description['hierarchies'].items():
-            if details['driver'] == AdcChannel:
+            if details['driver'] == AdcOfdmChannel:
+                channels.append(hier)
+            elif details['driver'] == AdcChannel:
                 channels.append(hier)
         channels = sorted(channels)
                 
@@ -168,6 +170,13 @@ class Receiver(DefaultHierarchy):
         for i in range(0, len(self.channels)):
             sam.append(self.channels[i].frontend.spectrum_analyser(config[i]))
         return sam
+    
+    
+    def _get_constellation_plot(self):
+        iqp = []
+        for i in range(0, len(self.channels)):
+            iqp.append(self.channels[i].frontend.constellation_plot())
+        return iqp
         
     
 class Transmitter(DefaultHierarchy):
@@ -186,6 +195,8 @@ class Transmitter(DefaultHierarchy):
         channels = []
         
         for hier, details in description['hierarchies'].items():
+            if details['driver'] == DacOfdmChannel:
+                channels.append(hier)
             if details['driver'] == DacChannel:
                 channels.append(hier)
         channels = sorted(channels)

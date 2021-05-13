@@ -274,6 +274,74 @@ class Button():
         return self._button
     
     
+class QuickButton():
+    """Helper class for button widgets.
+    """
+    def __init__(self,
+                 callback,
+                 description_on = ' ',
+                 description_off = ' ',
+                 state = True,
+                 dict_id = ''):
+        self._state = state
+        self._dict_id = dict_id
+        self._callback = callback
+        self._button_colour = 'green'
+        self._description_on = description_on
+        self._description_off = description_off
+        self._button = ipw.Button(description=self._description_on if self._state else self._description_off,
+                                  layout=ipw.Layout(margin='auto',
+                                                    border='none'))
+        self._button.on_click(lambda _: self.on_click())
+        
+        if self._state:
+            self._button.style.button_color = self.button_colour
+        else:
+            self._button.style.button_color = 'rgb(128, 128, 128)'
+            
+    @property
+    def button_colour(self):
+        return self._button_colour
+    
+    @button_colour.setter
+    def button_colour(self, button_colour):
+        self._button_colour = button_colour
+        if self._state:
+            self._button.style.button_color = self._button_colour
+            
+    @property
+    def value(self):
+        return self._state
+    
+    @value.setter
+    def value(self, state):
+        self._state = state
+        if self._state:
+            self._button.style.button_color = self.button_colour
+            self._button.description = self._description_on
+        else:
+            self._button.style.button_color = 'rgb(128, 128, 128)'
+            self._button.description = self._description_off
+        
+    def on_click(self):
+        
+        if self._state:
+            self._button.style.button_color = 'rgb(128, 128, 128)'
+            self._button.description = self._description_off
+            self._callback()
+            self._button.style.button_color = self.button_colour
+            self._button.description = self._description_on
+        else:
+            self._button.style.button_color = self.button_colour
+            self._button.description = self._description_on
+            self._callback()
+            self._button.style.button_color = 'rgb(128, 128, 128)'
+            self._button.description = self._description_off
+            
+    def get_widget(self):
+        return self._button
+    
+    
 class Accordion():
     """Helper class for accordion widgets.
     """

@@ -59,6 +59,7 @@ class Spectrum():
         self._max_indices = [0]
         self._number_min_indices = 1
         self._number_max_indices = 1
+        self._update_ddc_counter = 0
         self.ddc_centre_frequency = 0
         self.data_windowsize = data_windowsize
         self.post_process = 'none'
@@ -66,6 +67,12 @@ class Spectrum():
         self.display_min = False
         self.display_max = False
         self.display_ddc_plan = []
+        
+        
+        if (np.ceil(self._centre_frequency/(self._sample_frequency/2)) % 2) == 0:
+            self._nyquist_direction = -1
+        else:
+            self._nyquist_direction = 1
         
         layout = {
             'hovermode' : 'closest',
@@ -152,14 +159,13 @@ class Spectrum():
             pll_ref=PLL_REF
         )
         
-        self._spurs_list = ['rx_alias', 'rx_image', 'nyquist_up', 'nyquist_down',
+        self._spurs_list = ['rx_alias', 'rx_image',
                             'hd2', 'hd2_image', 'hd3', 'hd3_image',
-                            'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image',
-                            'tis_spur', 'tis_spur_image', 'offset_spur', 'offset_spur_image']
+                            'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image']
         
         for spur in self._spurs_list:
             spur_data = getattr(self.ddc_plan, spur)
-            spur_data['x'] = spur_data['x'] + self._centre_frequency
+            spur_data['x'] = self._nyquist_direction*spur_data['x'] + self._centre_frequency
         
             plot_data.append(
                 go.Scatter(
@@ -270,6 +276,10 @@ class Spectrum():
     @centre_frequency.setter
     def centre_frequency(self, fc):
         self._centre_frequency = fc
+        if (np.ceil(self._centre_frequency/(self._sample_frequency/2)) % 2) == 0:
+            self._nyquist_direction = -1
+        else:
+            self._nyquist_direction = 1
         self._update_x_axis()
     
     @property
@@ -298,6 +308,11 @@ class Spectrum():
             self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
             self._apply_analysis()
             self._display_analysis()
+            if self._update_ddc_counter > 8:
+                self.update_ddc_amplitude()
+                self._update_ddc_counter = 0
+            else:
+                self._update_ddc_counter = self._update_ddc_counter + 1
     
     @property
     def xlabel(self):
@@ -447,15 +462,21 @@ class Spectrum():
                 self.ddc_plan.nco = self._centre_frequency
             else:
                 self.ddc_plan.nco = -self._centre_frequency
-
+            self.update_ddc_amplitude()
+                
+    def update_ddc_amplitude(self):
+        spectrum_average = np.mean(self._y_data)
+        min_x_data = min(self._x_data)
+        max_x_data = max(self._x_data)
+        minimum_spectrum = min(self._x_data)/self._rbw
         for index, spur in enumerate(self._spurs_list):
             if self.display_ddc_plan[index]:
                 spur_data = getattr(self.ddc_plan, spur)
-                if (spur_data['x'] >= self._lower_limit) and (spur_data['x'] <= self._upper_limit):
-                    xvalue = spur_data['x'] + self._centre_frequency
+                xvalue = self._nyquist_direction*spur_data['x'] + self._centre_frequency
+                if (xvalue >= min_x_data) and (xvalue <= max_x_data):
                     self._plot.data[4+index].update({
                         'x' : [xvalue, xvalue],
-                        'y' : [spur_data['ymin'], spur_data['ymax']],
+                        'y' : [spectrum_average, self._y_data[int((xvalue/self._rbw)-minimum_spectrum)]],
                     })
                 else:
                     self._plot.data[4+index].update({
@@ -680,3 +701,74 @@ class Spectrogram():
     
     def get_plot(self):
         return self._plot
+
+    
+class Constellation():
+    def __init__(self,
+                 data,
+                 animation_period=50,
+                 height=800,
+                 width=800,
+                 autosize=True):
+        """Creates a new plot object for plotting IQ constellations."""
+        
+        self._data = data
+        self._animation_period = 50
+        self._width = width
+        self._height = height
+        self._axisrange = [-1.25, 1.25]
+        self._autosize = autosize
+        self._complex = isinstance(self._data[0], complex)
+        
+        if not self._complex:
+            raise Exception('Input data is not of type complex.')
+        
+        self._layout = {
+            'hovermode' : 'closest',
+            'height' : self._height,
+            'width' : self._width,
+            'autosize' : self._autosize,
+            'xaxis' : {
+                'range' : self._axisrange,
+                'title' : 'In-phase Amplitude'
+            },
+            'yaxis' : {
+                'range' : self._axisrange,
+                'title' : 'Quadrature Amplitude'
+            },
+            'title' : 'Constellation Plot'
+        }
+        
+        self._plot = go.FigureWidget(
+            layout = self._layout,
+            data = [{
+                'mode' : 'markers',
+                'x' : np.real(self._data),
+                'y' : np.imag(self._data)
+            }])
+        
+    def set_axisrange(self, axisrange):
+        self._axisrange = axisrange
+        self._plot.layout.yaxis.range = axisrange
+        self._plot.layout.xaxis.range = axisrange
+        
+    def update_data(self, data):
+        """Update the frame of data currently on the canvas
+        """
+        
+        if not isinstance(data[0], complex):
+            raise Exception('Input data is not of type complex.')
+            
+        #if len(data) > 8:
+        #    step = int(len(data)/8)
+        #    self._data = data[::step]
+        #else:
+        #    self._data = data
+        
+        self._data = data
+        self._plot.data[0].update({'x' : np.real(self._data),
+                                   'y' : np.imag(self._data)})        
+        
+    def get_widget(self):
+        return self._plot
+    

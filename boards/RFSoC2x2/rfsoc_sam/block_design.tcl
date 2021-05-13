@@ -129,8 +129,8 @@ xilinx.com:ip:xlconstant:1.1\
 xilinx.com:ip:proc_sys_reset:5.0\
 xilinx.com:ip:zynq_ultra_ps_e:3.3\
 xilinx.com:ip:usp_rf_data_converter:2.3\
-User_Company:RFSoC:xsg_bwselector:1.0\
-xilinx.com:ip:SpectrumAnalyser:1.0\
+strath.ac.uk:RFSoC:xsg_bwselector:1.1\
+xilinx.com:ip:SpectrumAnalyser:1.1\
 xilinx.com:ip:axis_broadcaster:1.1\
 xilinx.com:ip:axis_combiner:1.1\
 xilinx.com:ip:mw_transmitter:1.0\
@@ -356,10 +356,10 @@ proc create_hier_cell_channel_20 { parentCell nameHier } {
  ] $axi_interconnect
 
   # Create instance: decimator, and set properties
-  set decimator [ create_bd_cell -type ip -vlnv User_Company:RFSoC:xsg_bwselector:1.0 decimator ]
+  set decimator [ create_bd_cell -type ip -vlnv strath.ac.uk:RFSoC:xsg_bwselector:1.1 decimator ]
 
   # Create instance: spectrum_analyser, and set properties
-  set spectrum_analyser [ create_bd_cell -type ip -vlnv xilinx.com:ip:SpectrumAnalyser:1.0 spectrum_analyser ]
+  set spectrum_analyser [ create_bd_cell -type ip -vlnv xilinx.com:ip:SpectrumAnalyser:1.1 spectrum_analyser ]
 
   # Create interface connections
   connect_bd_intf_net -intf_net AXI4_Lite_1 [get_bd_intf_pins S_AXI] [get_bd_intf_pins axi_interconnect/S00_AXI]
@@ -438,10 +438,10 @@ proc create_hier_cell_channel_00 { parentCell nameHier } {
  ] $axi_interconnect
 
   # Create instance: decimator, and set properties
-  set decimator [ create_bd_cell -type ip -vlnv User_Company:RFSoC:xsg_bwselector:1.0 decimator ]
+  set decimator [ create_bd_cell -type ip -vlnv strath.ac.uk:RFSoC:xsg_bwselector:1.1 decimator ]
 
   # Create instance: spectrum_analyser, and set properties
-  set spectrum_analyser [ create_bd_cell -type ip -vlnv xilinx.com:ip:SpectrumAnalyser:1.0 spectrum_analyser ]
+  set spectrum_analyser [ create_bd_cell -type ip -vlnv xilinx.com:ip:SpectrumAnalyser:1.1 spectrum_analyser ]
 
   # Create interface connections
   connect_bd_intf_net -intf_net AXI4_Lite_1 [get_bd_intf_pins S_AXI] [get_bd_intf_pins axi_interconnect/S00_AXI]
