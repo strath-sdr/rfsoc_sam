@@ -1,13 +1,13 @@
-<img src="strathclyde_banner.png" width="100%">
+<img src="strathsdr_banner.png" width="100%">
 
 # Spectrum Analyser on PYNQ
 This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ image v2.6](https://github.com/Xilinx/PYNQ/releases) for the ZCU111 and RFSoC2x2 development board.
 
 <p align="center">
-  <img src="./demonstration.gif"/>
+  <img src="./demonstration.gif" width="75%" height="75%" />
 </p>
 
-Currently, this project is in version 0.3.0. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.3.1. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
 * Up to 2 GHz bandwidth for inspection
