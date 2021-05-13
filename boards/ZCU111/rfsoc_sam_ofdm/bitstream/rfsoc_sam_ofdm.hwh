@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed May 12 22:31:20 2021" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed May 12 23:41:15 2021" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynquplusRFSOC" BOARD="xilinx.com:zcu111:part0:1.2" DEVICE="xczu28dr" NAME="block_design" PACKAGE="ffvg1517" SPEEDGRADE="-2"/>
 
@@ -9822,12 +9822,12 @@
         <PARAMETER NAME="C_DAC_RESERVED_1_03" VALUE="false"/>
         <PARAMETER NAME="C_DAC_TDD_RTS03" VALUE="0"/>
         <PARAMETER NAME="C_DAC1_Enable" VALUE="1"/>
-        <PARAMETER NAME="C_DAC1_PLL_Enable" VALUE="false"/>
+        <PARAMETER NAME="C_DAC1_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="C_DAC1_Sampling_Rate" VALUE="4.096"/>
         <PARAMETER NAME="C_DAC1_Fs_Max" VALUE="6.554"/>
-        <PARAMETER NAME="C_DAC1_Refclk_Freq" VALUE="4096.000"/>
+        <PARAMETER NAME="C_DAC1_Refclk_Freq" VALUE="409.600"/>
         <PARAMETER NAME="C_DAC1_Outclk_Freq" VALUE="256.000"/>
-        <PARAMETER NAME="C_DAC1_FBDIV" VALUE="48"/>
+        <PARAMETER NAME="C_DAC1_FBDIV" VALUE="30"/>
         <PARAMETER NAME="C_DAC1_OutDiv" VALUE="3"/>
         <PARAMETER NAME="C_DAC1_Vco" VALUE="12288.0"/>
         <PARAMETER NAME="C_DAC1_Fabric_Freq" VALUE="256.000"/>
@@ -10561,9 +10561,9 @@
         <PARAMETER NAME="DAC_RESERVED_1_03" VALUE="false"/>
         <PARAMETER NAME="DAC_TDD_RTS03" VALUE="0"/>
         <PARAMETER NAME="DAC1_Enable" VALUE="1"/>
-        <PARAMETER NAME="DAC1_PLL_Enable" VALUE="false"/>
+        <PARAMETER NAME="DAC1_PLL_Enable" VALUE="true"/>
         <PARAMETER NAME="DAC1_Sampling_Rate" VALUE="4.096"/>
-        <PARAMETER NAME="DAC1_Refclk_Freq" VALUE="4096.000"/>
+        <PARAMETER NAME="DAC1_Refclk_Freq" VALUE="409.600"/>
         <PARAMETER NAME="DAC1_Outclk_Freq" VALUE="256.000"/>
         <PARAMETER NAME="DAC1_Fabric_Freq" VALUE="256.000"/>
         <PARAMETER NAME="DAC1_Multi_Tile_Sync" VALUE="false"/>
@@ -13031,10 +13031,10 @@
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=zynq_ultra_ps_e;v=v3_3;d=pg201-zynq-ultrascale-plus-processing-system.pdf"/>
       </DOCUMENTS>
       <ADDRESSBLOCKS>
-        <ADDRESSBLOCK ACCESS="" INTERFACE="SAXIGP4" NAME="HP2_QSPI" RANGE="0x20000000" USAGE="memory"/>
+        <ADDRESSBLOCK ACCESS="" INTERFACE="SAXIGP4" NAME="HP2_LPS_OCM" RANGE="0x1000000" USAGE="register"/>
       </ADDRESSBLOCKS>
       <ADDRESSBLOCKS>
-        <ADDRESSBLOCK ACCESS="" INTERFACE="SAXIGP4" NAME="HP2_LPS_OCM" RANGE="0x1000000" USAGE="register"/>
+        <ADDRESSBLOCK ACCESS="" INTERFACE="SAXIGP4" NAME="HP2_QSPI" RANGE="0x20000000" USAGE="memory"/>
       </ADDRESSBLOCKS>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="SAXIGP4" NAME="HP2_DDR_LOW" RANGE="0x80000000" USAGE="memory"/>
