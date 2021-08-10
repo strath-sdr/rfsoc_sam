@@ -12,11 +12,11 @@ set_property target_language VHDL [current_project]
 
 # Clone rfsoc_ofdm
 file delete -force ./rfsoc_ofdm
-catch {exec git clone https://github.com/dnorthcote/rfsoc_ofdm}
+catch {exec git clone https://github.com/strath-sdr/rfsoc_ofdm}
 
 # Clone rfsoc_radio
 file delete -force ./rfsoc_radio
-catch {exec git clone https://github.com/dnorthcote/rfsoc_radio}
+catch {exec git clone https://github.com/strath-sdr/rfsoc_radio}
 
 # Copy IP Cores
 file delete -force ./iprepo
