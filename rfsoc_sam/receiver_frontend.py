@@ -2183,7 +2183,7 @@ class RadioAnalyserGUI():
                                                         ipw.VBox([self._widgets['post_process'].get_widget(),
                                                                   self._widgets['number_frames'].get_widget(),
                                                                   self._widgets['spectrum_type'].get_widget(),
-                                                                  self._widgets['spectrum_units'].get_widget(),
+                                                                  #self._widgets['spectrum_units'].get_widget(),
                                                                   self._widgets['ymin'].get_widget(),
                                                                   self._widgets['ymax'].get_widget()]),
                                                         ipw.VBox([self._widgets['spectrum_map_sector'].get_widget(),
