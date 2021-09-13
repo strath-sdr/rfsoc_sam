@@ -7,14 +7,29 @@ import ipywidgets as ipw
 import plotly.graph_objs as go
 import matplotlib.colors as mcolors
 import time
+from pynq_specmap import filters, plots
 from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
-from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image, CheckBox, QuickButton
+from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image, CheckBox, QuickButton, Select
 
 DDC_SPURS = ['rx_alias', 'rx_image', 'nyquist_up', 'nyquist_down',
              'hd2', 'hd2_image', 'hd3', 'hd3_image',
              'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image',
              'tis_spur', 'tis_spur_image', 'offset_spur', 'offset_spur_image']
+
+SPECTRUM_MAP_SECTORS = ['Aeronautical',
+                        'Amateur',
+                        'Broadcasting',
+                        'Business Radio',
+                        'Fixed Links',
+                        'Licence exempt',
+                        'Maritime',
+                        'Mobile and Wireless Broadband',
+                        'None',
+                        'PMSE',
+                        'Public sector',
+                        'Satellite',
+                        'Space Science']
 
 
 class RadioOfdmAnalyser():
@@ -1594,6 +1609,31 @@ class RadioAnalyser():
     @property
     def dma_status(self):
         return self._spectrum_analyser.dma_status
+    
+    @property
+    def spectrum_map_sector(self):
+        return self._spectrum_analyser.plot.current_spectrum_map_sector
+    
+    @spectrum_map_sector.setter
+    def spectrum_map_sector(self, sector):
+        self._spectrum_analyser.plot.current_spectrum_map_sector = sector
+        
+    @property
+    def spectrum_map_select(self):
+        return None
+    
+    @spectrum_map_select.setter
+    def spectrum_map_select(self, unique_name):
+        self._spectrum_analyser.plot.spectrum_map_select = unique_name
+        
+    @property
+    def spectrum_map_unique_names(self):
+        unique_names = self._spectrum_analyser.plot.select_dict['u']
+        return unique_names
+    
+    @property
+    def spectrum_map_select_band(self):
+        return self._spectrum_analyser.plot.overlay_band
             
     def spectrum(self):
         return self._spectrum_analyser.plot.get_plot()
@@ -1698,7 +1738,9 @@ class RadioAnalyserGUI():
                         'ddc_plan_nsd_db' : self.analyser.ddc_plan_nsd_db,
                         'ddc_plan_pll_mix_db' : self.analyser.ddc_plan_pll_mix_db,
                         'ddc_plan_off_spur_db' : self.analyser.ddc_plan_off_spur_db,
-                        'ddc_plan_tis_spur_db' : self.analyser.ddc_plan_tis_spur_db}
+                        'ddc_plan_tis_spur_db' : self.analyser.ddc_plan_tis_spur_db,
+                        'spectrum_map_sector' : self.analyser.spectrum_map_sector,
+                        'spectrum_map_select' : self.analyser.spectrum_map_select}
         self._initialise_frontend()
         
                              
@@ -1819,7 +1861,7 @@ class RadioAnalyserGUI():
         
         self._widgets.update({'spectrum_units' :
                               DropDown(callback=self._update_config,
-                                       options=[('dBW'),
+                                       options=[('dBFS'),
                                                 ('dBm')],
                                        value=self._config['spectrum_units'],
                                        dict_id='spectrum_units',
@@ -1915,6 +1957,21 @@ class RadioAnalyserGUI():
                                        dict_id='spectrogram_performance',
                                        description='Resolution:',
                                        description_width='100px')})
+        
+        self._widgets.update({'spectrum_map_sector' :
+                              DropDown(callback=self._update_config,
+                                       options=SPECTRUM_MAP_SECTORS,
+                                       value=SPECTRUM_MAP_SECTORS[0],
+                                       dict_id='spectrum_map_sector',
+                                       description='Spectrum Sector:',
+                                       description_width='100px',
+                                       layout_width='350px')})
+        
+        self._widgets.update({'spectrum_map_select' :
+                              Select(callback=self._update_config,
+                                     options=self.analyser.spectrum_map_unique_names,
+                                     rows=len(self.analyser.spectrum_map_unique_names),
+                                     dict_id='spectrum_map_select')})
         
         self._widgets.update({'number_max_indices' : 
                               IntText(callback=self._update_config,
@@ -2129,6 +2186,8 @@ class RadioAnalyserGUI():
                                                                   self._widgets['spectrum_units'].get_widget(),
                                                                   self._widgets['ymin'].get_widget(),
                                                                   self._widgets['ymax'].get_widget()]),
+                                                        ipw.VBox([self._widgets['spectrum_map_sector'].get_widget(),
+                                                                  ipw.VBox([self._widgets['spectrum_map_select'].get_widget()], layout={'height' : '300px'})]),
                                                         ipw.VBox([ipw.Label(value='Experimental Control Panel'),
                                                                   self._widgets['ddc_centre_frequency'].get_widget(),
                                                             ipw.HBox([
@@ -2166,10 +2225,11 @@ class RadioAnalyserGUI():
         self._accordions['properties'].set_title(0, 'System')
         self._accordions['properties'].set_title(1, 'Receiver')
         self._accordions['properties'].set_title(2, 'Spectrum Analyzer')
-        self._accordions['properties'].set_title(3, 'Frequency Planner')
-        self._accordions['properties'].set_title(4, 'Spectrogram')
-        self._accordions['properties'].set_title(5, 'Window Settings')
-        self._accordions['properties'].set_title(6, 'Plot Settings')
+        self._accordions['properties'].set_title(3, 'Spectrum Map')
+        self._accordions['properties'].set_title(4, 'Frequency Planner')
+        self._accordions['properties'].set_title(5, 'Spectrogram')
+        self._accordions['properties'].set_title(6, 'Window Settings')
+        self._accordions['properties'].set_title(7, 'Plot Settings')
         
         self._update_config(self._config)
         
@@ -2201,7 +2261,8 @@ class RadioAnalyserGUI():
                         setattr(self.analyser, key, self._config[key])
                         self._widgets[key].value = self._config[key]
                         if key in ['plotly_theme', 'line_colour', 'decimation_factor',
-                                'spectrum_enable', 'waterfall_enable']:
+                                'spectrum_enable', 'waterfall_enable', 'spectrum_map_sector',
+                                'spectrum_map_select']:
                             self._update_widgets(key)
                         if key in ['fftsize', 'window']:
                             self._update_figurewidgets(key)
@@ -2251,6 +2312,19 @@ class RadioAnalyserGUI():
             else:
                 if not self._config['spectrum_enable']:
                     self._widgets['dma_enable'].configure_state(False)
+        elif key in ['spectrum_map_sector']:
+            self._widgets['spectrum_map_select'].options = self.analyser.spectrum_map_unique_names
+        elif key in ['spectrum_map_select']:
+            overlay_band = self.analyser.spectrum_map_select_band
+            fc = float((overlay_band['bw']/2 + overlay_band['lf'])/1e6)
+            decimation_factor_list = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+            for factor in decimation_factor_list:
+                sample_frequency = 4096e6/factor
+                decim_factor = factor
+                if (sample_frequency < (overlay_band['bw'] * 20)):
+                    break
+            self.config = {'centre_frequency' : fc, 'decimation_factor' : decim_factor}
+            
             
     
     def spectrum_analyser(self, config=None):
