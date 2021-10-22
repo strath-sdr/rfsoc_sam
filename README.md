@@ -53,7 +53,7 @@ This will forcefully install the latest version of the Spectrum Analyser to your
 
 ## ZCU111 Setup
 
-**(spectrum-analyser)** This final step will install the Spectrum Analyser to your ZCU111 development board. The Spectrum Analyser does not come preinstalled on the ZCU111 PYNQ image. Run the code below in the jupyter terminal to install the Spectrum Analyser.
+This final step will install the Spectrum Analyser to your ZCU111 development board. The Spectrum Analyser does not come preinstalled on the ZCU111 PYNQ image. Run the code below in the jupyter terminal to install the Spectrum Analyser.
 
 ```sh
 pip3 install git+https://github.com/strath-sdr/rfsoc_sam
