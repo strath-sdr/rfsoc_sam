@@ -66,10 +66,10 @@ copy_notebooks()
 
 setup(
     name=package_name,
-    version='0.3.1',
+    version='0.4.0',
     install_requires=[
-        'pynq==2.6',
-        'rfsoc-freqplan @ https://github.com/strath-sdr/rfsoc_frequency_planner/archive/v0.1.0.tar.gz',
+        'pynq==2.7',
+        'rfsoc-freqplan @ https://github.com/strath-sdr/rfsoc_frequency_planner/archive/v0.1.1.tar.gz',
     ],
     url='https://github.com/strath-sdr/rfsoc_sam',
     license='BSD 3-Clause License',
