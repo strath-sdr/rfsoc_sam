@@ -5,6 +5,7 @@ __support__ = "https://github.com/strath-sdr/rfsoc_sam"
 import ipywidgets as ipw
 from pynq import DefaultHierarchy
 import xrfdc
+from time import sleep
 from .constants import *
 from .channels import *
 
@@ -143,6 +144,9 @@ class Receiver(DefaultHierarchy):
     
     def _initialise_adc_tile(self, tile):
         tile.DynamicPLLConfig(1, 409.6, 4096)
+        tile.ShutDown()
+        sleep(1)
+        tile.StartUp()
         
     
     def _start_adc_tile(self, tile):
@@ -237,6 +241,9 @@ class Transmitter(DefaultHierarchy):
     
     def _initialise_dac_tile(self, tile):
         tile.DynamicPLLConfig(1, 409.6, 4096)
+        tile.ShutDown()
+        sleep(1)
+        tile.StartUp()
         
     
     def _start_dac_tile(self, tile):

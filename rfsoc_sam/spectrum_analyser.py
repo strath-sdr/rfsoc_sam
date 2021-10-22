@@ -215,7 +215,7 @@ class SpectrumAnalyser(DefaultIP):
                              centre_frequency=self._centre_frequency,
                              nyquist_stopband=self._nyquist_stopband,
                              xlabel='Frequency (Hz)',
-                             ylabel='Power Spectrum (dBW)',
+                             ylabel='Power Spectrum (dBFS)',
                              plot_width=self._width,
                              plot_height=self._height,
                              display_mode=0,
@@ -293,13 +293,13 @@ class SpectrumAnalyser(DefaultIP):
         if self._spectrum_units:
             return 'dBm'
         else:
-            return 'dBW'
+            return 'dBFS'
         
     @spectrum_units.setter
     def spectrum_units(self, spectrum_units):
         if spectrum_units == 'dBm':
             self._spectrum_units = 1
-        elif spectrum_units == 'dBW':
+        elif spectrum_units == 'dBFS':
             self._spectrum_units = 0
         self.spectrum_type = self.spectrum_type
         

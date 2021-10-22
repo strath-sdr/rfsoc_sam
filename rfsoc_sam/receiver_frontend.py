@@ -719,7 +719,7 @@ class RadioOfdmAnalyserGUI():
         
         self._widgets.update({'spectrum_units' :
                               DropDown(callback=self._update_config,
-                                       options=[('dBW'),
+                                       options=[('dBFS'),
                                                 ('dBm')],
                                        value=self._config['spectrum_units'],
                                        dict_id='spectrum_units',
@@ -1039,8 +1039,6 @@ class RadioOfdmAnalyserGUI():
                                                                    self._widgets['fftsize'].get_widget()]),
                                                         ipw.VBox([self._widgets['post_process'].get_widget(),
                                                                   self._widgets['number_frames'].get_widget(),
-                                                                  self._widgets['spectrum_type'].get_widget(),
-                                                                  self._widgets['spectrum_units'].get_widget(),
                                                                   self._widgets['ymin'].get_widget(),
                                                                   self._widgets['ymax'].get_widget()]),
                                                         ipw.VBox([ipw.Label(value='Experimental Control Panel'),
@@ -1819,7 +1817,7 @@ class RadioAnalyserGUI():
         
         self._widgets.update({'spectrum_units' :
                               DropDown(callback=self._update_config,
-                                       options=[('dBW'),
+                                       options=[('dBFS'),
                                                 ('dBm')],
                                        value=self._config['spectrum_units'],
                                        dict_id='spectrum_units',
@@ -2125,8 +2123,6 @@ class RadioAnalyserGUI():
                                                                    self._widgets['fftsize'].get_widget()]),
                                                         ipw.VBox([self._widgets['post_process'].get_widget(),
                                                                   self._widgets['number_frames'].get_widget(),
-                                                                  self._widgets['spectrum_type'].get_widget(),
-                                                                  self._widgets['spectrum_units'].get_widget(),
                                                                   self._widgets['ymin'].get_widget(),
                                                                   self._widgets['ymax'].get_widget()]),
                                                         ipw.VBox([ipw.Label(value='Experimental Control Panel'),
@@ -2266,3 +2262,4 @@ class RadioAnalyserGUI():
                                              self._accordions['properties']
                                             ])
                                   ])
+    
