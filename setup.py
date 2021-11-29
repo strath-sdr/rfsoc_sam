@@ -70,6 +70,7 @@ setup(
     install_requires=[
         'pynq==2.7',
         'rfsoc-freqplan @ https://github.com/strath-sdr/rfsoc_frequency_planner/archive/v0.2.0.tar.gz',
+        'pynq-specmap @ https://github.com/strath-sdr/pynq_spectrum_map/archive/v0.2.1.tar.gz'
     ],
     url='https://github.com/strath-sdr/rfsoc_sam',
     license='BSD 3-Clause License',

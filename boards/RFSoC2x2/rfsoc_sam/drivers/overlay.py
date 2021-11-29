@@ -6,7 +6,7 @@ __version_name__ = '<a href="https://www.google.com/search?q=the+cobbler" target
 __version_number__ = '0.4.0'
 __channels__ = 'Dual-channel'
 __board__ = 'RFSoC2x2'
-__release__ = 'release'
+__release__ = 'debug'
 __info__ = 'PYNQ on RFSoC: Spectrum Analyzer.'
 __support__ = '<a href="https://github.com/strath-sdr/rfsoc_sam" target="_blank" rel="noopener noreferrer">https://github.com/strath-sdr/rfsoc_sam</a>'
 
