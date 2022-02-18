@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from scipy import signal
 from rfsoc_freqplan import calculation
-from constants import *
+from .constants import *
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class Spectrum():
