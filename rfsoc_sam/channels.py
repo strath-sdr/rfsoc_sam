@@ -6,7 +6,6 @@ from pynq import DefaultHierarchy
 from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
 from .controller import Controller
-from .inspector import InspectorCore, DataInspector
 from .transmitter_frontend import RadioTransmitterGUI
 from .receiver_frontend import RadioAnalyserGUI
 
@@ -73,4 +72,3 @@ class DacChannel(DefaultHierarchy):
         self.frontend = RadioTransmitterGUI(dac_tile=self._tile,
                                             dac_block=self._block,
                                             controller=self.control)
-                                            
