@@ -9,7 +9,7 @@ package_name = 'rfsoc_sam'
 pip_name = 'rfsoc-sam'
 board = os.environ['BOARD']
 repo_board_folder = f'boards/{board}/rfsoc_sam'
-alt_overlay_folder = [f'boards/{board}/rfsoc_sam', f'boards/{board}/rfsoc_sam_ofdm']
+alt_overlay_folder = [f'boards/{board}/rfsoc_sam']
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
 board_project_dir = os.path.join(board_notebooks_dir, 'spectrum-analyzer')
 
@@ -66,7 +66,7 @@ copy_notebooks()
 
 setup(
     name=package_name,
-    version='0.4.0',
+    version='0.4.1',
     install_requires=[
         'pynq==2.7',
         'rfsoc-freqplan @ https://github.com/strath-sdr/rfsoc_frequency_planner/archive/v0.2.0.tar.gz',
