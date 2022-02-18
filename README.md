@@ -7,7 +7,7 @@ This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ imag
   <img src="./demonstration.gif" width="75%" height="75%" />
 </p>
 
-Currently, this project is in version 0.4.0. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
+Currently, this project is in version 0.4.1. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
 
 ## Key Features 
 * Up to 2 GHz bandwidth for inspection
@@ -63,12 +63,12 @@ Once installation has complete you will find the Spectrum Analyser notebooks in 
 
 ## Using the Project Files
 The following software is required to use the project files in this repository.
-- Vivado Design Suite 2020.1
+- Vivado Design Suite 2020.2
 - System Generator for DSP
 - MATLAB R2020a
 
 ### Vivado
-This project can be built with Vivado from the command line. Open Vivado 2020.1 and execute the following into the tcl console:
+This project can be built with Vivado from the command line. Open Vivado 2020.2 and execute the following into the tcl console:
 ```sh
 cd /<repository-location>/boards/<board-name>/rfsoc_sam/
 ```
