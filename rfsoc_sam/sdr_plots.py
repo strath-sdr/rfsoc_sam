@@ -10,11 +10,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from scipy import signal
 from rfsoc_freqplan import calculation
+from constants import *
 warnings.simplefilter(action='ignore', category=FutureWarning)
-
-IL_FACTOR = 8
-PLL_REF = 409.6e6
-
 
 class Spectrum():
     def __init__(self,
@@ -156,7 +153,7 @@ class Spectrum():
             fc=self.ddc_centre_frequency,
             dec=self._decimation_factor,
             nco=self._centre_frequency,
-            pll_ref=PLL_REF
+            pll_ref=PLL_FREQUENCY
         )
         
         self._spurs_list = ['rx_alias', 'rx_image',
