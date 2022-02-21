@@ -23,6 +23,7 @@ import xrfdc
 import os
 from .hierarchies import *
 from .quick_widgets import Image
+from .constants import *
 from ipywidgets import IntProgress
 from IPython.display import display
 from IPython.display import clear_output
@@ -63,7 +64,7 @@ class Overlay(Overlay):
         self.init_i2c()
 
         if init_rf_clks:
-            self.init_rf_clks()
+            self.init_rf_clks(lmx_freq=PLL_FREQUENCY)
             
 
     def init_i2c(self):
