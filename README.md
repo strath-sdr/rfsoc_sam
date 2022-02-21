@@ -42,7 +42,7 @@ Follow the instructions below to install the Spectrum Analyser now. **You will n
 Now follow the board specific setup instructions as follows.
 
 ## RFSoC2x2 Setup
-Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser and Voila 0.2.10. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
+Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
 
 ```sh
 pip3 install https://github.com/strath-sdr/rfsoc_frequency_planner/archive/v0.2.0.tar.gz
