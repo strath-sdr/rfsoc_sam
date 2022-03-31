@@ -9,12 +9,9 @@ import warnings
 import matplotlib.pyplot as plt
 from PIL import Image
 from scipy import signal
-from rfsoc_freqplan import calculation
+#from rfsoc_freqplan import calculation
+from .constants import *
 warnings.simplefilter(action='ignore', category=FutureWarning)
-
-IL_FACTOR = 8
-PLL_REF = 409.6e6
-
 
 class Spectrum():
     def __init__(self,
@@ -150,32 +147,32 @@ class Spectrum():
             )
         )
         
-        self.ddc_plan = calculation.FrequencyPlannerDDC(
-            fs_rf=self._sample_frequency,
-            il_factor=IL_FACTOR,
-            fc=self.ddc_centre_frequency,
-            dec=self._decimation_factor,
-            nco=self._centre_frequency,
-            pll_ref=PLL_REF
-        )
+#        self.ddc_plan = calculation.FrequencyPlannerDDC(
+#            fs_rf=self._sample_frequency,
+#            il_factor=IL_FACTOR,
+#            fc=self.ddc_centre_frequency,
+#            dec=self._decimation_factor,
+#            nco=self._centre_frequency,
+#            pll_ref=PLL_FREQUENCY
+#        )
         
-        self._spurs_list = ['rx_alias', 'rx_image',
-                            'hd2', 'hd2_image', 'hd3', 'hd3_image',
-                            'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image']
+#        self._spurs_list = ['rx_alias', 'rx_image',
+#                            'hd2', 'hd2_image', 'hd3', 'hd3_image',
+#                            'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image']
         
-        for spur in self._spurs_list:
-            spur_data = getattr(self.ddc_plan, spur)
-            spur_data['x'] = self._nyquist_direction*spur_data['x'] + self._centre_frequency
-        
-            plot_data.append(
-                go.Scatter(
-                    x = None,
-                    y = None,
-                    name = spur_data['label'],
-                    line = dict(color=spur_data['color'])
-                )
-            )
-            self.display_ddc_plan.append(False)
+#        for spur in self._spurs_list:
+#            spur_data = getattr(self.ddc_plan, spur)
+#            spur_data['x'] = self._nyquist_direction*spur_data['x'] + self._centre_frequency
+#        
+#            plot_data.append(
+#                go.Scatter(
+#                    x = None,
+#                    y = None,
+#                    name = spur_data['label'],
+#                    line = dict(color=spur_data['color'])
+#                )
+#            )
+#            self.display_ddc_plan.append(False)
 
         self._plot = go.FigureWidget(
             layout=layout,
@@ -308,11 +305,11 @@ class Spectrum():
             self._plot.data[0].update({'x':self._x_data, 'y':self._y_data})
             self._apply_analysis()
             self._display_analysis()
-            if self._update_ddc_counter > 8:
-                self.update_ddc_amplitude()
-                self._update_ddc_counter = 0
-            else:
-                self._update_ddc_counter = self._update_ddc_counter + 1
+#            if self._update_ddc_counter > 8:
+#                self.update_ddc_amplitude()
+#                self._update_ddc_counter = 0
+#            else:
+#                self._update_ddc_counter = self._update_ddc_counter + 1
     
     @property
     def xlabel(self):
@@ -450,44 +447,44 @@ class Spectrum():
             'x':self._x_data,
             'y':np.zeros(len(self._x_data)) - 300
         })
-        self.update_ddc_plan()
+#        self.update_ddc_plan()
         
-    def update_ddc_plan(self):
-        if any(self.display_ddc_plan):
-            self.ddc_plan.fs_rf = self._sample_frequency
-            self.ddc_plan.fc = self.ddc_centre_frequency
-            self.ddc_plan.dec = self._decimation_factor
-            nyquist_zone = np.floor(self._centre_frequency/(self._sample_frequency/2)) + 1
-            if (nyquist_zone % 2) == 0:
-                self.ddc_plan.nco = self._centre_frequency
-            else:
-                self.ddc_plan.nco = -self._centre_frequency
-            self.update_ddc_amplitude()
+#    def update_ddc_plan(self):
+#        if any(self.display_ddc_plan):
+#            self.ddc_plan.fs_rf = self._sample_frequency
+#            self.ddc_plan.fc = self.ddc_centre_frequency
+#            self.ddc_plan.dec = self._decimation_factor
+#            nyquist_zone = np.floor(self._centre_frequency/(self._sample_frequency/2)) + 1
+#            if (nyquist_zone % 2) == 0:
+#                self.ddc_plan.nco = self._centre_frequency
+#            else:
+#                self.ddc_plan.nco = -self._centre_frequency
+#            self.update_ddc_amplitude()
                 
-    def update_ddc_amplitude(self):
-        spectrum_average = np.mean(self._y_data)
-        min_x_data = min(self._x_data)
-        max_x_data = max(self._x_data)
-        minimum_spectrum = min(self._x_data)/self._rbw
-        for index, spur in enumerate(self._spurs_list):
-            if self.display_ddc_plan[index]:
-                spur_data = getattr(self.ddc_plan, spur)
-                xvalue = self._nyquist_direction*spur_data['x'] + self._centre_frequency
-                if (xvalue >= min_x_data) and (xvalue <= max_x_data):
-                    self._plot.data[4+index].update({
-                        'x' : [xvalue, xvalue],
-                        'y' : [spectrum_average, self._y_data[int((xvalue/self._rbw)-minimum_spectrum)]],
-                    })
-                else:
-                    self._plot.data[4+index].update({
-                        'x' : None,
-                        'y' : None,
-                    })
-            else:
-                self._plot.data[4+index].update({
-                    'x' : None,
-                    'y' : None,
-                })
+#    def update_ddc_amplitude(self):
+#        spectrum_average = np.mean(self._y_data)
+#        min_x_data = min(self._x_data)
+#        max_x_data = max(self._x_data)
+#        minimum_spectrum = min(self._x_data)/self._rbw
+#        for index, spur in enumerate(self._spurs_list):
+#            if self.display_ddc_plan[index]:
+#                spur_data = getattr(self.ddc_plan, spur)
+#                xvalue = self._nyquist_direction*spur_data['x'] + self._centre_frequency
+#                if (xvalue >= min_x_data) and (xvalue <= max_x_data):
+#                    self._plot.data[4+index].update({
+#                        'x' : [xvalue, xvalue],
+#                        'y' : [spectrum_average, self._y_data[int((xvalue/self._rbw)-minimum_spectrum)]],
+#                    })
+#                else:
+#                    self._plot.data[4+index].update({
+#                        'x' : None,
+#                        'y' : None,
+#                    })
+#            else:
+#                self._plot.data[4+index].update({
+#                    'x' : None,
+#                    'y' : None,
+#                })
         
     def get_plot(self):
         return self._plot

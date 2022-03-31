@@ -101,9 +101,7 @@ class Receiver(DefaultHierarchy):
         channels = []
         
         for hier, details in description['hierarchies'].items():
-            if details['driver'] == AdcOfdmChannel:
-                channels.append(hier)
-            elif details['driver'] == AdcChannel:
+            if details['driver'] == AdcChannel:
                 channels.append(hier)
         channels = sorted(channels)
                 
@@ -143,7 +141,7 @@ class Receiver(DefaultHierarchy):
                 
     
     def _initialise_adc_tile(self, tile):
-        tile.DynamicPLLConfig(1, 409.6, 4096)
+        tile.DynamicPLLConfig(1, PLL_FREQUENCY, MAX_SAMPLE_FREQUENCY)
         tile.ShutDown()
         sleep(1)
         tile.StartUp()
@@ -159,7 +157,7 @@ class Receiver(DefaultHierarchy):
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_TILE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           -1024,
+            'Freq':           -MAX_SAMPLE_FREQUENCY/4,
             'MixerMode':      xrfdc.MIXER_MODE_R2C,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -174,13 +172,6 @@ class Receiver(DefaultHierarchy):
         for i in range(0, len(self.channels)):
             sam.append(self.channels[i].frontend.spectrum_analyser(config[i]))
         return sam
-    
-    
-    def _get_constellation_plot(self):
-        iqp = []
-        for i in range(0, len(self.channels)):
-            iqp.append(self.channels[i].frontend.constellation_plot())
-        return iqp
         
     
 class Transmitter(DefaultHierarchy):
@@ -199,8 +190,6 @@ class Transmitter(DefaultHierarchy):
         channels = []
         
         for hier, details in description['hierarchies'].items():
-            if details['driver'] == DacOfdmChannel:
-                channels.append(hier)
             if details['driver'] == DacChannel:
                 channels.append(hier)
         channels = sorted(channels)
@@ -240,7 +229,7 @@ class Transmitter(DefaultHierarchy):
                 
     
     def _initialise_dac_tile(self, tile):
-        tile.DynamicPLLConfig(1, 409.6, 4096)
+        tile.DynamicPLLConfig(1, PLL_FREQUENCY, MAX_SAMPLE_FREQUENCY)
         tile.ShutDown()
         sleep(1)
         tile.StartUp()
@@ -256,7 +245,7 @@ class Transmitter(DefaultHierarchy):
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
             'FineMixerScale': xrfdc.MIXER_SCALE_0P7,
-            'Freq':           513,
+            'Freq':           MAX_SAMPLE_FREQUENCY/8+1,
             'MixerMode':      xrfdc.MIXER_MODE_C2R,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0

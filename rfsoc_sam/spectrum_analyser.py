@@ -188,7 +188,7 @@ class SpectrumAnalyser(DefaultIP):
         self._dma_bufferaddress_2 = self._buffer[0].device_address
         self.dma_enable = 0
         self.__dma_enable = 0
-        self._dma_count = 10000000 # No touch
+        self._dma_count = 100000000 # No touch
         
         """Initialise
         """
