@@ -39,21 +39,7 @@ Follow the instructions below to install the Spectrum Analyser now. **You will n
   <img src="./open_terminal_window.jpg" width="50%" height="50%" />
 </p>
 
-Now follow the board specific setup instructions as follows.
-
-## RFSoC2x2 Setup
-Your RFSoC2x2 development board already comes preinstalled with the Spectrum Analyser. Depending on the releases in this repository, we can try to upgrade the Spectrum Analyser package by running the following in the terminal:
-
-```sh
-pip3 install https://github.com/strath-sdr/rfsoc_frequency_planner/archive/v0.2.0.tar.gz
-pip3 install --force-reinstall --no-deps git+https://github.com/strath-sdr/rfsoc_sam
-```
-
-This will forcefully install the latest version of the Spectrum Analyser to your development board. You will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.
-
-## ZCU111 Setup
-
-This final step will install the Spectrum Analyser to your ZCU111 development board. The Spectrum Analyser does not come preinstalled on the ZCU111 PYNQ image. Run the code below in the jupyter terminal to install the Spectrum Analyser.
+Run the code below in the jupyter terminal to install the Spectrum Analyser.
 
 ```sh
 pip3 install git+https://github.com/strath-sdr/rfsoc_sam
