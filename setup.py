@@ -66,7 +66,7 @@ copy_notebooks()
 
 setup(
     name=package_name,
-    version='0.4.2',
+    version='0.4.1',
     install_requires=[
         'pynq==2.7',
     ],
