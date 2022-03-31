@@ -11,32 +11,32 @@ from .spectrum_analyser import SpectrumAnalyser
 from .bandwidth_selector import BandwidthSelector
 from .quick_widgets import FloatText, IntText, Button, Accordion, DropDown, Label, Image, CheckBox, QuickButton
 
-DDC_SPURS = ['rx_alias', 'rx_image', 'nyquist_up', 'nyquist_down',
-             'hd2', 'hd2_image', 'hd3', 'hd3_image',
-             'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image',
-             'tis_spur', 'tis_spur_image', 'offset_spur', 'offset_spur_image']
+#DDC_SPURS = ['rx_alias', 'rx_image', 'nyquist_up', 'nyquist_down',
+#             'hd2', 'hd2_image', 'hd3', 'hd3_image',
+#             'pll_mix_up', 'pll_mix_up_image', 'pll_mix_down', 'pll_mix_down_image',
+#             'tis_spur', 'tis_spur_image', 'offset_spur', 'offset_spur_image']
 
-_freq_planner_props = [("enable_rx_alias"),
-                       ("enable_rx_image"),
-                       ("enable_hd2"),
-                       ("enable_hd2_image"),
-                       ("enable_hd3"),
-                       ("enable_hd3_image"),
-                       ("enable_pll_mix_up"),
-                       ("enable_pll_mix_up_image"),
-                       ("enable_pll_mix_down"),
-                       ("enable_pll_mix_down_image")]
+#_freq_planner_props = [("enable_rx_alias"),
+#                       ("enable_rx_image"),
+#                       ("enable_hd2"),
+#                       ("enable_hd2_image"),
+#                       ("enable_hd3"),
+#                       ("enable_hd3_image"),
+#                       ("enable_pll_mix_up"),
+#                       ("enable_pll_mix_up_image"),
+#                       ("enable_pll_mix_down"),
+#                       ("enable_pll_mix_down_image")]
 
-_freq_planner_desc = [("Fc"),
-                      ("Fc Image"),
-                      ("HD2"),
-                      ("HD2 Image"),
-                      ("HD3"),
-                      ("HD3 Image"),
-                      ("PLL Mix Up"),
-                      ("PLL Mix Up Image"),
-                      ("PLL Mix Down"),
-                      ("PLL Mix Down Image")]    
+#_freq_planner_desc = [("Fc"),
+#                      ("Fc Image"),
+#                      ("HD2"),
+#                      ("HD2 Image"),
+#                      ("HD3"),
+#                      ("HD3 Image"),
+#                      ("PLL Mix Up"),
+#                      ("PLL Mix Up Image"),
+#                      ("PLL Mix Down"),
+#                      ("PLL Mix Down Image")] 
 
 class RadioAnalyser():
     
@@ -357,6 +357,7 @@ class RadioAnalyser():
     def number_min_indices(self, number_min_indices):
         self._spectrum_analyser.plot.number_min_indices = number_min_indices
 
+    """
     @property
     def display_ddc_plan(self):
         return self._spectrum_analyser.plot.display_ddc_plan
@@ -427,6 +428,7 @@ class RadioAnalyser():
     def ddc_plan_tis_spur_db(self, tis_spur_db):
         self._spectrum_analyser.plot.ddc_plan.tis_spur_db = tis_spur_db
         self._spectrum_analyser.plot.update_ddc_plan()
+    """
         
     @property
     def dma_status(self):
@@ -450,24 +452,24 @@ class RadioAnalyser():
         while not running:
             time.sleep(0.1)
             running = self._tile._parent.IPStatus['ADCTileStatus'][tile_number]['PowerUpState']
-            
-def _create_mmio_property(idx):
 
-    def _get(self):
-        return self._spectrum_analyser.plot.display_ddc_plan[idx]
-    
-    def _set(self, value):
-        if value:
-            self._spectrum_analyser.plot.display_ddc_plan[idx] = True
-        else:
-            self._spectrum_analyser.plot.display_ddc_plan[idx] = False
-        self._spectrum_analyser.plot.update_ddc_plan()
-        
-    return property(_get, _set)
+#def _create_mmio_property(idx):
+#
+#    def _get(self):
+#        return self._spectrum_analyser.plot.display_ddc_plan[idx]
+#
+#    def _set(self, value):
+#        if value:
+#            self._spectrum_analyser.plot.display_ddc_plan[idx] = True
+#        else:
+#            self._spectrum_analyser.plot.display_ddc_plan[idx] = False
+#        self._spectrum_analyser.plot.update_ddc_plan()
+#
+#    return property(_get, _set)
+#
+#for idx, name in enumerate(_freq_planner_props):
+#    setattr(RadioAnalyser, name, _create_mmio_property(idx))
 
-for idx, name in enumerate(_freq_planner_props):
-    setattr(RadioAnalyser, name, _create_mmio_property(idx))
-    
 class RadioAnalyserGUI():
     
     def __init__(self, 
@@ -488,7 +490,7 @@ class RadioAnalyserGUI():
                                        adc_description=adc_description,
                                        spectrum_analyser=spectrum_analyser, 
                                        decimator=decimator)
-        self._config = {'centre_frequency' : 819,
+        self._config = {'centre_frequency' : self.analyser.centre_frequency,
                         'nyquist_stopband' : 80,
                         'decimation_factor' : self.analyser.decimation_factor,
                         'calibration_mode' : self.analyser.calibration_mode,
@@ -516,7 +518,8 @@ class RadioAnalyserGUI():
                         'colour_map' : self.analyser.colour_map,
                         'spectrogram_performance' : 4,
                         'ymin' : self.analyser.ymin,
-                        'ymax' : self.analyser.ymax,
+                        'ymax' : self.analyser.ymax}
+        """ Frequency Planner Config
                         'enable_rx_alias' : False,
                         'enable_rx_image' : False,
                         'enable_hd2' : False,
@@ -533,7 +536,8 @@ class RadioAnalyserGUI():
                         'ddc_plan_nsd_db' : self.analyser.ddc_plan_nsd_db,
                         'ddc_plan_pll_mix_db' : self.analyser.ddc_plan_pll_mix_db,
                         'ddc_plan_off_spur_db' : self.analyser.ddc_plan_off_spur_db,
-                        'ddc_plan_tis_spur_db' : self.analyser.ddc_plan_tis_spur_db}
+                        'ddc_plan_tis_spur_db' : self.analyser.ddc_plan_tis_spur_db
+                        """
         self._initialise_frontend()
         
                              
@@ -564,77 +568,77 @@ class RadioAnalyserGUI():
         
     def _initialise_frontend(self):
         
-        self._widgets.update({'ddc_centre_frequency' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['ddc_centre_frequency'],
-                                        min_value=0,
-                                        max_value=self.analyser._block.BlockStatus['SamplingFreq']*1e3,
-                                        step=1,
-                                        dict_id='ddc_centre_frequency',
-                                        description='Centre Frequency (MHz):')})
+#        self._widgets.update({'ddc_centre_frequency' : 
+#                              FloatText(callback=self._update_config,
+#                                        value=self._config['ddc_centre_frequency'],
+#                                        min_value=0,
+#                                        max_value=self.analyser._block.BlockStatus['SamplingFreq']*1e3,
+#                                        step=1,
+#                                        dict_id='ddc_centre_frequency',
+#                                        description='Centre Frequency (MHz):')})
         
-        self._widgets.update({'ddc_plan_hd2_db' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['ddc_plan_hd2_db'],
-                                        min_value=-300,
-                                        max_value=300,
-                                        step=1,
-                                        dict_id='ddc_plan_hd2_db',
-                                        description='HD2 (dB)')})
+#        self._widgets.update({'ddc_plan_hd2_db' : 
+#                              FloatText(callback=self._update_config,
+#                                        value=self._config['ddc_plan_hd2_db'],
+#                                        min_value=-300,
+#                                        max_value=300,
+#                                        step=1,
+#                                        dict_id='ddc_plan_hd2_db',
+#                                        description='HD2 (dB)')})
         
-        self._widgets.update({'ddc_plan_hd3_db' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['ddc_plan_hd3_db'],
-                                        min_value=-300,
-                                        max_value=300,
-                                        step=1,
-                                        dict_id='ddc_plan_hd3_db',
-                                        description='HD3 (dB)')})
+#        self._widgets.update({'ddc_plan_hd3_db' : 
+#                              FloatText(callback=self._update_config,
+#                                        value=self._config['ddc_plan_hd3_db'],
+#                                        min_value=-300,
+#                                        max_value=300,
+#                                        step=1,
+#                                        dict_id='ddc_plan_hd3_db',
+#                                        description='HD3 (dB)')})
         
-        self._widgets.update({'ddc_plan_nsd_db' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['ddc_plan_nsd_db'],
-                                        min_value=-300,
-                                        max_value=300,
-                                        step=1,
-                                        dict_id='ddc_plan_nsd_db',
-                                        description='NSD (dBFs/Hz)')})
+#        self._widgets.update({'ddc_plan_nsd_db' : 
+#                              FloatText(callback=self._update_config,
+#                                        value=self._config['ddc_plan_nsd_db'],
+#                                        min_value=-300,
+#                                        max_value=300,
+#                                        step=1,
+#                                        dict_id='ddc_plan_nsd_db',
+#                                        description='NSD (dBFs/Hz)')})
         
-        self._widgets.update({'ddc_plan_pll_mix_db' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['ddc_plan_pll_mix_db'],
-                                        min_value=-300,
-                                        max_value=300,
-                                        step=1,
-                                        dict_id='ddc_plan_pll_mix_db',
-                                        description='PLL Ref Mixing (dB)')})
+#        self._widgets.update({'ddc_plan_pll_mix_db' : 
+#                              FloatText(callback=self._update_config,
+#                                        value=self._config['ddc_plan_pll_mix_db'],
+#                                        min_value=-300,
+#                                        max_value=300,
+#                                        step=1,
+#                                        dict_id='ddc_plan_pll_mix_db',
+#                                        description='PLL Ref Mixing (dB)')})
         
-        self._widgets.update({'ddc_plan_off_spur_db' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['ddc_plan_off_spur_db'],
-                                        min_value=-300,
-                                        max_value=300,
-                                        step=1,
-                                        dict_id='ddc_plan_off_spur_db',
-                                        description='Offset Spur (dB)')})
+#        self._widgets.update({'ddc_plan_off_spur_db' : 
+#                              FloatText(callback=self._update_config,
+#                                        value=self._config['ddc_plan_off_spur_db'],
+#                                        min_value=-300,
+#                                        max_value=300,
+#                                        step=1,
+#                                        dict_id='ddc_plan_off_spur_db',
+#                                        description='Offset Spur (dB)')})
         
-        self._widgets.update({'ddc_plan_tis_spur_db' : 
-                              FloatText(callback=self._update_config,
-                                        value=self._config['ddc_plan_tis_spur_db'],
-                                        min_value=-300,
-                                        max_value=300,
-                                        step=1,
-                                        dict_id='ddc_plan_tis_spur_db',
-                                        description='TI Spur (dB)')})
+#        self._widgets.update({'ddc_plan_tis_spur_db' : 
+#                              FloatText(callback=self._update_config,
+#                                        value=self._config['ddc_plan_tis_spur_db'],
+#                                        min_value=-300,
+#                                        max_value=300,
+#                                        step=1,
+#                                        dict_id='ddc_plan_tis_spur_db',
+#                                        description='TI Spur (dB)')})
         
-        for idx, freq_prop in enumerate(_freq_planner_props):
-            self._widgets.update({freq_prop :
-                                  CheckBox(callback=self._update_config,
-                                           description=_freq_planner_desc[idx],
-                                           value=self._config[freq_prop],
-                                           indent=False,
-                                           layout_width='150px',
-                                           dict_id=freq_prop)})
+#        for idx, freq_prop in enumerate(_freq_planner_props):
+#            self._widgets.update({freq_prop :
+#                                  CheckBox(callback=self._update_config,
+#                                           description=_freq_planner_desc[idx],
+#                                           value=self._config[freq_prop],
+#                                           indent=False,
+#                                           layout_width='150px',
+#                                           dict_id=freq_prop)})
         
         self._widgets.update({'decimation_factor' : 
                               DropDown(callback=self._update_config,
@@ -962,13 +966,6 @@ class RadioAnalyserGUI():
                                                                   self._widgets['number_frames'].get_widget(),
                                                                   self._widgets['ymin'].get_widget(),
                                                                   self._widgets['ymax'].get_widget()]),
-                                                        ipw.VBox([ipw.Label(value='Experimental Control Panel'),
-                                                                  self._widgets['ddc_centre_frequency'].get_widget(),
-                                                            ipw.HBox([
-                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(0,int(len(_freq_planner_props)/2))]),
-                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
-                                                            ])
-                                                        ]),
                                                         ipw.VBox([self._widgets['spectrogram_performance'].get_widget(),
                                                                   self._widgets['colour_map'].get_widget(),
                                                                   self._widgets['zmin'].get_widget(),
@@ -978,35 +975,42 @@ class RadioAnalyserGUI():
                                                         ipw.VBox([self._widgets['nyquist_stopband'].get_widget(),
                                                                   self._widgets['height'].get_widget(),
                                                                   self._widgets['width'].get_widget(),
-                                                                  self._widgets['update_frequency'].get_widget()])                                                        
+                                                                  self._widgets['update_frequency'].get_widget()])
                                                         ])})
-        
-        """ Frequency Planner Widgets
-                                                        ipw.VBox([self._widgets['ddc_centre_frequency'].get_widget(),
-                                                                  self._widgets['ddc_plan_hd2_db'].get_widget(),
-                                                                  self._widgets['ddc_plan_hd3_db'].get_widget(),
-                                                                  self._widgets['ddc_plan_pll_mix_db'].get_widget(),
-                                                                  self._widgets['ddc_plan_off_spur_db'].get_widget(),
-                                                                  self._widgets['ddc_plan_tis_spur_db'].get_widget(),
-                                                                  self._widgets['ddc_plan_nsd_db'].get_widget(),
-                                                            ipw.HBox([
-                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(0,int(len(_freq_planner_props)/2))]),
-                                                                ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
-                                                            ])
-                                                        ]),
-        """
-        
+
         self._accordions['properties'].set_title(0, 'System')
         self._accordions['properties'].set_title(1, 'Receiver')
         self._accordions['properties'].set_title(2, 'Spectrum Analyzer')
-        self._accordions['properties'].set_title(3, 'Frequency Planner')
-        self._accordions['properties'].set_title(4, 'Spectrogram')
-        self._accordions['properties'].set_title(5, 'Window Settings')
-        self._accordions['properties'].set_title(6, 'Plot Settings')
-        
+        self._accordions['properties'].set_title(3, 'Spectrogram')
+        self._accordions['properties'].set_title(4, 'Window Settings')
+        self._accordions['properties'].set_title(5, 'Plot Settings')
+
         self._update_config(self._config)
-        
-        
+
+        """ Frequency Planner Widgets
+        ipw.VBox([self._widgets['ddc_centre_frequency'].get_widget(),
+        self._widgets['ddc_plan_hd2_db'].get_widget(),
+        self._widgets['ddc_plan_hd3_db'].get_widget(),
+        self._widgets['ddc_plan_pll_mix_db'].get_widget(),
+        self._widgets['ddc_plan_off_spur_db'].get_widget(),
+        self._widgets['ddc_plan_tis_spur_db'].get_widget(),
+        self._widgets['ddc_plan_nsd_db'].get_widget(),
+        ipw.HBox([
+        ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(0,int(len(_freq_planner_props)/2))]),
+        ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
+        ])
+        ]),
+        """
+        """ Frequency Planner Widgets
+        ipw.VBox([ipw.Label(value='Experimental Control Panel'),
+        self._widgets['ddc_centre_frequency'].get_widget(),
+        ipw.HBox([
+        ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(0,int(len(_freq_planner_props)/2))]),
+        ipw.VBox([self._widgets[_freq_planner_props[i]].get_widget() for i in range(int(len(_freq_planner_props)/2),len(_freq_planner_props))])
+        ])
+        ]),
+        """
+
     def _update_config(self, config_dict):
         for key in config_dict.keys():
             if key not in self._config:
