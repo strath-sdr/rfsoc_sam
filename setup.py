@@ -57,16 +57,26 @@ def copy_notebooks():
     dst_nb_dir = os.path.join(board_project_dir)
     copy_tree(src_nb_dir, dst_nb_dir)
     
+# copy xrfclk file to python package (gen3 devices only)
+def copy_xrfclk():
+    src_at_dir = os.path.join(repo_board_folder, 'xrfclk')
+    if os.path.exists(src_at_dir):
+        dst_at_dir = os.path.join('xrfclk')
+        copy_tree(src_at_dir, dst_at_dir)
+        data_files.extend(
+            [os.path.join("..", dst_at_dir, f) for f in os.listdir(dst_at_dir)])
+    
 check_env()
 check_path()
 copy_overlays()
 copy_assets()
 copy_drivers()
 copy_notebooks()
+copy_xrfclk()
 
 setup(
     name=package_name,
-    version='0.4.1',
+    version='0.4.2',
     install_requires=[
         'pynq==2.7',
     ],
@@ -79,3 +89,4 @@ setup(
         '': data_files,
     },
     description="PYNQ example of using the RFSoC as a Spectrum Analyzer.")
+
