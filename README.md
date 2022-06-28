@@ -7,22 +7,6 @@ This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ imag
   <img src="./demonstration.gif" width="75%" height="75%" />
 </p>
 
-Currently, this project is in version 0.4.1. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
-
-## Key Features 
-* Up to 2 GHz bandwidth for inspection
-* Inspect range 0 - 4.096 GHz
-* Adaptive bandwidth control and center frequency selection
-* Reprogrammable windowing
-* Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectrum [dB]) 
-* PYNQ abstracted allowing Python to interface with the hardware
-* [Plotly](https://plot.ly/) visualisation of spectrum and spectrogram (waterfall)
-* Simple dashboard for more convenient control/visualisation
-
-<p align="center">
-  <img src="./demonstration_4g.gif" width="50%" height="50%" />
-</p>
-
 ## Quick Start
 Follow the instructions below to install the Spectrum Analyser now. **You will need to give your board access to the internet**.
 * Power on your RFSoC development board with an SD Card containing a fresh PYNQ v2.7 image.
