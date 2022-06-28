@@ -76,7 +76,7 @@ copy_xrfclk()
 
 setup(
     name=package_name,
-    version='0.4.1',
+    version='0.4.2',
     install_requires=[
         'pynq==2.7',
     ],
