@@ -1,26 +1,21 @@
 <img src="strathsdr_banner.png" width="100%">
 
+<table border="0" align="center">
+    <tr border="0">
+        <td align="center" width="50%" border="0">
+            <img src="https://www.rfsocbook.com/wp-content/uploads/2022/12/RFSoC3D_v4-1433x1536.png" alt="oscthumb" style="width: 60%" border="0"/>
+        </td>
+        <td align="center" width="50%" border="0">
+            <font size=7><b>Available Now!</b></font size> <br> <font size=5>Software Defined Radio with Zynq® UltraScale+ RFSoC</font size> <br> <font size=4><a href="https://rfsocbook.com/">Free Download</a> <br><a href="https://www.amazon.com/Software-Defined-Radio-Ultrascale-RFSoC/dp/1739588606?keywords=zynq+rfsoc&qid=1673452844&sprefix=%2Caps%2C137&sr=8-1&linkCode=ll1&tag=thzybo-20&linkId=0bf245a543fd4af4625086df4c190928&language=en_US&ref_=as_li_ss_tl">Printed Edition</a></font size>
+        </td>
+    </tr>
+</table>
+
 # Spectrum Analyser on PYNQ
 This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ image v2.7](https://github.com/Xilinx/PYNQ/releases) for the ZCU111, RFSoC2x2, and RFSoC4x2 development board.
 
 <p align="center">
   <img src="./demonstration.gif" width="75%" height="75%" />
-</p>
-
-Currently, this project is in version 0.4.1. We are working on improving aspects of the hardware design and increasing functionality/programability of the Python overlay. 
-
-## Key Features 
-* Up to 2 GHz bandwidth for inspection
-* Inspect range 0 - 4.096 GHz
-* Adaptive bandwidth control and center frequency selection
-* Reprogrammable windowing
-* Hardware accelerated processing (time domain &rarr; frequency domain &rarr; power spectrum [dB]) 
-* PYNQ abstracted allowing Python to interface with the hardware
-* [Plotly](https://plot.ly/) visualisation of spectrum and spectrogram (waterfall)
-* Simple dashboard for more convenient control/visualisation
-
-<p align="center">
-  <img src="./demonstration_4g.gif" width="50%" height="50%" />
 </p>
 
 ## Quick Start
