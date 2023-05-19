@@ -33,7 +33,7 @@ import threading
 load_progress = 0
 max_count = 100
 load_bar = IntProgress(min=load_progress, max=max_count) # instantiate the bar
-
+tab_list = ['10MHz - 1GHz', '1GHz - 4GHz', '4GHz - 5GHz', '5GHz - 6GHz']
 
 def generate_about():
     global about
@@ -80,7 +80,7 @@ class Overlay(Overlay):
             self.radio.receiver.channels[tab_idx].frontend.start()
             
         sam = self.radio.receiver._get_spectrum_analyser(config)
-        tab_name = [''.join(['Spectrum Analyzer ', j]) for j in ['A', 'B', 'C', 'D']]
+        tab_name = [''.join(['Rx ', j]) for j in tab_list]
         children = [sam[i] for i in range(0, len(sam))]
         children.reverse()
         tab = ipw.Tab(children=children,
@@ -94,7 +94,7 @@ class Overlay(Overlay):
         
     def _ctl_generator(self, config=None):            
         ctl = self.radio.transmitter._get_transmitter_control(config)
-        tab_name = [''.join(['Transmitter Control ', j]) for j in ['A', 'B', 'C', 'D']]
+        tab_name = [''.join(['Tx ', j]) for j in tab_list]
         children = [ctl[i] for i in range(0, len(ctl))]
         children.reverse()
         tab = ipw.Tab(children=children,
@@ -115,8 +115,8 @@ class Overlay(Overlay):
                 self.radio.receiver.channels[tab_idx].frontend.start()   
         sam = self.radio.receiver._get_spectrum_analyser(config_analyser)
         ctl = self.radio.transmitter._get_transmitter_control(config_transmitter)
-        sam_tab_name = [''.join(['Spectrum Analyzer ', j]) for j in ['A', 'B', 'C', 'D']]
-        ctl_tab_name = [''.join(['Transmitter Control ', j]) for j in ['A', 'B', 'C', 'D']] 
+        sam_tab_name = [''.join(['Rx ', j]) for j in tab_list]
+        ctl_tab_name = [''.join(['Tx ', j]) for j in tab_list] 
         tab_name = sam_tab_name + ctl_tab_name
         sam_children = [sam[i] for i in range(0, len(sam))]
         sam_children.reverse()
