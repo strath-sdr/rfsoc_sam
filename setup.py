@@ -76,9 +76,9 @@ copy_xrfclk()
 
 setup(
     name=package_name,
-    version='0.4.2',
+    version='0.4.3',
     install_requires=[
-        'pynq==2.7',
+        'pynq>=2.7',
     ],
     url='https://github.com/strath-sdr/rfsoc_sam',
     license='BSD 3-Clause License',
