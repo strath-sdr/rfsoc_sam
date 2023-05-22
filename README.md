@@ -12,7 +12,11 @@
 </table>
 
 # Spectrum Analyser on PYNQ
-This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ image v2.7](https://github.com/Xilinx/PYNQ/releases) for the ZCU111, RFSoC2x2, and RFSoC4x2 development board.
+This repository is only compatible with [PYNQ images v2.7](https://github.com/Xilinx/PYNQ/releases) and greater for the following RFSoC development boards:
+* [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html),
+* [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html),
+* [RFSoC4x2](http://rfsoc-pynq.io/), 
+* [RFSoC2x2](http://rfsoc-pynq.io/).
 
 <p align="center">
   <img src="./demonstration.gif" width="75%" height="75%" />
@@ -20,7 +24,7 @@ This repository hosts an RFSoC Spectrum Analyser tool compatible with [PYNQ imag
 
 ## Quick Start
 Follow the instructions below to install the Spectrum Analyser now. **You will need to give your board access to the internet**.
-* Power on your RFSoC development board with an SD Card containing a fresh PYNQ v2.7 image.
+* Power on your RFSoC development board with an SD Card containing a fresh PYNQ v2.7 image or greater.
 * Navigate to Jupyter Labs by opening a browser (preferably Chrome) and connecting to `http://<board_ip_address>:9090/lab`.
 * We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
