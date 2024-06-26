@@ -41,7 +41,7 @@ Follow the instructions below to install the Spectrum Analyser now. **You will n
 Run the code below in the jupyter terminal to install the Spectrum Analyser.
 
 ```sh
-pip3 install git+https://github.com/strath-sdr/rfsoc_sam
+pip3 install git+https://github.com/strath-sdr/rfsoc_sam@spec_map_overlay
 ```
 
 Once installation has complete you will find the Spectrum Analyser notebooks in the Jupyter workspace directory. The folder will be named 'spectrum-analyzer'.

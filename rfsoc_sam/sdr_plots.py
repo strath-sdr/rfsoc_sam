@@ -11,6 +11,8 @@ from PIL import Image
 from scipy import signal
 #from rfsoc_freqplan import calculation
 from .constants import *
+import os
+from pynq_specmap import download, filters, plots
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class Spectrum():
@@ -78,7 +80,7 @@ class Spectrum():
             'xaxis' : {
                 'title' : self._xlabel,
                 'showticklabels' : True,
-                'autorange' : True
+                'autorange' : False
             },
             'yaxis' : {
                 'title' : self._ylabel,
@@ -174,14 +176,130 @@ class Spectrum():
 #            )
 #            self.display_ddc_plan.append(False)
 
+        """
+        """
+        def filter_callback(bands):
+            """Standard filter for Gen 1 RFSoC
+            and UK Spectrum Map data from OFCOM.
+
+            """
+            bands = filters.filter_bands_range(bands, uf=4096e6)
+            bands = filters.filter_bands(bands, s=['N/A', ''], include=False)
+            bands = filters.delete_bands_duplicate(bands)
+            return bands
+        
+        if os.path.exists('spectrum'):
+            if download.get_bands_filename():
+                self._bands = download.retrieve_bands_object()
+            else:
+                download.download_bands()
+                self._bands = download.refresh_bands_object(filter_callback=filter_callback)
+        else:
+            download.download_bands()
+            self._bands = download.refresh_bands_object(filter_callback=filter_callback)
+        sectors = filters.get_bands_unique_values(self._bands, key='s')['s']
+        self._select_dict = {}
+        for sector in sectors:
+            sector_bands = filters.filter_bands(self._bands, s=[sector])
+            self._select_dict[sector] = {
+                'u' : sector_bands.u.tolist(),
+                'lf' : sector_bands.lf.tolist(),
+                'uf' : sector_bands.uf.tolist(),
+                'bw' : sector_bands.bandwidth.tolist()
+            }
+        self._bands_merged = filters.merge_bands_threshold(self._bands)
+        filtered_bands_merged = filters.filter_bands(self._bands_merged, s=[sectors[0]])
+        traces = filtered_bands_merged.trace.tolist()     
+        """
+        """
+
         self._plot = go.FigureWidget(
             layout=layout,
             data=plot_data,
         )
         
+        """
+        """
+        plots.batch_add_traces(self._plot, traces)
+        plots.add_overlay_trace(self._plot)
+        plots.update_overlay_trace(plot=self._plot, s=sectors[0],
+                                   u=self._select_dict[sectors[0]]['u'][0],
+                                   lf=self._select_dict[sectors[0]]['lf'][0],
+                                   uf=self._select_dict[sectors[0]]['uf'][0])
+        
+        self._current_specmap_sector = sectors[0]
+        self._unique_name = None
+        self._overlay_band = {'u' : '', 'lf' : 0, 'uf' : 819e6*2, 'bw' : 819e6*2}
+        
+        """
+        """
+        
         self._clear_plot()
         self._update_x_limits()
         self._update_x_axis()
+        
+    def update_spectrum_map_sector(self, sector):
+        traces_reference = []
+        old_sector = self._current_specmap_sector
+        self._current_specmap_sector = sector
+        for trace in self._plot.data:
+            if trace.ids is not None:
+                if old_sector not in trace.ids:
+                    traces_reference.append(trace)
+            else:
+                traces_reference.append(trace)
+        self._plot.data = traces_reference
+        if sector != 'None':
+            filtered_bands_merged = filters.filter_bands(self._bands_merged, s=[sector])
+            traces = filtered_bands_merged.trace.tolist()
+            plots.batch_add_traces(self._plot, traces)
+            plots.add_overlay_trace(self._plot)
+            
+    def update_overlay_trace(self, unique_name):
+        band_to_display = self._bands[
+            self._bands['u'].str.contains(unique_name, na=False, regex=False)]
+        if len(band_to_display) != 1:
+            raise RuntimeError(''.join(['Could not display band ', unique_name]))
+        else:
+            lf = band_to_display['lf'].tolist()[0]
+            uf = band_to_display['uf'].tolist()[0]
+            bw = band_to_display['bandwidth'].tolist()[0]
+        plots.update_overlay_trace(plot=self._plot, s=self.current_spectrum_map_sector,
+                                   u=unique_name, lf=lf,
+                                   uf=uf)
+        self._unique_name = unique_name
+        self._overlay_band = {'u' : unique_name, 'lf' : lf, 'uf' : uf, 'bw' : bw}
+     
+    
+    @property
+    def overlay_band(self):
+        return self._overlay_band
+            
+    @property
+    def spectrum_map_select(self):
+        return self._unique_name
+    
+    @spectrum_map_select.setter
+    def spectrum_map_select(self, unique_name):
+        if unique_name != None:
+            self.update_overlay_trace(unique_name)
+        self._unique_name = unique_name
+            
+    @property
+    def select_dict(self):
+        sector = self.current_spectrum_map_sector
+        if sector == 'None':
+            return {'u' : [], 'lf' : [], 'uf' : [], 'bw' : []}
+        else:
+            return self._select_dict[sector]
+        
+    @property
+    def current_spectrum_map_sector(self):
+        return self._current_specmap_sector
+    
+    @current_spectrum_map_sector.setter
+    def current_spectrum_map_sector(self, sector):
+        self.update_spectrum_map_sector(sector)
         
     @property
     def decimation_factor(self):

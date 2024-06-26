@@ -29,6 +29,54 @@ class Label():
         
     def get_widget(self):
         return self._label
+    
+class Select():
+    """Helper class for Select widgets.
+    """
+    def __init__(self,
+                 callback,
+                 options,
+                 rows,
+                 value=None,
+                 dict_id='',
+                 layout_width='auto'):
+    
+        def on_value_change(change):
+            if self._observe:
+                callback({self._dict_id : change['new']})
+            
+        self._dict_id = dict_id
+        self._select = ipw.Select(options=options,
+                                  value=value,
+                                  rows=len(options),
+                                  layout={'width' : layout_width})
+        
+        self._observe = True
+        self._select.observe(on_value_change, names='value')
+        
+    @property
+    def value(self):
+        return self._select.value
+    
+    @value.setter
+    def value(self, value):
+        self._select.value = value
+        
+    @property
+    def options(self):
+        return self._select.options
+    
+    @options.setter
+    def options(self, options):
+        self._observe = False
+        self._select.rows = len(options)
+        self._select.options = options
+        self._select.value = None
+        self._observe = True
+
+        
+    def get_widget(self):
+        return self._select
         
         
 class DropDown():

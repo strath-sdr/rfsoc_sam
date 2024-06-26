@@ -76,9 +76,10 @@ copy_xrfclk()
 
 setup(
     name=package_name,
-    version='0.4.3',
+    version='0.5',
     install_requires=[
         'pynq>=2.7',
+        "pynq_specmap @ git+https://github.com/strath-sdr/pynq_specmap",
     ],
     url='https://github.com/strath-sdr/rfsoc_sam',
     license='BSD 3-Clause License',
