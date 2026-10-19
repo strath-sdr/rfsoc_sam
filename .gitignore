@@ -24,3 +24,7 @@
 
 # Ignore ./rfstrath/rfstrath/
 **/block_design
+
+# Ignore local Vivado CI output
+.ci-artifacts/
+__pycache__/
